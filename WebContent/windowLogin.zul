@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?page title="ODE - Caso de Teste - Login"?>
+
+<window id="wndLogin" style="margin: 15px;">
+  <vbox id="vbox" width="100%"> 
+    <div align="center">
+    <window id="uiWndwLogin" width="400px" border="normal" title="ODE - Caso de Teste" mode="popup" position="&quot;center&quot;;">
+        <zscript>
+            errorCode = Executions.getCurrent().getParameter("error");
+            errorMessage = "";
+            messageStyle="color: red; font-weight: bold;";
+            if (errorCode == null) {
+              errorMessage = "Entre com usuário e senha.";
+              messageStyle="color: green; font-weight: bold;";
+            } else if ("1".equals(errorCode)) {
+              errorMessage = "Usuário ou senha incorretos!";
+            } else if ("2".equals(errorCode)) {
+              errorMessage = "Efetue login para continuar.";
+            } else {
+              errorMessage = "Unknown error occured - "
+               + "try again later or contact webmaster";
+            }
+            
+        </zscript>
+
+        <h:form id="loginForm" action="j_security_check"
+              xmlns:h="http://www.w3.org/1999/xhtml">
+              <label id="uiLablMessage" style="${messageStyle}" 
+                value="${errorMessage}" />
+              <grid>
+                <rows>
+                  <row>
+                    Usuário:
+                    <textbox id="uiTxtbUsername" name="j_username" 
+                      value="" onCreate="self.focus()" />
+                  </row>
+                  <row>
+                    Senha:
+                    <textbox id="uiTxtbPassword" name="j_password"
+                      type="password" constraint="no empty" />
+                  </row>
+                </rows>
+              </grid>
+              <vbox width="100%">
+                <separator/>
+                <!-- checkbox label="Save my password" name="rememberMe" 
+                  id="uiChkbRememberMe"/-->
+                <button label="Login" onClick="login()" />
+              </vbox>
+              <zscript>
+                <![CDATA[
+        void login() {
+          //validate data
+          org.zkoss.zk.ui.Sessions.getCurrent()
+            .setAttribute("username",uiTxtbUsername.getValue());
+          uiTxtbPassword.getValue();
+          
+          //submit the form
+          org.zkoss.zk.ui.util.Clients.submitForm(loginForm);
+        }
+        ]]>
+              </zscript>
+            </h:form>
+      </window></div>
+
+  </vbox>
+</window>

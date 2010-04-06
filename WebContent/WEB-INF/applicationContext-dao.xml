@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!--  Configuração de Fonte de Dados e Hibernate -->
+
+	<!-- Apache Derby 
+		<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+		<value>org.apache.derby.jdbc.ClientDriver</value>
+		</property>
+		<property name="url">
+		<value>jdbc:derby://localhost:1527/gppi</value>
+		</property>
+		<property name="username">
+		<value>sa</value>
+		</property>
+		<property name="password">
+		<value>sa</value>
+		</property>
+		</bean>
+		
+		<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+		<props>
+		<prop key="hibernate.hbm2ddl.auto">update</prop>
+		<prop key="hibernate.dialect">
+		org.hibernate.dialect.DerbyDialect
+		</prop>
+		<prop key="hibernate.show_sql">false</prop>
+		<prop key="hibernate.format_sql">false</prop>
+		<prop key="hibernate.c3p0.minPoolSize">5</prop>
+		<prop key="hibernate.c3p0.maxPoolSize">20</prop>
+		<prop key="hibernate.c3p0.timeout">600</prop>
+		<prop key="hibernate.c3p0.max_statement">50</prop>
+		<prop key="hibernate.c3p0.testConnectionOnCheckout">
+		false
+		</prop>
+		</props>
+		</property>
+		</bean> -->
+
+	<!-- Postgresql -->
+		<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+		<value>org.postgresql.Driver</value>
+		</property>
+		<property name="url">
+		<value>jdbc:postgresql://localhost:5432/ode</value>
+		</property>
+		<property name="username">
+		<value>postgres</value>
+		</property>
+		<property name="password">
+		<value>postgres</value>
+		</property>
+		</bean>
+		
+		<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+		<props>
+		<prop key="hibernate.hbm2ddl.auto">update</prop>
+		<prop key="hibernate.dialect">
+		org.hibernate.dialect.PostgreSQLDialect
+		</prop>
+		<prop key="hibernate.show_sql">false</prop>
+		<prop key="hibernate.format_sql">false</prop>
+		<prop key="hibernate.c3p0.minPoolSize">5</prop>
+		<prop key="hibernate.c3p0.maxPoolSize">20</prop>
+		<prop key="hibernate.c3p0.timeout">600</prop>
+		<prop key="hibernate.c3p0.max_statement">50</prop>
+		<prop key="hibernate.c3p0.testConnectionOnCheckout">
+		false
+		</prop>
+		</props>
+		</property>
+		</bean>
+
+	<!-- MySQL ->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/gr</value>
+		</property>
+		<property name="username">
+			<value>gppi</value>
+		</property>
+		<property name="password">
+			<value>gppi</value>
+		</property>
+	</bean>
+
+	<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.c3p0.minPoolSize">5</prop>
+				<prop key="hibernate.c3p0.maxPoolSize">20</prop>
+				<prop key="hibernate.c3p0.timeout">600</prop>
+				<prop key="hibernate.c3p0.max_statement">50</prop>
+				<prop key="hibernate.c3p0.testConnectionOnCheckout">
+					false
+				</prop>
+			</props>
+		</property>
+	</bean -->
+
+	<!-- SQL Server ->
+		<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+		<value>net.sourceforge.jtds.jdbc.Driver</value>
+		</property>
+		<property name="url">
+		<value>jdbc:jtds:sqlserver://10.0.0.10:1433/gppi</value>
+		</property>
+		<property name="username">
+		<value>gppi</value>
+		</property>
+		<property name="password">
+		<value>gppi</value>
+		</property>
+		</bean>
+		
+		<bean id="hibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+		<props>
+		<prop key="hibernate.hbm2ddl.auto">create</prop>
+		<prop key="hibernate.dialect">
+		org.hibernate.dialect.SQLServerDialect
+		</prop>
+		<prop key="hibernate.show_sql">false</prop>
+		<prop key="hibernate.format_sql">false</prop>
+		<prop key="hibernate.c3p0.minPoolSize">5</prop>
+		<prop key="hibernate.c3p0.maxPoolSize">20</prop>
+		<prop key="hibernate.c3p0.timeout">600</prop>
+		<prop key="hibernate.c3p0.max_statement">50</prop>
+		<prop key="hibernate.c3p0.testConnectionOnCheckout">
+		false
+		</prop>
+		</props>
+		</property>
+		</bean -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<ref bean="hibernateProperties" />
+		</property>
+		<!--  OR mapping files. -->
+		<property name="annotatedClasses">
+			<list>
+				<value>
+					nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority
+				</value>
+				<value>
+					nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa
+				</value>
+				<value>
+					nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails
+				</value>
+				<value>
+					ode.exemplo.dominio.PessoaExemplo
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--  Configurações das classes DAO -->
+	<bean id="nucleoPessoaDAO"
+		class="nucleo.comuns.autenticacao.acegi.persistencia.NucleoPessoaDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="nucleoUserDetailsDAO"
+		class="nucleo.comuns.autenticacao.acegi.persistencia.NucleoUserDetailsDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="pessoaExemploDAO"
+		class="ode.exemplo.persistencia.PessoaExemploDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+</beans>

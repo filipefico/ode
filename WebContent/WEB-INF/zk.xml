@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+	<!-- Context Listener para ouvir os eventos EventThreadInit e EventThreadClose
+		e copiar o contexto do Spring entre várias threads do ZK -->
+	<listener>
+		<description>Acegi SecurityContext Handler</description>
+		<listener-class>
+			org.zkoss.zkplus.acegi.AcegiSecurityContextListener
+		</listener-class>
+	</listener>
+
+</zk>

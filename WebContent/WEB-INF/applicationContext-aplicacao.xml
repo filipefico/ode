@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<!-- Procura por Advisors no contexto e cria os objetos proxy. -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+	<!-- AOP Advisor -->
+	<bean
+		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<property name="transactionInterceptor" ref="txInterceptor" />
+	</bean>
+
+	<!-- AOP Advice. Intercepta o método e o empacota em uma transação -->
+	<bean id="txInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributeSource">
+			<bean
+				class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
+		</property>
+	</bean>
+
+	<bean id="aplCadastrarNucleoPessoa"
+		class="nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoaImpl">
+		<property name="nucleoDaoBase" ref="nucleoPessoaDAO" />
+	</bean>
+
+	<bean id="aplCadastrarPessoaExemplo"
+		class="ode.exemplo.aplicacao.AplCadastrarPessoaExemploImpl">
+		<property name="nucleoDaoBase" ref="pessoaExemploDAO" />
+	</bean>
+
+	<bean id="nucleoUserDetailsService"
+		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">
+		<property name="nucleoUserDetailsDAO">
+			<ref bean="nucleoUserDetailsDAO" />
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<html xmlns:x="http://www.zkoss.org/2005/zul"
+	xmlns:zk="http://www.zkoss.org/2005/zk">
+	<head>
+		<title>ODE - Caso de Teste</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<p id="barraTopo">
+			<img id="iconeUsuario" src="imagens/usuarios.gif" width="18"
+				height="18" />
+			<x:label id="lblInformacoes" class="infoUsuario"
+				value="" />
+			<x:label id="lblIdioma" class="labelIdioma" />
+
+			<a href="#" class="idiomaLink">
+				<x:image id="idiomaIngles" src="imagens/idiomaIng.gif"
+					width="16" height="11" />
+			</a>
+
+			<a href="#" class="idiomaLink">
+				<x:image id="idiomaPortugues"
+					src="imagens/idiomaPort.gif" width="16" height="11" />
+			</a>
+		</p>
+		<br />
+		<table width="100%" border="0">
+			<tr>
+				<td width="40px"></td>
+				<td>
+					<x:window
+						use="nucleo.global.visao.WindowMenu" />
+				</td>
+				<td width="40px"></td>
+			</tr>
+		</table>
+
+	</body>
+</html>
