@@ -1,9 +1,13 @@
 package nucleo.comuns.aplicacao;
 
 import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.criterion.Criterion;
 
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
+import nucleo.comuns.persistencia.ObjetoPagina;
 
 
 /**
@@ -46,7 +50,13 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 * @throws NucleoRegraNegocioExcecao
 	 *             Caso haja algum erro de regra de negócio.
+	 *             
 	 */
+	
+	 
+	
+	
+	
 	public T recuperarPorId(Long id) throws NucleoRegraNegocioExcecao;
 
 	/**
@@ -62,5 +72,8 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	 *             Caso haja algum erro de regra de negócio.
 	 */
 	public T salvar(T objeto) throws NucleoRegraNegocioExcecao;
+	
+	
+	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina)throws NucleoRegraNegocioExcecao;
 
 }

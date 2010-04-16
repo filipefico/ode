@@ -5,9 +5,13 @@ import java.util.Set;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
+import nucleo.comuns.autenticacao.visao.WindowCadastroDadosNucleoUsuario;
+import nucleo.comuns.autenticacao.visao.WindowCadastroListaNucleoUsuario;
 import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
+
+import ode.exemplo.visao.WindowCadastroListaPessoaExemplo;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -37,7 +41,7 @@ public class WindowMenu extends Window {
 
 		// Configura e monta a interface gráfica
 		this.setWidth("100%");
-		this.setHeight("500px");
+		this.setHeight("500px");		
 		this.setZIndex(1);
 		this.setBorder("normal");
 		this.setTitle("ODE - Caso de Teste");
@@ -221,8 +225,7 @@ public class WindowMenu extends Window {
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		menuitemPessoa.addEventListener("onClick",
-				new EventListenerMenuItemPessoa());
+		menuitemPessoa.addEventListener("onClick",ListenerMenu.factory(getReference(),WindowCadastroListaPessoaExemplo.CAMINHO));
 		 menuitemPessoa.setParent(menupopupPessoa);
 	}
 
@@ -251,7 +254,11 @@ public class WindowMenu extends Window {
 			Window win = (Window) Executions.createComponents(
 					"/visao/admin/windowCadastroListaNucleoUsuario.zul",
 					getReference(), null);
+			
+			
 			win.doOverlapped();
+		
+			
 		}
 
 		public boolean isAsap() {
@@ -326,6 +333,8 @@ public class WindowMenu extends Window {
 	// Menu Pessoas
 	// ////////////////////////////
 	/** Classe do evento do Menuitem Pessoa. */
+	
+	/*
 	private class EventListenerMenuItemPessoa implements EventListener {
 
 		public void onEvent(Event event) {
@@ -339,6 +348,7 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
+	*/
 
 	Menubar menuBar;
 

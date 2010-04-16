@@ -13,6 +13,7 @@ import ode.exemplo.dominio.PessoaExemplo;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
+import org.zkoss.zul.Constraint;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
@@ -121,8 +122,9 @@ public class WindowCadastroDadosPessoaExemplo extends NucleoWindowCadastroDados<
 		tbNome.setConstraint("no empty");
 		tbSobrenome.setConstraint("no empty");
 		tbTelefone.setConstraint("no empty");
-		tbIdade.setConstraint("no empty");
+		tbIdade.setConstraint("no negative, no zero");
 		tbEmail.setConstraint("no empty");
+		
 	}
 
 	@Override

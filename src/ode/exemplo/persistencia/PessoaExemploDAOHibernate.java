@@ -1,7 +1,7 @@
 package ode.exemplo.persistencia;
 
-import ode.exemplo.dominio.PessoaExemplo;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import ode.exemplo.dominio.PessoaExemplo;
 
 public class PessoaExemploDAOHibernate extends NucleoDAOBaseHibernate<PessoaExemplo> implements
 		PessoaExemploDAO {
@@ -11,5 +11,8 @@ public class PessoaExemploDAOHibernate extends NucleoDAOBaseHibernate<PessoaExem
 		// TODO Auto-generated method stub
 		return PessoaExemplo.class;
 	}
+	
+	
+	
 
 }

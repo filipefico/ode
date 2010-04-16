@@ -3,25 +3,7 @@
 	"http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-	<!-- Procura por Advisors no contexto e cria os objetos proxy. -->
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
 
-	<!-- AOP Advisor -->
-	<bean
-		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
-		<property name="transactionInterceptor" ref="txInterceptor" />
-	</bean>
-
-	<!-- AOP Advice. Intercepta o método e o empacota em uma transação -->
-	<bean id="txInterceptor"
-		class="org.springframework.transaction.interceptor.TransactionInterceptor">
-		<property name="transactionManager" ref="transactionManager" />
-		<property name="transactionAttributeSource">
-			<bean
-				class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" />
-		</property>
-	</bean>
 
 	<bean id="aplCadastrarNucleoPessoa"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoaImpl">
@@ -30,7 +12,7 @@
 
 	<bean id="aplCadastrarPessoaExemplo"
 		class="ode.exemplo.aplicacao.AplCadastrarPessoaExemploImpl">
-		<property name="nucleoDaoBase" ref="pessoaExemploDAO" />
+		<property name="nucleoDaoBase" ref="pessoaExemploDao" />
 	</bean>
 
 	<bean id="nucleoUserDetailsService"

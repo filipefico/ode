@@ -2,6 +2,7 @@ package nucleo.comuns.visao;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -14,6 +15,8 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.util.NucleoMensagens;
 
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -64,6 +67,14 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 	 */
 	private Collection<T> objetos;
 
+	public Collection<T> getObjetos() {
+		return objetos;
+	}
+
+	public void setObjetos(Collection<T> objetos) {
+		this.objetos = objetos;
+	}
+
 	/**
 	 * Define os títulos dos campos do cabeçalho da lista.
 	 * 
@@ -110,14 +121,11 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 	 * Define a configuração dos componentes da interface no que diz respeito a
 	 * dimensões, imagem utilizada, tooltip, eventos, etc.
 	 */
-	private void configurarComponentes() {
-
-		// ////////////////////////////////////
-		// Configuração da barra de ferramentas
-		// ////////////////////////////////////
-
+	
+	protected void configurarBarraSuperior(){
 		//toolbar.setHeight("100%");
 		//toolbar.setWidth("450px");
+		 
 		tbbtNovo.setImage("/imagens/filenew.png");
 		tbbtAbrir.setImage("/imagens/fileopen.png");
 		tbbtExcluir.setImage("/imagens/editdelete.png");
@@ -127,7 +135,29 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 				.getMensagem(NucleoMensagens.TERMO_ABRIR));
 		tbbtExcluir.setTooltiptext(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_EXCLUIR));
+		
 
+		// ////////////////////////////////////
+		// Define as ações de cada botão
+		// ////////////////////////////////////
+		tbbtNovo.addEventListener("onClick", new EventListenerNovo());
+		tbbtAbrir.addEventListener("onClick", new EventListenerAbrir());
+		tbbtExcluir.addEventListener("onClick", new EventListenerExcluir());
+
+
+		
+		
+	}
+	private void configurarComponentes() {
+
+		// ////////////////////////////////////
+		// Configuração da barra de ferramentas
+		// ////////////////////////////////////
+		configurarBarraSuperior();
+		
+		configurarTabela();
+		
+		
 		// ////////////////////////////////////
 		// Configuração da lista de elementos
 		// ////////////////////////////////////
@@ -138,18 +168,6 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 		listBox.setCheckmark(true);
 		listBox.setMultiple(true);
 
-		// Configura cabeçalho do listbox
-		String[] titulosCabecalho = this.definirTitulosCabecalho();
-		String[] tamanhosCabecalho = this.definirTamanhosCabecalho();
-		for (int i = 0; i < titulosCabecalho.length; i++) {
-			Listheader listHeader = new Listheader(titulosCabecalho[i]);
-			listHeader.setParent(listhead);
-			this.ativarOrdenacaoListHeader(listHeader);
-			listHeader.setWidth(tamanhosCabecalho[i]);
-			listheaders.add(listHeader);
-		}
-		listhead.setSizable(true);
-
 		// ////////////////////////////////////
 		// Configuração do filtro
 		// ////////////////////////////////////
@@ -158,16 +176,28 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 		// groupbox.setMold("3d");
 
 		// ////////////////////////////////////
-		// Define as ações de cada botão
-		// ////////////////////////////////////
-		tbbtNovo.addEventListener("onClick", new EventListenerNovo());
-		tbbtAbrir.addEventListener("onClick", new EventListenerAbrir());
-		tbbtExcluir.addEventListener("onClick", new EventListenerExcluir());
-
-		// ////////////////////////////////////
 		// Define configurações extras
 		// ////////////////////////////////////
 		configurarComponentesExtensao();
+	}
+
+	protected void configurarTabela() {
+
+		// Configura cabeçalho do listbox
+		String[] titulosCabecalho = this.definirTitulosCabecalho();
+		String[] tamanhosCabecalho = this.definirTamanhosCabecalho();
+		for (int i = 0; i < titulosCabecalho.length; i++) {
+			Listheader listHeader = new Listheader(titulosCabecalho[i]);
+			listHeader.setParent(listhead);
+			ativarOrdenacaoListHeader(listHeader);
+			listHeader.setWidth(tamanhosCabecalho[i]);
+			
+			
+			listheaders.add(listHeader);
+						
+		}
+		listhead.setSizable(true);
+		
 	}
 
 	/**
@@ -177,8 +207,14 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 	 *            Listheader o qual será ativado a ordenação.
 	 */
 	protected void ativarOrdenacaoListHeader(Listheader listheader) {
+		
+	//	listheader.addEventListener("onSort", new OnSortEventListener());
+
 		listheader.setSort("auto");
+		
 	}
+	
+
 
 	/**
 	 * Define configurações extras (inclusive reconfigurações) para os
@@ -200,6 +236,7 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 		// Barra de ferramentas
 		// ////////////////////////////////////
 		vboxPainel.setParent(this);
+		vboxPainel.setWidth("98%");
 		toolbar.setParent(vboxPainel);
 		tbbtNovo.setParent(toolbar);
 		tbbtAbrir.setParent(toolbar);
@@ -225,6 +262,13 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 		// ////////////////////////////////////
 		listBox.setParent(vboxPainel);
 		listhead.setParent(listBox);
+		
+		adicinarComponentesExtensao();
+	}
+
+	protected void adicinarComponentesExtensao() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -237,6 +281,7 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 	 * Adiciona componentes ao filtro
 	 */
 	protected void adicionarComponentesExtensaoFiltro(Groupbox groupbox) {
+	
 	}
 
 	/**
@@ -258,6 +303,7 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 	 * Dados e exibe todos os que passarem no potencial critério de filtro.
 	 */
 	public void atualizarLista() {
+		System.out.println("atualizarlista");
 		try {
 			// Obtém os objetos
 			this.objetos = recuperarObjetos();
@@ -282,7 +328,7 @@ public abstract class NucleoWindowCadastroLista<T extends NucleoObjetoPersistent
 	protected Collection<T> recuperarObjetos() throws DataAccessException,
 			NucleoRegraNegocioExcecao {
 
-		// Retorna todos os objetos
+		// Retorna todos os objetos					
 		Collection<T> objetos = nucleoAplCadastroBase.recuperarTodos();
 		return objetos;
 	}

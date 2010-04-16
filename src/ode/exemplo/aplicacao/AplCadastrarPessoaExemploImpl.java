@@ -1,9 +1,26 @@
 package ode.exemplo.aplicacao;
 
-import ode.exemplo.dominio.PessoaExemplo;
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
+import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo.persistencia.PessoaExemploDAO;
 
-public class AplCadastrarPessoaExemploImpl extends NucleoAplCadastroBaseImpl<PessoaExemplo> implements AplCadastrarPessoaExemplo{
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class AplCadastrarPessoaExemploImpl extends
+		NucleoAplCadastroBaseImpl<PessoaExemplo> implements
+		AplCadastrarPessoaExemplo {
+	
+	@Autowired
+	private PessoaExemploDAO pessoaExemploDAO;
+
+	public PessoaExemploDAO getPessoaExemploDAO() {
+		return pessoaExemploDAO;
+	}
+
+	public void setPessoaExemploDAO(PessoaExemploDAO pessoaExemploDao) {
+		this.pessoaExemploDAO = pessoaExemploDao;
+	}
 
 	@Override
 	protected void copiarValor(PessoaExemplo objetoFonte,
@@ -14,5 +31,27 @@ public class AplCadastrarPessoaExemploImpl extends NucleoAplCadastroBaseImpl<Pes
 		objetoDestino.setIdade(objetoFonte.getIdade());
 		objetoDestino.setTelefone(objetoFonte.getTelefone());
 	}
+	
+	protected PessoaExemplo alterarDados(PessoaExemplo objeto) throws NucleoRegraNegocioExcecao {
+		// Executa a ação necessária antes de alterar os dados
+//		antesAlterarDados(objeto);
+
+		// Obtém o Principal Serviço persistido e altera seus dados
+	//	PessoaExemplo objetoPersistido = getNucleoDaoBase().recuperarPorId(objeto.getId());
+		
+	//	copiarValor(objeto, objetoPersistido);
+
+		// Executa a ação necessária depois de alterar os dados
+//		depoisAlterarDados(objeto);
+		
+		// Inclui o Principal Serviço
+	getNucleoDaoBase().merge(objeto);
+
+
+		//return objetoPersistido;
+		return objeto;
+	}
+
+
 
 }

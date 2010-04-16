@@ -1,6 +1,9 @@
 package nucleo.comuns.persistencia;
 
 import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.criterion.Criterion;
 
 /**
  * Interface base para todos as classes DAO do sistema.
@@ -22,6 +25,8 @@ public interface NucleoDAOBase<T extends NucleoObjetoPersistenteImpl> {
 	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 */
 	Collection<T> recuperarTodos();
+	
+	public void merge(T objeto);
 
 	/**
 	 * Obtém um objeto persistente da classe de domínio dado seu identificador.
@@ -53,4 +58,9 @@ public interface NucleoDAOBase<T extends NucleoObjetoPersistenteImpl> {
 	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 */
 	void excluir(T objeto);
+	
+		
+	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina) ;
+	
+	
 }

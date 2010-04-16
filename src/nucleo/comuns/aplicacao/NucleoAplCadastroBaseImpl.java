@@ -1,14 +1,18 @@
 package nucleo.comuns.aplicacao;
 
 import java.util.Collection;
+import java.util.List;
 
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.NucleoDAOBase;
 import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
+import nucleo.comuns.persistencia.ObjetoPagina;
 
+import ode.exemplo.dominio.PessoaExemplo;
+
+import org.hibernate.criterion.Criterion;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Transactional(rollbackFor = NucleoExcecao.class)
 public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistenteImpl<Long, Long>>
@@ -232,7 +236,8 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 	 * @throws NucleoRegraNegocioExcecao
 	 *             Caso haja algum erro de regra de negócio.
 	 */
-	protected void depoisAlterarDados(T objeto) throws NucleoRegraNegocioExcecao {
+	protected void depoisAlterarDados(T objeto)
+			throws NucleoRegraNegocioExcecao {
 	}
 
 	/**
@@ -244,5 +249,11 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 	 *            Objeto para onde os dados devem ser copiados
 	 */
 	protected abstract void copiarValor(T objetoFonte, T objetoDestino);
+
+	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina)
+			throws NucleoRegraNegocioExcecao {
+		Collection<T>  result = nucleoDaoBase.recuperarTodosPaginado(pagina);
+		return result;
+	}
 
 }

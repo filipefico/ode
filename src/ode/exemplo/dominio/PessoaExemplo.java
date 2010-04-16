@@ -3,11 +3,11 @@ package ode.exemplo.dominio;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
+import nucleo.comuns.persistencia.ObjetoPersistente;
 
 
 @Entity
-public class PessoaExemplo extends NucleoObjetoPersistenteImpl<Long, Long> {
+public class PessoaExemplo extends ObjetoPersistente {
 
 	private static final long serialVersionUID = 7215443991537131684L;
 
@@ -18,6 +18,12 @@ public class PessoaExemplo extends NucleoObjetoPersistenteImpl<Long, Long> {
 	private String email;
 
 	private long idade;
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return nome +" id " +idade;
+	}
 
 	private String telefone;
 

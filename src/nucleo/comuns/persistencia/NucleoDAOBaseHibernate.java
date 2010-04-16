@@ -5,7 +5,12 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.zkoss.zkplus.spring.SpringUtil;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 
@@ -18,6 +23,10 @@ import edu.emory.mathcs.backport.java.util.Collections;
  */
 public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteImpl>
 		extends HibernateDaoSupport implements NucleoDAOBase<T> {
+
+	public NucleoDAOBaseHibernate() {
+		super();
+	}
 
 	/**
 	 * Método abstrato a ser implementado pelas subclasses para que retornem a
@@ -41,7 +50,7 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 		// performance da Collection.
 		List<T> todosElementos = new ArrayList<T>(new LinkedHashSet<T>(
 				getHibernateTemplate().loadAll(getClasseDominio())));
-		Collections.sort(todosElementos);
+		//Collections.sort(todosElementos);
 
 		return todosElementos;
 
@@ -50,7 +59,9 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see br.ufes.inf.labes.util.persistencia.DAOBase#recuperarPorId(java.lang.Long)
+	 * @see
+	 * br.ufes.inf.labes.util.persistencia.DAOBase#recuperarPorId(java.lang.
+	 * Long)
 	 */
 	@SuppressWarnings("unchecked")
 	public T recuperarPorId(Long id) {
@@ -76,16 +87,72 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 	public void salvar(T objeto) {
 		// Usa o suporte do Spring para salvar o objeto.
 		getHibernateTemplate().save(objeto);
+		
+	}
+	
+	public void merge(T objeto) {
+		getHibernateTemplate().merge(objeto);
+		
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see br.ufes.inf.labes.util.persistencia.DAOBase#excluir(java.lang.Object)
+	 * @see
+	 * br.ufes.inf.labes.util.persistencia.DAOBase#excluir(java.lang.Object)
 	 */
 	public void excluir(T objeto) {
 		// Usa o suporte do Spring para excluir o objeto.
 		getHibernateTemplate().delete(objeto);
+	}
+
+	@SuppressWarnings("unchecked")
+	public Collection<T> recuperarTodosPaginado(List<Criterion> criterios) {
+
+		if (criterios != null) {
+			DetachedCriteria d = DetachedCriteria.forClass(getClasseDominio());
+
+			for (Criterion criterion : criterios) {
+				d.add(criterion);
+			}
+			return getHibernateTemplate().findByCriteria(d);
+		} else
+			return recuperarTodos();
+
+	}
+
+	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina) {
+
+		DetachedCriteria detaCriteria = getDetachedCriteria(pagina);
+		Collection<T>  result = null;
+		if (pagina.isPaginada()) {
+			result= getHibernateTemplate().findByCriteria(detaCriteria,
+					pagina.getFirstResults(), pagina.getMaxResults());
+
+		} else {
+			result= getHibernateTemplate().findByCriteria(detaCriteria);
+		}
+		
+		return result;
+
+	}
+
+	public DetachedCriteria getDetachedCriteria(ObjetoPagina parPagina) {
+
+		DetachedCriteria detaCriteria = DetachedCriteria
+				.forClass(getClasseDominio());
+		List<Criterion> criterios = parPagina.getCriterios();
+		// adiciono os criterios da pesquisa
+		if (criterios != null) {
+			for (Criterion criterion : criterios) {
+				detaCriteria.add(criterion);
+			}
+		}
+		if ( parPagina.getCriterioOrdenacao() != null)
+		detaCriteria.addOrder(parPagina.getCriterioOrdenacao());
+
+		return detaCriteria;
+
 	}
 
 }

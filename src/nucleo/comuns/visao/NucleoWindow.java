@@ -21,7 +21,7 @@ import org.zkoss.zul.Window;
 public abstract class NucleoWindow extends Window {
 
 	/** Tamanho da window. */
-	public static String WIDTH_WINDOW = "450px";
+	protected String WIDTH_WINDOW = "450px";
 
 	/**
 	 * Parâmetros passados para a janela.
@@ -41,6 +41,8 @@ public abstract class NucleoWindow extends Window {
 		this.setSclass("embedded");
 		this.setContentStyle("background:white");
 	}
+	
+	
 
 	/**
 	 * Método utilizado para obter o objeto associado ao parâmetro procurado. Se
@@ -70,6 +72,9 @@ public abstract class NucleoWindow extends Window {
 		this.setWidth(WIDTH_WINDOW);
 		this.setPosition("&quot;center;&quot;;");
 		this.setZIndex(10);
+		setSizable(true);
+		setMaximizable(true);
+		
 	}
 
 	/** Método abstrato para obter o título da window. */
