@@ -6,8 +6,10 @@ public class NucleoListHeader extends Listheader {
 
 	private String atributoBanco;
 
-	public NucleoListHeader(String titulo) {
+	public NucleoListHeader(String titulo, String atributoBanco, String tamanho) {
 		super(titulo);
+		setAtributoBanco(atributoBanco);
+		setWidth(tamanho);
 	}
 
 	public String getAtributoBanco() {

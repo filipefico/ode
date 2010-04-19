@@ -89,11 +89,9 @@ public abstract class WindowCadastroListaPaginada<T extends NucleoObjetoPersiste
 		String[] atributosOrdenacao = this.definirAtributoOrdenacao();
 		
 		for (int i = 0; i < titulosCabecalho.length; i++) {
-			NucleoListHeader listHeader = new NucleoListHeader(titulosCabecalho[i]);
+			NucleoListHeader listHeader = new NucleoListHeader(titulosCabecalho[i],atributosOrdenacao[i],tamanhosCabecalho[i]);
 			listHeader.setParent(listhead);
 			ativarOrdenacaoListHeader(listHeader);
-			listHeader.setWidth(tamanhosCabecalho[i]);
-			listHeader.setAtributoBanco(atributosOrdenacao[i]);	
 			Comparator comp = new Comparator(){
 
 				public int compare(Object arg0, Object arg1) {					
@@ -108,6 +106,10 @@ public abstract class WindowCadastroListaPaginada<T extends NucleoObjetoPersiste
 		}
 		listhead.setSizable(true);
 		
+	}
+	
+	protected boolean possuiFiltro() {
+		return true;
 	}
 	
 	protected abstract String[] definirAtributoOrdenacao();

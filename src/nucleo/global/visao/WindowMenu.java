@@ -10,7 +10,13 @@ import nucleo.comuns.autenticacao.visao.WindowCadastroListaNucleoUsuario;
 import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
+import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.paginacao.JanelaSimples;
+import nucleo.comuns.visao.paginacao.NucleoListHeader;
 
+import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo.visao.ListPessoaExemplo;
+import ode.exemplo.visao.PainelCrudPessoa;
 import ode.exemplo.visao.WindowCadastroListaPessoaExemplo;
 
 import org.zkoss.zk.ui.Executions;
@@ -225,8 +231,12 @@ public class WindowMenu extends Window {
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		menuitemPessoa.addEventListener("onClick",ListenerMenu.factory(getReference(),WindowCadastroListaPessoaExemplo.CAMINHO));
-		 menuitemPessoa.setParent(menupopupPessoa);
+		menuitemPessoa.addEventListener("onClick",ListenerMenu.factory(getReference(),new PainelCrudPessoa()));
+		
+
+	
+		
+		menuitemPessoa.setParent(menupopupPessoa);
 	}
 
 	// /////////////////////////////
@@ -236,10 +246,14 @@ public class WindowMenu extends Window {
 	private class EventListenerMenuItemPessoas implements EventListener {
 
 		public void onEvent(Event event) {
+		
 			Window win = (Window) Executions.createComponents(
 					"/visao/admin/windowCadastroListaPessoa.zul",
 					getReference(), null);
 			win.doOverlapped();
+			
+		
+			
 		}
 
 		public boolean isAsap() {

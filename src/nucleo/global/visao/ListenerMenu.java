@@ -1,5 +1,7 @@
 package nucleo.global.visao;
 
+import nucleo.comuns.visao.paginacao.JanelaSimples;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Deferrable;
@@ -11,18 +13,23 @@ import org.zkoss.zul.Window;
  * @author Bruno Nandolpho
  * */
 public class ListenerMenu implements EventListener {
+	
+	private String caminho="/visao/principal/janelaSimples.zul";
 
 	private Component pai;
-	private String caminho;
+	
+	private Component filhoJanela;
+	
 
-	public ListenerMenu(Component pai, String caminho) {
+	public ListenerMenu(Component pai, Component filhoJanela) {
 		this.pai = pai;
-		this.caminho = caminho;
+		this.filhoJanela = filhoJanela;
 	}
 
 	public void onEvent(Event event) {
-		Window win = (Window) Executions.createComponents(caminho, pai, null);
-		win.doOverlapped();
+		JanelaSimples win = (JanelaSimples) Executions.createComponents(caminho, pai, null);
+		filhoJanela.setParent(win);
+		win.mostrar();
 	}
 
 	public boolean isAsap() {
@@ -37,8 +44,8 @@ public class ListenerMenu implements EventListener {
 	}
 	 * */
 	/***/
-	public static EventListener factory(Component pai, String caminho) {		
-		return new ListenerMenu(pai, caminho);
+	public static EventListener factory(Component paiJanela, Component filhoJanela) {		
+		return new ListenerMenu(paiJanela, filhoJanela);
 
 	}
 }
