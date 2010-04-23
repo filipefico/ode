@@ -2,6 +2,9 @@ package nucleo.global.visao;
 
 import nucleo.comuns.visao.paginacao.JanelaSimples;
 
+import ode.exemplo.visao.PainelCrudPessoa;
+
+import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Deferrable;
@@ -14,7 +17,8 @@ import org.zkoss.zul.Window;
  * */
 public class ListenerMenu implements EventListener {
 	
-	private String caminho="/visao/principal/janelaSimples.zul";
+	public String CAMINHO
+	="/visao/principal/janelaSimples.zul";
 
 	private Component pai;
 	
@@ -27,7 +31,7 @@ public class ListenerMenu implements EventListener {
 	}
 
 	public void onEvent(Event event) {
-		JanelaSimples win = (JanelaSimples) Executions.createComponents(caminho, pai, null);
+		JanelaSimples win = (JanelaSimples) Executions.createComponents(CAMINHO, pai, null);		
 		filhoJanela.setParent(win);
 		win.mostrar();
 	}
@@ -43,9 +47,4 @@ public class ListenerMenu implements EventListener {
 		return true;
 	}
 	 * */
-	/***/
-	public static EventListener factory(Component paiJanela, Component filhoJanela) {		
-		return new ListenerMenu(paiJanela, filhoJanela);
-
 	}
-}

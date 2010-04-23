@@ -1,5 +1,6 @@
 package nucleo.global.visao;
 
+import java.util.EventListenerProxy;
 import java.util.Locale;
 import java.util.Set;
 
@@ -231,12 +232,26 @@ public class WindowMenu extends Window {
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		menuitemPessoa.addEventListener("onClick",ListenerMenu.factory(getReference(),new PainelCrudPessoa()));
-		
-
-	
-		
+		menuitemPessoa.addEventListener("onClick",new EListenerPessoa());	
 		menuitemPessoa.setParent(menupopupPessoa);
+	}
+	
+	
+	private class EListenerPessoa implements EventListener {
+
+		public void onEvent(Event event) {
+		
+			JanelaSimples win = (JanelaSimples) Executions.createComponents("/visao/principal/janelaSimples.zul", getReference(), null);
+			win.setTitle("Cadastro de Pessoas");
+			
+			PainelCrudPessoa painel = new PainelCrudPessoa();
+			painel.setParent(win);			
+			win.mostrar();
+		}
+
+		public boolean isAsap() {
+			return true;
+		}
 	}
 
 	// /////////////////////////////

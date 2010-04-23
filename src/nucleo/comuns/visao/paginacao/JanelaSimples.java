@@ -16,8 +16,7 @@ public class JanelaSimples extends NucleoWindow{
 	}
 
 	public void mostrar() {		
-		doOverlapped();
-						
+		doOverlapped();						
 	}
 
 }
