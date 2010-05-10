@@ -10,6 +10,17 @@ public class ObjetoPagina {
 	//Lista de criterios da busca
 	List<Criterion> criterios;
 	
+	int paginaAtual;
+	
+	public int getPaginaAtual() {
+		return paginaAtual;
+	}
+
+	public void setPaginaAtual(int paginaAtual) {
+		this.paginaAtual = paginaAtual;
+	}
+
+
 	int maxResults;
 	
 	int firstResults;
@@ -59,7 +70,7 @@ public class ObjetoPagina {
 	}
 
 	
-	public static ObjetoPagina factory( int parFirstResults,int parMaxResults, List<Criterion> parCriterios){
+	public static ObjetoPagina factoryObjetoPagina( int parFirstResults,int parMaxResults, List<Criterion> parCriterios){
 		ObjetoPagina referencia = new ObjetoPagina();
 		referencia.setMaxResults(parMaxResults);
 		referencia.setFirstResults(parFirstResults);

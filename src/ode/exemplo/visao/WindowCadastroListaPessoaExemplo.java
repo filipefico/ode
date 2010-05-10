@@ -8,19 +8,15 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.NucleoWindowCadastroLista;
-import nucleo.comuns.visao.paginacao.WindowCadastroListaPaginada;
 import ode.exemplo.aplicacao.AplCadastrarPessoaExemplo;
 import ode.exemplo.dominio.PessoaExemplo;
 
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
-import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zkplus.spring.SpringUtil;
 
 public class WindowCadastroListaPessoaExemplo extends
-		WindowCadastroListaPaginada<PessoaExemplo> {
+		NucleoWindowCadastroLista<PessoaExemplo> {
 
 	
 	public static String CAMINHO = "/visao/exemplo/windowCadastroListaPessoaExemplo.zul";
@@ -56,12 +52,6 @@ public class WindowCadastroListaPessoaExemplo extends
 	
 
 	@Override
-	protected String[] definirAtributoOrdenacao() {
-	
-		return new String[]{"nome","sobrenome","email","idade"};
-	}
-
-	@Override
 	protected String[] definirTitulosCabecalho() {
 		return new String[] {
 				NucleoMensagens.getMensagem(NucleoMensagens.TERMO_NOME),"Sobrenome",
@@ -78,16 +68,6 @@ public class WindowCadastroListaPessoaExemplo extends
 		return NucleoMensagens.getMensagem(NucleoMensagens.TERMO_PESSOAS);
 	}
 
-	protected Collection<PessoaExemplo> recuperarObjetos()
-			throws DataAccessException, NucleoRegraNegocioExcecao {
-
-		List<Criterion> criterios = new ArrayList<Criterion>();
-		ObjetoPagina pagina =ObjetoPagina.factory(0,5, criterios);
-		//criterios.add(cIdade);
-		Collection<PessoaExemplo> objetos = getNucleoAplCadastroBase()
-				.recuperarTodosPaginado(pagina);
-		return objetos;
-	}
 
 
 	

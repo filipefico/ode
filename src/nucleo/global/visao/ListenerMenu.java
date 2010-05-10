@@ -1,16 +1,11 @@
 package nucleo.global.visao;
 
-import nucleo.comuns.visao.paginacao.JanelaSimples;
+import nucleo.comuns.visao.principal.JanelaSimples;
 
-import ode.exemplo.visao.PainelCrudPessoa;
-
-import org.hibernate.id.IdentityGenerator.GetGeneratedKeysDelegate;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Deferrable;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Window;
 
 /**
  * @author Bruno Nandolpho

@@ -9,9 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
+import nucleo.comuns.crud.controlador.CtrlCRUD;
+import nucleo.comuns.excecao.ControladorExcecoes;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.persistencia.ObjetoPersistente;
+import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
 
 import ode.exemplo.dominio.PessoaExemplo;
@@ -36,13 +39,13 @@ import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.api.Paging;
 import org.zkoss.zul.event.PagingEvent;
+import org.zkoss.zul.ext.Pageable;
+import org.zkoss.zul.ext.Paginal;
 
-public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
-		Vbox {
+public abstract class ListagemPaginada<T extends Object> extends Vbox {
 
 	private static final int MAX_RESULS = 0;
 
-	
 	/** Lista dos objetos. */
 	protected Listbox listBox = new Listbox();
 
@@ -67,45 +70,31 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 	/** Filtro utilizado na listagem de elementos. */
 	protected Hashtable<String, String> filtro;
 
-	ObjetoPagina pagina;
+	/**
+	 * Interface resposavel por atualizar Pesquisa Paginada. Nos Cruds, o
+	 * Controlador que faz esse papel
+	 */
+	protected IAtualizadorPesquisaPaginada atualizador;
+
+	protected ObjetoPagina pagina;
+	
+	protected Paging paging = new org.zkoss.zul.Paging();
 
 	final int PAGE_SIZE = 20;
 
-	/**
-	 * Lista de objetos recuperados do Banco de Dados para a janela de lista.
-	 * Nem todos os objetos serão exibidos na janela, pois cada um deverá passar
-	 * por um potencial critério de filtro.
-	 */
+	// Objetos da listagem
 	private Collection<T> objetos;
 
-	public Collection<T> getObjetos() {
-		return objetos;
-	}
-
-	public void setObjetos(Collection<T> objetos) {
-		this.objetos = objetos;
-	}
-
-	public ListagemPaginada() {
-
-		iniciarComponentesInterface();
+	public ListagemPaginada() {	
 	}
 
 	/**
 	 * Inicia componentes gráficos.
 	 */
-	public void iniciarComponentesInterface() {
-		// Configura os componentes
-		this.configurarComponentes();
+	public void configurarComponentes() {
 
-		// Adiciona os componentes
-		this.adicionarComponentes();
-
-	}
-
-	
-
-	private void configurarComponentes() {
+		definirComponentes();
+		validarComponentes();
 
 		configurarColunasTabela();
 
@@ -123,21 +112,68 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 		// ////////////////////////////////////
 		// Define configurações extras
 		// ////////////////////////////////////
+		configurarPaginacao();
 		configurarComponentesExtensao();
+		
+		montar();
+		montarComponentesExtensao();
+
+	}
+
+
+	private void configurarPaginacao() {
+		
+		
+		paging.setDetailed(true);
+		// pag.setMold("os");
+
+		// cria o objeto pagina
+		pagina = ObjetoPagina.factoryObjetoPagina(0, PAGE_SIZE, null);
+		paging.addEventListener("onPaging", new EventListener() {
+
+			public void onEvent(Event event) {
+				PagingEvent pe = (PagingEvent) event;
+				int pgno = pe.getActivePage();
+				int firstResults = pgno * PAGE_SIZE;				
+				pagina.setFirstResults(firstResults);
+				pagina.setPaginaAtual(pgno);
+				// Redraw current paging
+				atualizador.atualizarPesquisa(pagina);
+
+			}
+		});
+
+		listBox.setPaginal(paging);
+		listBox.setMold("paging");				
+	}
+
+	protected void montarComponentesExtensao() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void validarComponentes() {
+		if (listheaders == null)
+			throw ControladorExcecoes.factoryExcecaoDefinicao(
+					"listheaders ou cabeçalhos", this.getClass());
+
+		if (atualizador == null)
+			throw ControladorExcecoes.factoryExcecaoDefinicao("atualizador",
+					this.getClass());
+
+	}
+
+	private void definirComponentes() {
+		listheaders = definirColunasTabela();
 	}
 
 	protected void configurarColunasTabela() {
 
-		listheaders = definirColunasTabela();
-
-		if (listheaders == null) {
-			throw new RuntimeException("Não definiu as colunas da tabela");
-		}
-
 		for (NucleoListHeader header : listheaders) {
 			header.setParent(listhead);
 			ativarOrdenacaoListHeader(header);
-
+			// tenho que colocar um comparator simples para funcionar
+			// NÃO RETIRAR
 			Comparator comp = new Comparator() {
 
 				public int compare(Object arg0, Object arg1) {
@@ -153,6 +189,17 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 
 	}
 
+	/**
+	 * Define os cabeçalhos e colunas Exemplo:
+	 * 
+	 * {@code List<NucleoListHeader> colunas = new
+	 * ArrayList<NucleoListHeader>(); colunas.add(new
+	 * NucleoListHeader("Nome","nome","210px"));
+	 * colunas.add(newNucleoListHeader("Idade","idade","210px")); return
+	 * colunas; * }
+	 * 
+	 * @return List<NucleoListHeader> - Lista dos Cabeçalhos
+	 * */
 	public abstract List<NucleoListHeader> definirColunasTabela();
 
 	/**
@@ -182,7 +229,7 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 	/**
 	 * Adiciona os componentes, posicionando-os na janela.
 	 */
-	protected void adicionarComponentes() {
+	protected void montar() {
 
 		// ////////////////////////////////////
 		// Filtro da consulta
@@ -199,55 +246,14 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 		// ////////////////////////////////////
 		// Lista de elementos
 		// ////////////////////////////////////
-		listBox.setParent(this);
 		listhead.setParent(listBox);
-
-		adicinarComponentesExtensao();
-	}
-
-	protected void adicinarComponentesExtensao() {
-
-		Paging pag = new org.zkoss.zul.Paging();	
-		pag.setDetailed(true);
+		listBox.setParent(this);
 		
-		// pag.setMold("os");
-
-		// cria o objeto pagina
-		pagina = ObjetoPagina.factory(0, PAGE_SIZE, null);
-
-		pag.addEventListener("onPaging", new EventListener() {
-
-			public void onEvent(Event event) {
-				PagingEvent pe = (PagingEvent) event;
-				int pgno = pe.getActivePage();
-				int firstResults = pgno * PAGE_SIZE;
-
-				pagina.setFirstResults(firstResults);
-				// Redraw current paging
-				atualizarPesquisa();
-			}
-		});
-
-		listBox.setPaginal(pag);
-		listBox.setMold("paging");
-		pag.setParent(this);
-
+		
+		paging.setParent(this);
 	}
 
-	protected void atualizarPesquisa() {
-		Collection<T> objetos = null;
-		try {
-			objetos = getNucleoAplCadastroBase().recuperarTodosPaginado(pagina);	
-			
-			listBox.getPaginal().setTotalSize(50);
-		} catch (NucleoRegraNegocioExcecao e) {
 
-			e.printStackTrace();
-		}
-		setObjetos(objetos);
-		preencherLista();
-
-	}
 
 	/**
 	 * Adiciona novos componentes à barra de ferramentas
@@ -276,12 +282,11 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 		return false;
 	}
 
-	
 	/**
 	 * Preenche a lista na tela com os objetos recuperados do Banco de Dados de
 	 * acordo com os critérios do filtro.
 	 */
-	protected void preencherLista() {
+	public void preencherLista() {
 
 		// Excluir itens da lista
 		listBox.getItems().clear();
@@ -293,7 +298,6 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 		}
 
 	}
-
 
 	/**
 	 * Insere uma linha na lista passada com os dados do objeto passado.
@@ -324,16 +328,6 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 		lista.appendChild(lt);
 	}
 
-	/**
-	 * Recupera as informações de um objeto a serem exibidos na lista do
-	 * cadastro.
-	 * 
-	 * @param objeto
-	 *            Objeto cujas informações serão exibidas na lista do cadastro.
-	 * @return Vetor com as informações a serem exibidas.
-	 */
-	protected abstract String[] recuperarDadosObjeto(T objeto);
-
 	public final class OnSortEventListener implements EventListener {
 
 		public void onEvent(Event event) throws Exception {
@@ -357,37 +351,67 @@ public abstract class ListagemPaginada<T extends ObjetoPersistente> extends
 				criterioOrdenacao = null;
 			}
 			pagina.setCriterioOrdenacao(criterioOrdenacao);
-
-			atualizarPesquisa();
+			atualizador.atualizarPesquisa(pagina);
 
 		}
 	}
 
-	/**
-	 * Interface de aplicação usada para cadastros básicos (CRUD)
-	 */
-	private NucleoAplCadastroBase<T> nucleoAplCadastroBase;
-
-	public void setNucleoAplCadastroBase(
-			NucleoAplCadastroBase<T> nucleoAplCadastroBase) {
-		this.nucleoAplCadastroBase = nucleoAplCadastroBase;
-	}
-
-	public NucleoAplCadastroBase<T> getNucleoAplCadastroBase() {
-		return nucleoAplCadastroBase;
-	}
-
 	public Set<Listitem> getSelecionados() {
-		return  listBox.getSelectedItems();
+		return listBox.getSelectedItems();
 	}
-	
+
 	public T getSelecionado() {
-		T selecionado =null;
-		
+		T selecionado = null;
+
 		if (listBox.getSelectedItem() != null)
-			selecionado=(T)listBox.getSelectedItem().getValue();
-				
-		return selecionado ;
+			selecionado = (T) listBox.getSelectedItem().getValue();
+
+		return selecionado;
+	}
+
+	public ObjetoPagina getPagina() {
+		return pagina;
+	}
+
+	public void setPagina(ObjetoPagina pagina) {
+		this.pagina = pagina;
+	}
+
+	public Collection<T> getObjetos() {
+		return objetos;
+	}
+
+	public void setObjetos(Collection<T> objetos) {
+		this.objetos = objetos;
+	}
+
+	public IAtualizadorPesquisaPaginada getAtualizador() {
+		return atualizador;
+	}
+
+	public void setAtualizador(IAtualizadorPesquisaPaginada atualizador) {
+		this.atualizador = atualizador;
+	}
+
+	/**
+	 * Recupera as informações de um objeto a serem exibidos na lista do
+	 * cadastro.
+	 * 
+	 * @param objeto
+	 *            Objeto cujas informações serão exibidas na lista do cadastro.
+	 * @return Vetor com as informações a serem exibidas.
+	 */
+	protected abstract String[] recuperarDadosObjeto(T objeto);
+
+	public void setResultadoAtualizarPesquisa(ResultadoPaginado resultado) {
+		
+		setObjetos(resultado.getListaObjetos());
+		preencherLista();
+		Paginal paginal = listBox.getPaginal();
+		paginal.setTotalSize(resultado.getTamanhoTotal());
+		//paginal.setActivePage(pagina.getPaginaAtual());
+	
+
 	}
 
 }

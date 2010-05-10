@@ -1,13 +1,12 @@
 package nucleo.comuns.aplicacao;
 
 import java.util.Collection;
-import java.util.List;
-
-import org.hibernate.criterion.Criterion;
+import java.util.Set;
 
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.persistencia.ObjetoPagina;
+import nucleo.comuns.persistencia.ResultadoPaginado;
 
 
 /**
@@ -28,6 +27,8 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	 *             Caso haja algum erro de regra de negócio.
 	 */
 	public void excluir(T objeto) throws NucleoRegraNegocioExcecao;
+	
+	public void excluir(Set<T> objeto) throws NucleoRegraNegocioExcecao;
 
 	/**
 	 * Recupera todos os objetos T persistidos
@@ -74,6 +75,6 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	public T salvar(T objeto) throws NucleoRegraNegocioExcecao;
 	
 	
-	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina)throws NucleoRegraNegocioExcecao;
+	public ResultadoPaginado recuperarTodosPaginado(ObjetoPagina pagina)throws NucleoRegraNegocioExcecao;
 
 }

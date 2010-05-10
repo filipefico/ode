@@ -5,14 +5,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Order;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.zkoss.zkplus.spring.SpringUtil;
-
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * 
@@ -135,6 +130,12 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 		
 		return result;
 
+	}
+	
+	public int recuperarQteTodos(ObjetoPagina pagina)  {		
+		DetachedCriteria detaCriteria = getDetachedCriteria(pagina);
+		Collection<T>  result= getHibernateTemplate().findByCriteria(detaCriteria);	
+		return result.size();
 	}
 
 	public DetachedCriteria getDetachedCriteria(ObjetoPagina parPagina) {

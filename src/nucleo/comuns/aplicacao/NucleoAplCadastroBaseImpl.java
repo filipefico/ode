@@ -1,17 +1,16 @@
 package nucleo.comuns.aplicacao;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.NucleoDAOBase;
 import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.persistencia.ObjetoPagina;
+import nucleo.comuns.persistencia.ResultadoPaginado;
 
-import ode.exemplo.dominio.PessoaExemplo;
-
-import org.hibernate.criterion.Criterion;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(rollbackFor = NucleoExcecao.class)
@@ -38,6 +37,18 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 
 		// Executa as ações necessárias depois da exclusão de um objeto.
 		depoisExcluir(objeto);
+
+	}
+
+	public void excluir(Set<T> objetos) throws NucleoRegraNegocioExcecao {
+		
+		Iterator<T> itItensSelecionados = objetos.iterator();
+
+		while (itItensSelecionados.hasNext()) {
+			T objeto = itItensSelecionados.next();
+			excluir(objeto);
+
+		}
 
 	}
 
@@ -250,10 +261,17 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 	 */
 	protected abstract void copiarValor(T objetoFonte, T objetoDestino);
 
-	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina)
+	public ResultadoPaginado recuperarTodosPaginado(ObjetoPagina pagina)
 			throws NucleoRegraNegocioExcecao {
-		Collection<T>  result = nucleoDaoBase.recuperarTodosPaginado(pagina);
-		return result;
+		ResultadoPaginado<T> resultadoPaginado = new ResultadoPaginado<T>();
+		
+		Collection<T> listaElementos = nucleoDaoBase.recuperarTodosPaginado(pagina);
+		int tamanhoTotal = nucleoDaoBase.recuperarQteTodos(pagina);
+		
+		resultadoPaginado.setListaObjetos(listaElementos);
+		resultadoPaginado.setTamanhoTotal(tamanhoTotal);
+		
+		return resultadoPaginado;
 	}
 
 }

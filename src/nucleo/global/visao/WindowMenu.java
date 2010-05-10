@@ -12,13 +12,14 @@ import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
 import nucleo.comuns.visao.paginacao.ListagemPaginada;
-import nucleo.comuns.visao.paginacao.JanelaSimples;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
+import nucleo.comuns.visao.principal.JanelaSimples;
 
 import ode.exemplo.dominio.PessoaExemplo;
-import ode.exemplo.visao.ListPessoaExemplo;
-import ode.exemplo.visao.PainelCrudPessoa;
 import ode.exemplo.visao.WindowCadastroListaPessoaExemplo;
+import ode.exemplo2.pessoa.controlador.CtrlPessoaCRUD;
+import ode.exemplo2.pessoa.visao.ListagemPessoaExemplo;
+import ode.exemplo2.pessoa.visao.PainelCrudPessoa;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -232,27 +233,42 @@ public class WindowMenu extends Window {
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		menuitemPessoa.addEventListener("onClick",new EListenerPessoa());	
+		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
+		menuitemPessoa.addEventListener("onClick",new EListenerPessoa2());
 		menuitemPessoa.setParent(menupopupPessoa);
 	}
 	
 	
-	private class EListenerPessoa implements EventListener {
+	private class EListenerPessoa2 implements EventListener {
 
 		public void onEvent(Event event) {
 		
-			JanelaSimples win = (JanelaSimples) Executions.createComponents("/visao/principal/janelaSimples.zul", getReference(), null);
-			win.setTitle("Cadastro de Pessoas");
-			
-			PainelCrudPessoa painel = new PainelCrudPessoa();
-			painel.setParent(win);			
-			win.mostrar();
+		CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
+		ctrlP.iniciar();
+		
 		}
 
 		public boolean isAsap() {
 			return true;
 		}
 	}
+	
+	
+	
+	private class EventListenerMenuItemPessoaExemplo implements EventListener {
+
+		public void onEvent(Event event) {
+			Window win = (Window) Executions.createComponents(
+					"/visao/exemplo/windowCadastroListaPessoaExemplo.zul",
+					getReference(), null);
+			win.doOverlapped();
+		}
+
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
 
 	// /////////////////////////////
 	// Menu Administração

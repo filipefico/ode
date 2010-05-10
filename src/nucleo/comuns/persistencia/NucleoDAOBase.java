@@ -62,5 +62,7 @@ public interface NucleoDAOBase<T extends NucleoObjetoPersistenteImpl> {
 		
 	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina) ;
 	
+	public int recuperarQteTodos(ObjetoPagina pagina) ;
+	
 	
 }
