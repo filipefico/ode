@@ -234,15 +234,15 @@ public class WindowMenu extends Window {
 		menuitemPessoa = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
 		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
-		menuitemPessoa.addEventListener("onClick",new EListenerPessoa2());
+		menuitemPessoa.addEventListener("onClick",new EListenerPessoaComControlador());
 		menuitemPessoa.setParent(menupopupPessoa);
 	}
 	
 	
-	private class EListenerPessoa2 implements EventListener {
+	private class EListenerPessoaComControlador implements EventListener {
 
 		public void onEvent(Event event) {
-		
+		//COm controlador
 		CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
 		ctrlP.iniciar();
 		
@@ -258,6 +258,7 @@ public class WindowMenu extends Window {
 	private class EventListenerMenuItemPessoaExemplo implements EventListener {
 
 		public void onEvent(Event event) {
+			//sem controlador
 			Window win = (Window) Executions.createComponents(
 					"/visao/exemplo/windowCadastroListaPessoaExemplo.zul",
 					getReference(), null);
