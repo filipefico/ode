@@ -96,7 +96,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 			resultado = getNucleoAplCadastroBase().recuperarTodosPaginado(pagina);
 
 		} catch (NucleoRegraNegocioExcecao e) {
-
+//TODO LOG DE ERRO AO ATUALIZAR PESQUISA
 			e.printStackTrace();
 		}
 		// atualizo os objetos e preencho a nova listagem
