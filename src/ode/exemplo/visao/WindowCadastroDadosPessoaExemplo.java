@@ -5,8 +5,8 @@ import java.util.List;
 
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.NucleoWindowCadastroDados;
 import nucleo.comuns.visao.componentes.NucleoTab;
+import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
 
 import ode.exemplo.aplicacao.AplCadastrarPessoaExemplo;
 import ode.exemplo.dominio.PessoaExemplo;

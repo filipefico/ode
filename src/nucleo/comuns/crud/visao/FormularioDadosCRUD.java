@@ -3,7 +3,7 @@ package nucleo.comuns.crud.visao;
 import java.util.List;
 
 import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.excecao.ControladorExcecoes;
+import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.util.NucleoMensagens;
@@ -96,10 +96,10 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 
 	private void validarComponentes() {
 		if (listaTab == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao("listaTab", this
+			throw CtrlExcecoes.factoryExcecaoDefinicao("listaTab", this
 					.getClass());
 		if (controlador == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao("controlador",
+			throw CtrlExcecoes.factoryExcecaoDefinicao("controlador",
 					this.getClass());
 
 	}

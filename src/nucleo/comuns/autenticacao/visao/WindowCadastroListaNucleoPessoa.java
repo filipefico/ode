@@ -3,7 +3,7 @@ package nucleo.comuns.autenticacao.visao;
 import nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoa;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.NucleoWindowCadastroLista;
+import nucleo.comuns.visao.old.NucleoWindowCadastroLista;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 

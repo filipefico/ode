@@ -8,6 +8,7 @@ import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
+import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
 import ode.exemplo.dominio.PessoaExemplo;
 
 import org.zkoss.zul.Textbox;
@@ -66,6 +67,33 @@ public class FormDadosPessoaExemplo extends FormularioDadosCRUD<PessoaExemplo>{
 		gridDadosCadastro.adicionarLinha(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_EMAIL),tbEmail);
 		
+		
+		
+		NucleoBandbox<PessoaExemplo> band = new NucleoBandbox<PessoaExemplo>(){
+
+			@Override
+			protected String[] definirTamanhosCabecalho() {
+
+				return new String[]{"240px"};
+			}
+
+			@Override
+			protected String[] definirTitulosCabecalho() {
+
+				return new String[]{"Nome"};
+			}
+
+			@Override
+			protected String[] recuperarDadosObjeto(PessoaExemplo objeto) {
+ 
+				return new String[]{objeto.getNome()};
+			}
+			
+			
+		};
+		
+		gridDadosCadastro.adicionarLinha("Pai", band);
+		//adiciono o grid de dados na tab
 		tabDadosCadastro.setConteudoTab(gridDadosCadastro);
 		listaTabs.add(tabDadosCadastro);
 

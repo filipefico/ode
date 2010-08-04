@@ -3,7 +3,7 @@ package nucleo.comuns.crud.visao;
 import java.util.Set;
 
 import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.excecao.ControladorExcecoes;
+import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.paginacao.ListagemPaginada;
@@ -53,11 +53,11 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 	protected void validarComponentesExtensao() {
 
 		if (controlador == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao("controlador",
+			throw CtrlExcecoes.factoryExcecaoDefinicao("controlador",
 					this.getClass());
 
 		if (listagemPaginada == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao(
+			throw CtrlExcecoes.factoryExcecaoDefinicao(
 					"listagemPaginada", this.getClass());
 
 	}
@@ -160,7 +160,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 							Messagebox.INFORMATION);
 				} catch (Exception e) {
 
-					ControladorExcecoes.exibirJanelaErro(e);
+					CtrlExcecoes.tratarExcecao(e);
 				}
 			}
 		}

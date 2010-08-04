@@ -233,7 +233,7 @@ public class WindowMenu extends Window {
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
+//		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
 		menuitemPessoa.addEventListener("onClick",new EListenerPessoaComControlador());
 		menuitemPessoa.setParent(menupopupPessoa);
 	}
@@ -245,9 +245,9 @@ public class WindowMenu extends Window {
 		//COm controlador
 		CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
 		ctrlP.iniciar();
-		
 		}
-
+		
+		
 		public boolean isAsap() {
 			return true;
 		}

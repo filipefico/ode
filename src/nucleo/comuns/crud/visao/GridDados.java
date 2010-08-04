@@ -19,7 +19,9 @@ public class GridDados extends Grid {
 		linhas.setParent(this);
 
 	}
-
+/**
+ * Método que adiciona uma linha simples ao grid de dados
+ * */
 	public void adicionarLinha(String tituloLabel, Component elemento) {
 		Row linha = new Row();
 		linha.setParent(linhas);

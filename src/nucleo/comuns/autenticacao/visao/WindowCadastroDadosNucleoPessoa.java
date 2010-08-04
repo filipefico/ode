@@ -7,8 +7,8 @@ import nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoa;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.NucleoWindowCadastroDados;
 import nucleo.comuns.visao.componentes.NucleoTab;
+import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;

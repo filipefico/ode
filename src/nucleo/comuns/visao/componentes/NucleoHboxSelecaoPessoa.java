@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
-import nucleo.comuns.visao.NucleoWindowSelecaoLista;
+import nucleo.comuns.visao.old.NucleoWindowSelecaoLista;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;

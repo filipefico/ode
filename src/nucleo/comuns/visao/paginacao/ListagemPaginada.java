@@ -10,7 +10,7 @@ import java.util.Set;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.excecao.ControladorExcecoes;
+import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.persistencia.ObjetoPersistente;
@@ -154,11 +154,11 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 
 	private void validarComponentes() {
 		if (listheaders == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao(
+			throw CtrlExcecoes.factoryExcecaoDefinicao(
 					"listheaders ou cabeçalhos", this.getClass());
 
 		if (atualizador == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao("atualizador",
+			throw CtrlExcecoes.factoryExcecaoDefinicao("atualizador",
 					this.getClass());
 
 	}

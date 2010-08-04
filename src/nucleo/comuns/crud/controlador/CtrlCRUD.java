@@ -9,7 +9,7 @@ import nucleo.comuns.base.controlador.CtrlBase;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
 import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD.ModoExibicao;
-import nucleo.comuns.excecao.ControladorExcecoes;
+import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.persistencia.ObjetoPersistente;
@@ -71,11 +71,11 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 	protected void validarComponentesExtensao() {
 
 		if (painelCRUD == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao("painelCRUD",
+			throw CtrlExcecoes.factoryExcecaoDefinicao("painelCRUD",
 					this.getClass());
 
 		if (nucleoAplCadastroBase == null)
-			throw ControladorExcecoes.factoryExcecaoDefinicao(
+			throw CtrlExcecoes.factoryExcecaoDefinicao(
 					"nucleoAplCadastroBase", this.getClass());
 
 	}
@@ -151,7 +151,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 			}
 
 		} catch (Exception e) {
-			ControladorExcecoes.exibirJanelaErro(e);
+			CtrlExcecoes.tratarExcecao(e);
 		}
 
 	}
@@ -172,7 +172,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 			atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
 
 		} catch (NucleoRegraNegocioExcecao e) {
-			ControladorExcecoes
+			CtrlExcecoes
 					.exibirJanelaErro("Não foi possivel excluir os objetos");
 
 		} catch (InterruptedException e) {
@@ -236,7 +236,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 			janDados.mostrar();
 
 		} catch (Exception e) {
-			ControladorExcecoes.exibirJanelaErro(e);
+			CtrlExcecoes.tratarExcecao(e);
 		}
 
 	}
@@ -258,7 +258,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 			
 
 		} catch (Exception e) {
-			ControladorExcecoes.exibirJanelaErro(e);
+			CtrlExcecoes.tratarExcecao(e);
 		}
 
 	}

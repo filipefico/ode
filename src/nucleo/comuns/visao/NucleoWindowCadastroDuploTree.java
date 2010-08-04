@@ -12,6 +12,7 @@ import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.cache.arvore.NucleoArvoreCache;
 import nucleo.comuns.visao.cache.arvore.NucleoItemArvoreCache;
+import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zk.ui.Executions;
