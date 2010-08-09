@@ -1,5 +1,6 @@
 package nucleo.comuns.crud.controlador;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -17,6 +18,8 @@ import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.paginacao.IAtualizadorPesquisaPaginada;
 import nucleo.comuns.visao.principal.JanelaSimples;
+
+import ode.exemplo.dominio.PessoaExemplo;
 
 import org.zkoss.zul.Listitem;
 
@@ -306,5 +309,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 	public void setLarguraJandados(String larguraJandados) {
 		this.larguraJandados = larguraJandados;
 	}
+
+
 
 }
