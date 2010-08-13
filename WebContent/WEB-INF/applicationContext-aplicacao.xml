@@ -11,7 +11,7 @@
 	</bean>
 
 	<bean id="aplCadastrarPessoaExemplo"
-		class="ode.exemplo2.pessoa.aplicacao.AplCadastrarPessoaExemploImpl">
+		class="ode.exemplo2.pessoa.Cgt.AplCadastrarPessoaExemploImpl">
 		<property name="nucleoDaoBase" ref="pessoaExemploDao" />
 	</bean>
 

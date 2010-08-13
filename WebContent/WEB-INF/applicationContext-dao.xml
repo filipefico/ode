@@ -168,7 +168,7 @@
 					nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa </value>
 				<value> nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails
 				</value>
-				<value> ode.exemplo2.pessoa.dominio.PessoaExemplo </value>
+				<value> ode.exemplo2.pessoa.Cdp.PessoaExemplo </value>
 			</list>
 		</property>
 
@@ -191,7 +191,7 @@
 	</bean>
 	
 	<bean id="pessoaExemploDao"
-		class="ode.exemplo2.pessoa.persistencia.PessoaExemploDAOHibernate">
+		class="ode.exemplo2.pessoa.Cgd.PessoaExemploDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>

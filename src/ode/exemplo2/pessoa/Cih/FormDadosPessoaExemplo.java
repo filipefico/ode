@@ -1,4 +1,4 @@
-package ode.exemplo2.pessoa.visao;
+package ode.exemplo2.pessoa.Cih;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 
 import org.zkoss.zul.Textbox;
 

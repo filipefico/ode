@@ -1,4 +1,4 @@
-package ode.exemplo2.pessoa.visao;
+package ode.exemplo2.pessoa.Cih;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
 
-import ode.exemplo2.pessoa.aplicacao.AplCadastrarPessoaExemplo;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
+import ode.exemplo2.pessoa.Cgt.AplCadastrarPessoaExemplo;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;

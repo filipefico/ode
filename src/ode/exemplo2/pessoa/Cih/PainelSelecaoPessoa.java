@@ -1,10 +1,10 @@
-package ode.exemplo2.pessoa.visao;
+package ode.exemplo2.pessoa.Cih;
 
 import java.util.ArrayList;
 
 import nucleo.comuns.visao.componentes.selecao.PainelSelecaoLista;
 import nucleo.comuns.visao.old.NucleoWindowSelecaoLista;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 import antlr.collections.List;
 
 public class PainelSelecaoPessoa extends PainelSelecaoLista<PessoaExemplo> {

@@ -1,15 +1,15 @@
-package ode.exemplo2.pessoa.controlador;
+package ode.exemplo2.pessoa.Cci;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
 import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.visao.principal.JanelaSimples;
-import ode.exemplo2.pessoa.aplicacao.AplCadastrarPessoaExemplo;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
-import ode.exemplo2.pessoa.visao.FormDadosPessoaExemplo;
-import ode.exemplo2.pessoa.visao.PainelCrudPessoa;
-import ode.exemplo2.pessoa.visao.PainelSelecaoPessoa;
+import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
+import ode.exemplo2.pessoa.Cgt.AplCadastrarPessoaExemplo;
+import ode.exemplo2.pessoa.Cih.FormDadosPessoaExemplo;
+import ode.exemplo2.pessoa.Cih.PainelCrudPessoa;
+import ode.exemplo2.pessoa.Cih.PainelSelecaoPessoa;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 
