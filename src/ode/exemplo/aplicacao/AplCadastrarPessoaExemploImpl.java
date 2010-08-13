@@ -1,9 +1,9 @@
-package ode.exemplo2.pessoa.aplicacao;
+package ode.exemplo.aplicacao;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
-import ode.exemplo2.pessoa.persistencia.PessoaExemploDAO;
+import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo.persistencia.PessoaExemploDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,7 +1,6 @@
 package ode.exemplo2.pessoa.visao;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
@@ -10,13 +9,9 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
-import ode.exemplo2.pessoa.controlador.CtrlPessoaCRUD;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+import ode.exemplo.dominio.PessoaExemplo;
 
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.event.PagingEvent;
 
 public class FormDadosPessoaExemplo extends FormularioDadosCRUD<PessoaExemplo>{
 	
@@ -26,9 +21,6 @@ public class FormDadosPessoaExemplo extends FormularioDadosCRUD<PessoaExemplo>{
 	private Textbox tbTelefone = new Textbox();
 	private Textbox tbIdade = new Textbox();
 	private Textbox tbEmail = new Textbox();
-	
-
-	NucleoBandbox<PessoaExemplo> bandPai;
 
 
 	@Override
@@ -77,10 +69,8 @@ public class FormDadosPessoaExemplo extends FormularioDadosCRUD<PessoaExemplo>{
 		
 		
 		
-		 bandPai = new NucleoBandbox<PessoaExemplo>(){
-			
-			
-		
+		NucleoBandbox<PessoaExemplo> band = new NucleoBandbox<PessoaExemplo>(){
+
 			@Override
 			protected String[] definirTamanhosCabecalho() {
 
@@ -102,21 +92,7 @@ public class FormDadosPessoaExemplo extends FormularioDadosCRUD<PessoaExemplo>{
 			
 		};
 		
-		Collection<PessoaExemplo> pessoas = ((CtrlPessoaCRUD) getControlador()).recuperarTodasPessoas();
-		bandPai.preencherLista(pessoas);
-		
-		bandPai.addEventListener("onClick", new EventListener() {
-
-			public void onEvent(Event event) {
-				
-				Collection<PessoaExemplo> pessoas = ((CtrlPessoaCRUD) getControlador()).recuperarTodasPessoas();
-				bandPai.preencherLista(pessoas);
-			
-
-			}
-		});
-		
-		gridDadosCadastro.adicionarLinha("Pai", bandPai);
+		gridDadosCadastro.adicionarLinha("Pai", band);
 		//adiciono o grid de dados na tab
 		tabDadosCadastro.setConteudoTab(gridDadosCadastro);
 		listaTabs.add(tabDadosCadastro);

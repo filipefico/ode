@@ -1,15 +1,12 @@
 package ode.exemplo2.pessoa.controlador;
 
-import java.util.Collection;
-
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
 import nucleo.comuns.crud.visao.PainelCRUD;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.visao.principal.JanelaSimples;
-import ode.exemplo2.pessoa.aplicacao.AplCadastrarPessoaExemplo;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+import ode.exemplo.aplicacao.AplCadastrarPessoaExemplo;
+import ode.exemplo.dominio.PessoaExemplo;
 import ode.exemplo2.pessoa.visao.FormDadosPessoaExemplo;
 import ode.exemplo2.pessoa.visao.PainelCrudPessoa;
 import ode.exemplo2.pessoa.visao.PainelSelecaoPessoa;
@@ -65,19 +62,6 @@ public class CtrlPessoaCRUD extends CtrlCRUD<PessoaExemplo> {
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de Pessoa com Controlador";
-	}
-
-	public Collection<PessoaExemplo> recuperarTodasPessoas() {
-		AplCadastrarPessoaExemplo apl= (AplCadastrarPessoaExemplo) SpringUtil
-		.getBean("aplCadastrarPessoaExemplo");;
-		
-		try {
-			return apl.recuperarTodos();
-		} catch (NucleoRegraNegocioExcecao e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 	
 

@@ -1,7 +1,7 @@
-package ode.exemplo2.pessoa.aplicacao;
+package ode.exemplo.aplicacao;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+import ode.exemplo.dominio.PessoaExemplo;
 
 public interface AplCadastrarPessoaExemplo extends
 		NucleoAplCadastroBase<PessoaExemplo> {
