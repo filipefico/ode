@@ -1,25 +1,18 @@
 package nucleo.global.visao;
 
-import java.util.EventListenerProxy;
+
 import java.util.Locale;
 import java.util.Set;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
-import nucleo.comuns.autenticacao.visao.WindowCadastroDadosNucleoUsuario;
-import nucleo.comuns.autenticacao.visao.WindowCadastroListaNucleoUsuario;
+
+
 import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
-import nucleo.comuns.visao.paginacao.NucleoListHeader;
-import nucleo.comuns.visao.principal.JanelaSimples;
 
 import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
-import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
-import ode.exemplo2.pessoa.Cih.ListagemPessoaExemplo;
-import ode.exemplo2.pessoa.Cih.PainelCrudPessoa;
-import ode.exemplo2.pessoa.Cih.WindowCadastroListaPessoaExemplo;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -78,6 +71,7 @@ public class WindowMenu extends Window {
 				"lblInformacoes");
 		NucleoUserDetails usuario = NucleoContexto.recuperarUsuarioLogado();
 		String nomeUsuario;
+		@SuppressWarnings("unused")
 		String nomeProjeto;
 
 		nomeUsuario = (usuario == null) ? NucleoMensagens
@@ -106,17 +100,6 @@ public class WindowMenu extends Window {
 		menuitemSair.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_SAIR));
 
-		// /////////////////////////////
-		// Menu Administração
-		// ////////////////////////////
-		menuAdmin.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_ADMINISTRACAO));
-
-		menuitemPessoas.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-
-		menuitemUsuarios.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_CADASTRO_USUARIOS));
 		
 		// /////////////////////////////
 		// Menu Pessoas
@@ -132,6 +115,7 @@ public class WindowMenu extends Window {
 	public void atualizarPermissoesAcesso() {
 
 		// Atualiza a visibilidade dos menu's e interfaces
+		@SuppressWarnings("unused")
 		boolean visivel = true;
 
 		// Atualiza menus administrativos baseado na autoridade do usuário
@@ -154,17 +138,6 @@ public class WindowMenu extends Window {
 		menuitemSair.setVisible(true);
 
 
-		// /////////////////////////////
-		// Menu Administração
-		// ////////////////////////////
-
-		menuAdmin.setVisible(admin);
-
-		menuitemPessoas.setVisible(admin);
-
-		menuitemUsuarios.setVisible(admin);
-		
-		
 		// /////////////////////////////
 		// Menu Pessoas
 		// ////////////////////////////
@@ -205,25 +178,6 @@ public class WindowMenu extends Window {
 		menuitemSair.setHref("/logout.zul");
 
 		// /////////////////////////////
-		// Menu Administração
-		// ////////////////////////////
-		menuAdmin = new NucleoMenu(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_ADMINISTRACAO));
-		menuAdmin.setParent(menuBar);
-		menupopupAdmin = new Menupopup();
-		menupopupAdmin.setParent(menuAdmin);
-		menuitemPessoas = new Menuitem(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		menuitemPessoas.addEventListener("onClick",
-				new EventListenerMenuItemPessoas());
-		// menuitemPessoas.setParent(menupopupAdmin);
-		menuitemUsuarios = new Menuitem(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_CADASTRO_USUARIOS));
-		menuitemUsuarios.addEventListener("onClick",
-				new EventListenerMenuItemUsuarios());
-		menuitemUsuarios.setParent(menupopupAdmin);
-		
-		// /////////////////////////////
 		// Menu Pessoa
 		// ////////////////////////////
 		menuPessoa = new NucleoMenu(NucleoMensagens
@@ -248,85 +202,13 @@ public class WindowMenu extends Window {
 		}
 		
 		
+		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}
 	}
 	
 	
-	
-	private class EventListenerMenuItemPessoaExemplo implements EventListener {
-
-		public void onEvent(Event event) {
-			//sem controlador
-			Window win = (Window) Executions.createComponents(
-					"/visao/exemplo/windowCadastroListaPessoaExemplo.zul",
-					getReference(), null);
-			win.doOverlapped();
-		}
-
-		public boolean isAsap() {
-			return true;
-		}
-	}
-	
-
-	// /////////////////////////////
-	// Menu Administração
-	// ////////////////////////////
-	/** Classe do evento do Menuitem Pessoas. */
-	private class EventListenerMenuItemPessoas implements EventListener {
-
-		public void onEvent(Event event) {
-		
-			Window win = (Window) Executions.createComponents(
-					"/visao/admin/windowCadastroListaPessoa.zul",
-					getReference(), null);
-			win.doOverlapped();
-			
-		
-			
-		}
-
-		public boolean isAsap() {
-			return true;
-		}
-	}
-
-	/** Classe do evento do Menuitem Usuários. */
-	private class EventListenerMenuItemUsuarios implements EventListener {
-
-		public void onEvent(Event event) {
-			Window win = (Window) Executions.createComponents(
-					"/visao/admin/windowCadastroListaNucleoUsuario.zul",
-					getReference(), null);
-			
-			
-			win.doOverlapped();
-		
-			
-		}
-
-		public boolean isAsap() {
-			return true;
-		}
-	}
-
-	/** Classe do evento do Menuitem Usuários. */
-	private class EventListenerMenuItemConfiguracaoEmail implements
-			EventListener {
-
-		public void onEvent(Event event) {
-			Window win = (Window) Executions.createComponents(
-					"/visao/admin/windowCadastroDadosConfiguracaoEmail.zul",
-					getReference(), null);
-			win.doOverlapped();
-		}
-
-		public boolean isAsap() {
-			return true;
-		}
-	}
 
 	/** Classe do evento do idioma inglês. */
 	private class EventListenerIdiomaIngles implements EventListener {
@@ -346,6 +228,7 @@ public class WindowMenu extends Window {
 
 		}
 
+		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}
@@ -370,6 +253,7 @@ public class WindowMenu extends Window {
 
 		}
 
+		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}
@@ -406,17 +290,7 @@ public class WindowMenu extends Window {
 	Menupopup menupopupArquivo;
 
 	Menuitem menuitemSair;
-	
-	// /////////////////////////////
-	// Menu Administração
-	// ////////////////////////////
-	NucleoMenu menuAdmin;
 
-	Menupopup menupopupAdmin;
-
-	Menuitem menuitemPessoas;
-
-	Menuitem menuitemUsuarios;
 
 	
 	// /////////////////////////////
