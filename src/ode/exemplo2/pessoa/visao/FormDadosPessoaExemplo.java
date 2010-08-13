@@ -10,8 +10,8 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
-import ode.exemplo.dominio.PessoaExemplo;
 import ode.exemplo2.pessoa.controlador.CtrlPessoaCRUD;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

@@ -1,4 +1,4 @@
-package ode.exemplo.dominio;
+package ode.exemplo2.pessoa.dominio;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
