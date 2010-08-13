@@ -2,7 +2,7 @@ package ode.exemplo2.pessoa.visao;
 
 import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.visao.paginacao.ListagemPaginada;
-import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
 
 public class PainelCrudPessoa extends PainelCRUD<PessoaExemplo> {
 	

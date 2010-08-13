@@ -5,7 +5,7 @@ import java.util.List;
 
 import nucleo.comuns.visao.paginacao.ListagemPaginada;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
-import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
 
 public class ListagemPessoaExemplo extends ListagemPaginada<PessoaExemplo> {
 

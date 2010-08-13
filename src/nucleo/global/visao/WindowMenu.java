@@ -15,11 +15,11 @@ import nucleo.comuns.visao.paginacao.ListagemPaginada;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import nucleo.comuns.visao.principal.JanelaSimples;
 
-import ode.exemplo.dominio.PessoaExemplo;
-import ode.exemplo.visao.WindowCadastroListaPessoaExemplo;
 import ode.exemplo2.pessoa.controlador.CtrlPessoaCRUD;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
 import ode.exemplo2.pessoa.visao.ListagemPessoaExemplo;
 import ode.exemplo2.pessoa.visao.PainelCrudPessoa;
+import ode.exemplo2.pessoa.visao.WindowCadastroListaPessoaExemplo;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;

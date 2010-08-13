@@ -1,7 +1,7 @@
-package ode.exemplo.persistencia;
+package ode.exemplo2.pessoa.persistencia;
 
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
-import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
 
 public class PessoaExemploDAOHibernate extends NucleoDAOBaseHibernate<PessoaExemplo> implements
 		PessoaExemploDAO {

@@ -17,7 +17,7 @@ import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
 
-import ode.exemplo.dominio.PessoaExemplo;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;

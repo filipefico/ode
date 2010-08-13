@@ -1,23 +1,32 @@
-package ode.exemplo.visao;
+package ode.exemplo2.pessoa.visao;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.persistencia.ObjetoPagina;
+import nucleo.comuns.util.NucleoMensagens;
+import nucleo.comuns.visao.old.NucleoWindowCadastroLista;
+import ode.exemplo2.pessoa.aplicacao.AplCadastrarPessoaExemplo;
+import ode.exemplo2.pessoa.dominio.PessoaExemplo;
+
+import org.hibernate.criterion.Criterion;
+import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
 
-import ode.exemplo.aplicacao.AplCadastrarPessoaExemplo;
-import ode.exemplo.dominio.PessoaExemplo;
-import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.old.GuilexWindowCadastroLista;
-
-public class WindowCadastroListaPessoaExemplo2 extends GuilexWindowCadastroLista<PessoaExemplo> {
+public class WindowCadastroListaPessoaExemplo extends
+		NucleoWindowCadastroLista<PessoaExemplo> {
 
 	
-	public static String CAMINHO = "/visao/exemplo/windowCadastroListaPessoaExemplo2.zul";
+	public static String CAMINHO = "/visao/exemplo/windowCadastroListaPessoaExemplo.zul";
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public WindowCadastroListaPessoaExemplo2() {
+	public WindowCadastroListaPessoaExemplo() {
 		WIDTH_WINDOW = "60%";
 		this.setNucleoAplCadastroBase((AplCadastrarPessoaExemplo) SpringUtil
 				.getBean("aplCadastrarPessoaExemplo"));
@@ -62,5 +71,6 @@ public class WindowCadastroListaPessoaExemplo2 extends GuilexWindowCadastroLista
 
 
 	
+
 
 }
