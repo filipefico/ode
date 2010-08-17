@@ -110,6 +110,25 @@ public class WindowMenu extends Window {
 		menuitemPessoa.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
 		
+		// /////////////////////////////
+		// Menu Organizacao
+		// ////////////////////////////
+		menuOrganizacao.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
+
+		menuCadastroConhecimento.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
+		
+		menuProcesso.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PROCESSO));		
+		
+		menuitemParadigma.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
+
+		menuitemTipoSoftware.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
+
+	
 	}
 
 	public void atualizarPermissoesAcesso() {
@@ -146,6 +165,20 @@ public class WindowMenu extends Window {
 
 		menuitemPessoa.setVisible(admin);
 
+
+		// /////////////////////////////
+		// Menu Organizacao
+		// ////////////////////////////
+
+		menuOrganizacao.setVisible(admin);
+
+		menuCadastroConhecimento.setVisible(admin);
+
+		menuProcesso.setVisible(admin);
+
+		menuitemParadigma.setVisible(admin);
+		
+		menuitemTipoSoftware.setVisible(admin);
 	}
 
 	/** Evento executado ao fechar a window */
@@ -190,6 +223,33 @@ public class WindowMenu extends Window {
 //		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
 		menuitemPessoa.addEventListener("onClick",new EListenerPessoaComControlador());
 		menuitemPessoa.setParent(menupopupPessoa);
+
+		// /////////////////////////////
+		// Menu organizacao
+		// ////////////////////////////
+		menuOrganizacao = new NucleoMenu(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
+		menuOrganizacao.setParent(menuBar);
+		menupopupOrganizacao = new Menupopup();
+		menupopupOrganizacao.setParent(menuOrganizacao);
+		// Sub-menu Cadastro de Conhecimento
+		menuCadastroConhecimento = new NucleoMenu(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
+		menuCadastroConhecimento.setParent(menupopupOrganizacao);
+		menupopupCadastroConhecimento = new Menupopup();
+		menupopupCadastroConhecimento.setParent(menuCadastroConhecimento);
+		// Sub-menu Processo
+		menuProcesso = new NucleoMenu(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
+		menuProcesso.setParent(menupopupCadastroConhecimento);
+		menupopupProcesso = new Menupopup();
+		menupopupProcesso.setParent(menuProcesso);
+		menuitemParadigma = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
+		menuitemParadigma.setParent(menupopupProcesso);
+		menuitemTipoSoftware = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
+		menuitemTipoSoftware.setParent(menupopupProcesso);
 	}
 	
 	
@@ -302,4 +362,30 @@ public class WindowMenu extends Window {
 
 	Menuitem menuitemPessoa;
 
+	
+	
+	// /////////////////////////////
+	// Menu Organizacao
+	// ////////////////////////////
+	NucleoMenu menuOrganizacao;
+
+	Menupopup menupopupOrganizacao;
+
+	Menuitem menuitemCadastroConhecimento;
+	
+	// Sub-menu Cadastro de Conhecimento:
+	NucleoMenu menuCadastroConhecimento;
+
+	Menupopup menupopupCadastroConhecimento;
+
+	Menuitem menuitemProcesso;
+	
+	// Sub-menu Processo:
+	NucleoMenu menuProcesso;
+
+	Menupopup menupopupProcesso;
+
+	Menuitem menuitemParadigma;	
+	
+	Menuitem menuitemTipoSoftware;
 }

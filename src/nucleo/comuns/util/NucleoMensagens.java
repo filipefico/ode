@@ -328,6 +328,30 @@ public class NucleoMensagens {
 	 */
 	public static final String TERMO_VERMELHO = "termo.vermelho";
 
+	/**
+	 * Chave do termo "Organizacao"
+	 */
+	public static final String TERMO_ORGANIZACAO = "termo.organizacao";
+
+	/**
+	 * Chave do termo "Cadastro de Conhecimento"
+	 */
+	public static final String TERMO_CADASTRO_CONHECIMENTO = "termo.cadastro_conhecimento";
+
+	/**
+	 * Chave do termo "Processo"
+	 */
+	public static final String TERMO_PROCESSO = "termo.processo";
+
+	/**
+	 * Chave do termo "Paradigma"
+	 */
+	public static final String TERMO_PARADIGMA = "termo.paradigma";
+
+	/**
+	 * Chave do termo "Tipo de Software"
+	 */
+	public static final String TERMO_TIPO_SOFTWARE = "termo.tipo_software";
 
 }
 
