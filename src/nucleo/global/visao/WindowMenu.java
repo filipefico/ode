@@ -255,6 +255,7 @@ public class WindowMenu extends Window {
 		
 		menuitemTipoSoftware = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
+		menuitemTipoSoftware.addEventListener("onClick",new EListenerTipoSoftware());
 		menuitemTipoSoftware.setParent(menupopupProcesso);
 		
 		menuitemTipoArtefato = new Menuitem(NucleoMensagens
@@ -292,6 +293,20 @@ public class WindowMenu extends Window {
 		}
 	}
 	
+	private class EListenerTipoSoftware implements EventListener {
+
+		public void onEvent(Event event) {
+		//COm controlador
+		CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
+		ctrlP.iniciar();
+		}
+		
+		
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
 	
 
 	/** Classe do evento do idioma inglês. */
