@@ -127,13 +127,14 @@ public class WindowMenu extends Window {
 
 		menuitemTipoSoftware.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
+		
+		menuitemTipoArtefato.setLabel(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
 
-	
 	}
 
 	public void atualizarPermissoesAcesso() {
 
-		// Atualiza a visibilidade dos menu's e interfaces
+		// Atualiza a visibilidade dos menus e interfaces
 		@SuppressWarnings("unused")
 		boolean visivel = true;
 
@@ -179,6 +180,8 @@ public class WindowMenu extends Window {
 		menuitemParadigma.setVisible(admin);
 		
 		menuitemTipoSoftware.setVisible(admin);
+		
+		menuitemTipoArtefato.setVisible(admin);
 	}
 
 	/** Evento executado ao fechar a window */
@@ -223,6 +226,7 @@ public class WindowMenu extends Window {
 //		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
 		menuitemPessoa.addEventListener("onClick",new EListenerPessoaComControlador());
 		menuitemPessoa.setParent(menupopupPessoa);
+	
 
 		// /////////////////////////////
 		// Menu organizacao
@@ -244,14 +248,34 @@ public class WindowMenu extends Window {
 		menuProcesso.setParent(menupopupCadastroConhecimento);
 		menupopupProcesso = new Menupopup();
 		menupopupProcesso.setParent(menuProcesso);
+		
 		menuitemParadigma = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
 		menuitemParadigma.setParent(menupopupProcesso);
+		
 		menuitemTipoSoftware = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
 		menuitemTipoSoftware.setParent(menupopupProcesso);
+		
+		menuitemTipoArtefato = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
+		menuitemTipoArtefato.setParent(menupopupProcesso);
+		//menuitemPessoa.addEventListener("onClick",new EventListenerTipoArtefato());
 	}
 	
+	/*
+		private class EventListenerTipoArtefato implements EventListener{
+		public void onEvent(Event event){
+			CtrlTipoArtefatoCRUD crtlTA = new CtrlTipoArtefatoCRUD();
+			ctrlTA.iniciar();
+		}
+		
+		@SuppressWarnings("unused")
+		public boolean isAsap(){
+			return true;
+		}
+	}
+	*/
 	
 	private class EListenerPessoaComControlador implements EventListener {
 
@@ -264,7 +288,7 @@ public class WindowMenu extends Window {
 		
 		@SuppressWarnings("unused")
 		public boolean isAsap() {
-			return true;
+			return true;//retorna se o cliente deve enviar a informacao o quanto antes
 		}
 	}
 	
@@ -361,7 +385,6 @@ public class WindowMenu extends Window {
 	Menupopup menupopupPessoa;
 
 	Menuitem menuitemPessoa;
-
 	
 	
 	// /////////////////////////////
@@ -388,4 +411,6 @@ public class WindowMenu extends Window {
 	Menuitem menuitemParadigma;	
 	
 	Menuitem menuitemTipoSoftware;
+	
+	Menuitem menuitemTipoArtefato;
 }

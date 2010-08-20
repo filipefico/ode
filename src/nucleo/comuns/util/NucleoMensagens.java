@@ -352,6 +352,11 @@ public class NucleoMensagens {
 	 * Chave do termo "Tipo de Software"
 	 */
 	public static final String TERMO_TIPO_SOFTWARE = "termo.tipo_software";
+	
+	/**
+	 * Chave do termo "Tipo de Artefato"
+	 */
+	public static final String TERMO_TIPO_ARTEFATO = "termo.tipo_artefato";
 
 }
 
