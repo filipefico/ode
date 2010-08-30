@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 
 
-
+@Entity
 public class PessoaExemplo extends ObjetoPersistente {
 
 	private static final long serialVersionUID = 7215443991537131684L;
