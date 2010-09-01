@@ -79,6 +79,12 @@ public class NucleoMensagens {
 	public static final String MSG_EXISTE_PESSOA_MESMO_EMAIL = "msg.existe.pessoa.mesmo.email";
 	
 	/**
+	 * Chave da mensagem "Já existe outra organizacao com o mesmo nome"
+	 * 
+	 */
+	public static final String MSG_EXISTE_ORGANIZACAO_MESMO_NOME = "msg.existe.organizacao.mesmo.nome";
+	
+	/**
 	 * Chave da mensagem "Já existe outro usuário com o mesmo username"
 	 */
 	public static final String MSG_EXISTE_USUARIO_MESMO_USERNAME = "msg.existe.usuario.mesmo.username";
@@ -358,6 +364,15 @@ public class NucleoMensagens {
 	 */
 	public static final String TERMO_TIPO_ARTEFATO = "termo.tipo_artefato";
 
+	/**
+	 * Chave do termo "Descrição"
+	 */
+	public static final String TERMO_DESCRICAO = "termo.descricao";
+	
+	/**
+	 * Chave do termo "Dominio da Aplicação"
+	 */
+	public static final String TERMO_DOMINIO_DA_APLICACAO = "termo.dominio_da_aplicacao";
 }
 
 
