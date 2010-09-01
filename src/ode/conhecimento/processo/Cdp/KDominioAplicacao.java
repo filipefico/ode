@@ -1,4 +1,4 @@
-package ode.exemplo2.organizacao.Cdp;
+package ode.conhecimento.processo.Cdp;
 
 
 import javax.persistence.Column;
@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 
 @Entity
-public class OrganizacaoExemplo extends ObjetoPersistente {
+public class KDominioAplicacao extends ObjetoPersistente {
 
 	private static final long serialVersionUID = 7215443991537131684L;
 

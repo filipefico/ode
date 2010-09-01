@@ -1,4 +1,4 @@
-package ode.exemplo2.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,36 +8,36 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.old.NucleoWindowCadastroLista;
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
-import ode.exemplo2.organizacao.Cgt.AplCadastrarOrganizacaoExemplo;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+import ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacao;
 
 import org.hibernate.criterion.Criterion;
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
 
-public class WindowCadastroListaOrganizacaoExemplo extends
-		NucleoWindowCadastroLista<OrganizacaoExemplo> {
+public class WindowCadastroListaKDominioAplicacao extends
+		NucleoWindowCadastroLista<KDominioAplicacao> {
 
 	
-	public static String CAMINHO = "/visao/exemplo/windowCadastroListaOrganizacaoExemplo.zul";
+	public static String CAMINHO = "/visao/exemplo/windowCadastroListaKDominioAplicacao.zul";
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public WindowCadastroListaOrganizacaoExemplo() {
+	public WindowCadastroListaKDominioAplicacao() {
 		WIDTH_WINDOW = "60%";
-		this.setNucleoAplCadastroBase((AplCadastrarOrganizacaoExemplo) SpringUtil
-				.getBean("aplCadastrarOrganizacaoExemplo"));
+		this.setNucleoAplCadastroBase((AplCadastrarKDominioAplicacao) SpringUtil
+				.getBean("aplCadastrarKDominioAplicacao"));
 	}
 
 	// Nome da window de cadastro de dados chamada a partir da lista
-	private static final String NOME_WINDOW_CADASTRO_DADOS = "/visao/exemplo/windowCadastroDadosOrganizacaoExemplo.zul";
+	private static final String NOME_WINDOW_CADASTRO_DADOS = "/visao/exemplo/windowCadastroDadosKDominioAplicacao.zul";
 
 	@Override
-	protected OrganizacaoExemplo criarNovoObjetoDados() {
-		return new OrganizacaoExemplo();
+	protected KDominioAplicacao criarNovoObjetoDados() {
+		return new KDominioAplicacao();
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class WindowCadastroListaOrganizacaoExemplo extends
 	}
 
 	@Override
-	protected String[] recuperarDadosObjeto(OrganizacaoExemplo objeto) {
+	protected String[] recuperarDadosObjeto(KDominioAplicacao objeto) {
 		return new String[] { objeto.getNome(),objeto.getDescricao()};
 	}
 

@@ -1,26 +1,26 @@
-package ode.exemplo2.organizacao.Cci;
+package ode.conhecimento.processo.Cci;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
 import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.visao.principal.JanelaSimples;
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
-import ode.exemplo2.organizacao.Cgt.AplCadastrarOrganizacaoExemplo;
-import ode.exemplo2.organizacao.Cih.FormDadosOrganizacaoExemplo;
-import ode.exemplo2.organizacao.Cih.PainelCrudOrganizacao;
-import ode.exemplo2.organizacao.Cih.PainelSelecaoOrganizacao;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+import ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacao;
+import ode.conhecimento.processo.Cih.FormDadosKDominioAplicacao;
+import ode.conhecimento.processo.Cih.PainelCrudKDominioAplicacao;
+import ode.conhecimento.processo.Cih.PainelSelecaoKDominioAplicacao;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 
-public class CtrlOrganizacaoCRUD extends CtrlCRUD<OrganizacaoExemplo> {
+public class CtrlKDominioAplicacaoCRUD extends CtrlCRUD<KDominioAplicacao> {
 @Override
 	public void iniciar() {
 		super.iniciar();
 		/*
 		JanelaSimples jan = factoryJanelaSimples();				
 		String titulo ="Teste Painel Selecao";
-		PainelSelecaoorganizacao p = new PainelSelecaoorganizacao();		
+		PainelSelecaokDominioAplicacao p = new PainelSelecaokDominioAplicacao();		
 		p.setParent(jan);
 		jan.setTitle(titulo);
 		jan.setWidth(getLarguraJandados());
@@ -33,35 +33,35 @@ public class CtrlOrganizacaoCRUD extends CtrlCRUD<OrganizacaoExemplo> {
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarOrganizacaoExemplo) SpringUtil
-				.getBean("aplCadastrarOrganizacaoExemplo");
+		return (AplCadastrarKDominioAplicacao) SpringUtil
+				.getBean("aplCadastrarKDominioAplicacao");
 	}
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
-		return new PainelCrudOrganizacao();
+		return new PainelCrudKDominioAplicacao();
 		
 	}
 
 
 	@Override
-	public OrganizacaoExemplo factoryObjetoDados() {
-		return new OrganizacaoExemplo();
+	public KDominioAplicacao factoryObjetoDados() {
+		return new KDominioAplicacao();
 	}
 
 	@Override
 	public FormularioDadosCRUD definirFormularioCadastro() {
-		return new FormDadosOrganizacaoExemplo();
+		return new FormDadosKDominioAplicacao();
 	}
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "organizacao";
+		return "kDominioAplicacao";
 	}
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Organizacao com Controlador";
+		return "Cadastro de kDominioAplicacao com Controlador";
 	}
 	
 

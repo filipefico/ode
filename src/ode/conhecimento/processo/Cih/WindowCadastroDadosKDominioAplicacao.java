@@ -1,4 +1,4 @@
-package ode.exemplo2.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
 
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
-import ode.exemplo2.organizacao.Cgt.AplCadastrarOrganizacaoExemplo;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+import ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacao;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
@@ -21,16 +21,16 @@ import org.zkoss.zul.Rows;
 import org.zkoss.zul.Textbox;
 
 
-public class WindowCadastroDadosOrganizacaoExemplo extends NucleoWindowCadastroDados<OrganizacaoExemplo> {
+public class WindowCadastroDadosKDominioAplicacao extends NucleoWindowCadastroDados<KDominioAplicacao> {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public WindowCadastroDadosOrganizacaoExemplo() {
-		this.setNucleoAplCadastroBase((AplCadastrarOrganizacaoExemplo) SpringUtil
-				.getBean("aplCadastrarOrganizacaoExemplo"));
+	public WindowCadastroDadosKDominioAplicacao() {
+		this.setNucleoAplCadastroBase((AplCadastrarKDominioAplicacao) SpringUtil
+				.getBean("aplCadastrarKDominioAplicacao"));
 	}
 	
 	@Override
@@ -77,16 +77,16 @@ public class WindowCadastroDadosOrganizacaoExemplo extends NucleoWindowCadastroD
 
 	@Override
 	protected void preencherDadosObjeto() {
-		OrganizacaoExemplo organizacao = this.getObjetoCadastroDados();
-		organizacao.setNome(tbNome.getValue());
-		organizacao.setDescricao(tbDescricao.getValue());
+		KDominioAplicacao kDominioAplicacao = this.getObjetoCadastroDados();
+		kDominioAplicacao.setNome(tbNome.getValue());
+		kDominioAplicacao.setDescricao(tbDescricao.getValue());
 	}
 
 	@Override
 	protected void preencherDadosTela() throws NucleoRegraNegocioExcecao {
-		OrganizacaoExemplo organizacao = this.getObjetoCadastroDados();
-		tbNome.setValue(organizacao.getNome());
-		tbDescricao.setValue(organizacao.getDescricao());
+		KDominioAplicacao kDominioAplicacao = this.getObjetoCadastroDados();
+		tbNome.setValue(kDominioAplicacao.getNome());
+		tbDescricao.setValue(kDominioAplicacao.getDescricao());
 		tbNome.setConstraint("no empty");
 	}
 	

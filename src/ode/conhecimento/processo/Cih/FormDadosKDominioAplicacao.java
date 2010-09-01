@@ -1,4 +1,4 @@
-package ode.exemplo2.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,12 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 
 import org.zkoss.zul.Textbox;
 
 
-public class FormDadosOrganizacaoExemplo extends FormularioDadosCRUD<OrganizacaoExemplo>{
+public class FormDadosKDominioAplicacao extends FormularioDadosCRUD<KDominioAplicacao>{
 	
 
 	private Textbox tbNome = new Textbox();
@@ -54,18 +54,18 @@ public class FormDadosOrganizacaoExemplo extends FormularioDadosCRUD<Organizacao
 	}
 
 	@Override
-	protected void preencherDadosObjeto(OrganizacaoExemplo organizacao) {		
-		organizacao.setNome(tbNome.getValue());
-		organizacao.setDescricao(tbDescricao.getValue());
+	protected void preencherDadosObjeto(KDominioAplicacao kDominioAplicacao) {		
+		kDominioAplicacao.setNome(tbNome.getValue());
+		kDominioAplicacao.setDescricao(tbDescricao.getValue());
 	}
 	
 	
 
 	@Override
-	protected void preencherDadosTela(OrganizacaoExemplo organizacao) throws NucleoRegraNegocioExcecao {
+	protected void preencherDadosTela(KDominioAplicacao kDominioAplicacao) throws NucleoRegraNegocioExcecao {
 		
-		tbNome.setValue(organizacao.getNome());
-		tbDescricao.setValue(organizacao.getDescricao());
+		tbNome.setValue(kDominioAplicacao.getNome());
+		tbDescricao.setValue(kDominioAplicacao.getDescricao());
 	}
 	
 	@Override

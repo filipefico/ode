@@ -1,34 +1,34 @@
-package ode.exemplo2.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
-import ode.exemplo2.organizacao.Cgt.AplCadastrarOrganizacaoExemplo;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+import ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.old.GuilexWindowCadastroLista;
 
-public class WindowCadastroListaOrganizacaoExemplo2 extends GuilexWindowCadastroLista<OrganizacaoExemplo> {
+public class WindowCadastroListaKDominioAplicacao2 extends GuilexWindowCadastroLista<KDominioAplicacao> {
 
 	
-	public static String CAMINHO = "/visao/exemplo/windowCadastroListaOrganizacaoExemplo2.zul";
+	public static String CAMINHO = "/visao/exemplo/windowCadastroListaKDominioAplicacao.zul";
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public WindowCadastroListaOrganizacaoExemplo2() {
+	public WindowCadastroListaKDominioAplicacao2() {
 		WIDTH_WINDOW = "60%";
-		//this.setNucleoAplCadastroBase((AplCadastrarOrganizacaoExemplo) SpringUtil
-			//	.getBean("aplCadastrarOrganizacaoExemplo"));
+		//this.setNucleoAplCadastroBase((AplCadastrarKDominioAplicacao) SpringUtil
+			//	.getBean("aplCadastrarKDominioAplicacao"));
 	}
 
 	// Nome da window de cadastro de dados chamada a partir da lista
-	private static final String NOME_WINDOW_CADASTRO_DADOS = "/visao/exemplo/windowCadastroDadosOrganizacaoExemplo.zul";
+	private static final String NOME_WINDOW_CADASTRO_DADOS = "/visao/exemplo/windowCadastroDadosKDominioAplicacao.zul";
 
 	@Override
-	protected OrganizacaoExemplo criarNovoObjetoDados() {
-		return new OrganizacaoExemplo();
+	protected KDominioAplicacao criarNovoObjetoDados() {
+		return new KDominioAplicacao();
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class WindowCadastroListaOrganizacaoExemplo2 extends GuilexWindowCadastro
 	}
 
 	@Override
-	protected String[] recuperarDadosObjeto(OrganizacaoExemplo objeto) {
+	protected String[] recuperarDadosObjeto(KDominioAplicacao objeto) {
 		return new String[] { objeto.getNome()};
 	}
 

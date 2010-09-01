@@ -1,17 +1,17 @@
-package ode.exemplo2.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import nucleo.comuns.visao.paginacao.ListagemPaginada;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 
 
-public class ListagemOrganizacaoExemplo extends ListagemPaginada<OrganizacaoExemplo> {
+public class ListagemKDominioAplicacao extends ListagemPaginada<KDominioAplicacao> {
 
 	@Override
-	protected String[] recuperarDadosObjeto(OrganizacaoExemplo objeto) {
+	protected String[] recuperarDadosObjeto(KDominioAplicacao objeto) {
 		return new String[]{objeto.getNome(),objeto.getDescricao()};
 	}
 	

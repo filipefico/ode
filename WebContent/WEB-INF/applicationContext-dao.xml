@@ -196,5 +196,14 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
+	
+	
+	
+	<bean id="kDominioAplicacaoDao"
+		class="ode.conhecimento.processo.Cgd.KDominioAplicacaoDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
 
 </beans>

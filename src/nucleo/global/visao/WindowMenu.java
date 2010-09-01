@@ -12,8 +12,8 @@ import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
 
+import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
 import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
-import ode.exemplo2.organizacao.Cci.CtrlOrganizacaoCRUD;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -278,19 +278,19 @@ public class WindowMenu extends Window {
 		//Sub-menu Dominio da Aplicação
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens //
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-		//menuitemDominioAplicacao.addEventListener("onClick",new EListenerOrganizacaoComControlador());
-		menuitemDominioAplicacao.addEventListener("onClick",new EventListenerMenuItemOrganizacaoExemplo());
+		//menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
+		menuitemDominioAplicacao.addEventListener("onClick",new EventListenerMenuItemKDominioAplicacao());
 		menuitemDominioAplicacao.setParent(menupopupOrganizacao);
 			
 		
 	}
 	
 	/** Classe do evento do Menu Organizacao. */
-		private class EListenerOrganizacaoComControlador implements EventListener {
+		private class EListenerKDominioAplicacaoComControlador implements EventListener {
 
 		public void onEvent(Event event) {
 		//Com controlador
-		CtrlOrganizacaoCRUD ctrlO = new CtrlOrganizacaoCRUD();
+		CtrlKDominioAplicacaoCRUD ctrlO = new CtrlKDominioAplicacaoCRUD();
 		ctrlO.iniciar();
 		
 		}
@@ -299,13 +299,13 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
-		/** Classe do evento do Menuitem Organizacao. */
-		private class EventListenerMenuItemOrganizacaoExemplo implements EventListener {
+		/** Classe do evento do Menuitem KDominioAplicacao. */
+		private class EventListenerMenuItemKDominioAplicacao implements EventListener {
 
 			public void onEvent(Event event) {
 				//sem controlador
 				Window win = (Window) Executions.createComponents(
-						"/visao/exemplo/windowCadastroListaOrganizacaoExemplo.zul",
+						"/visao/exemplo/windowCadastroListaKDominioAplicacao.zul",
 						getReference(), null);
 				win.doOverlapped();
 			}

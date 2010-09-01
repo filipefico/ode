@@ -1,24 +1,24 @@
-package ode.exemplo2.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 
 import nucleo.comuns.visao.componentes.selecao.PainelSelecaoLista;
 import nucleo.comuns.visao.old.NucleoWindowSelecaoLista;
-import ode.exemplo2.organizacao.Cdp.OrganizacaoExemplo;
+import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 import antlr.collections.List;
 
-public class PainelSelecaoOrganizacao extends PainelSelecaoLista<OrganizacaoExemplo> {
+public class PainelSelecaoKDominioAplicacao extends PainelSelecaoLista<KDominioAplicacao> {
 
-	public PainelSelecaoOrganizacao() {
+	public PainelSelecaoKDominioAplicacao() {
 		super();
-		OrganizacaoExemplo a = new OrganizacaoExemplo();
+		KDominioAplicacao a = new KDominioAplicacao();
 		a.setNome("Bruno");
-		ArrayList objetos = new ArrayList<OrganizacaoExemplo>();
+		ArrayList objetos = new ArrayList<KDominioAplicacao>();
 		objetos.add(a);
-		a = new OrganizacaoExemplo();
+		a = new KDominioAplicacao();
 		a.setNome("Bruno 2");
 		objetos.add(a);
-		a = new OrganizacaoExemplo();
+		a = new KDominioAplicacao();
 		a.setNome("Bruno 3");
 		objetos.add(a);
 		preencherLista(objetos);
@@ -38,13 +38,13 @@ public class PainelSelecaoOrganizacao extends PainelSelecaoLista<OrganizacaoExem
 	}
 
 	@Override
-	protected String[] recuperarDadosObjeto(OrganizacaoExemplo objeto) {
+	protected String[] recuperarDadosObjeto(KDominioAplicacao objeto) {
 		// TODO Auto-generated method stub
 		return new String[] { objeto.getNome() };
 	}
 
 	@Override
-	protected void acaoAbrirItemSelecionado(OrganizacaoExemplo objetoSelecionado) {
+	protected void acaoAbrirItemSelecionado(KDominioAplicacao objetoSelecionado) {
 
 		System.out.println("Selecionou a organizacao " + objetoSelecionado.getNome());
 
