@@ -27,7 +27,7 @@
 
 	<bean name="propertiesConfigurator"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:/config.properties" />		
+		<property name="locations" value="classpath:/config.properties" />
 
 	</bean>
 
@@ -189,9 +189,8 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
-	
-	<bean id="pessoaExemploDao"
-		class="ode.exemplo2.pessoa.Cgd.PessoaExemploDAOHibernate">
+
+	<bean id="pessoaExemploDao" class="ode.exemplo2.pessoa.Cgd.PessoaExemploDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
@@ -201,6 +200,12 @@
 	
 	<bean id="kDominioAplicacaoDao"
 		class="ode.conhecimento.processo.Cgd.KDominioAplicacaoDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="kArtefatoDao" class="ode.conhecimento.processo.Cgd.KArtefatoDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
