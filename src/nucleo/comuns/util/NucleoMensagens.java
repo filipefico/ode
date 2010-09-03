@@ -253,6 +253,12 @@ public class NucleoMensagens {
 	 * Chave do termo "Nome"
 	 */
 	public static final String TERMO_NOME = "termo.nome";
+
+	/**
+	 * Chave do termo "Descrição"
+	 */
+	public static final String TERMO_DESCRICAO = "termo.descricao";
+		
 	
 	/**
 	 * Chave do termo "Novo"
@@ -365,9 +371,9 @@ public class NucleoMensagens {
 	public static final String TERMO_TIPO_ARTEFATO = "termo.tipo_artefato";
 
 	/**
-	 * Chave do termo "Descrição"
+	 * Chave do termo "Tipo de Artefato"
 	 */
-	public static final String TERMO_DESCRICAO = "termo.descricao";
+	public static final String TERMO_K_ARTEFATO = "termo.k_artefato";
 	
 	/**
 	 * Chave do termo "Dominio da Aplicação"
