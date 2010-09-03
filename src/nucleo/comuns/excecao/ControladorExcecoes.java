@@ -48,7 +48,7 @@ public class ControladorExcecoes {
 		// Inicializa a mensagem de erro com "Erro Desconhecido!"
 		String mensagemErro = NucleoMensagens
 				.getMensagem(NucleoMensagens.MSG_ERRO_DESCONHECIDO);
-		
+
 		try {
 
 			throw excecao;
@@ -65,9 +65,9 @@ public class ControladorExcecoes {
 		}
 
 		catch (Exception e) {
-//faz nada pra mensagem
+			// faz nada pra mensagem
 		}
-		
+
 		// TODO LOG
 		excecao.printStackTrace();
 
