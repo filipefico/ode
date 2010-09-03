@@ -1,18 +1,19 @@
 package nucleo.global.visao;
 
-
 import java.util.Locale;
 import java.util.Set;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
 
-
 import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
 
+import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
+
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
+
 import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
 
 import org.zkoss.zk.ui.Executions;
@@ -25,7 +26,6 @@ import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
-
 
 /**
  * Classe responsável pela exibição de um menu de uma janela.
@@ -43,7 +43,7 @@ public class WindowMenu extends Window {
 
 		// Configura e monta a interface gráfica
 		this.setWidth("100%");
-		this.setHeight("500px");		
+		this.setHeight("500px");
 		this.setZIndex(1);
 		this.setBorder("normal");
 		this.setTitle("ODE - Caso de Teste");
@@ -77,8 +77,8 @@ public class WindowMenu extends Window {
 
 		nomeUsuario = (usuario == null) ? NucleoMensagens
 				.getMensagem(NucleoMensagens.MSG_USUARIO_NAO_LOGADO)
-				: NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": "
-						+ usuario.getUsername();
+				: NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO)
+						+ ": " + usuario.getUsername();
 
 		lblInformacoes.setValue(nomeUsuario);
 
@@ -101,7 +101,6 @@ public class WindowMenu extends Window {
 		menuitemSair.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_SAIR));
 
-		
 		// /////////////////////////////
 		// Menu Pessoas
 		// ////////////////////////////
@@ -110,32 +109,35 @@ public class WindowMenu extends Window {
 
 		menuitemPessoa.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		
+
 		// /////////////////////////////
 		// Menu Organizacao
 		// ////////////////////////////
 		menuOrganizacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
-		
-		//menuitemOrganizacao.setLabel(NucleoMensagens
-		//		.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
+
+		// menuitemOrganizacao.setLabel(NucleoMensagens
+		// .getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 
 		menuDominioAplicacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 
 		menuCadastroConhecimento.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
-		
+
 		menuProcesso.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PROCESSO));		
-		
+				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
+
 		menuitemParadigma.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
 
 		menuitemTipoSoftware.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
-		
-		menuitemTipoArtefato.setLabel(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
+
+		/*
+		 * menuitemTipoArtefato.setLabel(NucleoMensagens
+		 * .getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
+		 */
 
 	}
 
@@ -164,7 +166,6 @@ public class WindowMenu extends Window {
 
 		menuitemSair.setVisible(true);
 
-
 		// /////////////////////////////
 		// Menu Pessoas
 		// ////////////////////////////
@@ -173,13 +174,12 @@ public class WindowMenu extends Window {
 
 		menuitemPessoa.setVisible(admin);
 
-
 		// /////////////////////////////
 		// Menu Organizacao
 		// ////////////////////////////
 
 		menuOrganizacao.setVisible(admin);
-		
+
 		menuitemDominioAplicacao.setVisible(admin);
 
 		menuCadastroConhecimento.setVisible(admin);
@@ -187,11 +187,11 @@ public class WindowMenu extends Window {
 		menuProcesso.setVisible(admin);
 
 		menuitemParadigma.setVisible(admin);
-		
+
 		menuitemTipoSoftware.setVisible(admin);
-		
-		menuitemTipoArtefato.setVisible(admin);
-		
+
+		// menuitemTipoArtefato.setVisible(admin);
+
 	}
 
 	/** Evento executado ao fechar a window */
@@ -205,7 +205,7 @@ public class WindowMenu extends Window {
 
 	/** Agrupa e configura componentes de interface gráfica. */
 	private void montarInterfaceGrafica() {
-		
+
 		// Barra de Menu
 		menuBar = new Menubar();
 		menuBar.setParent(this);
@@ -227,16 +227,17 @@ public class WindowMenu extends Window {
 		// Menu Pessoa
 		// ////////////////////////////
 		menuPessoa = new NucleoMenu(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PESSOA)); 
+				.getMensagem(NucleoMensagens.TERMO_PESSOA));
 		menuPessoa.setParent(menuBar);
 		menupopupPessoa = new Menupopup();
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens //
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-//		menuitemPessoa.addEventListener("onClick",new EventListenerMenuItemPessoaExemplo());	
-		menuitemPessoa.addEventListener("onClick",new EListenerPessoaComControlador());
+		// menuitemPessoa.addEventListener("onClick",new
+		// EventListenerMenuItemPessoaExemplo());
+		menuitemPessoa.addEventListener("onClick",
+				new EListenerPessoaComControlador());
 		menuitemPessoa.setParent(menupopupPessoa);
-	
 
 		// /////////////////////////////
 		// Menu organizacao
@@ -246,8 +247,7 @@ public class WindowMenu extends Window {
 		menuOrganizacao.setParent(menuBar);
 		menupopupOrganizacao = new Menupopup();
 		menupopupOrganizacao.setParent(menuOrganizacao);
-		
-	
+
 		// Sub-menu Cadastro de Conhecimento
 		menuCadastroConhecimento = new NucleoMenu(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
@@ -260,105 +260,116 @@ public class WindowMenu extends Window {
 		menuProcesso.setParent(menupopupCadastroConhecimento);
 		menupopupProcesso = new Menupopup();
 		menupopupProcesso.setParent(menuProcesso);
-		
+
 		menuitemParadigma = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
 		menuitemParadigma.setParent(menupopupProcesso);
-		
+
 		menuitemTipoSoftware = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
-		menuitemTipoSoftware.addEventListener("onClick",new EListenerTipoSoftware());
+		menuitemTipoSoftware.addEventListener("onClick",
+				new EListenerTipoSoftware());
 		menuitemTipoSoftware.setParent(menupopupProcesso);
-		
-		menuitemTipoArtefato = new Menuitem(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
-		menuitemTipoArtefato.setParent(menupopupProcesso);
-		//menuitemPessoa.addEventListener("onClick",new EventListenerTipoArtefato());
-		
-		//Sub-menu Dominio da Aplicação
+
+		/*
+		 * menuitemTipoArtefato = new Menuitem(NucleoMensagens
+		 * .getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
+		 * menuitemTipoArtefato.setParent(menupopupProcesso);
+		 * menuitemTipoArtefato.addEventListener("onClick", new
+		 * EventListenerTipoArtefato());
+		 */
+		menuitemKArtefato = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_K_ARTEFATO));
+		menuitemKArtefato.setParent(menupopupProcesso);
+		menuitemKArtefato.addEventListener("onClick",
+				new EventListenerKArtefato());
+
+		// Sub-menu Dominio da Aplicação
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens //
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-		//menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
-		menuitemDominioAplicacao.addEventListener("onClick",new EventListenerMenuItemKDominioAplicacao());
+		// menuitemDominioAplicacao.addEventListener("onClick",new
+		// EListenerKDominioAplicacaoComControlador());
+		menuitemDominioAplicacao.addEventListener("onClick",
+				new EventListenerMenuItemKDominioAplicacao());
 		menuitemDominioAplicacao.setParent(menupopupOrganizacao);
-			
-		
+
 	}
-	
+
 	/** Classe do evento do Menu Organizacao. */
-		private class EListenerKDominioAplicacaoComControlador implements EventListener {
+	private class EListenerKDominioAplicacaoComControlador implements
+			EventListener {
 
 		public void onEvent(Event event) {
-		//Com controlador
-		CtrlKDominioAplicacaoCRUD ctrlO = new CtrlKDominioAplicacaoCRUD();
-		ctrlO.iniciar();
-		
+			// Com controlador
+			CtrlKDominioAplicacaoCRUD ctrlO = new CtrlKDominioAplicacaoCRUD();
+			ctrlO.iniciar();
+
 		}
 
 		public boolean isAsap() {
 			return true;
 		}
 	}
-		/** Classe do evento do Menuitem KDominioAplicacao. */
-		private class EventListenerMenuItemKDominioAplicacao implements EventListener {
 
-			public void onEvent(Event event) {
-				//sem controlador
-				Window win = (Window) Executions.createComponents(
-						"/visao/exemplo/windowCadastroListaKDominioAplicacao.zul",
-						getReference(), null);
-				win.doOverlapped();
-			}
+	/** Classe do evento do Menuitem KDominioAplicacao. */
+	private class EventListenerMenuItemKDominioAplicacao implements
+			EventListener {
 
-			public boolean isAsap() {
-				return true;
-			}
-		}
-	
-	/*
-		private class EventListenerTipoArtefato implements EventListener{
-		public void onEvent(Event event){
-			CtrlTipoArtefatoCRUD crtlTA = new CtrlTipoArtefatoCRUD();
-			ctrlTA.iniciar();
+		public void onEvent(Event event) {
+			// sem controlador
+			Window win = (Window) Executions.createComponents(
+					"/visao/exemplo/windowCadastroListaKDominioAplicacao.zul",
+					getReference(), null);
+			win.doOverlapped();
 		}
 		
 		@SuppressWarnings("unused")
-		public boolean isAsap(){
+		public boolean isAsap() {
 			return true;
 		}
 	}
-	*/
+
+	private class EventListenerKArtefato implements EventListener{
+		public void onEvent(Event event){
+			CtrlKArtefatoCRUD ctrlKA = new CtrlKArtefatoCRUD();
+			ctrlKA.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
 	
+
 	private class EListenerPessoaComControlador implements EventListener {
 
 		public void onEvent(Event event) {
-		//COm controlador
-		CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
-		ctrlP.iniciar();
+			// COm controlador
+			CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
+			ctrlP.iniciar();
 		}
-		
-		
+
 		@SuppressWarnings("unused")
 		public boolean isAsap() {
-			return true;//retorna se o cliente deve enviar a informacao o quanto antes
+			return true;// retorna se o cliente deve enviar a informacao o
+			// quanto antes
 		}
 	}
-	
+
 	private class EListenerTipoSoftware implements EventListener {
 
 		public void onEvent(Event event) {
-		//COm controlador
-		CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
-		ctrlP.iniciar();
+			// COm controlador
+			CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
+			ctrlP.iniciar();
 		}
-		
-		
+
 		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}
 	}
-	
 
 	/** Classe do evento do idioma inglês. */
 	private class EventListenerIdiomaIngles implements EventListener {
@@ -408,27 +419,22 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
-	
+
 	// /////////////////////////////
 	// Menu Pessoas
 	// ////////////////////////////
 	/** Classe do evento do Menuitem Pessoa. */
-	
+
 	/*
-	private class EventListenerMenuItemPessoa implements EventListener {
-
-		public void onEvent(Event event) {
-			Window win = (Window) Executions.createComponents(
-					"/visao/exemplo/windowCadastroListaPessoaExemplo.zul",
-					getReference(), null);
-			win.doOverlapped();
-		}
-
-		public boolean isAsap() {
-			return true;
-		}
-	}
-	*/
+	 * private class EventListenerMenuItemPessoa implements EventListener {
+	 * 
+	 * public void onEvent(Event event) { Window win = (Window)
+	 * Executions.createComponents(
+	 * "/visao/exemplo/windowCadastroListaPessoaExemplo.zul", getReference(),
+	 * null); win.doOverlapped(); }
+	 * 
+	 * public boolean isAsap() { return true; } }
+	 */
 
 	Menubar menuBar;
 
@@ -441,8 +447,6 @@ public class WindowMenu extends Window {
 
 	Menuitem menuitemSair;
 
-
-	
 	// /////////////////////////////
 	// Menu Pessoa
 	// ////////////////////////////
@@ -451,40 +455,40 @@ public class WindowMenu extends Window {
 	Menupopup menupopupPessoa;
 
 	Menuitem menuitemPessoa;
-	
-	
+
 	// /////////////////////////////
 	// Menu Organizacao
 	// ////////////////////////////
 	NucleoMenu menuOrganizacao;
 
 	Menupopup menupopupOrganizacao;
-	
+
 	Menuitem menuitemCadastroConhecimento;
-	
+
 	// Sub-menu Cadastro de Conhecimento:
 	NucleoMenu menuCadastroConhecimento;
 
 	Menupopup menupopupCadastroConhecimento;
 
 	Menuitem menuitemProcesso;
-	
-	
+
 	// Sub-menu Dominio da Aplicacao:
 	NucleoMenu menuDominioAplicacao;
 
 	Menupopup menupopupDominioAplicacao;
-	
+
 	Menuitem menuitemDominioAplicacao;
-	
+
 	// Sub-menu Processo:
 	NucleoMenu menuProcesso;
 
 	Menupopup menupopupProcesso;
 
-	Menuitem menuitemParadigma;	
-	
+	Menuitem menuitemParadigma;
+
 	Menuitem menuitemTipoSoftware;
-	
-	Menuitem menuitemTipoArtefato;
+
+	// Menuitem menuitemTipoArtefato;
+
+	Menuitem menuitemKArtefato;
 }
