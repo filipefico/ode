@@ -1,13 +1,27 @@
 package ode.conhecimento.processo.Cdp;
-
+import ode.conhecimento.principal.Cdp.Conhecimento;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
+//import nucleo.comuns.persistencia.ObjetoPersistente;
+//ObjetoPersistente
+
+/****************** Classe KDominioAplicacao *************************/
+
+
+/** Representa os conhecimentos sobre Dominio da Aplicacao do
+ * ambiente ODE
+ *
+ *@hibernate.joined-subclass
+ *      table = "conh_proc_kdominioaplicacao"
+ *@hibernate.joined-subclass-key
+ *      column = "id"
+ */
+
 
 @Entity
-public class KDominioAplicacao extends ObjetoPersistente {
+public class KDominioAplicacao extends Conhecimento  {
 
 	private static final long serialVersionUID = 7215443991537131684L;
 

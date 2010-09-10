@@ -10,7 +10,7 @@ import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
 
-import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
+//import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
 
@@ -116,12 +116,6 @@ public class WindowMenu extends Window {
 		menuOrganizacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
 
-		// menuitemOrganizacao.setLabel(NucleoMensagens
-		// .getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-
-		menuDominioAplicacao.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-
 		menuCadastroConhecimento.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
 
@@ -133,6 +127,9 @@ public class WindowMenu extends Window {
 
 		menuitemTipoSoftware.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
+		
+		menuitemDominioAplicacao.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 
 		/*
 		 * menuitemTipoArtefato.setLabel(NucleoMensagens
@@ -189,6 +186,8 @@ public class WindowMenu extends Window {
 		menuitemParadigma.setVisible(admin);
 
 		menuitemTipoSoftware.setVisible(admin);
+		
+		menuitemDominioAplicacao.setVisible(admin);
 
 		// menuitemTipoArtefato.setVisible(admin);
 
@@ -270,7 +269,6 @@ public class WindowMenu extends Window {
 		menuitemTipoSoftware.addEventListener("onClick",
 				new EListenerTipoSoftware());
 		menuitemTipoSoftware.setParent(menupopupProcesso);
-
 		/*
 		 * menuitemTipoArtefato = new Menuitem(NucleoMensagens
 		 * .getMensagem(NucleoMensagens.TERMO_TIPO_ARTEFATO));
@@ -281,18 +279,15 @@ public class WindowMenu extends Window {
 		menuitemKArtefato = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_K_ARTEFATO));
 		menuitemKArtefato.setParent(menupopupProcesso);
-		menuitemKArtefato.addEventListener("onClick",
-				new EventListenerKArtefato());
-
-		// Sub-menu Dominio da Aplicação
-		menuitemDominioAplicacao = new Menuitem(NucleoMensagens //
+		//menuitemKArtefato.addEventListener("onClick",
+		//		new EventListenerKArtefato());
+		
+		menuitemDominioAplicacao = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-		// menuitemDominioAplicacao.addEventListener("onClick",new
-		// EListenerKDominioAplicacaoComControlador());
-		menuitemDominioAplicacao.addEventListener("onClick",
-				new EventListenerMenuItemKDominioAplicacao());
-		menuitemDominioAplicacao.setParent(menupopupOrganizacao);
-
+		menuitemDominioAplicacao.addEventListener("onClick",new EventListenerMenuItemKDominioAplicacao());
+		menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
+		menuitemDominioAplicacao.setParent(menupopupProcesso);
+		
 	}
 
 	/** Classe do evento do Menu Organizacao. */
@@ -329,7 +324,7 @@ public class WindowMenu extends Window {
 		}
 	}
 
-	private class EventListenerKArtefato implements EventListener{
+	/*private class EventListenerKArtefato implements EventListener{
 		public void onEvent(Event event){
 			CtrlKArtefatoCRUD ctrlKA = new CtrlKArtefatoCRUD();
 			ctrlKA.iniciar();
@@ -339,7 +334,7 @@ public class WindowMenu extends Window {
 		public boolean isAsap() {
 			return true;
 		}
-	}
+	}*/
 	
 
 	private class EListenerPessoaComControlador implements EventListener {
@@ -472,13 +467,6 @@ public class WindowMenu extends Window {
 
 	Menuitem menuitemProcesso;
 
-	// Sub-menu Dominio da Aplicacao:
-	NucleoMenu menuDominioAplicacao;
-
-	Menupopup menupopupDominioAplicacao;
-
-	Menuitem menuitemDominioAplicacao;
-
 	// Sub-menu Processo:
 	NucleoMenu menuProcesso;
 
@@ -487,8 +475,11 @@ public class WindowMenu extends Window {
 	Menuitem menuitemParadigma;
 
 	Menuitem menuitemTipoSoftware;
-
+	
 	// Menuitem menuitemTipoArtefato;
 
 	Menuitem menuitemKArtefato;
+	
+	Menuitem menuitemDominioAplicacao;
+
 }
