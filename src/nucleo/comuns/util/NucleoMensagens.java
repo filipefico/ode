@@ -374,7 +374,7 @@ public class NucleoMensagens {
 	 * Chave do termo "Tipo de Artefato"
 	 */
 	public static final String TERMO_K_ARTEFATO = "termo.k_artefato";
-	
+
 	/**
 	 * Chave do termo "Dominio da Aplicação"
 	 */

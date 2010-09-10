@@ -9,20 +9,21 @@
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoaImpl">
 		<property name="nucleoDaoBase" ref="nucleoPessoaDAO" />
 	</bean>
-	
+
 	<bean id="aplCadastrarPessoaExemplo" class="ode.exemplo2.pessoa.Cgt.AplCadastrarPessoaExemploImpl">
-		<property name="nucleoDaoBase" ref="pessoaExemploDao" ></property>
+		<property name="nucleoDaoBase" ref="pessoaExemploDao" />
 	</bean>
-	
+
 	<bean id="aplCadastrarKDominioAplicacao"
 		class="ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacaoImpl">
 		<property name="nucleoDaoBase" ref="kDominioAplicacaoDao" />
 	</bean>
 
-	<!-- <bean id="aplCadastrarKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarKArtefatoImpl">
+
+	<bean id="aplCadastrarKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarKArtefatoImpl">
 		<property name="nucleoDaoBase" ref="kArtefatoDao" />
 	</bean>
---> 
+
 
 	<bean id="nucleoUserDetailsService"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">
