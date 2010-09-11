@@ -1,9 +1,11 @@
 package ode.conhecimento.principal.Cdp;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import nucleo.comuns.persistencia.ObjetoPersistente;
+
 
 @Entity
 public class Conhecimento extends ObjetoPersistente {
@@ -18,7 +20,6 @@ public class Conhecimento extends ObjetoPersistente {
 	/** Construtor. */
 	public Conhecimento() {
 	}
-
 	   
 	@Column(nullable = false, length = 100)
     public String getNome() {
@@ -32,6 +33,16 @@ public class Conhecimento extends ObjetoPersistente {
         nome = parNome;
     }
     
+	/** Descreve o objeto Conhecimento detalhadamente. */
+	public String sPubDescreverObjeto() {
+		StringBuffer locDadosConhecimento = new StringBuffer();
+		locDadosConhecimento.append(" *** CONHECIMENTO *** \n");
+		locDadosConhecimento.append(" - Nome: ");
+		locDadosConhecimento.append(getNome() + "\n");
+		locDadosConhecimento.append(" - Descrição: ");
+		locDadosConhecimento.append(getDescricao());
+		return locDadosConhecimento.toString();
+	}
 
     @Column(nullable = false, length = 500)
     public String getDescricao() {
@@ -45,21 +56,9 @@ public class Conhecimento extends ObjetoPersistente {
         descricao = parDescricao;
     }
     
-    
-    /** Descreve o objeto Conhecimento detalhadamente. */
-    public String sPubDescreverObjeto(){
-        StringBuffer locDadosConhecimento = new StringBuffer();
-        locDadosConhecimento.append(" *** CONHECIMENTO *** \n");
-        locDadosConhecimento.append(" - Nome: ");
-        locDadosConhecimento.append(getNome() +"\n");
-        locDadosConhecimento.append(" - DescriÃ§Ã£o: ");
-        locDadosConhecimento.append(getDescricao());
-        return locDadosConhecimento.toString();
-    }
-    
     /** Sobreescreve toString(). */
     public String toString(){
         return this.nome;
     }
-    
+
 }

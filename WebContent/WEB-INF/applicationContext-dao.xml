@@ -169,7 +169,9 @@
 				<value> nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails
 				</value>
 				<value> ode.exemplo2.pessoa.Cdp.PessoaExemplo </value>
+				<value> ode.conhecimento.principal.Cdp.Conhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KDominioAplicacao </value>
+				<value> ode.conhecimento.processo.Cdp.TipoKArtefato </value>
 			</list>
 		</property>
 

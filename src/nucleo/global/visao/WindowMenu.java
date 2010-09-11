@@ -288,7 +288,7 @@ public class WindowMenu extends Window {
 
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 		menuitemDominioAplicacao.addEventListener("onClick",new EventListenerMenuItemKDominioAplicacao());
-		menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
+		//menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
 		menuitemDominioAplicacao.setParent(menupopupProcesso);
 		
 	}
