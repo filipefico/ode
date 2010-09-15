@@ -31,5 +31,11 @@
 			<ref bean="nucleoUserDetailsDAO" />
 		</property>
 	</bean>
+	
+	<bean id="aplCadastrarKDominioConhecimento" 
+		class="ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimentoImpl">
+		<property name="nucleoDaoBase" ref="dominioConhecimentoDao"/>
+	</bean>
+	
 
 </beans>

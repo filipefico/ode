@@ -14,6 +14,7 @@ import nucleo.comuns.visao.componentes.NucleoMenu;
 
 import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
+import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 
 import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
 
@@ -119,6 +120,8 @@ public class WindowMenu extends Window {
 
 		menuCadastroConhecimento.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
+		
+		menuitemOrganizacao.setLabel(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
 
 		menuProcesso.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
@@ -180,6 +183,8 @@ public class WindowMenu extends Window {
 		menuitemDominioAplicacao.setVisible(admin);
 
 		menuCadastroConhecimento.setVisible(admin);
+		
+		menuitemOrganizacao.setVisible(admin);
 
 		menuProcesso.setVisible(admin);
 
@@ -255,6 +260,10 @@ public class WindowMenu extends Window {
 		menuCadastroConhecimento.setParent(menupopupOrganizacao);
 		menupopupCadastroConhecimento = new Menupopup();
 		menupopupCadastroConhecimento.setParent(menuCadastroConhecimento);
+		
+		menuitemOrganizacao = new Menuitem(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
+		menuitemOrganizacao.addEventListener("onClick", new EListenerDominioConhecimento());
+		menuitemOrganizacao.setParent(menupopupCadastroConhecimento);
 		// Sub-menu Processo
 		menuProcesso = new NucleoMenu(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
@@ -291,6 +300,18 @@ public class WindowMenu extends Window {
 		//menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
 		menuitemDominioAplicacao.setParent(menupopupProcesso);
 		
+	}
+	
+	private class EListenerDominioConhecimento implements EventListener{
+		public void onEvent(Event event){
+			CtrlDominioConhecimentoCRUD ctrlDC = new CtrlDominioConhecimentoCRUD();
+			ctrlDC.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
 	}
 	
 	private class EventListenerKArtefato implements EventListener{
@@ -470,6 +491,8 @@ public class WindowMenu extends Window {
 	Menupopup menupopupCadastroConhecimento;
 
 	Menuitem menuitemProcesso;
+	
+	Menuitem menuitemOrganizacao;
 
 	// Sub-menu Processo:
 	NucleoMenu menuProcesso;
@@ -480,7 +503,7 @@ public class WindowMenu extends Window {
 
 	Menuitem menuitemTipoSoftware;
 	
-	 Menuitem menuitemTipoArtefato;
+	Menuitem menuitemTipoArtefato;
 
 	Menuitem menuitemKArtefato;
 	

@@ -161,17 +161,14 @@
 
 		<property name="annotatedClasses">
 			<list>
-				<value>
-					nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority
-				</value>
-				<value>
-					nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa </value>
-				<value> nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails
-				</value>
+				<value>	nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority </value>
+				<value>	nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa </value>
+				<value> nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails </value>
 				<value> ode.exemplo2.pessoa.Cdp.PessoaExemplo </value>
 				<value> ode.conhecimento.principal.Cdp.Conhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KDominioAplicacao </value>
 				<value> ode.conhecimento.processo.Cdp.TipoKArtefato </value>
+				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
 			</list>
 		</property>
 
@@ -212,5 +209,11 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
-
+	
+	<bean id="dominioConhecimentoDao" class="ode.conhecimento.organizacao.Cgd.KDominioConhecimentoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory"> 
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>
 </beans>
