@@ -168,6 +168,7 @@
 				<value> ode.conhecimento.principal.Cdp.Conhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KDominioAplicacao </value>
 				<value> ode.conhecimento.processo.Cdp.TipoKArtefato </value>
+				<value> ode.conhecimento.processo.Cdp.KArtefato </value>
 				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
 			</list>
 		</property>
@@ -203,8 +204,7 @@
 		</property>
 	</bean>
 
-	<bean id="kArtefatoDao" class="ode.conhecimento.processo.Cgd.KArtefatoDAOHibernate"
-		lazy-init="default" autowire="default" dependency-check="default">
+	<bean id="kArtefatoDao" class="ode.conhecimento.processo.Cgd.KArtefatoDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
