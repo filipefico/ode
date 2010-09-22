@@ -6,7 +6,6 @@ import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cgt.AplCadastrarKArtefato;
 import ode.conhecimento.processo.Cih.FormDadosKArtefato;
 import ode.conhecimento.processo.Cih.PainelCrudKArtefato;
-import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
@@ -38,7 +37,7 @@ public class CtrlKArtefatoCRUD extends CtrlCRUD<KArtefato> {
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "KArtefato";
+		return "K Artefato";
 	}
 
 	@Override

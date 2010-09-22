@@ -10,9 +10,7 @@ import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
-import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
 import ode.conhecimento.processo.Cdp.KArtefato;
-import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 
 public class FormDadosKArtefato extends FormularioDadosCRUD<KArtefato> {
 

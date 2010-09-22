@@ -2,12 +2,8 @@ package ode.conhecimento.processo.Cdp;
 
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.CascadeType;
 
 import ode.conhecimento.principal.Cdp.Conhecimento;
 
@@ -18,10 +14,7 @@ import ode.conhecimento.principal.Cdp.Conhecimento;
 @Entity
 public class KArtefato extends Conhecimento {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7090636312647876455L;
+	private static final long serialVersionUID = 3692165438374399151L;
 	/** Tipo do Conhecimento Artefato. */
 	private Set<KArtefato> subArtefatos;
 	private Set<KArtefato> dependencias;
@@ -31,19 +24,8 @@ public class KArtefato extends Conhecimento {
 	public KArtefato() {
 	}
 
-	/**
-	 * Obtém os sub-artefatos do Conhecimento Artefato.
-	 * 
-	 */
-	// /**
-	// *@hibernate.many-to-one
-	// * column = "idotipo"
-	// * not-null = "true"
-	// * class = "Ode.Conhecimento.Processo.Cdp.TipoKArtefato"
-	// */
-
+	/** Obtém os sub-artefatos do Conhecimento Artefato. */
 	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = KArtefato.class)
-	// @JoinColumn(name="COMP_ID")
 	public Set<KArtefato> getSubArtefatos() {
 		return subArtefatos;
 	}
