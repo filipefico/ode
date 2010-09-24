@@ -379,6 +379,16 @@ public class NucleoMensagens {
 	 * Chave do termo "Dominio da Aplicação"
 	 */
 	public static final String TERMO_DOMINIO_DA_APLICACAO = "termo.dominio_da_aplicacao";
+	
+	/**
+	 * Chave do termo "Processo Padrao"
+	 */
+	public static final String TERMO_PROCESSO_PADRAO = "termo.processo_padrao";
+	
+	/**
+	 * Chave do termo "CompPP"
+	 */
+	public static final String TERMO_COMPPP = "termo.compp";
 }
 
 

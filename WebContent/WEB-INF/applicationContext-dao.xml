@@ -171,6 +171,15 @@
 				<value> ode.conhecimento.processo.Cdp.TipoKArtefato </value>
 				<value> ode.conhecimento.processo.Cdp.KArtefato </value>
 				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
+				<value> ode.processoPadrao.Cdp.CompPP </value>
+				<value> ode.processoPadrao.Cdp.RequisitoCompPP </value>
+				<value> ode.processoPadrao.Cdp.InterfaceCompPP </value>
+				<value> ode.processoPadrao.Cdp.CompPPProcessoSimples </value>
+				<value> ode.processoPadrao.Cdp.CompPPProcessoComplexo </value>
+				<value> ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples </value>
+				<value> ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo </value>
+				<value> ode.processoPadrao.Cdp.InteracaoSubprocessos </value><!---->
+				
 			</list>
 		</property>
 
@@ -222,6 +231,28 @@
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- ProcessoPadrao -->
+	<bean id="compPPDao" class="ode.processoPadrao.Cgd.CompPPDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory"> 
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="requisitoCompPPDao" class="ode.processoPadrao.Cgd.RequisitoCompPPDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory"> 
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="interfaceCompPPDao" class="ode.processoPadrao.Cgd.InterfaceCompPPDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory"> 
+			<ref local="sessionFactory"/>
 		</property>
 	</bean>
 </beans>
