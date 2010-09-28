@@ -171,6 +171,7 @@
 				<value> ode.conhecimento.processo.Cdp.TipoKArtefato </value>
 				<value> ode.conhecimento.processo.Cdp.KArtefato </value>
 				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
+				<value> ode.conhecimento.processo.Cdp.KCategoriaProcesso </value>
 				<value> ode.processoPadrao.Cdp.CompPP </value>
 				<value> ode.processoPadrao.Cdp.RequisitoCompPP </value>
 				<value> ode.processoPadrao.Cdp.InterfaceCompPP </value>
@@ -228,6 +229,14 @@
 
 	<bean id="dominioConhecimentoDao"
 		class="ode.conhecimento.organizacao.Cgd.KDominioConhecimentoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="categoriaProcessoDao"
+		class="ode.conhecimento.processo.Cgd.KCategoriaProcessoDAOHibernate"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />

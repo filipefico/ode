@@ -15,6 +15,7 @@ import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
 import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
+import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
 
 import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
 
@@ -147,6 +148,8 @@ public class WindowMenu extends Window {
 		
 		menuitemCompPP.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_COMPPP));
+		
+		menuitemCategoriaProcesso.setLabel (NucleoMensagens.getMensagem(NucleoMensagens.TERMO_CATEGORIA));
 
 	}
 
@@ -210,6 +213,8 @@ public class WindowMenu extends Window {
 		menuProcessoPadrao.setVisible(admin);
 		
 		menuitemCompPP.setVisible(admin);
+		
+		menuitemCategoriaProcesso.setVisible(admin);
 		
 	}
 
@@ -279,6 +284,7 @@ public class WindowMenu extends Window {
 		menuitemOrganizacao.addEventListener("onClick",
 				new EListenerDominioConhecimento());
 		menuitemOrganizacao.setParent(menupopupCadastroConhecimento);
+		
 		// Sub-menu Processo
 		menuProcesso = new NucleoMenu(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
@@ -313,6 +319,10 @@ public class WindowMenu extends Window {
 
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 		menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
+		
+		menuitemCategoriaProcesso = new Menuitem (NucleoMensagens.getMensagem((NucleoMensagens.TERMO_CATEGORIA)));
+		menuitemCategoriaProcesso.setParent(menupopupProcesso);
+		menuitemCategoriaProcesso.addEventListener ("onClick", new EListenerKCategoriaProcesso());
 
 		// Sub-menu Dominio da Aplicação
 
@@ -383,6 +393,19 @@ public class WindowMenu extends Window {
 
 			CtrlDominioConhecimentoCRUD ctrlDC = new CtrlDominioConhecimentoCRUD();
 			ctrlDC.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
+	private class EListenerKCategoriaProcesso implements EventListener {
+		public void onEvent(Event event) {
+
+			CtrlCategoriaProcessoCRUD ctrl = new CtrlCategoriaProcessoCRUD();
+			ctrl.iniciar();
 		}
 
 		@SuppressWarnings("unused")
@@ -568,6 +591,8 @@ public class WindowMenu extends Window {
 	Menuitem menuitemKArtefato;
 
 	Menuitem menuitemDominioAplicacao;
+	
+	Menuitem menuitemCategoriaProcesso;
 
 	// Sub-menu Processo Padrao:
 	NucleoMenu menuProcessoPadrao;

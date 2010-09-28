@@ -41,6 +41,11 @@
 		<property name="nucleoDaoBase" ref="dominioConhecimentoDao"/>
 	</bean>
 	
+	<bean id="aplCadastrarKCategoriaProcesso" 
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcessoImpl">
+		<property name="nucleoDaoBase" ref="categoriaProcessoDao"/>
+	</bean>
+	
 	<bean id="aplCadastrarProcessoPadrao" 
 		class="ode.processoPadrao.Cgt.AplCadastrarProcessoPadraoImpl">
 		<property name="nucleoDaoBase" ref="compPPDao"/>

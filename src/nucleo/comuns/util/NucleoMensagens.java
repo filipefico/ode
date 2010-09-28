@@ -389,6 +389,11 @@ public class NucleoMensagens {
 	 * Chave do termo "CompPP"
 	 */
 	public static final String TERMO_COMPPP = "termo.compp";
+	
+	/**
+	 * Chave do termo "Categoria"
+	 */
+	public static final String TERMO_CATEGORIA = "termo.categoria";
 }
 
 

@@ -1,16 +1,16 @@
-package ode.conhecimento.organizacao.Cih;
+package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import nucleo.comuns.visao.paginacao.ListagemPaginada;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
-import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
+import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 
-public class ListagemDominioConhecimento extends ListagemPaginada<KDominioConhecimento> {
-	
+public class ListagemCategoriaProcesso extends ListagemPaginada<KCategoriaProcesso> {
+
 	@Override
-	protected String[] recuperarDadosObjeto(KDominioConhecimento objeto) {
+	protected String[] recuperarDadosObjeto(KCategoriaProcesso objeto) {
 		return new String[]{objeto.getNome(), objeto.getDescricao()};
 	}
 	
@@ -23,6 +23,4 @@ public class ListagemDominioConhecimento extends ListagemPaginada<KDominioConhec
 		colunas.add(new NucleoListHeader("Descrição","descricao","350px"));
 		return colunas;
 	}
-
-
 }
