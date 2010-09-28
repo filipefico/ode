@@ -38,13 +38,13 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 	
 	protected JanelaSimples janDados;
 
-	String alturaJanPrincipal = "350px";
+	protected String alturaJanPrincipal = "350px";
 
-	String larguraJanPrincipal = "590px";
+	protected String larguraJanPrincipal = "590px";
 
-	String alturaJanDados = "250px";
+	protected String alturaJanDados = "250px";
 
-	String larguraJandados = "300px";
+	protected String larguraJandados = "300px";
 
 	public CtrlCRUD() {
 	}
