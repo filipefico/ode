@@ -14,6 +14,7 @@ import ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
 import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
+import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
 import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
@@ -134,6 +135,9 @@ public class WindowMenu extends Window {
 
 		menuitemTipoSoftware.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
+		
+		menuitemFerramentaSoftware.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
 
 		menuitemDominioAplicacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
@@ -204,6 +208,8 @@ public class WindowMenu extends Window {
 		menuitemParadigma.setVisible(admin);
 
 		menuitemTipoSoftware.setVisible(admin);
+		
+		menuitemFerramentaSoftware.setVisible(admin);
 
 		menuitemDominioAplicacao.setVisible(admin);
 
@@ -302,6 +308,12 @@ public class WindowMenu extends Window {
 		menuitemTipoSoftware.addEventListener("onClick",
 				new EListenerTipoSoftware());
 		menuitemTipoSoftware.setParent(menupopupProcesso);
+		
+		menuitemFerramentaSoftware = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
+		menuitemFerramentaSoftware.addEventListener("onClick",
+				new EListenerFerramentaSoftware());
+		menuitemFerramentaSoftware.setParent(menupopupProcesso);
 
 		menuitemTipoKArtefato = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_K_ARTEFATO));
@@ -473,6 +485,20 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
+	
+	private class EListenerFerramentaSoftware implements EventListener {
+
+		public void onEvent(Event event) {
+			// COm controlador
+			CtrlFerramentaSoftwareCRUD ctrlP = new CtrlFerramentaSoftwareCRUD();
+			ctrlP.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
 
 	/** Classe do evento do idioma inglês. */
 	private class EventListenerIdiomaIngles implements EventListener {
@@ -586,6 +612,8 @@ public class WindowMenu extends Window {
 	Menuitem menuitemParadigma;
 
 	Menuitem menuitemTipoSoftware;
+	
+	Menuitem menuitemFerramentaSoftware;
 
 	Menuitem menuitemTipoKArtefato;
 

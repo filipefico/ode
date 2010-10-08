@@ -32,6 +32,11 @@
 		class="ode.conhecimento.processo.Cgt.AplCadastrarKTipoSoftwareImpl">
 		<property name="nucleoDaoBase" ref="kTipoSoftwareDao" />
 	</bean>
+	
+	<bean id="aplCadastrarKFerramentaSoftware"
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftwareImpl">
+		<property name="nucleoDaoBase" ref="kFerramentaSoftwareDao" />
+	</bean>
 
 	<bean id="nucleoUserDetailsService"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">

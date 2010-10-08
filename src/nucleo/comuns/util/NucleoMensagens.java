@@ -366,6 +366,11 @@ public class NucleoMensagens {
 	public static final String TERMO_TIPO_SOFTWARE = "termo.tipo_software";
 	
 	/**
+	 * Chave do termo "Ferramenta de Software"
+	 */
+	public static final String TERMO_FERRAMENTA_SOFTWARE = "termo.ferramenta_software";
+	
+	/**
 	 * Chave do termo "Tipo de Artefato"
 	 */
 	public static final String TERMO_TIPO_K_ARTEFATO = "termo.tipo_k_artefato";
