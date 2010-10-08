@@ -169,6 +169,7 @@
 				<value> ode.conhecimento.principal.Cdp.Conhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KDominioAplicacao </value>
 				<value> ode.conhecimento.processo.Cdp.TipoKArtefato </value>
+				<value> ode.conhecimento.processo.Cdp.KTipoSoftware </value>
 				<value> ode.conhecimento.processo.Cdp.KArtefato </value>
 				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KCategoriaProcesso </value>
@@ -210,6 +211,13 @@
 
 	<bean id="kDominioAplicacaoDao"
 		class="ode.conhecimento.processo.Cgd.KDominioAplicacaoDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kTipoSoftwareDao"
+		class="ode.conhecimento.processo.Cgd.KTipoSoftwareDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>

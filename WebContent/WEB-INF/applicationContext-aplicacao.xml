@@ -27,7 +27,11 @@
 	<bean id="aplCadastrarTipoKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarTipoKArtefatoImpl">
 		<property name="nucleoDaoBase" ref="tipoKArtefatoDao" />
 	</bean>
-
+	
+	<bean id="aplCadastrarTipoSoftware"
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKTipoSoftwareImpl">
+		<property name="nucleoDaoBase" ref="kTipoSoftwareDao" />
+	</bean>
 
 	<bean id="nucleoUserDetailsService"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">

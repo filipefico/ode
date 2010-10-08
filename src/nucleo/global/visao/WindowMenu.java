@@ -13,6 +13,7 @@ import nucleo.comuns.visao.componentes.NucleoMenu;
 import ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
+import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
 import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
@@ -463,7 +464,7 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
+			CtrlTipoSoftwareCRUD ctrlP = new CtrlTipoSoftwareCRUD();
 			ctrlP.iniciar();
 		}
 
