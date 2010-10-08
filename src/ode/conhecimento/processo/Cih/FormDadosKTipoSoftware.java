@@ -14,8 +14,6 @@ import ode.conhecimento.processo.Cdp.KTipoSoftware;
 import org.zkoss.zul.Textbox;
 
 public class FormDadosKTipoSoftware extends FormularioDadosCRUD<KTipoSoftware>{
-	
-
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
 	
@@ -36,22 +34,22 @@ public class FormDadosKTipoSoftware extends FormularioDadosCRUD<KTipoSoftware>{
 
 		// Atribui o conteúdo à tab
 		GridDados gridDadosCadastro = new GridDados();
-		tbNome.setWidth("150px");
-		tbNome.setMaxlength(50);		
+		tbNome.setWidth("285px");
+		tbNome.setMaxlength(100);		
 		gridDadosCadastro.adicionarLinha(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_NOME),tbNome);
 		
-		tbDescricao.setWidth("150px");
-		tbDescricao.setMaxlength(100);
+		tbDescricao.setWidth("285px");
+		tbDescricao.setMaxlength(500);
+		tbDescricao.setHeight("145px");
+		tbDescricao.setMultiline(true);
 		gridDadosCadastro.adicionarLinha(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DESCRICAO),tbDescricao);		
 
-		
 		NucleoBandbox<KTipoSoftware> band = new NucleoBandbox<KTipoSoftware>(){
 
 			@Override
 			protected String[] definirTamanhosCabecalho() {
-
 				return new String[]{"240px"};
 			}
 
