@@ -45,7 +45,7 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 		// performance da Collection.
 		List<T> todosElementos = new ArrayList<T>(new LinkedHashSet<T>(
 				getHibernateTemplate().loadAll(getClasseDominio())));
-		//Collections.sort(todosElementos);
+		// Collections.sort(todosElementos);
 
 		return todosElementos;
 
@@ -82,12 +82,12 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 	public void salvar(T objeto) {
 		// Usa o suporte do Spring para salvar o objeto.
 		getHibernateTemplate().save(objeto);
-		
+
 	}
-	
+
 	public void merge(T objeto) {
 		getHibernateTemplate().merge(objeto);
-		
+
 	}
 
 	/*
@@ -119,22 +119,23 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina) {
 
 		DetachedCriteria detaCriteria = getDetachedCriteria(pagina);
-		Collection<T>  result = null;
+		Collection<T> result = null;
 		if (pagina.isPaginada()) {
-			result= getHibernateTemplate().findByCriteria(detaCriteria,
+			result = getHibernateTemplate().findByCriteria(detaCriteria,
 					pagina.getFirstResults(), pagina.getMaxResults());
 
 		} else {
-			result= getHibernateTemplate().findByCriteria(detaCriteria);
+			result = getHibernateTemplate().findByCriteria(detaCriteria);
 		}
-		
+
 		return result;
 
 	}
-	
-	public int recuperarQteTodos(ObjetoPagina pagina)  {		
+
+	public int recuperarQteTodos(ObjetoPagina pagina) {
 		DetachedCriteria detaCriteria = getDetachedCriteria(pagina);
-		Collection<T>  result= getHibernateTemplate().findByCriteria(detaCriteria);	
+		Collection<T> result = getHibernateTemplate().findByCriteria(
+				detaCriteria);
 		return result.size();
 	}
 
@@ -149,8 +150,8 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 				detaCriteria.add(criterion);
 			}
 		}
-		if ( parPagina.getCriterioOrdenacao() != null)
-		detaCriteria.addOrder(parPagina.getCriterioOrdenacao());
+		if (parPagina.getCriterioOrdenacao() != null)
+			detaCriteria.addOrder(parPagina.getCriterioOrdenacao());
 
 		return detaCriteria;
 

@@ -4,24 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
-import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
 
-import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
-
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.springframework.dao.DataAccessException;
 import org.zkoss.lang.Strings;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -32,19 +23,21 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.Toolbar;
-import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.api.Paging;
 import org.zkoss.zul.event.PagingEvent;
-import org.zkoss.zul.ext.Pageable;
 import org.zkoss.zul.ext.Paginal;
 
 public abstract class ListagemPaginada<T extends Object> extends Vbox {
 
-	private static final int MAX_RESULS = 0;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4501107226775255414L;
+
+	// private static final int MAX_RESULS = 0;
 
 	/** Lista dos objetos. */
 	protected Listbox listBox = new Listbox();
@@ -77,7 +70,7 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 	protected IAtualizadorPesquisaPaginada atualizador;
 
 	protected ObjetoPagina pagina;
-	
+
 	protected Paging paging = new org.zkoss.zul.Paging();
 
 	final int PAGE_SIZE = 20;
@@ -85,7 +78,7 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 	// Objetos da listagem
 	private Collection<T> objetos;
 
-	public ListagemPaginada() {	
+	public ListagemPaginada() {
 	}
 
 	/**
@@ -114,16 +107,14 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 		// ////////////////////////////////////
 		configurarPaginacao();
 		configurarComponentesExtensao();
-		
+
 		montar();
 		montarComponentesExtensao();
 
 	}
 
-
 	private void configurarPaginacao() {
-		
-		
+
 		paging.setDetailed(true);
 		// pag.setMold("os");
 
@@ -134,7 +125,7 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 			public void onEvent(Event event) {
 				PagingEvent pe = (PagingEvent) event;
 				int pgno = pe.getActivePage();
-				int firstResults = pgno * PAGE_SIZE;				
+				int firstResults = pgno * PAGE_SIZE;
 				pagina.setFirstResults(firstResults);
 				pagina.setPaginaAtual(pgno);
 				// Redraw current paging
@@ -144,12 +135,12 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 		});
 
 		listBox.setPaginal(paging);
-		listBox.setMold("paging");				
+		listBox.setMold("paging");
 	}
 
 	protected void montarComponentesExtensao() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void validarComponentes() {
@@ -158,8 +149,8 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 					"listheaders ou cabeçalhos", this.getClass());
 
 		if (atualizador == null)
-			throw CtrlExcecoes.factoryExcecaoDefinicao("atualizador",
-					this.getClass());
+			throw CtrlExcecoes.factoryExcecaoDefinicao("atualizador", this
+					.getClass());
 
 	}
 
@@ -248,12 +239,9 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 		// ////////////////////////////////////
 		listhead.setParent(listBox);
 		listBox.setParent(this);
-		
-		
+
 		paging.setParent(this);
 	}
-
-
 
 	/**
 	 * Adiciona novos componentes à barra de ferramentas
@@ -292,9 +280,7 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 		listBox.getItems().clear();
 
 		for (T obj : this.objetos) {
-
 			insereItemLista(obj, listBox);
-
 		}
 
 	}
@@ -404,13 +390,12 @@ public abstract class ListagemPaginada<T extends Object> extends Vbox {
 	protected abstract String[] recuperarDadosObjeto(T objeto);
 
 	public void setResultadoAtualizarPesquisa(ResultadoPaginado resultado) {
-		
+
 		setObjetos(resultado.getListaObjetos());
 		preencherLista();
 		Paginal paginal = listBox.getPaginal();
 		paginal.setTotalSize(resultado.getTamanhoTotal());
-		//paginal.setActivePage(pagina.getPaginaAtual());
-	
+		// paginal.setActivePage(pagina.getPaginaAtual());
 
 	}
 

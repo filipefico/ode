@@ -37,7 +37,7 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	public static final String WIDTH_BUTTON = "80px";
 
 	/** Tamanho do hbox. */
-	public static final String WIDTH_HBOX = "200px";
+	public static final String WIDTH_HBOX = "400px";
 
 	/** Tamanho do toolbar. */
 	public static final String WIDTH_TOOLBAR = "99%";
@@ -75,7 +75,8 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	}
 
 	public void configurarComponentes() {
-
+		this.setWidth("100%");
+		this.setHeight("100%");
 		definirComponentes();
 		validarComponentes();
 		configurarBarraFerramentas();

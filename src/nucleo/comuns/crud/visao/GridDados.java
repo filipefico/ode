@@ -8,6 +8,10 @@ import org.zkoss.zul.Rows;
 
 public class GridDados extends Grid {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7133443852058334459L;
 	private Rows linhas = new Rows();
 
 	public GridDados() {

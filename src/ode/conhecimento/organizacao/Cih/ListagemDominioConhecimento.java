@@ -9,6 +9,12 @@ import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 
 public class ListagemDominioConhecimento extends ListagemPaginada<KDominioConhecimento> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3037716600332703360L;
+
+
 	@Override
 	protected String[] recuperarDadosObjeto(KDominioConhecimento objeto) {
 		return new String[]{objeto.getNome(), objeto.getDescricao()};

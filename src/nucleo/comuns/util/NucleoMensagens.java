@@ -46,7 +46,7 @@ public class NucleoMensagens {
 		return messageSource.getMessage(chave, parametros, NucleoContexto
 				.recuperarLocale());
 	}
-	
+
 	/**
 	 * Chave da mensagem "Confirmação Exclusão Plural"
 	 */
@@ -56,7 +56,7 @@ public class NucleoMensagens {
 	 * Chave da mensagem "Confirmação Exclusão Plural"
 	 */
 	public static final String MSG_CONFIRMACAO_EXCLUSAO_SINGULAR = "msg.confirmacao.exclusao.singular";
-	
+
 	/**
 	 * Chave da mensagem "Dados salvos com sucesso"
 	 */
@@ -66,34 +66,34 @@ public class NucleoMensagens {
 	 * Chave da mensagem "Erro no acesso ao Banco de Dados."
 	 */
 	public static final String MSG_ERRO_ACESSO_BD = "msg.erro.acesso.bd";
-	
+
 	/**
 	 * Chave da mensagem "Erro Desconhecido."
 	 */
 	public static final String MSG_ERRO_DESCONHECIDO = "msg.erro.desconhecido";
-	
+
 	/**
 	 * Chave da mensagem "Já existe outra pessoa com o mesmo e-mail"
 	 * 
 	 */
 	public static final String MSG_EXISTE_PESSOA_MESMO_EMAIL = "msg.existe.pessoa.mesmo.email";
-	
+
 	/**
 	 * Chave da mensagem "Já existe outra organizacao com o mesmo nome"
 	 * 
 	 */
 	public static final String MSG_EXISTE_ORGANIZACAO_MESMO_NOME = "msg.existe.organizacao.mesmo.nome";
-	
+
 	/**
 	 * Chave da mensagem "Já existe outro usuário com o mesmo username"
 	 */
 	public static final String MSG_EXISTE_USUARIO_MESMO_USERNAME = "msg.existe.usuario.mesmo.username";
-	
+
 	/**
 	 * Chave da mensagem "Idioma Alterado"
 	 */
 	public static final String MSG_IDIOMA_ALTERADO = "msg.idioma.alterado";
-	
+
 	/**
 	 * Chave da mensagem "Mover para baixo"
 	 */
@@ -103,12 +103,12 @@ public class NucleoMensagens {
 	 * Chave da mensagem "Mover para cima"
 	 */
 	public static final String MSG_MOVER_PARA_CIMA = "msg.mover.para.cima";
-	
+
 	/**
 	 * Chave da mensagem "Nenhum elemento selecionado"
 	 */
 	public static final String MSG_NENHUM_ELEMENTO_SELECIONADO = "msg.nenhum.elemento.selecionado";
-	
+
 	/**
 	 * Chave da mensagem "Selecione apenas um item"
 	 */
@@ -123,37 +123,37 @@ public class NucleoMensagens {
 	 * Chave da mensagem "Transferir para selecionados"
 	 */
 	public static final String MSG_TRANSFERIR_PARA_SELECIONADOS = "msg.transferir.para.selecionados";
-	
+
 	/**
 	 * Chave da mensagem "Usuário não logado"
 	 */
 	public static final String MSG_USUARIO_NAO_LOGADO = "msg.usuario.nao.logado";
-	
+
 	/**
 	 * Chave do termo "Abrir"
 	 */
 	public static final String TERMO_ABRIR = "termo.abrir";
-	
+
 	/**
 	 * Chave do termo "Adicionar"
 	 */
 	public static final String TERMO_ADICIONAR = "termo.adicionar";
-	
+
 	/**
 	 * Chave do termo "Áreas de Conhecimento"
 	 */
 	public static final String TERMO_ADMINISTRACAO = "termo.administracao";
-	
+
 	/**
 	 * Chave do termo "Amarelo"
 	 */
 	public static final String TERMO_AMARELO = "termo.amarelo";
-	
+
 	/**
 	 * Chave do termo "Arquivo"
 	 */
 	public static final String TERMO_ARQUIVO = "termo.arquivo";
-	
+
 	/**
 	 * Chave do termo "Aviso"
 	 */
@@ -163,7 +163,7 @@ public class NucleoMensagens {
 	 * Chave do termo "Azul"
 	 */
 	public static final String TERMO_AZUL = "termo.azul";
-	
+
 	/**
 	 * Chave do termo "Cadastro de Usuários"
 	 */
@@ -173,32 +173,32 @@ public class NucleoMensagens {
 	 * Chave do termo "Celular"
 	 */
 	public static final String TERMO_CELULAR = "termo.celular";
-	
+
 	/**
 	 * Chave do termo "Confirmação"
 	 */
 	public static final String TERMO_CONFIRMACAO = "termo.confirmacao";
-	
+
 	/**
 	 * Chave do termo "Dados Cadastro"
 	 */
 	public static final String TERMO_DADOS_CADASTRO = "termo.dados.cadastro";
-	
+
 	/**
 	 * Chave do termo "E-mail"
 	 */
 	public static final String TERMO_EMAIL = "termo.email";
-	
+
 	/**
 	 * Chave do termo "Erro"
 	 */
 	public static final String TERMO_ERRO = "termo.erro";
-	
+
 	/**
 	 * Chave do termo "Excluir"
 	 */
 	public static final String TERMO_EXCLUIR = "termo.excluir";
-	
+
 	/**
 	 * Chave do termo "Filtro"
 	 */
@@ -208,22 +208,22 @@ public class NucleoMensagens {
 	 * Chave do termo "Função"
 	 */
 	public static final String TERMO_FUNCAO = "termo.funcao";
-	
+
 	/**
 	 * Chave do termo "Idade"
 	 */
 	public static final String TERMO_IDADE = "termo.idade";
-	
+
 	/**
 	 * Chave do termo "Idioma"
 	 */
 	public static final String TERMO_IDIOMA = "termo.idioma";
-	
+
 	/**
 	 * Chave do termo "Informação"
 	 */
 	public static final String TERMO_INFORMACAO = "termo.informacao";
-	
+
 	/**
 	 * Chave do termo "Itens Disponíveis"
 	 */
@@ -233,12 +233,12 @@ public class NucleoMensagens {
 	 * Chave do termo "Itens Selecionados"
 	 */
 	public static final String TERMO_ITENS_SELECIONADOS = "termo.itens.selecionados";
-	
+
 	/**
 	 * Chave do termo "Login"
 	 */
 	public static final String TERMO_LOGIN = "termo.login";
-	
+
 	/**
 	 * Chave do termo "Mover item para baixo"
 	 */
@@ -248,7 +248,7 @@ public class NucleoMensagens {
 	 * Chave do termo "Mover item para cima"
 	 */
 	public static final String TERMO_MOVER_ITEM_PARA_CIMA = "termo.mover_item_para_cima";
-	
+
 	/**
 	 * Chave do termo "Nome"
 	 */
@@ -258,28 +258,27 @@ public class NucleoMensagens {
 	 * Chave do termo "Descrição"
 	 */
 	public static final String TERMO_DESCRICAO = "termo.descricao";
-		
-	
+
 	/**
 	 * Chave do termo "Novo"
 	 */
 	public static final String TERMO_NOVO = "termo.novo";
-	
+
 	/**
 	 * Chave do termo "Pessoa"
 	 */
 	public static final String TERMO_PESSOA = "termo.pessoa";
-	
+
 	/**
 	 * Chave do termo "Pessoas"
 	 */
 	public static final String TERMO_PESSOAS = "termo.pessoas";
-	
+
 	/**
 	 * Chave do termo "Ramal"
 	 */
 	public static final String TERMO_RAMAL = "termo.ramal";
-	
+
 	/**
 	 * Chave do termo "Sair"
 	 */
@@ -289,32 +288,32 @@ public class NucleoMensagens {
 	 * Chave do termo "Salvar"
 	 */
 	public static final String TERMO_SALVAR = "termo.salvar";
-	
+
 	/**
 	 * Chave do termo "Seleção de Usuários"
 	 */
 	public static final String TERMO_SELECAO_USUARIOS = "termo.selecao.usuarios";
-	
+
 	/**
 	 * Chave do termo "Senha"
 	 */
 	public static final String TERMO_SENHA = "termo.senha";
-	
+
 	/**
 	 * Chave do termo "Sobrenome"
 	 */
 	public static final String TERMO_SOBRENOME = "termo.sobrenome";
-	
+
 	/**
 	 * Chave do termo "Telefone"
 	 */
 	public static final String TERMO_TELEFONE = "termo.telefone";
-	
+
 	/**
 	 * Chave do termo "Tipo de Usuário"
 	 */
 	public static final String TERMO_TIPO_USUARIO = "termo.tipo_usuario";
-	
+
 	/**
 	 * Chave do termo "Administrador"
 	 */
@@ -324,12 +323,12 @@ public class NucleoMensagens {
 	 * Chave do termos "Usuário Comum"
 	 */
 	public static final String TERMO_TIPO_USUARIO_COMUM = "termo.tipo_usuario.comum";
-	
+
 	/**
 	 * Chave do termo "Usuário"
 	 */
 	public static final String TERMO_USUARIO = "termo.usuario";
-	
+
 	/**
 	 * Chave do termo "Verde"
 	 */
@@ -364,7 +363,7 @@ public class NucleoMensagens {
 	 * Chave do termo "Tipo de Software"
 	 */
 	public static final String TERMO_TIPO_SOFTWARE = "termo.tipo_software";
-	
+
 	/**
 	 * Chave do termo "Ferramenta de Software"
 	 */
@@ -384,12 +383,12 @@ public class NucleoMensagens {
 	 * Chave do termo "Dominio da Aplicação"
 	 */
 	public static final String TERMO_DOMINIO_DA_APLICACAO = "termo.dominio_da_aplicacao";
-	
+
 	/**
 	 * Chave do termo "Processo Padrao"
 	 */
 	public static final String TERMO_PROCESSO_PADRAO = "termo.processo_padrao";
-	
+
 	/**
 	 * Chave do termo "CompPP"
 	 */
@@ -400,5 +399,3 @@ public class NucleoMensagens {
 	 */
 	public static final String TERMO_CATEGORIA = "termo.categoria";
 }
-
-

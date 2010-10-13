@@ -16,6 +16,11 @@ import org.zkoss.zul.Vbox;
 
 public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8896639132796378556L;
+
 	protected Toolbar toolbar;
 
 	protected ListagemPaginada<T> listagemPaginada;
@@ -112,6 +117,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 			acaoBotaoNovo();
 		}
 
+		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}
@@ -131,6 +137,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 			controlador.acaoExcluir();
 		}
 
+		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}

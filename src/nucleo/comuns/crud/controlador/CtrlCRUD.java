@@ -20,8 +20,8 @@ import nucleo.comuns.visao.principal.JanelaSimples;
 
 import org.zkoss.zul.Listitem;
 
-public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase implements
-		IAtualizadorPesquisaPaginada {
+public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
+		implements IAtualizadorPesquisaPaginada {
 
 	// iniciar componentes
 	// definir
@@ -35,7 +35,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 	protected PainelCRUD<T> painelCRUD;
 
 	protected FormularioDadosCRUD<T> formularioDados;
-	
+
 	protected JanelaSimples janDados;
 
 	protected String alturaJanPrincipal = "350px";
@@ -71,12 +71,12 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 	protected void validarComponentesExtensao() {
 
 		if (painelCRUD == null)
-			throw CtrlExcecoes.factoryExcecaoDefinicao("painelCRUD",
-					this.getClass());
+			throw CtrlExcecoes.factoryExcecaoDefinicao("painelCRUD", this
+					.getClass());
 
 		if (nucleoAplCadastroBase == null)
-			throw CtrlExcecoes.factoryExcecaoDefinicao(
-					"nucleoAplCadastroBase", this.getClass());
+			throw CtrlExcecoes.factoryExcecaoDefinicao("nucleoAplCadastroBase",
+					this.getClass());
 
 	}
 
@@ -93,15 +93,17 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 
 		ResultadoPaginado resultado = null;
 		try {
-			resultado = getNucleoAplCadastroBase().recuperarTodosPaginado(pagina);
+			resultado = getNucleoAplCadastroBase().recuperarTodosPaginado(
+					pagina);
 
 		} catch (NucleoRegraNegocioExcecao e) {
-//TODO LOG DE ERRO AO ATUALIZAR PESQUISA
+			// TODO LOG DE ERRO AO ATUALIZAR PESQUISA
 			e.printStackTrace();
 		}
 		// atualizo os objetos e preencho a nova listagem
-		painelCRUD.getListagemPaginada().setResultadoAtualizarPesquisa(resultado);
-		
+		painelCRUD.getListagemPaginada().setResultadoAtualizarPesquisa(
+				resultado);
+
 	}
 
 	public void mostrarJanelaPrincipal() {
@@ -116,7 +118,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 		// apos mostrar a janela principal, recupera os objetos para pesquisa
 		atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
 	}
-
 
 	public void acaoExcluir() {
 		validarExcluir();
@@ -156,8 +157,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 
 	}
 
-
-
 	protected void excluir(Set<Listitem> objetosSelecionados) {
 
 		// Exclui os itens selecionados
@@ -196,7 +195,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 		return listaRetorno;
 
 	}
-
 
 	public void acaoNovo() {
 
@@ -248,14 +246,13 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase imp
 
 	public void acaoSalvar() {
 		try {
-			//passo os dados do formulario para o objeto antes de pega-lo
+			// passo os dados do formulario para o objeto antes de pega-lo
 			formularioDados.atualizarObjeto();
-			T objetoCadastro = formularioDados.getObjetoCadastroDados();			
+			T objetoCadastro = formularioDados.getObjetoCadastroDados();
 			nucleoAplCadastroBase.salvar(objetoCadastro);
-			///atualiza a pesquisa e fecha a janela
-			atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());	
+			// /atualiza a pesquisa e fecha a janela
+			atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
 			janDados.onClose();
-			
 
 		} catch (Exception e) {
 			CtrlExcecoes.tratarExcecao(e);
