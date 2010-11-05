@@ -10,11 +10,12 @@ import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
 
+import ode.conhecimento.processo.Cci.CtrlKParadigmaCRUD;
 import ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
 import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
-import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
+//import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
 import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
@@ -127,8 +128,8 @@ public class WindowMenu extends Window {
 		menuitemOrganizacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
 
-		menuProcesso.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
+	//	menuCadastroProcesso.setLabel(NucleoMensagens
+		//		.getMensagem(NucleoMensagens.TERMO_PROCESSO));
 
 		menuitemParadigma.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
@@ -156,7 +157,17 @@ public class WindowMenu extends Window {
 		
 		menuitemCategoriaProcesso.setLabel (NucleoMensagens.getMensagem(NucleoMensagens.TERMO_CATEGORIA));
 
-	}
+		menuProcesso.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
+		/*
+		menuCarac.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CADASTRO_PROCESSO));
+		menuRecurso.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_RECURSO));
+		
+		menuitemRecurso.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_RECURSO_SOFTWARE));
+*/	}
 
 	public void atualizarPermissoesAcesso() {
 
@@ -301,14 +312,16 @@ public class WindowMenu extends Window {
 
 		menuitemParadigma = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
+		menuitemParadigma.addEventListener("onClick",new EListenerKParadigmaComControlador());
 		menuitemParadigma.setParent(menupopupProcesso);
-
+		
 		menuitemTipoSoftware = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_SOFTWARE));
 		menuitemTipoSoftware.addEventListener("onClick",
 				new EListenerTipoSoftware());
 		menuitemTipoSoftware.setParent(menupopupProcesso);
 		
+
 		menuitemFerramentaSoftware = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
 		menuitemFerramentaSoftware.addEventListener("onClick",
@@ -401,6 +414,22 @@ public class WindowMenu extends Window {
 		}
 	}
 	
+	private class EListenerKParadigmaComControlador implements EventListener {
+
+		public void onEvent(Event event) {
+			// COm controlador
+			CtrlKParadigmaCRUD ctrlP = new CtrlKParadigmaCRUD();
+			ctrlP.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;// retorna se o cliente deve enviar a informacao o
+			// quanto antes
+		}
+	}
+
+	
 	private class EListenerDominioConhecimento implements EventListener {
 		public void onEvent(Event event) {
 
@@ -490,8 +519,8 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			CtrlFerramentaSoftwareCRUD ctrlP = new CtrlFerramentaSoftwareCRUD();
-			ctrlP.iniciar();
+			//CtrlFerramentaSoftwareCRUD ctrlP = new CtrlFerramentaSoftwareCRUD();
+			//ctrlP.iniciar();
 		}
 
 		@SuppressWarnings("unused")
@@ -499,7 +528,6 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
-
 	/** Classe do evento do idioma inglês. */
 	private class EventListenerIdiomaIngles implements EventListener {
 

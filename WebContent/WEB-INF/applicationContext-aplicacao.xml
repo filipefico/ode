@@ -24,6 +24,11 @@
 		<property name="nucleoDaoBase" ref="kArtefatoDao" />
 	</bean>
 
+
+	<bean id="aplCadastrarKParadigma" class="ode.conhecimento.processo.Cgt.AplCadastrarKParadigmaImpl">
+		<property name="nucleoDaoBase" ref="kParadigmaDao" />
+	</bean>
+
 	<bean id="aplCadastrarTipoKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarTipoKArtefatoImpl">
 		<property name="nucleoDaoBase" ref="tipoKArtefatoDao" />
 	</bean>
@@ -37,6 +42,7 @@
 		class="ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftwareImpl">
 		<property name="nucleoDaoBase" ref="kFerramentaSoftwareDao" />
 	</bean>
+
 
 	<bean id="nucleoUserDetailsService"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">

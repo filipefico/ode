@@ -172,6 +172,7 @@
 				<value> ode.conhecimento.processo.Cdp.KTipoSoftware </value>
 				<value> ode.conhecimento.processo.Cdp.KFerramentaSoftware </value>
 				<value> ode.conhecimento.processo.Cdp.KArtefato </value>
+				<value> ode.conhecimento.processo.Cdp.KParadigma </value>
 				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KCategoriaProcesso </value>
 				<value> ode.processoPadrao.Cdp.CompPP </value>
@@ -251,6 +252,12 @@
 		</property>
 	</bean>
 	
+	<bean id="kParadigmaDao" class="ode.conhecimento.processo.Cgd.KParadigmaDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+		
 	<bean id="categoriaProcessoDao"
 		class="ode.conhecimento.processo.Cgd.KCategoriaProcessoDAOHibernate"
 		lazy-init="default" autowire="default" dependency-check="default">

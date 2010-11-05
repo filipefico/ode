@@ -1,17 +1,17 @@
 package ode.conhecimento.processo.Cci;
 
+import org.zkoss.zkplus.spring.SpringUtil;
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
 import nucleo.comuns.crud.visao.PainelCRUD;
-import ode.conhecimento.processo.Cdp.KTipoSoftware;
-import ode.conhecimento.processo.Cgt.AplCadastrarKTipoSoftware;
-import ode.conhecimento.processo.Cih.FormDadosKTipoSoftware;
-import ode.conhecimento.processo.Cih.PainelCrudKTipoSoftware;
+import ode.conhecimento.processo.Cdp.KParadigma;
+import ode.conhecimento.processo.Cgt.AplCadastrarKParadigma;
+import ode.conhecimento.processo.Cih.FormDadosKParadigma;
+import ode.conhecimento.processo.Cih.PainelCrudKParadigma;
 
-import org.zkoss.zkplus.spring.SpringUtil;
 
-public class CtrlTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
+public class CtrlKParadigmaCRUD extends CtrlCRUD<KParadigma> {
 @Override
 	public void iniciar() {
 		super.iniciar();
@@ -33,35 +33,35 @@ public class CtrlTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKTipoSoftware) SpringUtil
-				.getBean("aplCadastrarTipoSoftware");
+		return (AplCadastrarKParadigma) SpringUtil
+				.getBean("aplCadastrarKParadigma");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public PainelCRUD definirPainelCRUD() {
-		return new PainelCrudKTipoSoftware();
+		return new PainelCrudKParadigma();
+		
 	}
 
+
 	@Override
-	public KTipoSoftware factoryObjetoDados() {
-		return new KTipoSoftware();
+	public KParadigma factoryObjetoDados() {
+		return new KParadigma();
 	}
 
 	@Override
 	public FormularioDadosCRUD definirFormularioCadastro() {
-		return new FormDadosKTipoSoftware();
+		return new FormDadosKParadigma();
 	}
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "Tipo de Software";
+		return "Paradigma";
 	}
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Tipo de Software";
+		return "Cadastro de Paradigma com Controlador";
 	}
-	
-
-
 }
