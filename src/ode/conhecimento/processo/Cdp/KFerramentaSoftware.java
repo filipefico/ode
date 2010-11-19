@@ -1,10 +1,10 @@
 package ode.conhecimento.processo.Cdp;
 
 import javax.persistence.Entity;
-import ode.conhecimento.principal.Cdp.Conhecimento;
+
 
 @Entity
-public class KFerramentaSoftware  extends Conhecimento{	
+public class KFerramentaSoftware  extends KRecurso{	
 	/**
 	 * 
 	 */
