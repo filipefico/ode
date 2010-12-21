@@ -34,7 +34,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 /**
- * Classe responsável pela exibição de um menu de uma janela.
+ * Classe responsï¿½vel pela exibiï¿½ï¿½o de um menu de uma janela.
  * 
  * @author Alexandre G. N. Coelho
  */
@@ -47,7 +47,7 @@ public class WindowMenu extends Window {
 
 	public void onCreate() {
 
-		// Configura e monta a interface gráfica
+		// Configura e monta a interface grï¿½fica
 		this.setWidth("100%");
 		this.setHeight("500px");
 		this.setZIndex(1);
@@ -73,7 +73,7 @@ public class WindowMenu extends Window {
 	}
 
 	public void atualizaBarraInformacoes() {
-		// Atualiza o label de informações de usuário e projeto
+		// Atualiza o label de informaï¿½ï¿½es de usuï¿½rio e projeto
 		Label lblInformacoes = (Label) getReference().getPage().getFellow(
 				"lblInformacoes");
 		NucleoUserDetails usuario = NucleoContexto.recuperarUsuarioLogado();
@@ -175,7 +175,7 @@ public class WindowMenu extends Window {
 		@SuppressWarnings("unused")
 		boolean visivel = true;
 
-		// Atualiza menus administrativos baseado na autoridade do usuário
+		// Atualiza menus administrativos baseado na autoridade do usuï¿½rio
 		// logado
 		boolean admin = false;
 		Set<NucleoGrantedAuthority> autoridadesUsuario = NucleoContexto
@@ -245,7 +245,7 @@ public class WindowMenu extends Window {
 		return this;
 	}
 
-	/** Agrupa e configura componentes de interface gráfica. */
+	/** Agrupa e configura componentes de interface grï¿½fica. */
 	private void montarInterfaceGrafica() {
 
 		// Barra de Menu
@@ -340,8 +340,7 @@ public class WindowMenu extends Window {
 		menuitemKArtefato.setParent(menupopupProcesso);
 
 		menuitemKArtefato.addEventListener("onClick",new EventListenerKArtefato());
-		menuitemKArtefato.addEventListener("onClick",new EventListenerKArtefato());
-
+		
 
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 		menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
@@ -350,7 +349,7 @@ public class WindowMenu extends Window {
 		menuitemCategoriaProcesso.setParent(menupopupProcesso);
 		menuitemCategoriaProcesso.addEventListener ("onClick", new EListenerKCategoriaProcesso());
 
-		// Sub-menu Dominio da Aplicação
+		// Sub-menu Dominio da Aplicaï¿½ï¿½o
 
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
@@ -397,6 +396,7 @@ public class WindowMenu extends Window {
 	}
 	
 	/** Classe do evento do Menuitem KDominioAplicacao. */
+	@SuppressWarnings("unused")
 	private class EventListenerMenuItemProcessoPadrao implements
 			EventListener {
 
@@ -408,7 +408,6 @@ public class WindowMenu extends Window {
 			win.doOverlapped();
 		}
 		
-		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}
@@ -528,7 +527,7 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
-	/** Classe do evento do idioma inglês. */
+	/** Classe do evento do idioma inglï¿½s. */
 	private class EventListenerIdiomaIngles implements EventListener {
 
 		public void onEvent(Event event) {
@@ -541,7 +540,7 @@ public class WindowMenu extends Window {
 				Messagebox.show(NucleoMensagens
 						.getMensagem(NucleoMensagens.MSG_IDIOMA_ALTERADO));
 			} catch (Exception e) {
-				// TODO: Pensar como tratar essas exceções
+				// TODO: Pensar como tratar essas exceï¿½ï¿½es
 			}
 
 		}
@@ -552,7 +551,7 @@ public class WindowMenu extends Window {
 		}
 	}
 
-	/** Classe do evento do idioma português. */
+	/** Classe do evento do idioma portuguï¿½s. */
 	private class EventListenerIdiomaPortugues implements EventListener {
 
 		public void onEvent(Event event) {
@@ -566,7 +565,7 @@ public class WindowMenu extends Window {
 				Messagebox.show(NucleoMensagens
 						.getMensagem(NucleoMensagens.MSG_IDIOMA_ALTERADO));
 			} catch (Exception e) {
-				// TODO: Pensar como tratar essas exceções
+				// TODO: Pensar como tratar essas exceï¿½ï¿½es
 			}
 
 		}

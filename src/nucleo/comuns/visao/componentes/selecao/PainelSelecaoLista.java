@@ -17,54 +17,52 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Vbox;
 
 public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
-	
-	
+
 	/**
-	 * Títulos do cabeçalho
+	 * Tï¿½tulos do cabeï¿½alho
 	 */
 	private String[] titulosCabecalho;
 
 	/**
-	 * Tamanhos dos campos do cabeçalho
+	 * Tamanhos dos campos do cabeï¿½alho
 	 */
 	private String[] tamanhosCabecalho;
-	
+
 	/**
-	 * Parâmetros.
+	 * Parï¿½metros.
 	 */
-	protected Map<String,Object> parametros;
-	
+	protected Map<String, Object> parametros;
+
 	/**
-	 * Define os títulos dos campos do cabeçalho da lista.
+	 * Define os tï¿½tulos dos campos do cabeï¿½alho da lista.
 	 * 
-	 * @return Vetor com os títulos do cabeçalho.
+	 * @return Vetor com os tï¿½tulos do cabeï¿½alho.
 	 */
 	protected abstract String[] definirTitulosCabecalho();
 
 	/**
-	 * Define os tamanhos dos campos do cabeçalho da lista.
+	 * Define os tamanhos dos campos do cabeï¿½alho da lista.
 	 * 
-	 * @return Vetor com os tamanhos dos campos do cabeçalho.
+	 * @return Vetor com os tamanhos dos campos do cabeï¿½alho.
 	 */
 	protected abstract String[] definirTamanhosCabecalho();
-	
+
 	/**
-	 * Método pode ser sobrescrito caso seja necessário
-	 * realizar algum evento ao dar um duplo clique em um
-	 * item da lista. 
-	 * @param objetoSelecionado 
-	 *
+	 * Mï¿½todo pode ser sobrescrito caso seja necessï¿½rio realizar algum evento ao
+	 * dar um duplo clique em um item da lista.
+	 * 
+	 * @param objetoSelecionado
+	 * 
 	 */
 	protected abstract void acaoAbrirItemSelecionado(T objetoSelecionado);
 
-
 	/**
-	 * Recupera as informações de um objeto a serem exibidos na lista do
+	 * Recupera as informaï¿½ï¿½es de um objeto a serem exibidos na lista do
 	 * cadastro.
 	 * 
 	 * @param objeto
-	 *            Objeto cujas informações serão exibidas na lista do cadastro.
-	 * @return Vetor com as informações a serem exibidas.
+	 *            Objeto cujas informaï¿½ï¿½es serï¿½o exibidas na lista do cadastro.
+	 * @return Vetor com as informaï¿½ï¿½es a serem exibidas.
 	 */
 	protected abstract String[] recuperarDadosObjeto(T objeto);
 
@@ -76,7 +74,7 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 	}
 
 	/**
-	 * Inicia componentes gráficos.
+	 * Inicia componentes grï¿½ficos.
 	 */
 	private void iniciarComponentesInterface() {
 
@@ -90,19 +88,19 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 		listBox.setRows(8);
 		listBox.setMultiple(true);
 		configurarCabecalhoLista();
-		
+
 		// agrupa componentes
 		listBox.setParent(this);
 		listhead.setParent(listBox);
-		
+
 	}
 
 	/**
-	 * Configura o cabeçalho da lista com os títulos e os tamanhos de cada
+	 * Configura o cabeï¿½alho da lista com os tï¿½tulos e os tamanhos de cada
 	 * campo.
 	 */
 	private void configurarCabecalhoLista() {
-		// Configura o cabeçalho da lista
+		// Configura o cabeï¿½alho da lista
 		for (int i = 0; i < titulosCabecalho.length; i++) {
 			Listheader listHeader = new Listheader(titulosCabecalho[i]);
 			listHeader.setParent(listhead);
@@ -111,7 +109,7 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 			listheaders.add(listHeader);
 		}
 	}
-	
+
 	/**
 	 * Preenche a lista na tela com a lista de objetos.
 	 */
@@ -134,7 +132,7 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 			// Recupera os dados do objeto a serem exibidos na lista
 			String[] dadosLista = this.recuperarDadosObjeto(obj);
 
-			// Preenche as células da listitem
+			// Preenche as cï¿½lulas da listitem
 			for (int j = 0; j < dadosLista.length; j++) {
 				lt.appendChild(new Listcell(dadosLista[j]));
 			}
@@ -143,8 +141,8 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 			listBox.appendChild(lt);
 		}
 	}
-	
-	/** Classe do evento de um item da lista.  */
+
+	/** Classe do evento de um item da lista. */
 	private class EventListenerItemLista implements EventListener {
 
 		public void onEvent(Event event) {
@@ -154,11 +152,30 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 		public boolean isAsap() {
 			return true;
 		}
-		
+
 	}
-	
-	public Set<Listitem> getSelecionados() {
+
+	/**
+	 * Utilizar o getSelecionados
+	 * */
+	@Deprecated
+	public Set<Listitem> getItensSelecionados() {
 		return listBox.getSelectedItems();
+	}
+
+	public Collection<T> getSelecionados() {
+		Collection<T> resultado = new ArrayList<T>();
+		Set<Listitem> selecionados = listBox.getSelectedItems();
+
+		if (selecionados != null) {
+			for (Listitem listitem : selecionados) {
+				resultado.add((T) listitem.getValue());
+			}
+		}
+		return resultado;
+		
+		
+
 	}
 
 	public T getSelecionado() {
@@ -169,7 +186,6 @@ public abstract class PainelSelecaoLista<T extends Object> extends Vbox {
 
 		return selecionado;
 	}
-
 
 	/** Tamanho do listbox. */
 	public static final String WIDTH_LISTBOX = "400px";

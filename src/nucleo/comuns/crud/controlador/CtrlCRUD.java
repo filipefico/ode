@@ -28,7 +28,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 	// validar
 
 	/**
-	 * Interface de aplicação usada para cadastros básicos (CRUD)
+	 * Interface de aplicaÃ§Ã£oo usada para cadastros bÃ¡sicos (CRUD)
 	 */
 	private NucleoAplCadastroBase<T> nucleoAplCadastroBase;
 
@@ -71,8 +71,8 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 	protected void validarComponentesExtensao() {
 
 		if (painelCRUD == null)
-			throw CtrlExcecoes.factoryExcecaoDefinicao("painelCRUD", this
-					.getClass());
+			throw CtrlExcecoes.factoryExcecaoDefinicao("painelCRUD",
+					this.getClass());
 
 		if (nucleoAplCadastroBase == null)
 			throw CtrlExcecoes.factoryExcecaoDefinicao("nucleoAplCadastroBase",
@@ -127,7 +127,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 		Set<Listitem> itensSelecionados = painelCRUD.getListagemPaginada()
 				.getSelecionados();
 		try {
-			// verifica se o número de itens selecionados é maior que zero.
+			// verifica se o nÃºmero de itens selecionados Ã© maior que zero.
 			if (itensSelecionados.size() > 0) {
 
 				String mensagemConfirmacao;
@@ -172,7 +172,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			CtrlExcecoes
-					.exibirJanelaErro("Não foi possivel excluir os objetos");
+					.exibirJanelaErro("Nï¿½o foi possivel excluir os objetos");
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -226,6 +226,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 				// atualizo a referencia do objetoSelecionado
 				objetoSelecionado = nucleoAplCadastroBase
 						.recuperarPorId(objetoSelecionado.getId());
+
 				formularioDados.setObjetoCadastroDados(objetoSelecionado);
 				// copio os dados do objeto pro formulario
 				formularioDados.atualizarDadosTela();

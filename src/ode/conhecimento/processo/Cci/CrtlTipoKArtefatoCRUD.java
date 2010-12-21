@@ -16,6 +16,8 @@ public class CrtlTipoKArtefatoCRUD extends CtrlCRUD<TipoKArtefato> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
+		this.setLarguraJandados("400px");
+		this.setAlturaJanDados("300px");
 	}
 
 	@Override

@@ -28,30 +28,29 @@ import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.impl.XulElement;
 
-
 /**
- * Classe básica para criação de janelas de cadastro com dados para alteração.
+ * Classe bï¿½sica para criaï¿½ï¿½o de janelas de cadastro com dados para alteraï¿½ï¿½o.
  * 
  * @author Alexandre G. N. Coelho
  * 
  * @param <T>
- *            Classe do objeto cujos dados são alterados na janela.
+ *            Classe do objeto cujos dados sï¿½o alterados na janela.
  */
 public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistenteImpl<Long, Long>>
 		extends NucleoWindow {
 
 	/**
-	 * Interface de aplicação usada para cadastros básicos (CRUD)
+	 * Interface de aplicaï¿½ï¿½o usada para cadastros bï¿½sicos (CRUD)
 	 */
 	private NucleoAplCadastroBase<T> nucleoAplCadastroBase;
 
 	/**
-	 * Parâmetros passados para a janela.
+	 * Parï¿½metros passados para a janela.
 	 */
 	private Map<String, Object> parametros;
 
 	/**
-	 * Objeto cujos dados são apresentados na janela de cadastro de dados.
+	 * Objeto cujos dados sï¿½o apresentados na janela de cadastro de dados.
 	 */
 	private T objetoCadastroDados;
 
@@ -93,15 +92,15 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 	public void onCreateWindow() {
 		try {
 
-			// Realiza a configuração inicial da janela
+			// Realiza a configuraï¿½ï¿½o inicial da janela
 			iniciarComponentesInterface();
 
-			// Preenche os conteúdos dos componentes
+			// Preenche os conteï¿½dos dos componentes
 			preencherDadosTela();
 
 			// Configura constraints dos campos
-			// As constraints devem ser configuradas à parte, após o
-			// preenchimento dos dados, para evitar disparo de exceções
+			// As constraints devem ser configuradas ï¿½ parte, apï¿½s o
+			// preenchimento dos dados, para evitar disparo de exceï¿½ï¿½es
 			configurarConstraints();
 
 			// Altera o modo da janela pai para Highlighted
@@ -116,7 +115,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 	}
 
 	/**
-	 * Inicia componentes de interface. Deve ser passado como parâmetro: um
+	 * Inicia componentes de interface. Deve ser passado como parï¿½metro: um
 	 * vetor contendo os nomes das abas; um vetor contendo o conteudo de cada
 	 * aba.
 	 * 
@@ -136,12 +135,12 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 
 	private void configurarComponentes() {
 		// ////////////////////////////////////
-		// Configuração da janela
+		// Configuraï¿½ï¿½o da janela
 		// ////////////////////////////////////
 		this.addEventListener("onClose", new EventListenerFechar());
 
 		// ////////////////////////////////////
-		// Configuração da barra de ferramentas
+		// Configuraï¿½ï¿½o da barra de ferramentas
 		// ////////////////////////////////////
 		toolbar.setWidth(WIDTH_TOOLBAR);
 		tbbtSalvar.setTooltiptext(NucleoMensagens
@@ -150,17 +149,17 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 		tbbtSalvar.addEventListener("onClick", new EventListenerSalvar());
 
 		// ////////////////////////////////////
-		// Define configurações extras
+		// Define configuraï¿½ï¿½es extras
 		// ////////////////////////////////////
 		configurarComponentesExtensao();
 	}
 
 	/**
-	 * Define configurações extras (inclusive reconfigurações) para os
-	 * componentes da interface no que diz respeito a dimensões, imagem
-	 * utilizada, tooltip, eventos, etc. Esse método deve ser sobrescrito por
+	 * Define configuraï¿½ï¿½es extras (inclusive reconfiguraï¿½ï¿½es) para os
+	 * componentes da interface no que diz respeito a dimensï¿½es, imagem
+	 * utilizada, tooltip, eventos, etc. Esse mï¿½todo deve ser sobrescrito por
 	 * classes que herdam de NucleoWindowCadastroDados e necessitem de realizar
-	 * configurações extras sobre componentes já existentes ou configurar novos
+	 * configuraï¿½ï¿½es extras sobre componentes jï¿½ existentes ou configurar novos
 	 * componentes.
 	 */
 	protected void configurarComponentesExtensao() {
@@ -175,7 +174,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 		toolbar.setParent(this);
 		tbbtSalvar.setParent(toolbar);
 
-		// Adiciona novos elementos à barra de ferramentas
+		// Adiciona novos elementos ï¿½ barra de ferramentas
 		adicionarComponentesExtensaoBarraFerramentas(toolbar);
 
 		// //////////////////////////////////
@@ -187,7 +186,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 		tabpanels.setParent(tabbox);
 
 		// //////////////////////////////////
-		// Adiciona os componentes específicos
+		// Adiciona os componentes especï¿½ficos
 		// /////////////////////////////////
 
 		List<NucleoTab> listaTab = definirTabs();
@@ -196,7 +195,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 			Tab tab = new Tab(nucleoTab.getNomeTab());
 			tab.setParent(tabs);
 
-			// Cria painel com conteúdo
+			// Cria painel com conteï¿½do
 			Tabpanel tabpanel = new Tabpanel();
 			tabpanel.setParent(tabpanels);
 			XulElement conteudo = nucleoTab.getConteudoTab();
@@ -205,21 +204,22 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 	}
 
 	/**
-	 * Adiciona novos componentes à barra de ferramentas
+	 * Adiciona novos componentes ï¿½ barra de ferramentas
 	 */
 	protected void adicionarComponentesExtensaoBarraFerramentas(Toolbar toolbar) {
 	}
 
-	protected abstract List<NucleoTab> definirTabs() throws DataAccessException,
-			NucleoRegraNegocioExcecao;
+	protected abstract List<NucleoTab> definirTabs()
+			throws DataAccessException, NucleoRegraNegocioExcecao;
 
-	protected abstract void preencherDadosTela() throws NucleoRegraNegocioExcecao;
+	protected abstract void preencherDadosTela()
+			throws NucleoRegraNegocioExcecao;
 
 	/**
-	 * Configura as constraints a serem associadas aos campos das telas. É
-	 * fundamental que as constraints sejam configuradas após o preenchimento
-	 * dos dados das telas, pois o próprio preenchimento pode gerar disparo de
-	 * exceções caso não esteja de acordo com as constraints.
+	 * Configura as constraints a serem associadas aos campos das telas. ï¿½
+	 * fundamental que as constraints sejam configuradas apï¿½s o preenchimento
+	 * dos dados das telas, pois o prï¿½prio preenchimento pode gerar disparo de
+	 * exceï¿½ï¿½es caso nï¿½o esteja de acordo com as constraints.
 	 */
 	protected void configurarConstraints() {
 
@@ -245,8 +245,8 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 	protected abstract void preencherDadosObjeto();
 
 	/**
-	 * Esse método pode ser implementado casa haja necessidade de executar algo
-	 * após salvar
+	 * Esse mï¿½todo pode ser implementado casa haja necessidade de executar algo
+	 * apï¿½s salvar
 	 */
 	protected void acaoDepoisAcaoBotaoSalvar() {
 	}
@@ -284,7 +284,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 				if (itemArvoreInterface == null) {
 					nucleoWindowCadastroTree.atualizarArvore();
 				} else {
-					// Configura o item da árvore de cache para forçá-lo a fazer
+					// Configura o item da ï¿½rvore de cache para forï¿½ï¿½-lo a fazer
 					// acesso ao BD quando for atualizar a interface
 					NucleoItemArvoreCache itemArvoreCache = (NucleoItemArvoreCache) itemArvoreInterface
 							.getValue();
@@ -309,7 +309,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 				if (itemArvoreInterface == null) {
 					nucleoWindowCadastroDuploTree.atualizarArvore();
 				} else {
-					// Configura o item da árvore de cache para forçá-lo a
+					// Configura o item da ï¿½rvore de cache para forï¿½ï¿½-lo a
 					// fazer acesso ao BD quando for atualizar a interface
 					NucleoItemArvoreCache itemArvoreCache = (NucleoItemArvoreCache) itemArvoreInterface
 							.getValue();
@@ -328,25 +328,27 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 				NucleoWindowCadastroTriploTree nucleoWindowCadastroTriploTree = (NucleoWindowCadastroTriploTree) parentWin;
 
 				// Recupera o item da interface a ser atualizado
-//				Treeitem itemArvoreInterface = (Treeitem) getParametros().get(
-//						"treeitemPai");
+				// Treeitem itemArvoreInterface = (Treeitem)
+				// getParametros().get(
+				// "treeitemPai");
 
-//				if (itemArvoreInterface == null) {
-					nucleoWindowCadastroTriploTree.atualizarArvore();
-//				} else {
-//					// Configura o item da árvore de cache para forçá-lo a
-//					// fazer acesso ao BD quando for atualizar a interface
-//					NucleoItemArvoreCache itemArvoreCache = (NucleoItemArvoreCache) itemArvoreInterface
-//							.getValue();
-//					itemArvoreCache.setAcessouBD(false);
-//
-//					try {
-//						nucleoWindowCadastroTriploTree
-//								.acaoExpandirItemArvore(itemArvoreInterface);
-//					} catch (NucleoRegraNegocioExcecao e) {
-//						exibirJanelaErro(e);
-//					}
-//				}
+				// if (itemArvoreInterface == null) {
+				nucleoWindowCadastroTriploTree.atualizarArvore();
+				// } else {
+				// // Configura o item da ï¿½rvore de cache para forï¿½ï¿½-lo a
+				// // fazer acesso ao BD quando for atualizar a interface
+				// NucleoItemArvoreCache itemArvoreCache =
+				// (NucleoItemArvoreCache) itemArvoreInterface
+				// .getValue();
+				// itemArvoreCache.setAcessouBD(false);
+				//
+				// try {
+				// nucleoWindowCadastroTriploTree
+				// .acaoExpandirItemArvore(itemArvoreInterface);
+				// } catch (NucleoRegraNegocioExcecao e) {
+				// exibirJanelaErro(e);
+				// }
+				// }
 			}
 
 			// Altera o modo da janela pai para Overlapped
@@ -356,7 +358,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 		}
 	}
 
-	/** Classe do evento do botão salvar. */
+	/** Classe do evento do botï¿½o salvar. */
 	public class EventListenerSalvar implements EventListener {
 
 		public void onEvent(Event event) {
@@ -380,7 +382,7 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 
 	}
 
-	/** Tamanho do botão. */
+	/** Tamanho do botï¿½o. */
 	public static final String WIDTH_BUTTON = "80px";
 
 	/** Tamanho do hbox. */
@@ -395,13 +397,13 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 	/** Toolbarbutton salvar. */
 	protected Toolbarbutton tbbtSalvar = new Toolbarbutton();
 
-	/** Espaço(linha) em branco. */
+	/** Espaï¿½o(linha) em branco. */
 	private Separator separator = new Separator();
 
 	/** Grupo de abas. */
 	protected Tabbox tabbox = new Tabbox();
 
-	/** União de abas. */
+	/** Uniï¿½o de abas. */
 	protected Tabs tabs = new Tabs();
 
 	/** Grupo de paineis */

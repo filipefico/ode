@@ -1,7 +1,8 @@
 package ode.conhecimento.processo.Cdp;
+
 import ode.conhecimento.principal.Cdp.Conhecimento;
 
-import javax.persistence.Column;
+//import javax.persistence.Column;
 import javax.persistence.Entity;
 
 //import nucleo.comuns.persistencia.ObjetoPersistente;

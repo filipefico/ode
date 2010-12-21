@@ -3,7 +3,12 @@ package ode.conhecimento.processo.Cdp;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import ode.conhecimento.principal.Cdp.Conhecimento;
 
@@ -24,8 +29,9 @@ public class KArtefato extends Conhecimento {
 	public KArtefato() {
 	}
 
-	/** Obtém os sub-artefatos do Conhecimento Artefato. */
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = KArtefato.class)
+	/** Obtï¿½m os sub-artefatos do Conhecimento Artefato. */
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="kartefato_subkartefato")
 	public Set<KArtefato> getSubArtefatos() {
 		return subArtefatos;
 	}
@@ -36,11 +42,12 @@ public class KArtefato extends Conhecimento {
 	}
 
 	/**
-	 * Obtém as dependencias do Conhecimento Artefato.
+	 * ObtÃ©m as dependencias do Conhecimento Artefato.
 	 * 
 	 * 
 	 */
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = KArtefato.class)
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="kartefato_dependencia")
 	public Set<KArtefato> getDependencias() {
 		return dependencias;
 	}
@@ -50,6 +57,7 @@ public class KArtefato extends Conhecimento {
 		dependencias = parDependencias;
 	}
 
+	@ManyToOne
 	public TipoKArtefato getTipo() {
 		return tipo;
 	}

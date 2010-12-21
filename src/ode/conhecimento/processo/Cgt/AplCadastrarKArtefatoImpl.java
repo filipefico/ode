@@ -9,8 +9,13 @@ public class AplCadastrarKArtefatoImpl extends
 	@Override
 	protected void copiarValor(KArtefato objetoFonte, KArtefato objetoDestino) {
 
+		objetoDestino.setId(objetoFonte.getId());
 		objetoDestino.setNome(objetoFonte.getNome());
 		objetoDestino.setDescricao(objetoFonte.getDescricao());
+		objetoDestino.setTipo(objetoFonte.getTipo());
+		objetoDestino.setDependencias(objetoFonte.getDependencias());
+		objetoDestino.setSubArtefatos(objetoFonte.getSubArtefatos());
+
 	}
 
 }

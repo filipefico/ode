@@ -37,7 +37,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 		definirComponentesExtensao();
 		validarComponentesExtensao();
 		setWidth("98%");
-		// configuro o responsavel por atualizar a listagem. No caso, é o
+		// configuro o responsavel por atualizar a listagem. No caso, ï¿½ o
 		// controlador
 		listagemPaginada.setAtualizador(controlador);
 		listagemPaginada.configurarComponentes();
@@ -148,10 +148,10 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 	private class EventListenerAbrir implements EventListener {
 
 		public void onEvent(Event event) {
-			// Obtém os itens selecionados
+			// Obtï¿½m os itens selecionados
 			Set itensSelecionados = getListagemPaginada().getSelecionados();
 
-			// Verifica se o número de itens selecionados é maior que zero.
+			// Verifica se o nï¿½mero de itens selecionados ï¿½ maior que zero.
 			if (itensSelecionados.size() == 1) {
 				controlador.acaoAbrir();
 			} else {
@@ -172,6 +172,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 			}
 		}
 
+		@SuppressWarnings("unused")
 		public boolean isAsap() {
 			return true;
 		}

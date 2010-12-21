@@ -2,10 +2,8 @@ package nucleo.comuns.visao.principal;
 
 import org.zkoss.zul.Window;
 
-import nucleo.comuns.visao.NucleoWindow;
-
 public class JanelaSimples extends Window{
-	
+	private static final long serialVersionUID = -5859724805082908994L;
 	/** Tamanho da window. */
 	protected String WIDTH_WINDOW = "450px";
 
