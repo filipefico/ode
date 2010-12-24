@@ -24,10 +24,10 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 	}
 
 	/**
-	 * Método abstrato a ser implementado pelas subclasses para que retornem a
-	 * classe de domínio que é persistida por elas.
+	 * Mï¿½todo abstrato a ser implementado pelas subclasses para que retornem a
+	 * classe de domï¿½nio que ï¿½ persistida por elas.
 	 * 
-	 * @return Classe de domínio que é persistida pelas subclasses.
+	 * @return Classe de domï¿½nio que ï¿½ persistida pelas subclasses.
 	 */
 	protected abstract Class getClasseDominio();
 
@@ -41,7 +41,7 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 		// Usa o suporte do Spring para recuperar todos os objetos.
 		// Encapsula dentro de um new LinkedHashSet para corrigir problema
 		// de retorno de objetos repetidos.
-		// O encapsulamento final dentro do ArrayList visa à melhoria de
+		// O encapsulamento final dentro do ArrayList visa ï¿½ melhoria de
 		// performance da Collection.
 		List<T> todosElementos = new ArrayList<T>(new LinkedHashSet<T>(
 				getHibernateTemplate().loadAll(getClasseDominio())));
@@ -65,7 +65,7 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 		try {
 			objeto = (T) getHibernateTemplate().load(getClasseDominio(), id);
 
-			// Verificar se o objeto é válido.
+			// Verificar se o objeto ï¿½ vï¿½lido.
 			objeto.toString();
 		} catch (Exception e) {
 			return null;

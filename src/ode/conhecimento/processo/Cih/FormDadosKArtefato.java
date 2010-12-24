@@ -176,6 +176,8 @@ public class FormDadosKArtefato extends FormularioDadosCRUD<KArtefato> {
 			}
 		}
 
+		Object ob = kartefato;
+		Object ob1 = kartefato.getSubArtefatos();
 		// SubArtefatos
 		if (lbSubArtefato.getItems() != null) {
 			for (KArtefato subArtefato : kartefato.getSubArtefatos()) {

@@ -30,7 +30,7 @@ public class KArtefato extends Conhecimento {
 	}
 
 	/** Obt�m os sub-artefatos do Conhecimento Artefato. */
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(name="kartefato_subkartefato")
 	public Set<KArtefato> getSubArtefatos() {
 		return subArtefatos;
@@ -46,7 +46,7 @@ public class KArtefato extends Conhecimento {
 	 * 
 	 * 
 	 */
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(name="kartefato_dependencia")
 	public Set<KArtefato> getDependencias() {
 		return dependencias;
