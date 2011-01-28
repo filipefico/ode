@@ -51,6 +51,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 	public void iniciar() {
 		configurarComponentes();
+		System.out.print("Aqui 2!!!");
 		mostrarJanelaPrincipal();
 	}
 
@@ -64,6 +65,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 	}
 
 	protected void definirComponentesExtensao() {
+		System.out.print("Aqui 3!!!");
 		nucleoAplCadastroBase = definirNucleoAplCadastroBase();
 		painelCRUD = definirPainelCRUD();
 	}

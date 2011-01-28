@@ -8,7 +8,7 @@ public class KCategoriaProcessoDAOHibernate extends NucleoDAOBaseHibernate<KCate
 KCategoriaProcessoDAO{
 
 	@Override
-	protected Class getClasseDominio() {
+	protected Class<KCategoriaProcesso> getClasseDominio() {
 		// TODO Auto-generated method stub
 		return KCategoriaProcesso.class;
 	}

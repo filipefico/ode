@@ -7,8 +7,9 @@ import nucleo.comuns.visao.paginacao.ListagemPaginada;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 import ode.processoPadrao.Cdp.CompPP;
+import ode.processoPadrao.Cdp.InterfaceCompPP;
 
-public class ListagemProcessoPadrao extends ListagemPaginada<CompPP> {
+public class ListagemDefinirProcessoPadrao extends ListagemPaginada<CompPP> {
 
 	/**
 	 * 
@@ -26,8 +27,9 @@ public class ListagemProcessoPadrao extends ListagemPaginada<CompPP> {
 	public List<NucleoListHeader> definirColunasTabela() {
 		
 		List<NucleoListHeader> colunas = new ArrayList<NucleoListHeader>();
-		colunas.add(new NucleoListHeader("Nome","nome","200px"));
-		colunas.add(new NucleoListHeader("Descricao","descricao","300px"));
+		colunas.add(new NucleoListHeader("Nome","nome","150px"));
+		colunas.add(new NucleoListHeader("Descricao","descricao","150px"));
+	//	colunas.add(new NucleoListHeader("Objetivo","objetivo","150px"));
 		return colunas;
 	}
 

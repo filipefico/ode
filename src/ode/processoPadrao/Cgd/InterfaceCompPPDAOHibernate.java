@@ -4,7 +4,7 @@ import ode.processoPadrao.Cdp.InterfaceCompPP;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import java.util.*;
 
-public class InterfaceCompPPDAOHibernate extends NucleoDAOBaseHibernate<InterfaceCompPP> {
+public class InterfaceCompPPDAOHibernate extends NucleoDAOBaseHibernate<InterfaceCompPP> implements InterfaceCompPPDAO {
 	
 	@Override
 	protected Class<InterfaceCompPP> getClasseDominio() {
@@ -20,8 +20,8 @@ public class InterfaceCompPPDAOHibernate extends NucleoDAOBaseHibernate<Interfac
         super.excluir(parInterfaceCompPP);
     }
 
-    /*public List obterTodos(){
-        return super.obterTodos(InterfaceCompPP.class);
+   /* public Collection<InterfaceCompPP> recuperarTodos(){
+        return super.recuperarTodos();
     }*/
 	
 }

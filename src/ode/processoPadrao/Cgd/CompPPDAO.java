@@ -11,6 +11,9 @@ public interface CompPPDAO extends NucleoDAOBase<CompPP> {
 	    
 	    public void excluir(CompPP parProcessoPadrao);
 	    
-//	    public List obterTodos();
+	    /** Obtem todos os compPP */
+	    public Collection<CompPP> recuperarTodos();
+	    
+	 //   public CompPP obterPorNome(String parNome);
 	
 }

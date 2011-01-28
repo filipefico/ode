@@ -34,10 +34,10 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	private static final long serialVersionUID = 2269516935940124572L;
 
 	/** Tamanho do botão. */
-	public static final String WIDTH_BUTTON = "80px";
+	public static final String WIDTH_BUTTON = "100px";
 
 	/** Tamanho do hbox. */
-	public static final String WIDTH_HBOX = "400px";
+	public static final String WIDTH_HBOX = "1000px";
 
 	/** Tamanho do toolbar. */
 	public static final String WIDTH_TOOLBAR = "99%";

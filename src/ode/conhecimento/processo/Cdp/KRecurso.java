@@ -13,5 +13,8 @@ public class KRecurso extends Conhecimento {
 
 	public KRecurso() {
     }
-    
+	    
+    public String obterNomeCanonico() {
+        return "Recurso";
+    }
 }

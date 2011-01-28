@@ -1,14 +1,12 @@
 package ode.conhecimento.processo.Cdp;
+import javax.persistence.Entity;
+
 import ode.conhecimento.processo.Cdp.KRecurso;
 
 /************************ Classe KRecursoSoftware ****************************/
 /** Representa os conhecimentos sobre Recursos de Software do ambiente ODE. 
-/**
- * @hibernate.joined-subclass
- *      table = "conh_proc_krecursosoftware"
- * @hibernate.joined-subclass-key
- *      column = "id"
- */
+*/
+@Entity
 public abstract class KRecursoSoftware extends KRecurso {
     
   /**

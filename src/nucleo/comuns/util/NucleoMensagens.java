@@ -398,4 +398,84 @@ public class NucleoMensagens {
 	 * Chave do termo "Categoria"
 	 */
 	public static final String TERMO_CATEGORIA = "termo.categoria";
+	
+	/**
+	 * Chave do termo "CompPPProcessoSimples"
+	 */
+	public static final String TERMO_COMPPP_PROCESSO_SIMPLES = "termo.compp_processo_simples";
+	
+	/**
+	 * Chave do termo "CompPPProcessoComplexo"
+	 */
+	public static final String TERMO_COMPPP_PROCESSO_COMPLEXO = "termo.compp_processo_complexo";
+	
+	/**
+	 * Chave do termo "CompPPMacroativdade"
+	 */
+	public static final String TERMO_COMPPP_MACROATIVIDADE = "termo.compp_macroatividade";
+	
+	/**
+	 * Chave do termo "Obejtivo""
+	 */
+	public static final String TERMO_OBJETIVO = "termo.objetivo";
+		
+	/**
+	 * Chave do termo "Sigla"
+	 */
+	public static final String TERMO_SIGLA = "termo.sigla";
+	
+	/**
+	 * Chave do termo "Resultados Esperados"
+	 */
+	public static final String TERMO_RESULTADOS_ESPERADOS = "termo.resultados_esperados";
+
+	/**
+	 * Chave do termo "Tipos de Interação"
+	 */
+	public static final String TERMO_TIPOS_INTERACAO = "termo.tipos_interacao";
+	
+	/**
+	 * Chave do termo "Propósito"
+	 */
+	public static final String TERMO_PROPOSITO = "termo.proposito";
+	
+	/**
+	 * Chave do termo "Sim"
+	 */
+	public static final String TERMO_SIM = "termo.sim";
+	
+	/**
+	 * Chave do termo "Não"
+	 */
+	public static final String TERMO_NAO = "termo.nao";
+	
+	/**
+	 * Chave do termo "Granularidade"
+	 */
+	public static final String TERMO_GRANULARIDADE = "termo.granularidade";
+	
+	/**
+	 * Chave do termo "Tipo"
+	 */
+	public static final String TERMO_TIPO = "termo.tipo";
+	
+	/**
+	 * Chave do termo "Katividade"
+	 */
+	public static final String TERMO_KATIVIDADE = "termo.katividade";
+	
+	/**
+	 * Chave do termo "Katividade"
+	 */
+	public static final String TERMO_CADASTRO_RECURSO = "termo.cadastro.recurso";
+	
+	/**
+	 * Chave do termo "KRecursoHumano"
+	 */
+	public static final String TERMO_kRECURSO_HUMANO = "termo.recurso.humano";
+	
+	/**
+	 * Chave do termo "KRecursoHardware"
+	 */
+	public static final String TERMO_kRECURSO_HARDWARE = "termo.recurso.hardware";
 }

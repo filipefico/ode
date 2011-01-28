@@ -1,9 +1,14 @@
 package ode.processoPadrao.Cgd;
 
+import ode.conhecimento.processo.Cdp.KArtefato;
+import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
-import ode.processoPadrao.Cdp.CompPPProcessoSimples;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import java.util.*;
+
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<CompPPProcessoComplexo> implements CompPPProcessoComplexoDAO{
 	@Override
@@ -15,9 +20,38 @@ public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<C
 	public void salvar(CompPPProcessoComplexo parProcessoPadraoGeral){
 	        super.salvar(parProcessoPadraoGeral);
 	    }
+	
 	    
-	    public void excluir(CompPPProcessoComplexo parProcessoPadraoGeral){
-	        /*try{
+	public Collection<CompPPProcessoComplexo> recuperarTodos(){
+        return super.recuperarTodos();
+    }
+	
+	  public void excluir(CompPPProcessoComplexo parProcessoPadraoGeral){
+	        super.excluir(parProcessoPadraoGeral);
+	    }
+	
+	/*  public KArtefato recuperarPorId(Long id) {
+		    DetachedCriteria detaCriteria = DetachedCriteria.forClass(getClasseDominio());
+		    detaCriteria.setFetchMode("subArtefatos", FetchMode.JOIN)
+		        .setFetchMode("dependencias", FetchMode.JOIN)
+		        .setFetchMode("tipo", FetchMode.JOIN)
+		        .add( Restrictions.idEq(id) );
+
+		    //List resultado = getHibernateTemplate().findByCriteria(detaCriteria);
+		    List resultado = getHibernateTemplate().findByCriteria(detaCriteria, 0, 1);
+			return (KArtefato)resultado.get(0);
+		}*/
+	  public CompPPProcessoComplexo obterPorNome(String parNome){
+	      
+	
+	        List locProc = getSession().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'").list();
+	        if (locProc.isEmpty())
+	            return null;
+	        return (CompPPProcessoComplexo)locProc.get(0);
+	    }
+	  
+	   /* public void excluir(CompPPProcessoComplexo parProcessoPadraoGeral){
+	       *try{
 	            
 	            DAOFactory.getDAOFactory().beginTransaction();
 	            
@@ -59,20 +93,14 @@ public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<C
 	            e.printStackTrace();
 	            DAOFactory.getDAOFactory().rollback();
 	        }*/
-	    }
+	    
 	    
 	  /*  public List obterTodos(){
 	        return super.obterTodos(CompPPProcessoComplexo.class);
 	    }
-	    
-	    public CompPPProcessoComplexo obterPorNome(String parNome){
-	        
-	        List locProc = getSession().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'").list();
-	        if (locProc.isEmpty())
-	            return null;
-	        return (CompPPProcessoComplexo)locProc.get(0);
-	    }
-	    
+	    */
+	  
+	    /*
 	    public List obterProcessosDefinidos(){
 	        return getSession().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as ppg where ppg.ehDefinido = true").list();
 	    }
@@ -113,5 +141,7 @@ public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<C
 	        return (CompPPProcessoComplexo) locInterface.get(0);
 	    }
 	    */
+	    
+	    
 	    
 }

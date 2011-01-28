@@ -5,7 +5,8 @@ import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import ode.processoPadrao.Cdp.CompPP;
 import java.util.*;
 
-public abstract class CompPPProcessoSimplesDAOHibernate extends NucleoDAOBaseHibernate<CompPPProcessoSimples> implements CompPPProcessoSimplesDAO{
+public class CompPPProcessoSimplesDAOHibernate extends
+NucleoDAOBaseHibernate<CompPPProcessoSimples> implements CompPPProcessoSimplesDAO{
    
 	@Override
 	protected Class<CompPPProcessoSimples> getClasseDominio() {
@@ -19,6 +20,10 @@ public abstract class CompPPProcessoSimplesDAOHibernate extends NucleoDAOBaseHib
     
     public void excluir(CompPPProcessoSimples parProcessoPadraoEspecifico){
         super.excluir(parProcessoPadraoEspecifico);
+    }
+    
+    public Collection<CompPPProcessoSimples> recuperarTodos(){
+        return super.recuperarTodos();
     }
     
   /*  public List obterTodos(){

@@ -7,7 +7,7 @@ public class KDominioAplicacaoDAOHibernate extends NucleoDAOBaseHibernate<KDomin
 		KDominioAplicacaoDAO {
 
 	@Override
-	protected Class getClasseDominio() {
+	protected Class<KDominioAplicacao> getClasseDominio() {
 		// TODO Auto-generated method stub
 		return KDominioAplicacao.class;
 	}

@@ -10,12 +10,16 @@ import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
 
+import ode.conhecimento.processo.Cci.CtrlKAtividadeCRUD;
 import ode.conhecimento.processo.Cci.CtrlKParadigmaCRUD;
 import ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
+import ode.conhecimento.processo.Cci.CtrlKProcessoCRUD;
+import ode.conhecimento.processo.Cci.CtrlKRecursoHardwareCRUD;
+import ode.conhecimento.processo.Cci.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
-//import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
+import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
 import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
@@ -124,6 +128,9 @@ public class WindowMenu extends Window {
 
 		menuCadastroConhecimento.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
+		
+		menuCadastroRecurso.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CADASTRO_RECURSO));
 
 		menuitemOrganizacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
@@ -140,6 +147,13 @@ public class WindowMenu extends Window {
 		menuitemFerramentaSoftware.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
 
+		menuitemRecursoHumano.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_kRECURSO_HUMANO));
+
+		menuitemRecursoHardware.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_kRECURSO_HARDWARE));
+		
+		
 		menuitemDominioAplicacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
 
@@ -149,26 +163,21 @@ public class WindowMenu extends Window {
 		menuitemTipoKArtefato.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_K_ARTEFATO));
 
+		menuitemKAtividade.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_KATIVIDADE));
+		
+		menuitemCategoriaProcesso.setLabel (NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CATEGORIA));
+
+		menuProcesso.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
+	
 		menuProcessoPadrao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PROCESSO_PADRAO));
 		
 		menuitemCompPP.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_COMPPP));
-		
-		menuitemCategoriaProcesso.setLabel (NucleoMensagens.getMensagem(NucleoMensagens.TERMO_CATEGORIA));
-
-		menuProcesso.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
-		/*
-		menuCarac.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_CADASTRO_PROCESSO));
-		menuRecurso.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_RECURSO));
-		
-		menuitemRecurso.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_RECURSO_SOFTWARE));
-*/	}
-
+	}
 	public void atualizarPermissoesAcesso() {
 
 		// Atualiza a visibilidade dos menus e interfaces
@@ -208,12 +217,14 @@ public class WindowMenu extends Window {
 
 		menuOrganizacao.setVisible(admin);
 
+		menuCadastroConhecimento.setVisible(admin);
+		
+		menuCadastroRecurso.setVisible(admin);
+		
 		menuitemDominioAplicacao.setVisible(admin);
 
-		menuCadastroConhecimento.setVisible(admin);
-
 		menuitemOrganizacao.setVisible(admin);
-
+		
 		menuProcesso.setVisible(admin);
 
 		menuitemParadigma.setVisible(admin);
@@ -221,19 +232,33 @@ public class WindowMenu extends Window {
 		menuitemTipoSoftware.setVisible(admin);
 		
 		menuitemFerramentaSoftware.setVisible(admin);
+		
+		menuitemRecursoHumano.setVisible(admin);
+		
+		menuitemRecursoHardware.setVisible(admin);
 
 		menuitemDominioAplicacao.setVisible(admin);
 
 		menuitemTipoKArtefato.setVisible(admin);
 
 		menuitemKArtefato.setVisible(admin);
+		
+		menuitemKAtividade.setVisible(admin);
 
 		menuProcessoPadrao.setVisible(admin);
 		
-		menuitemCompPP.setVisible(admin);
-		
 		menuitemCategoriaProcesso.setVisible(admin);
 		
+		menuitemKProcesso.setVisible(admin);
+		
+		// /////////////////////////////
+		// Menu Organizacao
+		// ////////////////////////////
+		
+		menuProcessoPadrao.setVisible(admin);
+
+		menuitemCompPP.setVisible(admin);
+
 	}
 
 	/** Evento executado ao fechar a window */
@@ -290,6 +315,31 @@ public class WindowMenu extends Window {
 		menupopupOrganizacao = new Menupopup();
 		menupopupOrganizacao.setParent(menuOrganizacao);
 
+		// Sub-menu Cadastro de Recurso
+		menuCadastroRecurso = new NucleoMenu(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CADASTRO_RECURSO));
+		menuCadastroRecurso.setParent(menupopupOrganizacao);
+		menupopupCadastroRecurso = new Menupopup();
+		menupopupCadastroRecurso.setParent(menuCadastroRecurso);		
+		
+		menuitemFerramentaSoftware = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
+		menuitemFerramentaSoftware.addEventListener("onClick",
+				new EListenerFerramentaSoftware());
+		menuitemFerramentaSoftware.setParent(menupopupCadastroRecurso);
+		
+		menuitemRecursoHumano = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_kRECURSO_HUMANO));
+		menuitemRecursoHumano.addEventListener("onClick",
+				new EListenerRecursoHumano());
+		menuitemRecursoHumano.setParent(menupopupCadastroRecurso);
+		
+		menuitemRecursoHardware = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_kRECURSO_HARDWARE));
+		menuitemRecursoHardware.addEventListener("onClick",
+				new EListenerRecursoHardware());
+		menuitemRecursoHardware.setParent(menupopupCadastroRecurso);
+		
 		// Sub-menu Cadastro de Conhecimento
 		menuCadastroConhecimento = new NucleoMenu(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_CADASTRO_CONHECIMENTO));
@@ -312,7 +362,8 @@ public class WindowMenu extends Window {
 
 		menuitemParadigma = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PARADIGMA));
-		menuitemParadigma.addEventListener("onClick",new EListenerKParadigmaComControlador());
+		menuitemParadigma.addEventListener("onClick",
+				new EListenerKParadigmaComControlador());
 		menuitemParadigma.setParent(menupopupProcesso);
 		
 		menuitemTipoSoftware = new Menuitem(NucleoMensagens
@@ -321,13 +372,6 @@ public class WindowMenu extends Window {
 				new EListenerTipoSoftware());
 		menuitemTipoSoftware.setParent(menupopupProcesso);
 		
-
-		menuitemFerramentaSoftware = new Menuitem(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
-		menuitemFerramentaSoftware.addEventListener("onClick",
-				new EListenerFerramentaSoftware());
-		menuitemFerramentaSoftware.setParent(menupopupProcesso);
-
 		menuitemTipoKArtefato = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_TIPO_K_ARTEFATO));
 		menuitemTipoKArtefato.setParent(menupopupProcesso);
@@ -339,33 +383,53 @@ public class WindowMenu extends Window {
 				.getMensagem(NucleoMensagens.TERMO_K_ARTEFATO));
 		menuitemKArtefato.setParent(menupopupProcesso);
 
-		menuitemKArtefato.addEventListener("onClick",new EventListenerKArtefato());
+		menuitemKArtefato.addEventListener("onClick",
+				new EventListenerKArtefato());
 		
-
-		menuitemDominioAplicacao = new Menuitem(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-		menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
+		menuitemDominioAplicacao = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
+		menuitemDominioAplicacao.addEventListener("onClick",
+				new EListenerKDominioAplicacaoComControlador());
 		
-		menuitemCategoriaProcesso = new Menuitem (NucleoMensagens.getMensagem((NucleoMensagens.TERMO_CATEGORIA)));
+		menuitemCategoriaProcesso = new Menuitem (NucleoMensagens.
+				getMensagem((NucleoMensagens.TERMO_CATEGORIA)));
 		menuitemCategoriaProcesso.setParent(menupopupProcesso);
-		menuitemCategoriaProcesso.addEventListener ("onClick", new EListenerKCategoriaProcesso());
+		menuitemCategoriaProcesso.addEventListener ("onClick", 
+				new EListenerKCategoriaProcesso());
+		
+		menuitemKProcesso = new Menuitem (NucleoMensagens.
+				getMensagem(NucleoMensagens.TERMO_PROCESSO));
+		menuitemKProcesso.setParent(menupopupProcesso);
+		menuitemKProcesso.addEventListener("onClick", 
+				new EListenerKProcesso());
 
+		menuitemKAtividade = new Menuitem (NucleoMensagens.
+				getMensagem(NucleoMensagens.TERMO_KATIVIDADE));
+		menuitemKAtividade.setParent(menupopupProcesso);
+		menuitemKAtividade.addEventListener("onClick", 
+				new EListenerKAtividade());
+		
 		// Sub-menu Dominio da Aplica��o
 
 		menuitemDominioAplicacao = new Menuitem(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DOMINIO_DA_APLICACAO));
-		 menuitemDominioAplicacao.addEventListener("onClick",new EListenerKDominioAplicacaoComControlador());
+		 menuitemDominioAplicacao.addEventListener("onClick",
+				 new EListenerKDominioAplicacaoComControlador());
 		menuitemDominioAplicacao.setParent(menupopupProcesso);
 
-		// Sub-menu Processo Padrao
+		// Menu Processo Padrao
 		menuProcessoPadrao = new NucleoMenu(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_PROCESSO_PADRAO));
-		menuProcessoPadrao.setParent(menupopupCadastroConhecimento);
+		menuProcessoPadrao.setParent(menuBar);
 		menupopupProcessoPadrao = new Menupopup();
 		menupopupProcessoPadrao.setParent(menuProcessoPadrao);
 		
-		menuitemCompPP = new Menuitem(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_COMPPP));
-		menuitemCompPP.addEventListener("onClick", new EListenerProcessoPadrao());
-		//menuitemCompPP.addEventListener("onClick", new EventListenerMenuItemProcessoPadrao());
+		menuitemCompPP = new Menuitem(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_COMPPP));
+		//menuitemCompPP.addEventListener("onClick",
+		//		new EListenerProcessoPadrao());
+		menuitemCompPP.addEventListener("onClick",
+				new EventListenerMenuItemProcessoPadrao());
 		menuitemCompPP.setParent(menupopupProcessoPadrao);
 
 	}
@@ -403,7 +467,7 @@ public class WindowMenu extends Window {
 		public void onEvent(Event event) {
 			// sem controlador
 			Window win = (Window) Executions.createComponents(
-					"/visao/cadastros_gerais/windowCadastroListaProcessoPadrao.zul",
+					"/visao/cadastros_gerais/WindowDefinirCompPP.zul",
 					getReference(), null);
 			win.doOverlapped();
 		}
@@ -446,6 +510,19 @@ public class WindowMenu extends Window {
 		public void onEvent(Event event) {
 
 			CtrlCategoriaProcessoCRUD ctrl = new CtrlCategoriaProcessoCRUD();
+			ctrl.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
+	private class EListenerKProcesso implements EventListener {
+		public void onEvent(Event event) {
+
+			CtrlKProcessoCRUD ctrl = new CtrlKProcessoCRUD();
 			ctrl.iniciar();
 		}
 
@@ -518,8 +595,49 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			//CtrlFerramentaSoftwareCRUD ctrlP = new CtrlFerramentaSoftwareCRUD();
-			//ctrlP.iniciar();
+			CtrlFerramentaSoftwareCRUD ctrlP = new CtrlFerramentaSoftwareCRUD();
+			ctrlP.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
+	private class EListenerRecursoHumano implements EventListener {
+
+		public void onEvent(Event event) {
+			// COm controlador
+			CtrlKRecursoHumanoCRUD ctrlP = new CtrlKRecursoHumanoCRUD();
+			ctrlP.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
+	private class EListenerRecursoHardware implements EventListener {
+
+		public void onEvent(Event event) {
+			// COm controlador
+			CtrlKRecursoHardwareCRUD ctrlP = new CtrlKRecursoHardwareCRUD();
+			ctrlP.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
+	private class EListenerKAtividade implements EventListener {
+		public void onEvent(Event event) {
+
+			CtrlKAtividadeCRUD ctrl = new CtrlKAtividadeCRUD();
+			ctrl.iniciar();
 		}
 
 		@SuppressWarnings("unused")
@@ -620,40 +738,59 @@ public class WindowMenu extends Window {
 
 	Menupopup menupopupOrganizacao;
 
-	Menuitem menuitemCadastroConhecimento;
+	//Menuitem menuitemCadastroConhecimento;
 
+	// Sub-menu Cadastro de Recursos:
+	NucleoMenu menuCadastroRecurso;
+
+	Menupopup menupopupCadastroRecurso;
+	
+	Menuitem menuitemFerramentaSoftware;
+	
+	Menuitem menuitemRecursoHumano;
+	
+	Menuitem menuitemRecursoHardware;
+	
 	// Sub-menu Cadastro de Conhecimento:
 	NucleoMenu menuCadastroConhecimento;
 
 	Menupopup menupopupCadastroConhecimento;
-
-	Menuitem menuitemProcesso;
-
-	Menuitem menuitemOrganizacao;
-
-	// Sub-menu Processo:
-	NucleoMenu menuProcesso;
-
+	
 	Menupopup menupopupProcesso;
+	
+	Menupopup menupopupKAtividade;
+
+	NucleoMenu menuProcesso;
+	
+	Menuitem menuitemProcesso;
+	
+	Menuitem menuitemOrganizacao;
 
 	Menuitem menuitemParadigma;
 
 	Menuitem menuitemTipoSoftware;
 	
-	Menuitem menuitemFerramentaSoftware;
-
 	Menuitem menuitemTipoKArtefato;
 
 	Menuitem menuitemKArtefato;
-
+	
+	Menuitem menuitemKAtividade;
+	
 	Menuitem menuitemDominioAplicacao;
 	
 	Menuitem menuitemCategoriaProcesso;
-
-	// Sub-menu Processo Padrao:
-	NucleoMenu menuProcessoPadrao;
 	
+	Menuitem menuitemKProcesso;
+
+
+	// /////////////////////////////
+	// Menu Processo Padrao
+	// ////////////////////////////
+	NucleoMenu menuProcessoPadrao;
+
 	Menupopup menupopupProcessoPadrao;
 
 	Menuitem menuitemCompPP;	
+	
+	
 }

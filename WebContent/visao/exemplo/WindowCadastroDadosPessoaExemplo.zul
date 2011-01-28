@@ -1,2 +1,2 @@
 <window
-	use="ode.exemplo.visao.WindowCadastroDadosPessoaExemplo" />
+	use="nucleo.comuns.visao.NucleoWindowSelecaoLista" />

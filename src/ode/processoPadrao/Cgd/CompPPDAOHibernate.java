@@ -3,6 +3,7 @@ import ode.processoPadrao.Cdp.*;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import java.util.*;
 
+
 public class CompPPDAOHibernate extends NucleoDAOBaseHibernate<CompPP> implements CompPPDAO{
 
 	
@@ -20,8 +21,15 @@ public class CompPPDAOHibernate extends NucleoDAOBaseHibernate<CompPP> implement
 	        super.excluir(parProcessoPadrao);
 	    }
 	    
-	    /*public List obterTodos(){
-	        return super.obterTodos(CompPP.class);
+	 /*   public Collection<CompPP> recuperarTodos(){
+	        return super.recuperarTodos();
 	    }*/
 	
+	    public CompPP obterPorNome(String parNome){
+	        
+	        List locProc = getSession().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'").list();
+	        if (locProc.isEmpty())
+	            return null;
+	        return (CompPP)locProc.get(0);
+	    }
 }

@@ -31,7 +31,6 @@ public class CompPP extends ObjetoPersistente {
     
     
     /** Verifica se um Processo já teve sua definição encerrada
-     *  @hibernate.property
      */
     @Column
     public boolean isEhDefinido() {
@@ -78,13 +77,8 @@ public class CompPP extends ObjetoPersistente {
             return null;
     }
 
-     /**
-     *
-     * @hibernate.many-to-one
-     *   column = "idorequisitocomppp"
-     *   not-null = "false"
-     *   class = "Ode.processoPadrao.cdp.RequisitoCompPP"
-     */
+     /**  not-null = "false"
+      */
     @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = RequisitoCompPP.class)
     public RequisitoCompPP getRequisitoCompPP() {
         return requisitoCompPP;
@@ -95,11 +89,7 @@ public class CompPP extends ObjetoPersistente {
     }
 
     /**
-     *
-     * @hibernate.many-to-one
-     *   column = "idocompppbase"
      *   not-null = "false"
-     *   class = "Ode.processoPadrao.cdp.CompPP"
      */
     @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
     public CompPP getCompPPBase() {

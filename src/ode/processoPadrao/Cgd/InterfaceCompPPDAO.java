@@ -1,6 +1,7 @@
 package ode.processoPadrao.Cgd;
 
 import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
 import java.util.*;
 
@@ -10,5 +11,5 @@ public interface InterfaceCompPPDAO extends NucleoDAOBase<InterfaceCompPP> {
 
     public void excluir(InterfaceCompPP parProcessoPadrao);
 
-    public List obterTodos();
+    //public Collection<InterfaceCompPP> recuperarTodos();
 }

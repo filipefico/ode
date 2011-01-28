@@ -9,8 +9,9 @@ public interface RequisitoCompPPDAO extends NucleoDAOBase<RequisitoCompPP> {
 	public void salvar(RequisitoCompPP requisitoCompPP);
 
     public void excluir(RequisitoCompPP requisitoCompPP);
-
-    //public List obterTodos();
+    
+    public Collection<RequisitoCompPP> recuperarTodos();
+   
 
 	
 }

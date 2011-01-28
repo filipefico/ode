@@ -2,15 +2,20 @@ package ode.processoPadrao.Cdp;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
+import ode.conhecimento.processo.Cdp.KProcesso;
 
 @Entity
 public class InterfaceCompPPProcessoComplexo extends InterfaceCompPP {
 		
-/*		private Set<ObrigatoriedadeSubprocesso> obrigatoriedadeSubprocesso;
+		private static final long serialVersionUID = 1511633233374334028L;
+		private Set<ObrigatoriedadeSubprocesso> obrigatoriedadeSubprocesso;
 
-	    public InterfaceCompPPProcessoComplexo(String nome, String objetivo, String descricao, CompPP compPP, Caracterizacao caracterizacao,
+	    public InterfaceCompPPProcessoComplexo(String nome, String objetivo, String descricao, CompPP compPP,
 	            Set<ObrigatoriedadeSubprocesso> obrigatoriedadeSubprocesso) {
-	        super(nome, objetivo, descricao, compPP, caracterizacao);
+	        super(nome, objetivo, descricao, compPP);
 	        this.obrigatoriedadeSubprocesso = obrigatoriedadeSubprocesso;
 
 	    }
@@ -18,20 +23,14 @@ public class InterfaceCompPPProcessoComplexo extends InterfaceCompPP {
 	    public InterfaceCompPPProcessoComplexo() {
 	        obrigatoriedadeSubprocesso = new HashSet<ObrigatoriedadeSubprocesso>();
 	    }
-*/
+
 	    /** Obtém as SubAtividades.
 	     *
 	     *@hibernate.set
 	     *    inverse = "true"
-	     *    cascade = "all"
-	     *    lazy = "true"
-	     *@hibernate.collection-key
-	     *   column = "idointerface"
-	     *@hibernate.collection-one-to-many
-	     *   class = "Ode.processoPadrao.cdp.ObrigatoriedadeSubprocesso"
-	     *
 	     */
-	/*    public Set<ObrigatoriedadeSubprocesso> getObrigatoriedadeSubprocesso() {
+	    @OneToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = ObrigatoriedadeSubprocesso.class,fetch=FetchType.LAZY)
+	    public Set<ObrigatoriedadeSubprocesso> getObrigatoriedadeSubprocesso() {
 	        return obrigatoriedadeSubprocesso;
 	    }
 
@@ -43,10 +42,10 @@ public class InterfaceCompPPProcessoComplexo extends InterfaceCompPP {
 	        this.obrigatoriedadeSubprocesso.add(parObrigatoriedadeSubprocesso);
 	    }
 
-	    public List<KProcesso> obterKSubProcessos(Boolean ehObrigatorio){
-	        List processos = new ArrayList();
+	   public ArrayList<KProcesso> obterKSubProcessos(Boolean ehObrigatorio){
+	        ArrayList<KProcesso> processos = new ArrayList<KProcesso>();
 	        if(this.obrigatoriedadeSubprocesso != null){
-	            List<ObrigatoriedadeSubprocesso> locProcessosEspecificos = new ArrayList(this.obrigatoriedadeSubprocesso);
+	            ArrayList<ObrigatoriedadeSubprocesso> locProcessosEspecificos = new ArrayList<ObrigatoriedadeSubprocesso>(this.obrigatoriedadeSubprocesso);
 
 	            for(ObrigatoriedadeSubprocesso locObrigatoriedade: locProcessosEspecificos){
 	                if(ehObrigatorio == locObrigatoriedade.isEhObrigatorio())
@@ -56,9 +55,9 @@ public class InterfaceCompPPProcessoComplexo extends InterfaceCompPP {
 	        return processos;
 	    }
 
-	    public List<CompPPProcessoSimples> obterSubComponentes(Boolean ehObrigatorio){
-	        List<KProcesso> kprocOpcionais = this.obterKSubProcessos(ehObrigatorio);
-	        List<CompPPProcessoSimples> subProcOpcionais = new ArrayList();
+	    public ArrayList<CompPPProcessoSimples> obterSubComponentes(Boolean ehObrigatorio){
+	        ArrayList<KProcesso> kprocOpcionais = this.obterKSubProcessos(ehObrigatorio);
+	        ArrayList<CompPPProcessoSimples> subProcOpcionais = new ArrayList<CompPPProcessoSimples>();
 
 	        for(CompPPProcessoSimples subProc:(Set<CompPPProcessoSimples>)((CompPPProcessoComplexo)compPP).getProcessosSimples()){
 	            if(kprocOpcionais.contains(subProc.getKProcesso()))
@@ -66,6 +65,6 @@ public class InterfaceCompPPProcessoComplexo extends InterfaceCompPP {
 	        }
 	        return subProcOpcionais;
 	    }
-*/
+
 
 }

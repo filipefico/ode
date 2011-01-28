@@ -1,7 +1,10 @@
 package ode.processoPadrao.Cdp;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import ode.conhecimento.processo.Cdp.KTipoInteracao;
 
 import nucleo.comuns.persistencia.ObjetoPersistente;
 
@@ -14,26 +17,22 @@ public class InteracaoSubprocessos extends ObjetoPersistente{
 	private CompPPProcessoSimples origem;
     private CompPPProcessoSimples destino;
     private CompPPProcessoComplexo procComplexo;
-    //private KTipoInteracao tipo;
+    private KTipoInteracao tipo;
 
 
     public InteracaoSubprocessos(CompPPProcessoSimples origem, CompPPProcessoSimples destino, CompPPProcessoComplexo procComplexo) {//, KTipoInteracao tipo
         this.origem = origem;
         this.destino = destino;
         this.procComplexo = procComplexo;
-        //this.tipo = tipo;
+        this.tipo = tipo;
     }
 
     public void InteracaoSubprocessos() {
     }
 
-    /*
+    /**
      *
-     * @hibernate.many-to-one
-     *   column = "idodestino"
      *   not-null = "false"
-     *   class = "Ode.processoPadrao.cdp.CompPPProcessoSimples"
-     *
      */
     @ManyToOne(cascade=javax.persistence.CascadeType.ALL, targetEntity = CompPPProcessoSimples.class)
     public CompPPProcessoSimples getDestino() {
@@ -44,13 +43,8 @@ public class InteracaoSubprocessos extends ObjetoPersistente{
         this.destino = destino;
     }
 
-    /*
-     *
-     * @hibernate.many-to-one
-     *   column = "idoorigem"
+    /**
      *   not-null = "false"
-     *   class = "Ode.processoPadrao.cdp.CompPPProcessoSimples"
-     *
      */
     @ManyToOne(cascade=javax.persistence.CascadeType.ALL, targetEntity = CompPPProcessoSimples.class)
     public CompPPProcessoSimples getOrigem() {
@@ -61,13 +55,8 @@ public class InteracaoSubprocessos extends ObjetoPersistente{
         this.origem = origem;
     }
 
-    /*
-     *
-     * @hibernate.many-to-one
-     *   column = "idoproccomplexo"
+    /**
      *   not-null = "false"
-     *   class = "Ode.processoPadrao.cdp.CompPPProcessoComplexo"
-     *
      */
     @ManyToOne(cascade=javax.persistence.CascadeType.ALL, targetEntity = CompPPProcessoComplexo.class)
     public CompPPProcessoComplexo getProcComplexo() {
@@ -78,19 +67,16 @@ public class InteracaoSubprocessos extends ObjetoPersistente{
         this.procComplexo = procComplexo;
     }
 
-    /*
-     *
-     * @hibernate.many-to-one
-     *   column = "idotipo"
+    /**
      *   not-null = "false"
-     *   class = "Ode.Conhecimento.Processo.Cdp.KTipoInteracao"
      *
      */
-//    public KTipoInteracao getTipo() {
-//        return tipo;
-//    }
-//
-//    public void setTipo(KTipoInteracao tipo) {
-//        this.tipo = tipo;
-//    }
+    @ManyToOne(cascade=javax.persistence.CascadeType.ALL, targetEntity = KTipoInteracao.class)
+    public KTipoInteracao getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(KTipoInteracao tipo) {
+        this.tipo = tipo;
+    }
 }

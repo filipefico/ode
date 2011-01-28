@@ -173,16 +173,48 @@
 				<value> ode.conhecimento.processo.Cdp.KFerramentaSoftware </value>
 				<value> ode.conhecimento.processo.Cdp.KArtefato </value>
 				<value> ode.conhecimento.processo.Cdp.KParadigma </value>
-				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
 				<value> ode.conhecimento.processo.Cdp.KCategoriaProcesso </value>
+				<value> ode.conhecimento.processo.Cdp.KTipoInteracao </value>
+				<value> ode.conhecimento.processo.Cdp.KResultadoProcesso </value>
+				<value> ode.conhecimento.processo.Cdp.KProcesso </value>
+				<value> ode.conhecimento.processo.Cdp.KAtividade </value>
+				<value> ode.conhecimento.processo.Cdp.KProcedimento </value>
+				<value> ode.conhecimento.processo.Cdp.KMetodo </value>
+				<value> ode.conhecimento.processo.Cdp.KDiretriz </value>
+				<value> ode.conhecimento.processo.Cdp.KTecnica </value>
+				<value> ode.conhecimento.processo.Cdp.KNorma </value>
+				<value> ode.conhecimento.processo.Cdp.KRoteiro </value>
+				<value> ode.conhecimento.processo.Cdp.KRecurso </value>
+				<value> ode.conhecimento.processo.Cdp.KRecursoHumano </value>
+				<value> ode.conhecimento.processo.Cdp.KRecursoSoftware </value>
+				<value> ode.conhecimento.processo.Cdp.KRecursoHardware </value>
+				<value> ode.conhecimento.processo.Cdp.KSistemaApoio </value>
+				<value> ode.conhecimento.processo.Cdp.KLinguagemProgramacao </value>
+				<value> ode.conhecimento.processo.Cdp.KCombinacao </value>
+				<value> ode.conhecimento.processo.Cdp.KOrdemCombinacao </value>
+				<value> ode.conhecimento.processo.Cdp.KModeloCicloVida </value>
+				<value> ode.conhecimento.processo.Cdp.KProcessoPadrao </value>
+				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
 				<value> ode.processoPadrao.Cdp.CompPP </value>
 				<value> ode.processoPadrao.Cdp.RequisitoCompPP </value>
 				<value> ode.processoPadrao.Cdp.InterfaceCompPP </value>
 				<value> ode.processoPadrao.Cdp.CompPPProcessoSimples </value>
 				<value> ode.processoPadrao.Cdp.CompPPProcessoComplexo </value>
+				<value> ode.processoPadrao.Cdp.CompPPMacroatividade </value>
+				<value> ode.processoPadrao.Cdp.ConectorCompPPMacroAtividade </value>
 				<value> ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples </value>
 				<value> ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo </value>
-				<value> ode.processoPadrao.Cdp.InteracaoSubprocessos </value><!---->
+				<value> ode.processoPadrao.Cdp.InterfaceCompPPMacroatividade </value>
+				<value> ode.processoPadrao.Cdp.InteracaoSubprocessos </value>
+				<value> ode.processoPadrao.Cdp.ModeloCicloVidaProcessoPadrao </value>
+				<value> ode.processoPadrao.Cdp.AtividadeProcessoPadrao </value>
+				<value> ode.processoPadrao.Cdp.CombinacaoPP </value>
+				<value> ode.processoPadrao.Cdp.OrdemAtividadePP </value>
+				<value> ode.processoPadrao.Cdp.ObrigatoriedadeSubatividade </value>
+				<value> ode.processoPadrao.Cdp.ObrigatoriedadeSubprocesso </value>
+				<value> ode.processoPadrao.Cdp.ObrigatoriedadeMacroatividade </value>
+
+				<!---->
 				
 			</list>
 		</property>
@@ -237,6 +269,12 @@
 			<ref local="sessionFactory" />
 		</property>
 	</bean>
+	
+	<bean id="kAtividadeDao" class="ode.conhecimento.processo.Cgd.KAtividadeDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
 
 	<bean id="tipoKArtefatoDao" class="ode.conhecimento.processo.Cgd.TipoKArtefatoDAOHibernate">
 		<property name="sessionFactory">
@@ -244,7 +282,7 @@
 		</property>
 	</bean>
 
-	<bean id="dominioConhecimentoDao"
+	<bean id="kdominioConhecimentoDao"
 		class="ode.conhecimento.organizacao.Cgd.KDominioConhecimentoDAOHibernate"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="sessionFactory">
@@ -258,9 +296,45 @@
 		</property>
 	</bean>
 		
-	<bean id="categoriaProcessoDao"
+	<bean id="kcategoriaProcessoDao"
 		class="ode.conhecimento.processo.Cgd.KCategoriaProcessoDAOHibernate"
 		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kProcessoDao"
+		class="ode.conhecimento.processo.Cgd.KProcessoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kResultadoProcessoDao"
+		class="ode.conhecimento.processo.Cgd.KResultadoProcessoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kTipoInteracaoDao"
+		class="ode.conhecimento.processo.Cgd.KTipoInteracaoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kRecursoHumanoDao" class="ode.conhecimento.processo.Cgd.KRecursoHumanoDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kRecursoHardwareDao" class="ode.conhecimento.processo.Cgd.KRecursoHardwareDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
@@ -274,7 +348,21 @@
 		</property>
 	</bean>
 	
-	<bean id="requisitoCompPPDao" class="ode.processoPadrao.Cgd.RequisitoCompPPDAOHibernate"
+	<bean id="compPPProcessoComplexoDao" class="ode.processoPadrao.Cgd.CompPPProcessoComplexoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory"> 
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="compPPProcessoSimplesDao" class="ode.processoPadrao.Cgd.CompPPProcessoSimplesDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory"> 
+			<ref local="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="compPPMacroatividadeDao" class="ode.processoPadrao.Cgd.CompPPMacroatividadeDAOHibernate"
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="sessionFactory"> 
 			<ref local="sessionFactory"/>

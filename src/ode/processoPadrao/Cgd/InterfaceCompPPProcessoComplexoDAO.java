@@ -1,4 +1,6 @@
 package ode.processoPadrao.Cgd;
+import java.util.Collection;
+
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples;
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
@@ -8,8 +10,8 @@ public interface InterfaceCompPPProcessoComplexoDAO {
 
 	    public void excluir(InterfaceCompPPProcessoComplexo parProcessoPadrao);
 
-	  /*  public List obterTodos();
+	    public Collection<InterfaceCompPPProcessoComplexo> recuperarTodos();
 
-	    public InterfaceCompPPProcessoComplexo obterPorId(InterfaceCompPP parInterfaceCompPP);
-	    */
+	    //public InterfaceCompPPProcessoComplexo obterPorId(InterfaceCompPP parInterfaceCompPP);
+	    
 }

@@ -2,16 +2,18 @@ package ode.processoPadrao.Cdp;
 import java.util.*;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class InterfaceCompPPProcessoSimples extends InterfaceCompPP{
 
-		//private Set<ObrigatoriedadeMacroatividade> obrigatoriedadeMacroatividade;
+		private static final long serialVersionUID = -1611617498224080342L;
+		private Set<ObrigatoriedadeMacroatividade> obrigatoriedadeMacroatividade;
 
-	    public InterfaceCompPPProcessoSimples(String nome, String objetivo, String descricao, CompPP compPP/*, Caracterizacao caracterizacao, Set<ObrigatoriedadeMacroatividade> obrigatoriedadeMacroatividade*/) {
-	        //super(nome, objetivo, descricao, compPP/*, caracterizacao*/);
-	        //this.obrigatoriedadeMacroatividade = obrigatoriedadeMacroatividade;
+	    public InterfaceCompPPProcessoSimples(String nome, String objetivo, String descricao, CompPP compPP, Set<ObrigatoriedadeMacroatividade> obrigatoriedadeMacroatividade) {
+	        super(nome, objetivo, descricao, compPP);
+	        this.obrigatoriedadeMacroatividade = obrigatoriedadeMacroatividade;
 	    }
 
 	    public InterfaceCompPPProcessoSimples() {
@@ -21,15 +23,8 @@ public class InterfaceCompPPProcessoSimples extends InterfaceCompPP{
 	     *
 	     *@hibernate.set
 	     *    inverse = "true"
-	     *    cascade = "all"
-	     *    lazy = "true"
-	     *@hibernate.collection-key
-	     *   column = "idointerface"
-	     *@hibernate.collection-one-to-many
-	     *   class = "Ode.processoPadrao.cdp.ObrigatoriedadeMacroatividade"
-	     *
 	     */
-/*	    @ManyToOne (cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
+	    @ManyToOne (cascade = javax.persistence.CascadeType.ALL, targetEntity = ObrigatoriedadeMacroatividade.class,fetch = FetchType.LAZY)
 	    public Set<ObrigatoriedadeMacroatividade> getObrigatoriedadeMacroatividade() {
 	        return obrigatoriedadeMacroatividade;
 	    }
@@ -37,7 +32,7 @@ public class InterfaceCompPPProcessoSimples extends InterfaceCompPP{
 	    public void setObrigatoriedadeMacroatividade(Set<ObrigatoriedadeMacroatividade> obrigatoriedadeMacroatividade) {
 	        this.obrigatoriedadeMacroatividade = obrigatoriedadeMacroatividade;
 	    }
-*/
+
 
 
 

@@ -7,7 +7,7 @@ public class KFerramentaSoftwareDAOHibernate extends NucleoDAOBaseHibernate<KFer
 			KFerramentaSoftwareDAO {
 
 		@Override
-		protected Class getClasseDominio() {
+		protected Class<KFerramentaSoftware> getClasseDominio() {
 			// TODO Auto-generated method stub
 			return KFerramentaSoftware.class;
 		}

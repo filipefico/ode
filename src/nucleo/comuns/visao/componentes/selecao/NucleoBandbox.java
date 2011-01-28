@@ -101,7 +101,9 @@ public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, 
 		listBox.setWidth(WIDTH_LISTBOX);
 		listBox.setRows(8);
 		listBox.setMultiple(true);
+		bandpopup.setWidth(WIDTH_BANDPOPUP);
 		configurarCabecalhoLista();
+		
 		
 		// agrupa componentes
 		bandpopup.setParent(this);
@@ -182,7 +184,11 @@ public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, 
 	}
 
 	/** Tamanho do listbox. */
-	public static final String WIDTH_LISTBOX = "400px";
+	public static final String WIDTH_LISTBOX = "600px";
+	
+	/** Tamanho do listbox. */
+	public static final String WIDTH_BANDPOPUP = "300px";
+
 
 	/** Bandpopup. */
 	private Bandpopup bandpopup;

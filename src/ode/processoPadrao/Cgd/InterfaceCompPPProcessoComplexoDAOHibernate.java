@@ -1,4 +1,6 @@
 package ode.processoPadrao.Cgd;
+import java.util.Collection;
+
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples;
@@ -18,6 +20,11 @@ public abstract class InterfaceCompPPProcessoComplexoDAOHibernate extends Nucleo
 	    public void excluir(InterfaceCompPPProcessoComplexo parInterfaceCompPPProcessoComplexo){
 	        super.excluir(parInterfaceCompPPProcessoComplexo);
 	    }
+	    
+	    public Collection<InterfaceCompPPProcessoComplexo> recuperarTodos(){
+	        return super.recuperarTodos();
+	    }
+	    
 /*
 	    public List obterTodos(){
 	        return super.obterTodos(InterfaceCompPPProcessoComplexo.class);

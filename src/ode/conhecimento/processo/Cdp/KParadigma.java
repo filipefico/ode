@@ -3,6 +3,9 @@ import javax.persistence.Entity;
 
 import ode.conhecimento.principal.Cdp.Conhecimento;
 
+/** Representa os conhecimentos sobre os Paradigmas do ambiente ODE.          
+*/
+
 @Entity
 public class KParadigma extends Conhecimento {
   

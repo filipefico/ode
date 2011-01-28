@@ -1,17 +1,31 @@
 package ode.processoPadrao.Cgt;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
+import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.conhecimento.processo.Cdp.KAtividade;
+import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
+import ode.conhecimento.processo.Cdp.KProcesso;
+import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.Cgd.CompPPProcessoComplexoDAO;
 import ode.processoPadrao.Cdp.CompPPProcessoSimples;
 import ode.processoPadrao.Cgd.CompPPProcessoSimplesDAO;
+import ode.processoPadrao.Cdp.AtividadeProcessoPadrao;
 import ode.processoPadrao.Cdp.CompPP;
+import ode.processoPadrao.Cdp.CompPPMacroatividade;
+import ode.processoPadrao.Cdp.InterfaceCompPP;
+import ode.processoPadrao.Cdp.InterfaceCompPPMacroatividade;
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo;
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples;
 import ode.processoPadrao.Cdp.RequisitoCompPP;
+import ode.processoPadrao.Cgd.CompPPDAO;
+import ode.processoPadrao.Cgd.InterfaceCompPPDAO;
 import ode.processoPadrao.Cgd.InterfaceCompPPProcessoComplexoDAO;
 import ode.processoPadrao.Cgd.InterfaceCompPPProcessoSimplesDAO;
 import ode.processoPadrao.Cgd.RequisitoCompPPDAO;
+import groovy.swing.impl.Factory;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -19,73 +33,88 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<CompPP> implements AplCadastrarProcessoPadrao{
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class AplDefinirProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<CompPP> 
+implements AplDefinirProcessoPadrao{
 	public static String BUSCAR_DIRETAMENTE = "0";
     public static String BUSCAR_A_PARTIR_DOS_REQUISTOS = "1";
 
-    /** Creates a new instance of AplDefinirProcessoPadrao */
-    public AplCadastrarProcessoPadraoImpl() {
+    
+    @Override
+	protected void copiarValor(CompPP objetoFonte, CompPP objetoDestino) {
+		objetoDestino.setNome(objetoFonte.getNome());
+		objetoDestino.setDescricao(objetoFonte.getDescricao());
+		//objetoDestino.setObjetivo(objetoFonte.getObjetivo());
+	}
+    
+    
+    /*    @Autowired
+	private InterfaceCompPPDAO interfaceCompPPDAO;
+
+	public InterfaceCompPPDAO getInterfaceCompPPDAO() {
+		return interfaceCompPPDAO;
+	}
+
+	public void setCompPPDAO(InterfaceCompPPDAO interfaceCompPPDAO) {
+		this.interfaceCompPPDAO = interfaceCompPPDAO;
+	}
+
+	
+	protected InterfaceCompPP alterarDados(InterfaceCompPP objeto) throws NucleoRegraNegocioExcecao {
+		getNucleoDaoBase().merge(objeto);
+		//Retorna objetoPersistido;
+		return objeto;
+	}
+    
+    // Creates a new instance of AplDefinirProcessoPadrao 
+    public AplDefinirProcessoPadraoImpl() {
+    	System.out.println("NADA DISSO.------------>");
     }
 
     /** Verifica se ja existe o nome no momento do cadastro. Não pode haver dois nomes iguais. */
-    public static boolean validarNome(String parNome) {
-    /*    CompPPProcessoComplexoDAO daoProcessoPadrao = (CompPPProcessoComplexoDAO) DAOFactory.getDefaultDAO(CompPPProcessoComplexo.class);
-        CompPPProcessoComplexo locProcessoPadrao = daoProcessoPadrao.obterPorNome(parNome);
+   /* public boolean validarNome(String parNome) {
+        CompPPDAO daoProcessoPadrao = getCompPPDAO();
+        CompPP locProcessoPadrao = daoProcessoPadrao.obterPorNome(parNome);
         if (locProcessoPadrao == null) {
             return true;
         } else {
             return false;
-        }*/
-    	return true;
+        }
+
     }
 
-    /* Definir CompPP. */
-    public static CompPP definirCompPP(String nome, String descricao, String objetivos, Object tipo)
-            /*throws ExcecaoProcessoPadrao*/ {
+    // Definir CompPP. 
+   public static CompPP definirCompPP(String nome, String descricao, String objetivos, Object tipo) {
 
         CompPP compPP;
 
-        /*try {*/
-
-           /* // Cria a caracterizacao
-            Caracterizacao caracterizacao = new Caracterizacao();
-
-            // Salva a caracterizacao
-            CaracterizacaoDAO caracterizacaoDAO = (CaracterizacaoDAO) DAOFactory.getDefaultDAO(Caracterizacao.class);
-            DAOFactory.getDAOFactory().beginTransaction();
-            caracterizacaoDAO.salvar(caracterizacao);
-            DAOFactory.getDAOFactory().commit();
-*/
+       {
             // Cria Requisitos
             RequisitoCompPP requisitoCompPP = new RequisitoCompPP();
 
             // Salva Requisitos
-            //RequisitoCompPPDAO requisitoCompPPDAO = (RequisitoCompPPDAO) DAOFactory.getDefaultDAO(RequisitoCompPP.class);
-            //DAOFactory.getDAOFactory().beginTransaction();
-           // requisitoCompPPDAO.salvar(requisitoCompPP);
-            //DAOFactory.getDAOFactory().commit();
+      /*      RequisitoCompPPDAO requisitoCompPPDAO = (RequisitoCompPPDAO) DAOFactory.getDefaultDAO(RequisitoCompPP.class);
+            DAOFactory.getDAOFactory().beginTransaction();
+            requisitoCompPPDAO.salvar(requisitoCompPP);
+           /DAOFactory.getDAOFactory().commit();
 
-            /*if (tipo instanceof KProcesso) {
+           if (tipo instanceof KProcesso) {
 
                 // Cria a interface
                 InterfaceCompPPProcessoSimples interfaceCompPPProcessoSimples = new InterfaceCompPPProcessoSimples();
                 interfaceCompPPProcessoSimples.setNome(nome);
                 interfaceCompPPProcessoSimples.setDescricao(descricao);
                 interfaceCompPPProcessoSimples.setObjetivo(objetivos);
-                interfaceCompPPProcessoSimples.setCaracterizacao(caracterizacao);
+ 
 
                 // Salva Interface
-                InterfaceCompPPProcessoSimplesDAO interfaceCompPPProcessoSimplesDAO = (InterfaceCompPPProcessoSimplesDAO) DAOFactory.getDefaultDAO(InterfaceCompPPProcessoSimples.class);
-                DAOFactory.getDAOFactory().beginTransaction();
-                interfaceCompPPProcessoSimplesDAO.salvar(interfaceCompPPProcessoSimples);
-                DAOFactory.getDAOFactory().commit();
+          //      InterfaceCompPPProcessoSimplesDAO interfaceCompPPProcessoSimplesDAO = (InterfaceCompPPProcessoSimplesDAO) DAOFactory.getDefaultDAO(InterfaceCompPPProcessoSimples.class);
+              //  DAOFactory.getDAOFactory().beginTransaction();
+             //   interfaceCompPPProcessoSimplesDAO.salvar(interfaceCompPPProcessoSimples);
+             //   DAOFactory.getDAOFactory().commit();
 
-                // Seta a interface e Salva a caracterizacao
-                caracterizacao.setInterfaceCompPP(interfaceCompPPProcessoSimples);
-                DAOFactory.getDAOFactory().beginTransaction();
-                caracterizacaoDAO.salvar(caracterizacao);
-                DAOFactory.getDAOFactory().commit();
-
+             
                 // Cria componente
                 compPP = new CompPPProcessoSimples();
                 compPP.setInterfaceCompPP(interfaceCompPPProcessoSimples);
@@ -93,16 +122,16 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
                 compPP.setRequisitoCompPP(requisitoCompPP);
 
                 // Salva
-                CompPPProcessoSimplesDAO compPPProcessoSimplesDAO = (CompPPProcessoSimplesDAO) DAOFactory.getDefaultDAO(CompPPProcessoSimples.class);
-                DAOFactory.getDAOFactory().beginTransaction();
-                compPPProcessoSimplesDAO.salvar((CompPPProcessoSimples) compPP);
-                DAOFactory.getDAOFactory().commit();
+         //       CompPPProcessoSimplesDAO compPPProcessoSimplesDAO = (CompPPProcessoSimplesDAO) DAOFactory.getDefaultDAO(CompPPProcessoSimples.class);
+           //     DAOFactory.getDAOFactory().beginTransaction();
+          //      compPPProcessoSimplesDAO.salvar((CompPPProcessoSimples) compPP);
+             //   DAOFactory.getDAOFactory().commit();
 
                 // Seta compPP e Salva interface novamente
-                interfaceCompPPProcessoSimples.setCompPP(compPP);
-                DAOFactory.getDAOFactory().beginTransaction();
-                interfaceCompPPProcessoSimplesDAO.salvar(interfaceCompPPProcessoSimples);
-                DAOFactory.getDAOFactory().commit();
+         //       interfaceCompPPProcessoSimples.setCompPP(compPP);
+        //        DAOFactory.getDAOFactory().beginTransaction();
+          //      interfaceCompPPProcessoSimplesDAO.salvar(interfaceCompPPProcessoSimples);
+           //     DAOFactory.getDAOFactory().commit();
 
             } else if (tipo instanceof KAtividade) {
 
@@ -111,26 +140,20 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
                 interfaceCompPPMacroatividade.setNome(nome);
                 interfaceCompPPMacroatividade.setDescricao(descricao);
                 interfaceCompPPMacroatividade.setObjetivo(objetivos);
-                interfaceCompPPMacroatividade.setCaracterizacao(caracterizacao);
 
                 // Salva Interface
-                InterfaceCompPPMacroatividadeDAO interfaceCompPPMacroatividadeDAO = (InterfaceCompPPMacroatividadeDAO) DAOFactory.getDefaultDAO(InterfaceCompPPMacroatividade.class);
+       /*         InterfaceCompPPMacroatividadeDAO interfaceCompPPMacroatividadeDAO = (InterfaceCompPPMacroatividadeDAO) DAOFactory.getDefaultDAO(InterfaceCompPPMacroatividade.class);
                 DAOFactory.getDAOFactory().beginTransaction();
                 interfaceCompPPMacroatividadeDAO.salvar(interfaceCompPPMacroatividade);
                 DAOFactory.getDAOFactory().commit();
 
-                // Seta a interface e Salva a caracterizacao
-                caracterizacao.setInterfaceCompPP(interfaceCompPPMacroatividade);
-                DAOFactory.getDAOFactory().beginTransaction();
-                caracterizacaoDAO.salvar(caracterizacao);
-                DAOFactory.getDAOFactory().commit();
 
                 // Cria a Atividade Processo Padrao
                 AtividadeProcessoPadrao atividadeProcessoPadrao = new AtividadeProcessoPadrao();
                 atividadeProcessoPadrao.setKAtividade((KAtividade) tipo);
 
                 // Salva Atividade Processo Padrao
-                AtividadeProcessoPadraoDAO atividadeProcessoPadraoDAO = (AtividadeProcessoPadraoDAO) DAOFactory.getDefaultDAO(AtividadeProcessoPadrao.class);
+/*                AtividadeProcessoPadraoDAO atividadeProcessoPadraoDAO = (AtividadeProcessoPadraoDAO) DAOFactory.getDefaultDAO(AtividadeProcessoPadrao.class);
                 DAOFactory.getDAOFactory().beginTransaction();
                 atividadeProcessoPadraoDAO.salvar(atividadeProcessoPadrao);
                 DAOFactory.getDAOFactory().commit();
@@ -142,7 +165,7 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
                 compPP.setRequisitoCompPP(requisitoCompPP);
 
                 // Salva
-                CompPPMacroatividadeDAO compPPMacroatividadeDAO = (CompPPMacroatividadeDAO) DAOFactory.getDefaultDAO(CompPPMacroatividade.class);
+              /*  CompPPMacroatividadeDAO compPPMacroatividadeDAO = (CompPPMacroatividadeDAO) DAOFactory.getDefaultDAO(CompPPMacroatividade.class);
                 DAOFactory.getDAOFactory().beginTransaction();
                 compPPMacroatividadeDAO.salvar((CompPPMacroatividade) compPP);
                 DAOFactory.getDAOFactory().commit();
@@ -153,43 +176,37 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
                 interfaceCompPPMacroatividadeDAO.salvar(interfaceCompPPMacroatividade);
                 DAOFactory.getDAOFactory().commit();
 
-            } else {*/
+            } else {
 
                 // Cria a interface
                 InterfaceCompPPProcessoComplexo interfaceCompPPProcessoComplexo = new InterfaceCompPPProcessoComplexo();
                 interfaceCompPPProcessoComplexo.setNome(nome);
                 interfaceCompPPProcessoComplexo.setDescricao(descricao);
-                interfaceCompPPProcessoComplexo.setObjetivo(objetivos);
-                //interfaceCompPPProcessoComplexo.setCaracterizacao(caracterizacao);
+                interfaceCompPPProcessoComplexo.setObjetivo(objetivos);                
 
                 // Salva Interface
-          //      InterfaceCompPPProcessoComplexoDAO interfaceCompPPProcessoComplexoDAO = (InterfaceCompPPProcessoComplexoDAO) DAOFactory.getDefaultDAO(InterfaceCompPPProcessoComplexo.class);
-                //DAOFactory.getDAOFactory().beginTransaction();
-          //      interfaceCompPPProcessoComplexoDAO.salvar(interfaceCompPPProcessoComplexo);
-               // DAOFactory.getDAOFactory().commit();
-
-              /*  // Seta a interface e Salva a caracterizacao
-                caracterizacao.setInterfaceCompPP(interfaceCompPPProcessoComplexo);
+               /* InterfaceCompPPProcessoComplexoDAO interfaceCompPPProcessoComplexoDAO = (InterfaceCompPPProcessoComplexoDAO) DAOFactory.getDefaultDAO(InterfaceCompPPProcessoComplexo.class);
                 DAOFactory.getDAOFactory().beginTransaction();
-                caracterizacaoDAO.salvar(caracterizacao);
+                interfaceCompPPProcessoComplexoDAO.salvar(interfaceCompPPProcessoComplexo);
                 DAOFactory.getDAOFactory().commit();
-*/
+
+             
                 // Cria componente
                 compPP = new CompPPProcessoComplexo();
                 compPP.setInterfaceCompPP(interfaceCompPPProcessoComplexo);
                 compPP.setRequisitoCompPP(requisitoCompPP);
 
                 // Salva
-           //     CompPPProcessoComplexoDAO compPPProcessoComplexoDAO = (CompPPProcessoComplexoDAO) DAOFactory.getDefaultDAO(CompPPProcessoComplexo.class);
-               // DAOFactory.getDAOFactory().beginTransaction();
+//                CompPPProcessoComplexoDAO compPPProcessoComplexoDAO = (CompPPProcessoComplexoDAO) DAOFactory.getDefaultDAO(CompPPProcessoComplexo.class);
+               // DAOFactory.getDAOFactory().beginTransaction(); 
           //      compPPProcessoComplexoDAO.salvar((CompPPProcessoComplexo) compPP);
                // DAOFactory.getDAOFactory().commit();
 
-                // Seta compPP e Salva interface novamente
+   /*             // Seta compPP e Salva interface novamente
                 interfaceCompPPProcessoComplexo.setCompPP(compPP);
                // DAOFactory.getDAOFactory().beginTransaction();
-              //  interfaceCompPPProcessoComplexoDAO.salvar(interfaceCompPPProcessoComplexo);
-               // DAOFactory.getDAOFactory().commit();
+                InterfaceCompPPProcessoComplexoDAO.salvar(interfaceCompPPProcessoComplexo);
+               // DAOFactory.getDAOFactory().commit();*/
 
 
             /*}*/
@@ -197,18 +214,21 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
         /*} catch (ExcecaoPersistencia e) { // Tambem trata ExcecaoConcorrencia
             DAOFactory.getDAOFactory().rollback();
             throw e;
-        }*/
+        }
 
         System.out.println("CompPP salvo.------------>" + compPP);
 
-        return compPP;
+       
+        }
     }
+    return compPP;
+}
     	
-    /* Alterar CompPP. */
+    // Alterar CompPP. 
     public static CompPP alterarCompPP(CompPP parCompPP)
-           /* throws ExcecaoProcessoPadrao*/ {
+           /* throws ExcecaoProcessoPadrao {
     	System.out.println("NADA DISSO.------------>");
-       /* try {*/
+       /* try {
 
             // Obtem Requisitos
     	
@@ -231,18 +251,18 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
      //           interfaceCompPPProcessoSimplesDAO.salvar(interfaceCompPPProcessoSimples);
                // DAOFactory.getDAOFactory().commit();
 
-            } /*else if (parCompPP instanceof CompPPMacroatividade) {
+            } else if (parCompPP instanceof CompPPMacroatividade) {
 
                 // Obtem a interface
                 InterfaceCompPPMacroatividade interfaceCompPPMacroatividade = (InterfaceCompPPMacroatividade) parCompPP.getInterfaceCompPP();
 
                 // Salva Inteface
-                InterfaceCompPPMacroatividadeDAO interfaceCompPPMacroatividadeDAO = (InterfaceCompPPMacroatividadeDAO) DAOFactory.getDefaultDAO(InterfaceCompPPMacroatividade.class);
+            /*    InterfaceCompPPMacroatividadeDAO interfaceCompPPMacroatividadeDAO = (InterfaceCompPPMacroatividadeDAO) DAOFactory.getDefaultDAO(InterfaceCompPPMacroatividade.class);
                 DAOFactory.getDAOFactory().beginTransaction();
                 interfaceCompPPMacroatividadeDAO.salvar(interfaceCompPPMacroatividade);
                 DAOFactory.getDAOFactory().commit();
 
-            }*/ else {
+            } else {
 
                 // Obtem a interface
                 InterfaceCompPPProcessoComplexo interfaceCompPPProcessoComplexo = (InterfaceCompPPProcessoComplexo) parCompPP.getInterfaceCompPP();
@@ -258,15 +278,9 @@ public class AplCadastrarProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<Co
         /*} catch (ExcecaoPersistencia e) { // Tambem trata ExcecaoConcorrencia
             DAOFactory.getDAOFactory().rollback();
             throw e;
-        }*/
+        }
 
         return parCompPP;
     }
-
-	@Override
-	protected void copiarValor(CompPP objetoFonte, CompPP objetoDestino) {
-		// TODO Auto-generated method stub
-		
+*/
 	}
-
-}

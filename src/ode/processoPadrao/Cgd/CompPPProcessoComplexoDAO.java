@@ -1,5 +1,7 @@
 package ode.processoPadrao.Cgd;
 
+import java.util.Collection;
+
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 import nucleo.comuns.persistencia.NucleoDAOBase;
 
@@ -9,11 +11,11 @@ public interface CompPPProcessoComplexoDAO  extends NucleoDAOBase<CompPPProcesso
     
     public void excluir(CompPPProcessoComplexo parProcessoPadraoGeral);
     
-    /*public List obterTodos();
+    public Collection<CompPPProcessoComplexo> recuperarTodos();
     
     public CompPPProcessoComplexo obterPorNome(String parNome);
     
-    public List obterProcessosDefinidos();
+    /*public List obterProcessosDefinidos();
     
     public List obterProcessosEspecializados();
     

@@ -23,7 +23,10 @@
 	<bean id="aplCadastrarKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarKArtefatoImpl">
 		<property name="nucleoDaoBase" ref="kArtefatoDao" />
 	</bean>
-
+	
+	<bean id="aplCadastrarKAtividade" class="ode.conhecimento.processo.Cgt.AplCadastrarKAtividadeImpl">
+		<property name="nucleoDaoBase" ref="kAtividadeDao" />
+	</bean>
 
 	<bean id="aplCadastrarKParadigma" class="ode.conhecimento.processo.Cgt.AplCadastrarKParadigmaImpl">
 		<property name="nucleoDaoBase" ref="kParadigmaDao" />
@@ -42,7 +45,16 @@
 		class="ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftwareImpl">
 		<property name="nucleoDaoBase" ref="kFerramentaSoftwareDao" />
 	</bean>
-
+	
+	<bean id="aplCadastrarKRecursoHumano"
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHumanoImpl">
+		<property name="nucleoDaoBase" ref="kRecursoHumanoDao" />
+	</bean>
+	
+	<bean id="aplCadastrarKRecursoHardware"
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHardwareImpl">
+		<property name="nucleoDaoBase" ref="kRecursoHardwareDao" />
+	</bean>
 
 	<bean id="nucleoUserDetailsService"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">
@@ -53,17 +65,22 @@
 	
 	<bean id="aplCadastrarKDominioConhecimento" 
 		class="ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimentoImpl">
-		<property name="nucleoDaoBase" ref="dominioConhecimentoDao"/>
+		<property name="nucleoDaoBase" ref="kdominioConhecimentoDao"/>
 	</bean>
 	
 	<bean id="aplCadastrarKCategoriaProcesso" 
 		class="ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcessoImpl">
-		<property name="nucleoDaoBase" ref="categoriaProcessoDao"/>
+		<property name="nucleoDaoBase" ref="kcategoriaProcessoDao"/>
 	</bean>
 	
-	<bean id="aplCadastrarProcessoPadrao" 
-		class="ode.processoPadrao.Cgt.AplCadastrarProcessoPadraoImpl">
-		<property name="nucleoDaoBase" ref="compPPDao"/>
+	<bean id="aplCadastrarKProcesso" 
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKProcessoImpl">
+		<property name="nucleoDaoBase" ref="kProcessoDao"/>
+	</bean>
+		
+	<bean id="aplDefinirProcessoPadrao" 
+		class="ode.processoPadrao.Cgt.AplDefinirProcessoPadraoImpl">
+		<property name="nucleoDaoBase" ref="interfaceCompPPDao"/>
 	</bean>
 	
 

@@ -1,5 +1,8 @@
 package ode.processoPadrao.Cgd;
 
+import java.util.Collection;
+
+import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.RequisitoCompPP;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 
@@ -19,7 +22,9 @@ public class RequisitoCompPPDAOHibernate extends NucleoDAOBaseHibernate<Requisit
 	        super.excluir(requisitoCompPP);
 	    }
 
-	    /*public List obterTodos(){
-	        return super.obterTodos(RequisitoCompPP.class);
-	    }*/	
+	    public Collection<RequisitoCompPP> recuperarTodos(){
+	        return super.recuperarTodos();
+	    }
+    
+	    
 }
