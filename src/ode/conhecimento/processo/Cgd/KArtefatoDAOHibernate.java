@@ -29,9 +29,8 @@ public class KArtefatoDAOHibernate extends NucleoDAOBaseHibernate<KArtefato>
 	        .setFetchMode("tipo", FetchMode.JOIN)
 	        .add( Restrictions.idEq(id) );
 
-	    //List resultado = getHibernateTemplate().findByCriteria(detaCriteria);
-	    List resultado = getHibernateTemplate().findByCriteria(detaCriteria, 0, 1);
-		return (KArtefato)resultado.get(0);
+	    List resultado = getHibernateTemplate().findByCriteria(detaCriteria);
+	    return (KArtefato)resultado.get(0);
 	}
 
 }

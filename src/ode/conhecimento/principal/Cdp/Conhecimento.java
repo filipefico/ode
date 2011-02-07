@@ -3,11 +3,14 @@ package ode.conhecimento.principal.Cdp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import nucleo.comuns.persistencia.ObjetoPersistente;
 
 
 @Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Conhecimento extends ObjetoPersistente {
 
 	private static final long serialVersionUID = -2477658761966661172L;
