@@ -1,35 +1,40 @@
 package ode.conhecimento.processo.Cgd;
 
 import java.util.Collection;
+import java.util.List;
 
-import ode.conhecimento.processo.Cdp.KProcesso;
+import org.hibernate.FetchMode;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.CriteriaSpecification;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import nucleo.comuns.persistencia.ObjetoPagina;
+import ode.conhecimento.processo.Cdp.KProcesso;
 
-public class KProcessoDAOHibernate extends NucleoDAOBaseHibernate<KProcesso> implements KProcessoDAO{
-	
-		@Override
-		protected Class<KProcesso> getClasseDominio() {
-			// TODO Auto-generated method stub
-			return KProcesso.class;
+public class KProcessoDAOHibernate extends NucleoDAOBaseHibernate<KProcesso> implements
+KProcessoDAO{
+
+		
+	@Override
+	public Collection<KProcesso> recuperarTodosPaginado(ObjetoPagina pagina) {
+		DetachedCriteria detaCriteria = getDetachedCriteria(pagina);
+		detaCriteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+		Collection<KProcesso> result = null;
+		if (pagina.isPaginada()) {
+			result = getHibernateTemplate().findByCriteria(detaCriteria,
+					pagina.getFirstResults(), pagina.getMaxResults());
+
+		} else {
+			result = getHibernateTemplate().findByCriteria(detaCriteria);
 		}
+
+		return result;
+
+	}
+
+	@Override
+	protected Class getClasseDominio() {
+		return KProcesso.class;
+	}
 	
-		public void salvar(KProcesso parKProcesso){
-	        super.salvar(parKProcesso);
-	    }
-	    
-	    public void excluir(KProcesso parKProcesso) {
-	        super.excluir(parKProcesso);
-	    }
-	    
-	    public Collection<KProcesso> recuperarTodos(){
-	        return super.recuperarTodos();
-	    }
-	    
-	   /* public List obterProcessosEngenharia(){
-	        return getSession().createQuery("from KProcesso as kproc where kproc.ehEngenharia = true").list();
-	    }
-	    
-	    public List obterProcessosNaoEngenharia(){
-	        return getSession().createQuery("from KProcesso as kproc where kproc.ehEngenharia = false").list();
-	    }*/
 }

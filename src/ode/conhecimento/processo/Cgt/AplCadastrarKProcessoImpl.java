@@ -30,7 +30,7 @@ public class AplCadastrarKProcessoImpl extends NucleoAplCadastroBaseImpl<KProces
 		objetoDestino.setEhEngenharia(objetoFonte.isEhEngenharia());
 		objetoDestino.setKTipoInteracao(objetoFonte.getKTipoInteracao());
 		objetoDestino.setCategoria(objetoFonte.getCategoria());
-		//objetoDestino.setKResultadoProcesso(objetoFonte.getKResultadoProcesso());
+		objetoDestino.setKResultadoProcesso(objetoFonte.getKResultadoProcesso());
 	}
 
 	protected KProcesso alterarDados(KProcesso objeto) throws NucleoRegraNegocioExcecao {

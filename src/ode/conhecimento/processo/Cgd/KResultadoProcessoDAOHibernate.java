@@ -1,32 +1,14 @@
 package ode.conhecimento.processo.Cgd;
 
-import java.util.Collection;
-
-import ode.conhecimento.processo.Cdp.KResultadoProcesso;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import ode.conhecimento.processo.Cdp.KResultadoProcesso;
+import ode.conhecimento.processo.Cgd.KResultadoProcessoDAO;
 
-public class KResultadoProcessoDAOHibernate extends NucleoDAOBaseHibernate<KResultadoProcesso>{
-
+public class KResultadoProcessoDAOHibernate extends NucleoDAOBaseHibernate<KResultadoProcesso> implements KResultadoProcessoDAO {
+	
 	@Override
-	protected Class<KResultadoProcesso> getClasseDominio() {
+	protected Class getClasseDominio() {
+		// TODO Auto-generated method stub
 		return KResultadoProcesso.class;
 	}
-	
-	public void salvar(KResultadoProcesso parKResultadoProcesso){
-        super.salvar(parKResultadoProcesso);
-    }
-    
-    public void excluir(KResultadoProcesso parKResultadoProcesso){
-        super.excluir(parKResultadoProcesso);
-    }
-    
-    public Collection<KResultadoProcesso> recuperarTodos(){
-        return super.recuperarTodos();
-    }
-    
-  /*  public List obterResultadosProcessos( KProcesso parKProcesso ){
-        return getSession().createQuery("from KResultadoProcesso as krproc where krproc.kprocesso.id = '" + parKProcesso.getId() + "'").list();
-    }*/
-    
-	
 }
