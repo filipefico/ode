@@ -77,7 +77,7 @@ public class WindowMenu extends Window {
 	}
 
 	public void atualizaBarraInformacoes() {
-		// Atualiza o label de informa��es de usu�rio e projeto
+		// Atualiza o label de informa��es de usu�rio e projetoWindowDefinirCompPP.zul
 		Label lblInformacoes = (Label) getReference().getPage().getFellow(
 				"lblInformacoes");
 		NucleoUserDetails usuario = NucleoContexto.recuperarUsuarioLogado();
@@ -467,7 +467,7 @@ public class WindowMenu extends Window {
 		public void onEvent(Event event) {
 			// sem controlador
 			Window win = (Window) Executions.createComponents(
-					"/visao/cadastros_gerais/WindowDefinirCompPP.zul",
+					"/visao/cadastros_gerais/windowDefinirCompPP.zul",
 					getReference(), null);
 			win.doOverlapped();
 		}

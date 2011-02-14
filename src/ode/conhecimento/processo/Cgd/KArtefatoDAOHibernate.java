@@ -14,7 +14,6 @@ import ode.conhecimento.processo.Cdp.KArtefato;
 public class KArtefatoDAOHibernate extends NucleoDAOBaseHibernate<KArtefato>
 		implements KArtefatoDAO {
 	
-	private SessionFactory sessions = null;
 
 	@Override
 	protected Class<KArtefato> getClasseDominio() {
