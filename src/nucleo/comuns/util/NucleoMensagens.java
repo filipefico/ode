@@ -478,4 +478,107 @@ public class NucleoMensagens {
 	 * Chave do termo "KRecursoHardware"
 	 */
 	public static final String TERMO_kRECURSO_HARDWARE = "termo.recurso.hardware";
+	
+	/**
+	 * Chave do termo "Projeto"
+	 */
+	public static final String TERMO_PROJETO = "termo.projeto";
+	
+	/**
+	 * Chave do termo "Selecionar CompPP Base"
+	 */
+	public static final String TERMO_SELECIONAR_COMPPP_BASE = "termo.selecionar.comppp.base";
+	
+	/**
+	 * Chave do termo "Processo Especializado"
+	 */
+	public static final String TERMO_PROCESSO_ESPECIALIZADO = "termo.processo.especializado";
+	
+	/**
+	 * Chave do termo "Estabelecer Requisitos"
+	 */
+	public static final String TERMO_ESTABELECER_REQUISITOS = "termo.estabelecer.requisitos";
+	
+	/**
+	 * Chave do termo "Finalizar Definição"
+	 */
+	public static final String TERMO_FINALIZAR_DEFINICAO = "termo.finalizar.definicao";
+	
+	/**
+	 * Chave do termo "Definir Modelo de Ciclo de Vida"
+	 */
+	public static final String TERMO_DEFINIR_MCV = "termo.definir.mcv";
+	
+	/**
+	 * Chave do termo "Ferramentas"
+	 */
+	public static final String TERMO_FERRAMENTAS = "termo.ferramentas";
+	
+	/**
+	 * Chave do termo "Definição de Processos"
+	 */
+	public static final String TERMO_DEFINICAO_PROCESSOS = "termo.definicao.processos";
+	
+	/**
+	 * Chave do termo "Recursos"
+	 */
+	public static final String TERMO_RECURSOS = "termo.recursos";
+	
+	/**
+	 * Chave do termo "Produtos"
+	 */
+	public static final String TERMO_PRODUTOS = "termo.produtos";
+	
+	/**
+	 * Chave do termo "Insumos"
+	 */
+	public static final String TERMO_INSUMOS = "termo.insumos";
+	/**
+	 * Chave do termo "Procedimentos"
+	 */
+	public static final String TERMO_PROCEDIMENTOS = "termo.procedimentos";
+	/**
+	 * Chave do termo "subAtividades"
+	 */
+	public static final String TERMO_SUBATIVIDADE = "termo.subatividades";
+	/**
+	 * Chave do termo "preAtividades"
+	 */
+	public static final String TERMO_PREATIVIDADE = "termo.preatividades";
+	
+	/**
+	 * Chave do termo "Dados Gerais"
+	 */
+	public static final String TERMO_DADOS_GERAIS = "termo.dados.gerais";
+	
+	/**
+	 * Chave do termo "Cadastro de Processo"
+	 */
+	public static final String TERMO_CADASTRO_PROCESSO = "termo.cadastro.processo";
+	
+	/**
+	 * Chave do termo "Caracteristicas Gerais"
+	 */
+	public static final String TERMO_CARACTERISTICAS_GERAIS = "termo.caracteristicas.gerais";
+	
+	/**
+	 * Chave do termo "Modelo Ciclo Vida"
+	 */
+	public static final String TERMO_MCV = "termo.MCV";
+	
+	/**
+	 * Chave do termo "Modelo Ciclo Vida"
+	 */
+	public static final String TERMO_ATIVO_PROCESSOS = "termo.ativo.processos";
+	
+	/**
+	 * Chave do termo "Novo Projeto"
+	 */
+	public static final String TERMO_NOVO_PROJETO = "termo.novo.projeto";
+	
+	/**
+	 * Chave do termo "Definir Processo"
+	 */
+	public static final String TERMO_DEFINIR_PROCESSO = "termo.definir.processo";
+	
 }

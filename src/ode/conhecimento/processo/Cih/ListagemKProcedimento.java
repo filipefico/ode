@@ -7,9 +7,12 @@ import nucleo.comuns.visao.paginacao.ListagemPaginada;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+import ode.conhecimento.processo.Cdp.KProcedimento;
+import ode.conhecimento.processo.Cdp.KRecursoHardware;
+import ode.conhecimento.processo.Cdp.KRecursoHumano;
 
 
-public class ListagemKAtividade extends ListagemPaginada<KAtividade> {
+public class ListagemKProcedimento extends ListagemPaginada<KProcedimento> {
 
 	/**
 	 * 
@@ -18,7 +21,7 @@ public class ListagemKAtividade extends ListagemPaginada<KAtividade> {
 
 
 	@Override
-	protected String[] recuperarDadosObjeto(KAtividade objeto) {
+	protected String[] recuperarDadosObjeto(KProcedimento objeto) {
 		return new String[]{objeto.getNome(),objeto.getDescricao()};
 	}
 	
@@ -27,8 +30,8 @@ public class ListagemKAtividade extends ListagemPaginada<KAtividade> {
 	public List<NucleoListHeader> definirColunasTabela() {
 		
 		List<NucleoListHeader> colunas = new ArrayList<NucleoListHeader>();
-		colunas.add(new NucleoListHeader("Nome","nome","120px"));
-		colunas.add(new NucleoListHeader("Descricao","descricao","150px"));
+		colunas.add(new NucleoListHeader("Nome","nome","200px"));
+		colunas.add(new NucleoListHeader("Descricao","descricao","400px"));
 		return colunas;
 	}
 

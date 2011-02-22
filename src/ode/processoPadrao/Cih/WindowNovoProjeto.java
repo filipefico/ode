@@ -12,10 +12,7 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
-import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cdp.KProcesso;
-import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
-import ode.conhecimento.processo.Cgd.KProcessoDAO;
 import ode.conhecimento.processo.Cgt.AplCadastrarKProcesso;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
@@ -23,7 +20,6 @@ import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Checkbox;
-import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Label;
@@ -37,14 +33,14 @@ import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Textbox;
 
-public class WindowDefinirCompPP extends NucleoWindowCadastroDados<CompPP>{
+public class WindowNovoProjeto extends NucleoWindowCadastroDados<CompPP>{
 
 private static final long serialVersionUID = 1L;
 	
 	private AplCadastrarKProcesso aplCadastrarKProcesso;	
 
 
-	public WindowDefinirCompPP() {
+	public WindowNovoProjeto() {
 		this.setNucleoAplCadastroBase((AplDefinirProcessoPadrao) SpringUtil 
 				.getBean("aplDefinirProcessoPadrao"));
 
@@ -56,7 +52,7 @@ private static final long serialVersionUID = 1L;
 	@Override
 	protected String getTituloWindow() {
 		return NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_COMPPP);
+				.getMensagem(NucleoMensagens.TERMO_NOVO_PROJETO);
 	}
 
 	@Override
@@ -64,17 +60,6 @@ private static final long serialVersionUID = 1L;
 		this.setWidth("550px");
 	}
 
-	public static KProcesso buscaCategoriaPorNome (String nome){
-		KProcessoDAO Categoria = (KProcessoDAO) SpringUtil.getBean("kProcessoDao");
-		Collection<KProcesso> listaCategorias = Categoria.recuperarTodos();
-		for (KProcesso K : listaCategorias) {
-			if (K.getNome().equals(nome)){
-				return K;
-			}
-		}
-		return null;
-	}
-	
 	@Override
 	protected List<NucleoTab> definirTabs() throws DataAccessException,
 			NucleoRegraNegocioExcecao {
@@ -98,10 +83,10 @@ private static final long serialVersionUID = 1L;
 
 		Row row = new Row();
 		row.setParent(rows);
-		lbNome.setParent(row);
-		tbNome.setWidth("400px");
-		tbNome.setMaxlength(255);
-		tbNome.setParent(row);
+		lbTitulo.setParent(row);
+		tbTitulo.setWidth("400px");
+		tbTitulo.setMaxlength(255);
+		tbTitulo.setParent(row);
 
 		row = new Row();
 		row.setParent(rows);
@@ -111,45 +96,30 @@ private static final long serialVersionUID = 1L;
 		tbDescricao.setMaxlength(255);
 		tbDescricao.setParent(row);
 		
-		row = new Row();
+	/*	row = new Row();
 		row.setParent(rows);
 		lbObjetivo.setParent(row);
-		tbObjetivo.setWidth("400px");
+		tbObjetivo.setWidth("200px");
 		tbObjetivo.setRows(5);
 		tbObjetivo.setMaxlength(255);
-		tbObjetivo.setParent(row);
+		tbObjetivo.setParent(row);*/
 		
 		row = new Row();
 		row.setParent(rows);
 		lbNivelGranularidade.setParent(row);
 		groupbox.setParent(row);
-		checkboxProcComp.setParent(groupbox);
-		checkboxProcSimp.setParent(groupbox);
-		checkboxMacro.setParent(groupbox);
-		checkboxProcComp.setChecked(true);
+		checkboxDesenvolvimento.setParent(groupbox);
+		checkboxManutencao.setParent(groupbox);
+		checkboxDesenvolvimento.setChecked(true);
 		
-		row = new Row();
-		row.setParent(rows);
-		lbTipo.setParent(row);
-		coCategoria.setWidth("350px");
-		coCategoria.setParent(row);
-		
-		KProcessoDAO Categoria = (KProcessoDAO) SpringUtil
-			.getBean("kProcessoDao");
-			Collection<KProcesso> listaCategorias = Categoria.recuperarTodos();
-			for (KProcesso K : listaCategorias) {
-				coCategoria.appendItem(K.getNome());
-			}
-			coCategoria.setAutocomplete(true);
-				
-		/*row = new Row();
+	/*	row = new Row();
 		row.setParent(rows);
 		lbTipo.setParent(row);
 		listBoxTipo.setParent(row);
 		listBoxTipo.setRows(5);
 		listBoxTipo.setCheckmark(true);
 		listBoxTipo.setMultiple(true);
-		listhead.setParent(listBoxTipo);*/
+		listhead.setParent(listBoxTipo);
 
 		// Configura cabeçalho do listbox
 		Listheader listHeader = new Listheader(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_NOME));
@@ -164,7 +134,7 @@ private static final long serialVersionUID = 1L;
 			Listitem listitem = new Listitem(processo.getNome());
 			listitem.setValue(processo);
 			listBoxTipo.appendChild(listitem);
-		}		
+		}		*/
 		tabDadosCadastro.setConteudoTab(gridDadosCadastro);
 
 		listaTabs.add(tabDadosCadastro);
@@ -175,7 +145,7 @@ private static final long serialVersionUID = 1L;
 	@Override
 	protected void preencherDadosTela() {
 		CompPP objeto = this.getObjetoCadastroDados();
-		tbNome.setValue(objeto.getNome());
+		tbTitulo.setValue(objeto.getNome());
 		tbDescricao.setValue(objeto.getDescricao());
 	/*	if (objeto.getPermiteVisualizarReservas()){
 			checkboxSim.setChecked(true);
@@ -188,31 +158,27 @@ private static final long serialVersionUID = 1L;
 			}
 		}*/
 		
-		coCategoria.setValue("Teste");
-		
-		
 	}
 
 	@Override
 	protected void preencherDadosObjeto() {
 		CompPP objeto = this.getObjetoCadastroDados();
-		objeto.setNome(tbNome.getValue());
+		objeto.setNome(tbTitulo.getValue());
 		objeto.setDescricao(tbDescricao.getValue());
-				//objeto.setPermiteVisualizarReservas(checkboxSim.isChecked());
+		//objeto.setPermiteVisualizarReservas(checkboxSim.isChecked());
 		
 		Set<KProcesso> processos = new HashSet<KProcesso>();
 		Set<Listitem> listItems = listBoxTipo.getSelectedItems();
 		for (Listitem item : listItems) {
 			processos.add((KProcesso) item.getValue());
 		}
-//		//objeto.setUsuarios(processos);
+		
+		//objeto.setUsuarios(processos);
 	}
 
-	private Label lbNome = new Label(NucleoMensagens
-			.getMensagem(NucleoMensagens.TERMO_NOME)
-			+ ": ");
+	private Label lbTitulo = new Label("Titulo :");
 
-	private Textbox tbNome = new Textbox();
+	private Textbox tbTitulo = new Textbox();
 
 	private Label lbDescricao = new Label(NucleoMensagens
 			.getMensagem(NucleoMensagens.TERMO_DESCRICAO)
@@ -220,30 +186,16 @@ private static final long serialVersionUID = 1L;
 	
 	private Textbox tbDescricao = new Textbox();
 	
-	private Label lbObjetivo = new Label(NucleoMensagens
-			.getMensagem(NucleoMensagens.TERMO_OBJETIVO)
-			+ ": ");
-
-	private Textbox tbObjetivo = new Textbox();
 	
-	private Label lbNivelGranularidade = new Label("Nível de Granularidade");
+	private Label lbNivelGranularidade = new Label("Tipo de Projeto");
 	
 	private Radiogroup groupbox = new Radiogroup();
 
-	private Radio checkboxProcComp =  new Radio("Processo Complexo");
+	private Radio checkboxDesenvolvimento =  new Radio("Desenvolvimento");
 	
-	private Radio checkboxProcSimp =  new Radio("Processo Simples");
-	
-	private Radio checkboxMacro =  new Radio("Macroatividade");
-	
-	private Label lbTipo = new Label(NucleoMensagens
-			.getMensagem(NucleoMensagens.TERMO_TIPO)
-			+ ": ");
-	
-	
-	
-	private Combobox coCategoria = new Combobox();
-	
+	private Radio checkboxManutencao =  new Radio("Manutenção");
+
+
 	/** Lista dos usuarios. */
 	protected Listbox listBoxTipo = new Listbox();
 

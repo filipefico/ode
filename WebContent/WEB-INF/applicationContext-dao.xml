@@ -328,6 +328,14 @@
 		</property>
 	</bean>
 	
+	<bean id="kRecursoDao"
+		class="ode.conhecimento.processo.Cgd.KRecursoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
 	<bean id="kRecursoHumanoDao" class="ode.conhecimento.processo.Cgd.KRecursoHumanoDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
@@ -335,6 +343,12 @@
 	</bean>
 	
 	<bean id="kRecursoHardwareDao" class="ode.conhecimento.processo.Cgd.KRecursoHardwareDAOHibernate">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="kProcedimentoDao" class="ode.conhecimento.processo.Cgd.KProcedimentoDAOHibernate">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>

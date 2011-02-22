@@ -55,6 +55,11 @@
 		class="ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHardwareImpl">
 		<property name="nucleoDaoBase" ref="kRecursoHardwareDao" />
 	</bean>
+	
+	<bean id="aplCadastrarKProcedimento"
+		class="ode.conhecimento.processo.Cgt.AplCadastrarKProcedimentoImpl">
+		<property name="nucleoDaoBase" ref="kProcedimentoDao" />
+	</bean>
 
 	<bean id="nucleoUserDetailsService"
 		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">
