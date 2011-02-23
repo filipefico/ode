@@ -88,5 +88,10 @@
 		<property name="nucleoDaoBase" ref="interfaceCompPPDao"/>
 	</bean>
 	
+	<bean id="aplCadastrarKTipoRequisito" 
+		class="ode.conhecimento.requisito.Cgt.AplCadastrarKTipoRequisitoImpl">
+		<property name="nucleoDaoBase" ref="kTipoRequisitoDao"/>
+	</bean>
+	
 
 </beans>

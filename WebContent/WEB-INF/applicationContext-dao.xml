@@ -195,6 +195,7 @@
 				<value> ode.conhecimento.processo.Cdp.KModeloCicloVida </value>
 				<value> ode.conhecimento.processo.Cdp.KProcessoPadrao </value>
 				<value> ode.conhecimento.organizacao.Cdp.KDominioConhecimento </value>
+				<value> ode.conhecimento.requisito.Cdp.KTipoRequisito</value>
 				<value> ode.processoPadrao.Cdp.CompPP </value>
 				<value> ode.processoPadrao.Cdp.RequisitoCompPP </value>
 				<value> ode.processoPadrao.Cdp.InterfaceCompPP </value>
@@ -387,6 +388,14 @@
 		lazy-init="default" autowire="default" dependency-check="default">
 		<property name="sessionFactory"> 
 			<ref local="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<bean id="kTipoRequisitoDao"
+		class="ode.conhecimento.requisito.Cgd.KTipoRequisitoDAOHibernate"
+		lazy-init="default" autowire="default" dependency-check="default">
+		<property name="sessionFactory">
+			<ref local="sessionFactory" />
 		</property>
 	</bean>
 </beans>

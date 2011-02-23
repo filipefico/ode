@@ -24,6 +24,7 @@ import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
 import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
+import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
 
 import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
 
@@ -495,7 +496,23 @@ public class WindowMenu extends Window {
 		menuitemOrganizacao.addEventListener("onClick",
 				new EListenerDominioConhecimento());
 		menuitemOrganizacao.setParent(menupopupCadastroConhecimento);
+
+		// Sub-menu Requisitos
 		
+		menuRequisitos = new NucleoMenu ("Requisitos");
+		menuRequisitos.setParent(menupopupCadastroConhecimento);
+		menupopupRequisitos = new Menupopup();
+		menupopupRequisitos.setParent(menuRequisitos);
+		menuitemTipoRequisito = new Menuitem ("Tipos de Requisito");
+		menuitemTipoRequisito.setParent(menupopupRequisitos);
+		menuitemTipoRequisito.addEventListener("onClick", new EListenerKTipoRequisito()); 
+		
+		// Sub-menu Processo
+		menuProcesso = new NucleoMenu(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_PROCESSO));
+		menuProcesso.setParent(menupopupCadastroConhecimento);
+		menupopupProcesso = new Menupopup();
+		menupopupProcesso.setParent(menuProcesso);
 		// Sub-menu Processo Padrão
 
 		menuProcessoPadrao = new NucleoMenu(NucleoMensagens
@@ -915,6 +932,19 @@ public class WindowMenu extends Window {
 		}
 	}
 	
+	private class EListenerKTipoRequisito implements EventListener {
+		public void onEvent(Event event) {
+			CtrlKTipoRequisitoCRUD ctrl = new CtrlKTipoRequisitoCRUD();
+			ctrl.iniciar();
+		}
+
+		@SuppressWarnings("unused")
+		public boolean isAsap() {
+			return true;
+		}
+	}
+	
+	
 	private class EListenerProcedimento implements EventListener {
 
 		public void onEvent(Event event) {
@@ -928,7 +958,8 @@ public class WindowMenu extends Window {
 			return true;
 		}
 	}
-	/** Classe do evento do idioma inglï¿½s. */
+
+/** Classe do evento do idioma inglï¿½s. */
 	private class EventListenerIdiomaIngles implements EventListener {
 
 		public void onEvent(Event event) {
@@ -1069,6 +1100,11 @@ public class WindowMenu extends Window {
 	Menuitem menuitemCategoriaProcesso;
 	
 	Menuitem menuitemKProcesso;
+	
+	// Requisitos
+	NucleoMenu menuRequisitos;
+	Menupopup menupopupRequisitos;
+	Menuitem menuitemTipoRequisito;
 	
 	Menuitem menuitemMCV;
 	
