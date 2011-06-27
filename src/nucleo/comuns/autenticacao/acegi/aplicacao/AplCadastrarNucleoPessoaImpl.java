@@ -10,14 +10,27 @@ import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
 import nucleo.comuns.autenticacao.acegi.persistencia.NucleoPessoaDAO;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.persistencia.NucleoDAOBase;
 import nucleo.comuns.util.NucleoMensagens;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarNucleoPessoaImpl extends
 		NucleoAplCadastroBaseImpl<NucleoPessoa> implements AplCadastrarNucleoPessoa {
+
+	@Autowired
+	private NucleoPessoaDAO nucleoPessoaDAO;
+	
+	public NucleoPessoaDAO getNucleoPessoaDAO() {
+		return nucleoPessoaDAO;
+	}
+
+	public void setNucleoPessoaDAO(NucleoPessoaDAO nucleoPessoaDAO) {
+		this.nucleoPessoaDAO = nucleoPessoaDAO;
+	}
 
 	@Override
 	protected void copiarValor(NucleoPessoa objetoFonte, NucleoPessoa objetoDestino) {
@@ -59,7 +72,7 @@ public class AplCadastrarNucleoPessoaImpl extends
 		}
 	}
 
-	public Collection<NucleoPessoa> recuperarTodos() throws NucleoRegraNegocioExcecao {
+	public Collection<NucleoPessoa> recuperarTodos() {
 		List<NucleoPessoa> pessoas = (List<NucleoPessoa>) super.recuperarTodos();
 		Collections.sort(pessoas, new ComparaNucleoPessoa());
 		return pessoas;
@@ -70,5 +83,10 @@ public class AplCadastrarNucleoPessoaImpl extends
 		public int compare(NucleoPessoa objeto1, NucleoPessoa objeto2) {
 			return objeto1.getNome().compareToIgnoreCase(objeto2.getNome());
 		}
+	}
+
+	@Override
+	public NucleoDAOBase<NucleoPessoa> getNucleoDaoBase() {
+		return nucleoPessoaDAO;
 	}
 }

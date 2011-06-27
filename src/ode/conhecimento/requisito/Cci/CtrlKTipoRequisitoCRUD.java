@@ -9,9 +9,23 @@ import ode.conhecimento.requisito.Cgt.AplCadastrarKTipoRequisito;
 import ode.conhecimento.requisito.Cih.FormDadosKTipoRequisito;
 import ode.conhecimento.requisito.Cih.PainelCrudKTipoRequisito;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
+@Controller(CtrlKTipoRequisitoCRUD.NOME)
 public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public final static String NOME = "CtrlKTipoRequisitoCRUD";
+	
+	@Autowired
+	private AplCadastrarKTipoRequisito aplCadastrarKTipoRequisito;
+	
 	@Override
 	public void iniciar() {
 		super.iniciar();
@@ -23,8 +37,7 @@ public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKTipoRequisito) SpringUtil
-				.getBean("aplCadastrarKTipoRequisito");
+		return aplCadastrarKTipoRequisito;
 	}
 
 	@Override

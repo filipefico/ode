@@ -1,17 +1,9 @@
 package ode.processoPadrao.Cgd;
 
-import java.util.Collection;
-
-import ode.processoPadrao.Cdp.CombinacaoPP;
 import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.processoPadrao.Cdp.CombinacaoPP;
 
 public interface CombinacaoPPDAO extends NucleoDAOBase<CombinacaoPP>{
-
-		public void salvar(CombinacaoPP parCombinacao);
-	    
-	    public void excluir(CombinacaoPP parCombinacao);
-	    
-	    public Collection<CombinacaoPP> recuperarTodos();
 	    
 	   // public List obterPorMCVOrdenado(ModeloCicloVidaProcessoPadrao parMCV);
 	    

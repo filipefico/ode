@@ -167,7 +167,7 @@ public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, 
 	protected void acaoAbrirItemSelecionado(){
 		this.setObjetoSelecionado((T)listBox.getSelectedItem().getValue());
 		this.setValue(this.getObjetoSelecionado().toString());
-		this.closeDropdown();
+		this.close();
 	}
 	
 	/** Classe do evento de um item da lista.  */

@@ -13,8 +13,9 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Vlayout;
 
-public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
+public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 	/**
 	 * 
@@ -36,7 +37,6 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vbox {
 		definirComponentes();
 		definirComponentesExtensao();
 		validarComponentesExtensao();
-		setWidth("98%");
 		// configuro o responsavel por atualizar a listagem. No caso, � o
 		// controlador
 		listagemPaginada.setAtualizador(controlador);

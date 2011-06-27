@@ -5,14 +5,11 @@ import java.util.Collection;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoOrganizacao;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class NucleoOrganizacaoDAOHibernate extends NucleoDAOBaseHibernate<NucleoOrganizacao> implements
 		NucleoOrganizacaoDAO {
-
-	@Override
-	protected Class getClasseDominio() {
-		return NucleoOrganizacao.class;
-	}
 	
 	@SuppressWarnings("unchecked")
 	public NucleoOrganizacao recuperarPorNome(String nome) {

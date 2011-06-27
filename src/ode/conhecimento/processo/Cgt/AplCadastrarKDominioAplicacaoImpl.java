@@ -1,12 +1,18 @@
 package ode.conhecimento.processo.Cgt;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
+import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 import ode.conhecimento.processo.Cgd.KDominioAplicacaoDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKDominioAplicacaoImpl extends
 		NucleoAplCadastroBaseImpl<KDominioAplicacao> implements
 		AplCadastrarKDominioAplicacao {
@@ -49,6 +55,9 @@ public class AplCadastrarKDominioAplicacaoImpl extends
 		return objeto;
 	}
 
-
+	@Override
+	public NucleoDAOBase<KDominioAplicacao> getNucleoDaoBase() {
+		return KDominioAplicacaoDAO;
+	}
 
 }

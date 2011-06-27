@@ -10,14 +10,28 @@ import nucleo.comuns.autenticacao.acegi.dominio.NucleoOrganizacao;
 import nucleo.comuns.autenticacao.acegi.persistencia.NucleoOrganizacaoDAO;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.persistencia.NucleoDAOBase;
 import nucleo.comuns.util.NucleoMensagens;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Service(value = "aplCadastrarNucleoOrganizacao")
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarNucleoOrganizacaoImpl extends
 		NucleoAplCadastroBaseImpl<NucleoOrganizacao> implements AplCadastrarNucleoOrganizacao {
+
+	@Autowired
+	private NucleoOrganizacaoDAO nucleoOrganizacaoDAO;
+	
+	public NucleoOrganizacaoDAO getNucleoOrganizacaoDAO() {
+		return nucleoOrganizacaoDAO;
+	}
+
+	public void setNucleoOrganizacaoDAO(NucleoOrganizacaoDAO nucleoOrganizacaoDAO) {
+		this.nucleoOrganizacaoDAO = nucleoOrganizacaoDAO;
+	}
 
 	@Override
 	protected void copiarValor(NucleoOrganizacao objetoFonte, NucleoOrganizacao objetoDestino) {
@@ -55,7 +69,7 @@ public class AplCadastrarNucleoOrganizacaoImpl extends
 		}
 	}
 
-	public Collection<NucleoOrganizacao> recuperarTodos() throws NucleoRegraNegocioExcecao {
+	public Collection<NucleoOrganizacao> recuperarTodos() {
 		List<NucleoOrganizacao> Organizacao = (List<NucleoOrganizacao>) super.recuperarTodos();
 		Collections.sort(Organizacao, new ComparaNucleoOrganizacao());
 		return Organizacao;
@@ -66,5 +80,10 @@ public class AplCadastrarNucleoOrganizacaoImpl extends
 		public int compare(NucleoOrganizacao objeto1, NucleoOrganizacao objeto2) {
 			return objeto1.getNome().compareToIgnoreCase(objeto2.getNome());
 		}
+	}
+
+	@Override
+	public NucleoDAOBase<NucleoOrganizacao> getNucleoDaoBase() {
+		return nucleoOrganizacaoDAO ;
 	}
 }

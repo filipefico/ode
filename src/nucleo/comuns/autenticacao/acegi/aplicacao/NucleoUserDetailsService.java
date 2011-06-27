@@ -7,14 +7,20 @@ import java.util.List;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
 import nucleo.comuns.autenticacao.acegi.persistencia.NucleoUserDetailsDAO;
+import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
+
+import ode.exemplo2.pessoa.Cgt.AplCadastrarPessoaExemplo;
 
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.zkoss.zkplus.spring.SpringUtil;
 
 
 /**
@@ -22,10 +28,12 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Alexandre G. N. Coelho
  */
-@Transactional
+@Service
+@Transactional(rollbackFor = NucleoExcecao.class)
 public class NucleoUserDetailsService implements UserDetailsService,
 		NucleoAplCadastrarNucleoUserDetails {
 
+	@Autowired
 	private NucleoUserDetailsDAO nucleoUserDetailsDAO;
 
 	public NucleoUserDetailsDAO getNucleoUserDetailsDAO() {

@@ -15,13 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import nucleo.comuns.persistencia.ObjetoPersistente;
-
-import org.apache.tools.ant.taskdefs.Length;
-
-import com.sun.xml.internal.ws.api.PropertySet.Property;
-
-import antlr.collections.List;
-
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;

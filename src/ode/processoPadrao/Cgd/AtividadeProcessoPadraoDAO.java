@@ -1,17 +1,9 @@
 package ode.processoPadrao.Cgd;
 
-import java.util.Collection;
-
-import ode.processoPadrao.Cdp.AtividadeProcessoPadrao;
 import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.processoPadrao.Cdp.AtividadeProcessoPadrao;
 
 public interface AtividadeProcessoPadraoDAO extends NucleoDAOBase<AtividadeProcessoPadrao> {
-
-		public void salvar(AtividadeProcessoPadrao parAtividadeProcessoPadrao);
-	    
-	    public void excluir(AtividadeProcessoPadrao parAtividadeProcessoPadrao);
-	    
-	    public Collection<AtividadeProcessoPadrao> recuperarTodos();
 	    
 	  //  public List obterMacroAtividades(CompPPProcessoSimples parPPE);
 	    

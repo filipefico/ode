@@ -1,35 +1,15 @@
 package ode.processoPadrao.Cgd;
 
-import ode.conhecimento.processo.Cdp.KArtefato;
-import ode.processoPadrao.Cdp.CompPP;
-import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
+import java.util.List;
+
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
-import java.util.*;
+import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
-import org.hibernate.FetchMode;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<CompPPProcessoComplexo> implements CompPPProcessoComplexoDAO{
-	@Override
-	protected Class<CompPPProcessoComplexo> getClasseDominio() {
-		// TODO Auto-generated method stub
-		return CompPPProcessoComplexo.class;
-	}
-	 
-	public void salvar(CompPPProcessoComplexo parProcessoPadraoGeral){
-	        super.salvar(parProcessoPadraoGeral);
-	    }
-	
-	    
-	public Collection<CompPPProcessoComplexo> recuperarTodos(){
-        return super.recuperarTodos();
-    }
-	
-	  public void excluir(CompPPProcessoComplexo parProcessoPadraoGeral){
-	        super.excluir(parProcessoPadraoGeral);
-	    }
-	
+		
 	/*  public KArtefato recuperarPorId(Long id) {
 		    DetachedCriteria detaCriteria = DetachedCriteria.forClass(getClasseDominio());
 		    detaCriteria.setFetchMode("subArtefatos", FetchMode.JOIN)
@@ -41,10 +21,11 @@ public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<C
 		    List resultado = getHibernateTemplate().findByCriteria(detaCriteria, 0, 1);
 			return (KArtefato)resultado.get(0);
 		}*/
+	
 	  public CompPPProcessoComplexo obterPorNome(String parNome){
 	      
 	
-	        List locProc = getSession().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'").list();
+	        List locProc = getHibernateTemplate().find("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'");
 	        if (locProc.isEmpty())
 	            return null;
 	        return (CompPPProcessoComplexo)locProc.get(0);

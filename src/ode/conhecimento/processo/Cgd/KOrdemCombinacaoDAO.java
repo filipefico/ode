@@ -9,12 +9,6 @@ import ode.conhecimento.processo.Cdp.KOrdemCombinacao;
 
 public interface KOrdemCombinacaoDAO extends NucleoDAOBase<KOrdemCombinacao>{
 
-	public void salvar(KOrdemCombinacao parKOrdemCombinacao);
+	//public List obterPorKMCVOrdenado(KModeloCicloVida parKMVC);
     
-    public void excluir(KOrdemCombinacao parKOrdemCombinacao);
-    
-    //public List obterPorKMCVOrdenado(KModeloCicloVida parKMVC);
-    
-    /** Obtem todas as KAtividade */
-    public Collection<KOrdemCombinacao> recuperarTodos();
 }

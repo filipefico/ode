@@ -7,8 +7,8 @@ import java.util.Set;
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.base.controlador.CtrlBase;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD.ModoExibicao;
+import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPagina;
@@ -18,7 +18,10 @@ import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.paginacao.IAtualizadorPesquisaPaginada;
 import nucleo.comuns.visao.principal.JanelaSimples;
 
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 
 public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 		implements IAtualizadorPesquisaPaginada {
@@ -51,7 +54,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 	public void iniciar() {
 		configurarComponentes();
-		System.out.print("Aqui 2!!!");
 		mostrarJanelaPrincipal();
 	}
 
@@ -65,7 +67,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 	}
 
 	protected void definirComponentesExtensao() {
-		System.out.print("Aqui 3!!!");
 		nucleoAplCadastroBase = definirNucleoAplCadastroBase();
 		painelCRUD = definirPainelCRUD();
 	}
@@ -94,14 +95,9 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 	public void atualizarPesquisa(ObjetoPagina pagina) {
 
 		ResultadoPaginado resultado = null;
-		try {
+		
 			resultado = getNucleoAplCadastroBase().recuperarTodosPaginado(
 					pagina);
-
-		} catch (NucleoRegraNegocioExcecao e) {
-			// TODO LOG DE ERRO AO ATUALIZAR PESQUISA
-			e.printStackTrace();
-		}
 		// atualizo os objetos e preencho a nova listagem
 		painelCRUD.getListagemPaginada().setResultadoAtualizarPesquisa(
 				resultado);
@@ -142,9 +138,27 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 							.getMensagem(NucleoMensagens.MSG_CONFIRMACAO_EXCLUSAO_SINGULAR);
 				}
 
-				if (confirmaSimNao(mensagemConfirmacao)) {
-					excluir(itensSelecionados);
-				}
+				confirmaSimNao(mensagemConfirmacao, new EventListener() {
+					
+						public void onEvent(Event evt) {
+							switch (((Integer) evt.getData()).intValue()) {
+							case Messagebox.YES:
+							
+								excluir(painelCRUD.getListagemPaginada().getSelecionados());
+								break; //the No button is pressed
+
+							case Messagebox.NO:
+							
+								break; //the No button is pressed
+
+							default:
+
+
+							}
+
+						
+					}
+				});
 
 			} else {
 

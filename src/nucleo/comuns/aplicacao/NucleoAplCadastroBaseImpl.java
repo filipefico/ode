@@ -11,21 +11,15 @@ import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.persistencia.ResultadoPaginado;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service(value = "NucleoAplCadastroBase")
 @Transactional(rollbackFor = NucleoExcecao.class)
 public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistenteImpl<Long, Long>>
 		implements NucleoAplCadastroBase<T> {
 
-	NucleoDAOBase<T> nucleoDaoBase;
-
-	public NucleoDAOBase<T> getNucleoDaoBase() {
-		return nucleoDaoBase;
-	}
-
-	public void setNucleoDaoBase(NucleoDAOBase<T> nucleoDaoBase) {
-		this.nucleoDaoBase = nucleoDaoBase;
-	}
+	public abstract NucleoDAOBase<T> getNucleoDaoBase();
 
 	public void excluir(T objeto) throws NucleoRegraNegocioExcecao {
 
@@ -33,7 +27,7 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 		antesExcluir(objeto);
 
 		// Exclui o objeto
-		nucleoDaoBase.excluir(objeto);
+		getNucleoDaoBase().excluir(objeto);
 
 		// Executa as ações necessárias depois da exclusão de um objeto.
 		depoisExcluir(objeto);
@@ -82,12 +76,12 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 	protected void depoisExcluir(T objeto) throws NucleoRegraNegocioExcecao {
 	}
 
-	public T recuperarPorId(Long id) throws NucleoRegraNegocioExcecao {
-		return nucleoDaoBase.recuperarPorId(id);
+	public T recuperarPorId(Long id) {
+		return getNucleoDaoBase().recuperarPorId(id);
 	}
 
-	public Collection<T> recuperarTodos() throws NucleoRegraNegocioExcecao {
-		return nucleoDaoBase.recuperarTodos();
+	public Collection<T> recuperarTodos() {
+		return getNucleoDaoBase().recuperarTodos();
 	}
 
 	public T salvar(T objeto) throws NucleoRegraNegocioExcecao {
@@ -157,7 +151,7 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 		antesIncluirNovo(objeto);
 
 		// Inclui o Principal Serviço
-		nucleoDaoBase.salvar(objeto);
+		getNucleoDaoBase().salvar(objeto);
 
 		// Executa a ação necessária depois de incluir um novo objeto
 		depoisIncluirNovo(objeto);
@@ -211,7 +205,7 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 		antesAlterarDados(objeto);
 
 		// Obtém o Principal Serviço persistido e altera seus dados
-		T objetoPersistido = nucleoDaoBase.recuperarPorId(objeto.getId());
+		T objetoPersistido = getNucleoDaoBase().recuperarPorId(objeto.getId());
 		copiarValor(objeto, objetoPersistido);
 
 		// Executa a ação necessária depois de alterar os dados
@@ -262,11 +256,11 @@ public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistent
 	protected abstract void copiarValor(T objetoFonte, T objetoDestino);
 
 	public ResultadoPaginado recuperarTodosPaginado(ObjetoPagina pagina)
-			throws NucleoRegraNegocioExcecao {
+			{
 		ResultadoPaginado<T> resultadoPaginado = new ResultadoPaginado<T>();
 		
-		Collection<T> listaElementos = nucleoDaoBase.recuperarTodosPaginado(pagina);
-		int tamanhoTotal = nucleoDaoBase.recuperarQteTodos(pagina);
+		Collection<T> listaElementos = getNucleoDaoBase().recuperarTodosPaginado(pagina);
+		int tamanhoTotal = getNucleoDaoBase().recuperarQteTodos(pagina);
 		
 		resultadoPaginado.setListaObjetos(listaElementos);
 		resultadoPaginado.setTamanhoTotal(tamanhoTotal);

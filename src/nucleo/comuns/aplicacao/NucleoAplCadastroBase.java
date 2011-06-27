@@ -1,5 +1,5 @@
 package nucleo.comuns.aplicacao;
-/*comentario*/
+
 import java.util.Collection;
 import java.util.Set;
 
@@ -39,7 +39,7 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	 * @throws NucleoRegraNegocioExcecao
 	 *             Caso haja algum erro de regra de negócio.
 	 */
-	public Collection<T> recuperarTodos() throws NucleoRegraNegocioExcecao;
+	public Collection<T> recuperarTodos();
 
 	/**
 	 * Recupera o objeto T com o id passado
@@ -58,7 +58,7 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	
 	
 	
-	public T recuperarPorId(Long id) throws NucleoRegraNegocioExcecao;
+	public T recuperarPorId(Long id);
 
 	/**
 	 * Inclui o objeto caso ele não seja persistente ou grava suas alterações
@@ -75,6 +75,6 @@ public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Lon
 	public T salvar(T objeto) throws NucleoRegraNegocioExcecao;
 	
 	
-	public ResultadoPaginado recuperarTodosPaginado(ObjetoPagina pagina)throws NucleoRegraNegocioExcecao;
+	public ResultadoPaginado recuperarTodosPaginado(ObjetoPagina pagina);
 
 }

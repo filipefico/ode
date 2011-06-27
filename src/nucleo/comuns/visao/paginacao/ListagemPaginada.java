@@ -26,11 +26,12 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.api.Paging;
 import org.zkoss.zul.event.PagingEvent;
 import org.zkoss.zul.ext.Paginal;
 
-public abstract class ListagemPaginada<T extends Object> extends Vbox {
+public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 
 	/**
 	 * 
