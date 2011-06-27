@@ -1,5 +1,5 @@
 package nucleo.comuns.aplicacao;
-
+/*comentario*/
 import java.util.Collection;
 import java.util.Set;
 
