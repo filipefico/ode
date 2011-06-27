@@ -63,7 +63,7 @@ public class NucleoBoxSelecaoTransferencia extends Hbox {
 		// //////////////////////////////////////
 		// Configuração do box que envolve todos os componentes
 		// //////////////////////////////////////
-		this.setValign("middle");
+		this.setAlign("middle");
 
 		// //////////////////////////////////////
 		// Box com a lista dos elementos disponíveis

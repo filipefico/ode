@@ -1,14 +1,18 @@
 package ode.conhecimento.requisito.Cgt;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
+import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import ode.conhecimento.requisito.Cgt.AplCadastrarKTipoRequisito;
-import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
+import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
+import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKTipoRequisitoImpl extends NucleoAplCadastroBaseImpl<KTipoRequisito> 
 				implements AplCadastrarKTipoRequisito {
 
@@ -35,5 +39,11 @@ public class AplCadastrarKTipoRequisitoImpl extends NucleoAplCadastroBaseImpl<KT
 		getNucleoDaoBase().merge(objeto);
 		//Retorna objetoPersistido;
 		return objeto;
+	}
+
+	@Override
+	public NucleoDAOBase<KTipoRequisito> getNucleoDaoBase() {
+		// TODO Auto-generated method stub
+		return kTipoRequisitoDAO;
 	}
 }

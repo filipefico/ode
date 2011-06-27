@@ -1,19 +1,10 @@
 package ode.processoPadrao.Cgd;
 
-import java.util.Collection;
-
 import nucleo.comuns.persistencia.NucleoDAOBase;
-import ode.processoPadrao.Cdp.CompPPProcessoSimples; 
-import ode.processoPadrao.Cdp.CompPP;
+import ode.processoPadrao.Cdp.CompPPProcessoSimples;
 
 public interface CompPPProcessoSimplesDAO extends NucleoDAOBase<CompPPProcessoSimples>{
-		
-		public void salvar(CompPPProcessoSimples parProcessoPadraoEspecifico);
 
-	    public void excluir(CompPPProcessoSimples parProcessoPadraoEspecifico);
-
-	    public Collection<CompPPProcessoSimples> recuperarTodos();
-	 
 	    //   public List obterProcessosEngenharia(CompPPProcessoComplexo parProc);
 
 	 //   public List obterProcessosNaoEngenhaira(CompPPProcessoComplexo parProc);

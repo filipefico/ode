@@ -1,51 +1,50 @@
 package ode.processoPadrao.Cgt;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.persistencia.NucleoDAOBase;
-import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
-import ode.conhecimento.processo.Cdp.KProcesso;
-import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
-import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
-import ode.processoPadrao.Cgd.CompPPProcessoComplexoDAO;
-import ode.processoPadrao.Cdp.CompPPProcessoSimples;
-import ode.processoPadrao.Cgd.CompPPProcessoSimplesDAO;
-import ode.processoPadrao.Cdp.AtividadeProcessoPadrao;
 import ode.processoPadrao.Cdp.CompPP;
-import ode.processoPadrao.Cdp.CompPPMacroatividade;
-import ode.processoPadrao.Cdp.InterfaceCompPP;
-import ode.processoPadrao.Cdp.InterfaceCompPPMacroatividade;
-import ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo;
-import ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples;
-import ode.processoPadrao.Cdp.RequisitoCompPP;
 import ode.processoPadrao.Cgd.CompPPDAO;
-import ode.processoPadrao.Cgd.InterfaceCompPPDAO;
-import ode.processoPadrao.Cgd.InterfaceCompPPProcessoComplexoDAO;
-import ode.processoPadrao.Cgd.InterfaceCompPPProcessoSimplesDAO;
-import ode.processoPadrao.Cgd.RequisitoCompPPDAO;
-import groovy.swing.impl.Factory;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service
+@Transactional(rollbackFor = NucleoExcecao.class)
 public class AplDefinirProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<CompPP> 
 implements AplDefinirProcessoPadrao{
 	public static String BUSCAR_DIRETAMENTE = "0";
     public static String BUSCAR_A_PARTIR_DOS_REQUISTOS = "1";
 
+    @Autowired
+    private CompPPDAO compPPDAO;
     
-    @Override
+    public CompPPDAO getCompPPDAO() {
+		return compPPDAO;
+	}
+
+
+
+	public void setCompPPDAO(CompPPDAO compPPDAO) {
+		this.compPPDAO = compPPDAO;
+	}
+
+
+
+	@Override
 	protected void copiarValor(CompPP objetoFonte, CompPP objetoDestino) {
 		objetoDestino.setNome(objetoFonte.getNome());
 		objetoDestino.setDescricao(objetoFonte.getDescricao());
 		//objetoDestino.setObjetivo(objetoFonte.getObjetivo());
+	}
+
+
+
+	@Override
+	public NucleoDAOBase<CompPP> getNucleoDaoBase() {
+		// TODO Auto-generated method stub
+		return compPPDAO;
 	}
     
     

@@ -5,32 +5,30 @@ import java.util.Set;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
-
 import nucleo.comuns.util.NucleoContexto;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoMenu;
-
-import ode.conhecimento.processo.Cci.CtrlKAtividadeCRUD;
-import ode.conhecimento.processo.Cci.CtrlKParadigmaCRUD;
+import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
 import ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD;
+import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
+import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
 import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
+import ode.conhecimento.processo.Cci.CtrlKAtividadeCRUD;
 import ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD;
+import ode.conhecimento.processo.Cci.CtrlKParadigmaCRUD;
 import ode.conhecimento.processo.Cci.CtrlKProcedimentoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKProcessoCRUD;
 import ode.conhecimento.processo.Cci.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.Cci.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
-import ode.conhecimento.processo.Cci.CtrlFerramentaSoftwareCRUD;
-import ode.conhecimento.organizacao.Cci.CtrlDominioConhecimentoCRUD;
-import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
-import ode.conhecimento.processo.Cci.CtrlCategoriaProcessoCRUD;
 import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
-
-import ode.exemplo2.pessoa.Cci.CtrlPessoaCRUD;
+import ode.exemplo2.pessoa.Cci.ControladorPrincipal;
+import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Menubar;
@@ -852,8 +850,8 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			CtrlPessoaCRUD ctrlP = new CtrlPessoaCRUD();
-			ctrlP.iniciar();
+			ControladorPrincipal ctrlP = (ControladorPrincipal) SpringUtil.getBean("ControladorPrincipal");
+			ctrlP.exibirControlador();
 		}
 
 		@SuppressWarnings("unused")
@@ -934,7 +932,7 @@ public class WindowMenu extends Window {
 	
 	private class EListenerKTipoRequisito implements EventListener {
 		public void onEvent(Event event) {
-			CtrlKTipoRequisitoCRUD ctrl = new CtrlKTipoRequisitoCRUD();
+			CtrlKTipoRequisitoCRUD ctrl = (CtrlKTipoRequisitoCRUD) SpringUtil.getBean(CtrlKTipoRequisitoCRUD.NOME);
 			ctrl.iniciar();
 		}
 

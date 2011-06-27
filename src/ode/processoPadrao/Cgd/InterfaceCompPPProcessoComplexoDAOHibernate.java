@@ -1,29 +1,11 @@
 package ode.processoPadrao.Cgd;
-import java.util.Collection;
-
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
-import ode.processoPadrao.Cdp.InterfaceCompPP;
-import ode.processoPadrao.Cdp.InterfaceCompPPProcessoSimples;
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public abstract class InterfaceCompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<InterfaceCompPPProcessoComplexo> implements InterfaceCompPPProcessoComplexoDAO {
-
-		@Override
-		protected Class<InterfaceCompPPProcessoComplexo> getClasseDominio() {
-		// TODO Auto-generated method stub
-		return InterfaceCompPPProcessoComplexo.class;
-		}
-		public void salvar(InterfaceCompPPProcessoComplexo parInterfaceCompPPProcessoComplexo){
-	        super.salvar(parInterfaceCompPPProcessoComplexo);
-	    }
-
-	    public void excluir(InterfaceCompPPProcessoComplexo parInterfaceCompPPProcessoComplexo){
-	        super.excluir(parInterfaceCompPPProcessoComplexo);
-	    }
-	    
-	    public Collection<InterfaceCompPPProcessoComplexo> recuperarTodos(){
-	        return super.recuperarTodos();
-	    }
 	    
 /*
 	    public List obterTodos(){

@@ -1,30 +1,13 @@
 package ode.processoPadrao.Cgd;
 
-import ode.processoPadrao.Cdp.CompPPProcessoSimples;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
-import ode.processoPadrao.Cdp.CompPP;
-import java.util.*;
+import ode.processoPadrao.Cdp.CompPPProcessoSimples;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class CompPPProcessoSimplesDAOHibernate extends
 NucleoDAOBaseHibernate<CompPPProcessoSimples> implements CompPPProcessoSimplesDAO{
-   
-	@Override
-	protected Class<CompPPProcessoSimples> getClasseDominio() {
-		// TODO Auto-generated method stub
-		return CompPPProcessoSimples.class;
-	}
-	
-	public void salvar(CompPPProcessoSimples parProcessoPadraoEspecifico){
-        super.salvar(parProcessoPadraoEspecifico);
-    }
-    
-    public void excluir(CompPPProcessoSimples parProcessoPadraoEspecifico){
-        super.excluir(parProcessoPadraoEspecifico);
-    }
-    
-    public Collection<CompPPProcessoSimples> recuperarTodos(){
-        return super.recuperarTodos();
-    }
     
   /*  public List obterTodos(){
         return super.obterTodos(CompPPProcessoSimples.class);

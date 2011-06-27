@@ -9,15 +9,11 @@ import org.acegisecurity.userdetails.UserDetails;
 import org.hibernate.HibernateException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public class NucleoUserDetailsDAOHibernate extends
 		NucleoDAOBaseHibernate<NucleoUserDetails> implements NucleoUserDetailsDAO {
-
-	@Override
-	protected Class getClasseDominio() {
-		return NucleoUserDetails.class;
-	}
 
 	@SuppressWarnings("unchecked")
 	public UserDetails recuperarPorUsername(String username)

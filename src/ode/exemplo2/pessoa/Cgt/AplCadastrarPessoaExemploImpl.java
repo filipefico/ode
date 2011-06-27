@@ -1,12 +1,18 @@
 package ode.exemplo2.pessoa.Cgt;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
+import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
+import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 import ode.exemplo2.pessoa.Cgd.PessoaExemploDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Service(value = "aplCadastrarPessoaExemplo")
+@Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarPessoaExemploImpl extends
 		NucleoAplCadastroBaseImpl<PessoaExemplo> implements
 		AplCadastrarPessoaExemplo {
@@ -50,6 +56,12 @@ public class AplCadastrarPessoaExemploImpl extends
 
 		//return objetoPersistido;
 		return objeto;
+	}
+
+	@Override
+	public NucleoDAOBase<PessoaExemplo> getNucleoDaoBase() {
+		// TODO Auto-generated method stub
+		return pessoaExemploDAO;
 	}
 
 

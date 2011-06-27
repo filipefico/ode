@@ -1,35 +1,58 @@
 package nucleo.comuns.persistencia;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
- * 
- * @author Vitor Souza
  * 
  * @param <T>
  *            Tipo do objeto persistido.
  */
-public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteImpl>
-		extends HibernateDaoSupport implements NucleoDAOBase<T> {
+public class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteImpl>
+implements NucleoDAOBase<T> {
+
+	/**
+	 * Classe a ser tratada na sub-classe.
+	 */
+	private Class<T> entityClass;
+
+	private HibernateTemplate hibernateTemplate;
 
 	public NucleoDAOBaseHibernate() {
 		super();
 	}
 
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		hibernateTemplate = new HibernateTemplate(sessionFactory);
+	}
+
+	public HibernateTemplate getHibernateTemplate(){
+		return this.hibernateTemplate;
+	}
+
 	/**
-	 * Mï¿½todo abstrato a ser implementado pelas subclasses para que retornem a
-	 * classe de domï¿½nio que ï¿½ persistida por elas.
+	 * Recupera a classe de domínio que é persistida.
 	 * 
-	 * @return Classe de domï¿½nio que ï¿½ persistida pelas subclasses.
+	 * @return Classe de domínio que é persistida pelas subclasses.
 	 */
-	protected abstract Class getClasseDominio();
+
+	public Class<T> getClasseDominio() {
+
+		ParameterizedType parameterizedType = (ParameterizedType) getClass()
+		.getGenericSuperclass();
+
+		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -142,7 +165,7 @@ public abstract class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteIm
 	public DetachedCriteria getDetachedCriteria(ObjetoPagina parPagina) {
 
 		DetachedCriteria detaCriteria = DetachedCriteria
-				.forClass(getClasseDominio());
+		.forClass(getClasseDominio());
 		List<Criterion> criterios = parPagina.getCriterios();
 		// adiciono os criterios da pesquisa
 		if (criterios != null) {

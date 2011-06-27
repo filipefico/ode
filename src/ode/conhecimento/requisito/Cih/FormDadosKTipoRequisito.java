@@ -10,6 +10,7 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
 import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
+import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 
 import org.zkoss.zk.ui.event.Event;
@@ -40,10 +41,14 @@ public class FormDadosKTipoRequisito extends FormularioDadosCRUD<KTipoRequisito>
 		return null;
 	}
 	
-	public static void carregaRequisitosCombobox (Combobox coSuper, Radio cbFuncionalSim){
+	public  void carregaRequisitosCombobox (Combobox coSuper, Radio cbFuncionalSim){
 		coSuper.getChildren().clear();
-		KTipoRequisitoDAO Req = (KTipoRequisitoDAO) SpringUtil.getBean("kTipoRequisitoDao");
-		Collection<KTipoRequisito> listaRequisitos = Req.recuperarTodos();
+		
+		Collection<KTipoRequisito> listaRequisitos;
+		
+			listaRequisitos = ((CtrlKTipoRequisitoCRUD)getControlador()).getNucleoAplCadastroBase().recuperarTodos();
+		
+
 		for (KTipoRequisito K : listaRequisitos) {
 			if (cbFuncionalSim.isChecked() == K.getEhFuncional()){
 				coSuper.appendItem(K.getNome());

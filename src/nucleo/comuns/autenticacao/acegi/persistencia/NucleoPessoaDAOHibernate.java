@@ -5,15 +5,12 @@ import java.util.Collection;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
 import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class NucleoPessoaDAOHibernate extends NucleoDAOBaseHibernate<NucleoPessoa> implements
 		NucleoPessoaDAO {
 
-	@Override
-	protected Class getClasseDominio() {
-		return NucleoPessoa.class;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public NucleoPessoa recuperarPorEmail(String email) {
 		Collection<NucleoPessoa> pessoas = getHibernateTemplate()

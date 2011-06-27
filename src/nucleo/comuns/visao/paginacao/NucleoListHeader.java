@@ -4,6 +4,10 @@ import org.zkoss.zul.Listheader;
 
 public class NucleoListHeader extends Listheader {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String atributoBanco;
 /**
  * @param String titulo - Titulo do Cabecalho
