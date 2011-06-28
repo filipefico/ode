@@ -1,8 +1,8 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="iso-8859-1"?>
 <html xmlns:x="http://www.zkoss.org/2005/zul"
 	xmlns:zk="http://www.zkoss.org/2005/zk">
 	<head>
-		<title>ODE - Caso de Teste</title>
+		<title>ODE - Ontology Development Environment - Versão 0.01</title>
 		<link href="style.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
