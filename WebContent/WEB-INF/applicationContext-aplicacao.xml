@@ -1,97 +1,15 @@
-<?xml version="1.0"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-	"http://www.springframework.org/dtd/spring-beans.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-<beans>
+	<bean id="nucleoDAOBase" class="nucleo.comuns.persistencia.NucleoDAOBaseHibernate" />
 
-
-	<bean id="aplCadastrarNucleoPessoa"
-		class="nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoaImpl">
-		<property name="nucleoDaoBase" ref="nucleoPessoaDAO" />
-	</bean>
-
-	<bean id="aplCadastrarPessoaExemplo" class="ode.exemplo2.pessoa.Cgt.AplCadastrarPessoaExemploImpl">
-		<property name="nucleoDaoBase" ref="pessoaExemploDao" />
-	</bean>
-
-	<bean id="aplCadastrarKDominioAplicacao"
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacaoImpl">
-		<property name="nucleoDaoBase" ref="kDominioAplicacaoDao" />
-	</bean>
-
-
-	<bean id="aplCadastrarKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarKArtefatoImpl">
-		<property name="nucleoDaoBase" ref="kArtefatoDao" />
-	</bean>
+	<context:annotation-config/> 
+	<context:component-scan base-package="**" />
 	
-	<bean id="aplCadastrarKAtividade" class="ode.conhecimento.processo.Cgt.AplCadastrarKAtividadeImpl">
-		<property name="nucleoDaoBase" ref="kAtividadeDao" />
-	</bean>
-
-	<bean id="aplCadastrarKParadigma" class="ode.conhecimento.processo.Cgt.AplCadastrarKParadigmaImpl">
-		<property name="nucleoDaoBase" ref="kParadigmaDao" />
-	</bean>
-
-	<bean id="aplCadastrarTipoKArtefato" class="ode.conhecimento.processo.Cgt.AplCadastrarTipoKArtefatoImpl">
-		<property name="nucleoDaoBase" ref="tipoKArtefatoDao" />
-	</bean>
+	<import resource="applicationContext-dao.xml" />
 	
-	<bean id="aplCadastrarTipoSoftware"
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKTipoSoftwareImpl">
-		<property name="nucleoDaoBase" ref="kTipoSoftwareDao" />
-	</bean>
-	
-	<bean id="aplCadastrarKFerramentaSoftware"
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftwareImpl">
-		<property name="nucleoDaoBase" ref="kFerramentaSoftwareDao" />
-	</bean>
-	
-	<bean id="aplCadastrarKRecursoHumano"
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHumanoImpl">
-		<property name="nucleoDaoBase" ref="kRecursoHumanoDao" />
-	</bean>
-	
-	<bean id="aplCadastrarKRecursoHardware"
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHardwareImpl">
-		<property name="nucleoDaoBase" ref="kRecursoHardwareDao" />
-	</bean>
-	
-	<bean id="aplCadastrarKProcedimento"
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKProcedimentoImpl">
-		<property name="nucleoDaoBase" ref="kProcedimentoDao" />
-	</bean>
-
-	<bean id="nucleoUserDetailsService"
-		class="nucleo.comuns.autenticacao.acegi.aplicacao.NucleoUserDetailsService">
-		<property name="nucleoUserDetailsDAO">
-			<ref bean="nucleoUserDetailsDAO" />
-		</property>
-	</bean>
-	
-	<bean id="aplCadastrarKDominioConhecimento" 
-		class="ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimentoImpl">
-		<property name="nucleoDaoBase" ref="kdominioConhecimentoDao"/>
-	</bean>
-	
-	<bean id="aplCadastrarKCategoriaProcesso" 
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcessoImpl">
-		<property name="nucleoDaoBase" ref="kcategoriaProcessoDao"/>
-	</bean>
-	
-	<bean id="aplCadastrarKProcesso" 
-		class="ode.conhecimento.processo.Cgt.AplCadastrarKProcessoImpl">
-		<property name="nucleoDaoBase" ref="kProcessoDao"/>
-	</bean>
-		
-	<bean id="aplDefinirProcessoPadrao" 
-		class="ode.processoPadrao.Cgt.AplDefinirProcessoPadraoImpl">
-		<property name="nucleoDaoBase" ref="interfaceCompPPDao"/>
-	</bean>
-	
-	<bean id="aplCadastrarKTipoRequisito" 
-		class="ode.conhecimento.requisito.Cgt.AplCadastrarKTipoRequisitoImpl">
-		<property name="nucleoDaoBase" ref="kTipoRequisitoDao"/>
-	</bean>
-	
-
 </beans>

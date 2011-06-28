@@ -1,67 +1,105 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<?page title="ODE - Caso de Teste - Login"?>
+<?page title="ODE - Ontology Development Environment - Versão 0.01"?>
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<zk xmlns:h="xhtml" xmlns:zk="zk">
+    <zscript>
+    errorCode = Executions.getCurrent().getParameter("error");
+    errorMessage = "";
+    messageStyle = "color: red; font-weight: bold;";
+    if (errorCode == null) {
+        errorMessage = "Entre com login e senha.";
+        messageStyle = "color: green; font-weight: bold;";
+    } else if ("1".equals(errorCode)) {
+        errorMessage = "Login ou senha incorretos!";
+    } else if ("2".equals(errorCode)) {
+        errorMessage = "Efetue login para continuar.";
+    } else {
+        errorMessage = "Unknown error occured - "
+                + "try again later or contact webmaster";
+    }
+</zscript>
 
-<window id="wndLogin" style="margin: 15px;">
-  <vbox id="vbox" width="100%"> 
     <div align="center">
-    <window id="uiWndwLogin" width="400px" border="normal" title="ODE - Caso de Teste" mode="popup" position="&quot;center&quot;;">
-        <zscript>
-            errorCode = Executions.getCurrent().getParameter("error");
-            errorMessage = "";
-            messageStyle="color: red; font-weight: bold;";
-            if (errorCode == null) {
-              errorMessage = "Entre com usuário e senha.";
-              messageStyle="color: green; font-weight: bold;";
-            } else if ("1".equals(errorCode)) {
-              errorMessage = "Usuário ou senha incorretos!";
-            } else if ("2".equals(errorCode)) {
-              errorMessage = "Efetue login para continuar.";
-            } else {
-              errorMessage = "Unknown error occured - "
-               + "try again later or contact webmaster";
-            }
-            
-        </zscript>
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <image src="imagens/ode.jpg" />
+        <separator />
+        <separator />
+        <box>
+            <window title="Login" width="300px" border="normal">
+                <div align="center">
+                    <separator />
 
-        <h:form id="loginForm" action="j_security_check"
-              xmlns:h="http://www.w3.org/1999/xhtml">
-              <label id="uiLablMessage" style="${messageStyle}" 
-                value="${errorMessage}" />
-              <grid>
-                <rows>
-                  <row>
-                    Usuário:
-                    <textbox id="uiTxtbUsername" name="j_username" 
-                      value="" onCreate="self.focus()" />
-                  </row>
-                  <row>
-                    Senha:
-                    <textbox id="uiTxtbPassword" name="j_password"
-                      type="password" constraint="no empty" />
-                  </row>
-                </rows>
-              </grid>
-              <vbox width="100%">
-                <separator/>
-                <!-- checkbox label="Save my password" name="rememberMe" 
-                  id="uiChkbRememberMe"/-->
-                <button label="Login" onClick="login()" />
-              </vbox>
-              <zscript>
-                <![CDATA[
-        void login() {
-          //validate data
-          org.zkoss.zk.ui.Sessions.getCurrent()
-            .setAttribute("username",uiTxtbUsername.getValue());
-          uiTxtbPassword.getValue();
-          
-          //submit the form
-          org.zkoss.zk.ui.util.Clients.submitForm(loginForm);
-        }
-        ]]>
-              </zscript>
-            </h:form>
-      </window></div>
+                    <h:form id="loginForm" action="j_security_check"
+                        xmlns:h="http://www.w3.org/1999/xhtml">
+                        <vbox>
+                            <div align="left"
+                                style="margin-top: 5px; margin-bottom: 5px;">
+                                <hbox align="middle">
+                                    <label id="uiLablMessage"
+                                        style="${messageStyle}" value="${errorMessage}" />
+                                </hbox>
+                                <separator />
+                            </div>
+                            <label value="Login:"
+                                style="font-size:11px; font-family:Verdana,Arial,Helvetica,sans-serif;color:#363636;" />
+                            <div align="left">
+                                <vbox>
+                                    <textbox id="ui1TxtbUsername"
+                                        name="j_username" value="" onCreate="self.focus()"
+                                        width="250px" />
+                                </vbox>
+                            </div>
+                            <separator />
+                            <label value="Senha:"
+                                style="font-size:11px; font-family:Verdana,Arial,Helvetica,sans-serif;color:#363636;" />
+                            <div align="left">
+                                <textbox id="ui1TxtbPassword"
+                                    name="j_password" type="password" width="250px" />
+                            </div>
+                            <separator />
+                            <div align="right">
 
-  </vbox>
-</window>
+                                <button width="100px" label="login"
+                                    onClick="login()" sclass="botaoPrincipal" />
+                                <zscript>
+                           <![CDATA[
+    void login() {
+        //validate data
+        org.zkoss.zk.ui.Sessions.getCurrent().setAttribute("username",
+                ui1TxtbUsername.getValue());
+        ui1TxtbPassword.getValue();
+
+        //submit the form
+        org.zkoss.zk.ui.util.Clients.submitForm(loginForm);
+    }
+]]>
+                        </zscript>
+                            </div>
+                        </vbox>
+                    </h:form>
+                    <separator />
+                </div>
+
+            </window>
+        </box>
+    </div>
+
+    <div align="center">
+        <vbox align="center">
+            <separator />
+            <separator />
+            <label value="ODE - Ontology Development Environment - Versão 0.01"
+                style="color: #363636; font-size: 10px; font-weight: bold;" />
+            <label value="Desenvolvido por: NEMO / DI / UFES"
+                style="color: #363636; font-size: 10px; font-weight: bold;" />
+        </vbox>
+    </div>
+    <separator />
+</zk>

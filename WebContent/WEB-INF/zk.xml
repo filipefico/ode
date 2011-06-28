@@ -11,5 +11,9 @@
 			org.zkoss.zkplus.acegi.AcegiSecurityContextListener
 		</listener-class>
 	</listener>
+	
+	<system-config>
+		<max-upload-size>100000</max-upload-size>
+	</system-config>
 
 </zk>

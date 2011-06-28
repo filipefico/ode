@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-	<display-name>ODE </display-name>
+	<display-name>ODE</display-name>
 
 	<!-- Spring ApplicationContext -->
 	<context-param>
