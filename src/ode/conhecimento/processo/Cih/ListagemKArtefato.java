@@ -3,11 +3,11 @@ package ode.conhecimento.processo.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.listagem.ListagemSimples;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.conhecimento.processo.Cdp.KArtefato;
 
-public class ListagemKArtefato extends ListagemPaginada<KArtefato> {
+public class ListagemKArtefato extends ListagemSimples<KArtefato> {
 
 	/**
 	 * 

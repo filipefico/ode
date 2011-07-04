@@ -22,7 +22,6 @@ import ode.conhecimento.processo.Cci.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.Cci.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
 import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
-import ode.exemplo2.pessoa.Cci.ControladorPrincipal;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 
 import org.zkoss.zk.ui.Executions;
@@ -442,10 +441,10 @@ public class WindowMenu extends Window {
 		menupopupPessoa.setParent(menuPessoa);
 		menuitemPessoa = new Menuitem(NucleoMensagens //
 				.getMensagem(NucleoMensagens.TERMO_PESSOAS));
-		// menuitemPessoa.addEventListener("onClick",new
-		// EventListenerMenuItemPessoaExemplo());
-		menuitemPessoa.addEventListener("onClick",
-				new EListenerPessoaComControlador());
+		 menuitemPessoa.addEventListener("onClick",new
+		 EventListenerMenuItemPessoa());
+		//menuitemPessoa.addEventListener("onClick",
+				//new EListenerPessoaComControlador());
 		menuitemPessoa.setParent(menupopupPessoa);
 
 		// /////////////////////////////
@@ -850,8 +849,8 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			ControladorPrincipal ctrlP = (ControladorPrincipal) SpringUtil.getBean("ControladorPrincipal");
-			ctrlP.exibirControlador();
+		//ControladorPrincipal ctrlP = (ControladorPrincipal) SpringUtil.getBean("ControladorPrincipal");
+			//ctrlP.exibirControlador();
 		}
 
 		@SuppressWarnings("unused")
@@ -878,9 +877,9 @@ public class WindowMenu extends Window {
 	private class EListenerFerramentaSoftware implements EventListener {
 
 		public void onEvent(Event event) {
-			// COm controlador
-			CtrlFerramentaSoftwareCRUD ctrlP = new CtrlFerramentaSoftwareCRUD();
-			ctrlP.iniciar();
+
+			CtrlFerramentaSoftwareCRUD ctrl = (CtrlFerramentaSoftwareCRUD) SpringUtil.getBean(CtrlFerramentaSoftwareCRUD.NOME);			
+			ctrl.iniciar();
 		}
 
 		@SuppressWarnings("unused")
@@ -1012,17 +1011,16 @@ public class WindowMenu extends Window {
 	// ////////////////////////////
 	/** Classe do evento do Menuitem Pessoa. */
 
-	/*
-	 * private class EventListenerMenuItemPessoa implements EventListener {
-	 * 
-	 * public void onEvent(Event event) { Window win = (Window)
-	 * Executions.createComponents(
-	 * "/visao/exemplo/windowCadastroListaPessoaExemplo.zul", getReference(),
-	 * null); win.doOverlapped(); }
-	 * 
-	 * public boolean isAsap() { return true; } }
-	 */
-
+	
+	  private class EventListenerMenuItemPessoa implements EventListener {
+	  
+	  public void onEvent(Event event) { Window win = (Window)
+	  Executions.createComponents(
+	  "/visao/exemplo/windowCadastroListaPessoaExemplo.zul", getReference(),
+	 null); win.doOverlapped(); }
+	  
+	 public boolean isAsap() { return true; } }
+	 
 	Menubar menuBar;
 
 	// /////////////////////////////

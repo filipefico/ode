@@ -3,11 +3,11 @@ package ode.exemplo2.pessoa.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.listagem.ListagemSimples;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 
-public class ListagemPessoaExemplo extends ListagemPaginada<PessoaExemplo> {
+public class ListagemPessoaExemplo extends ListagemSimples<PessoaExemplo> {
 
 	@Override
 	protected String[] recuperarDadosObjeto(PessoaExemplo objeto) {

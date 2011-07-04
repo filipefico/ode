@@ -3,11 +3,11 @@ package ode.conhecimento.requisito.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.listagem.ListagemSimples;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 
-public class ListagemKTipoRequisito extends ListagemPaginada<KTipoRequisito> {
+public class ListagemKTipoRequisito extends ListagemSimples<KTipoRequisito> {
 
 	@Override
 	protected String[] recuperarDadosObjeto(KTipoRequisito objeto) {

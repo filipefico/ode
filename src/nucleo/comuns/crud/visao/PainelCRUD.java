@@ -6,7 +6,8 @@ import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.listagem.ListagemSimples;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
@@ -24,14 +25,14 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 	protected Toolbar toolbar;
 
-	protected ListagemPaginada<T> listagemPaginada;
+	protected ListagemSimples<T> listagem;
 
 	protected CtrlCRUD<T> controlador;
 
 	public PainelCRUD() {
 	}
 
-	public abstract ListagemPaginada<T> definirListagem();
+	public abstract ListagemSimples<T> definirListagem();
 
 	public void configurarComponentes() {
 		definirComponentes();
@@ -39,19 +40,19 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 		validarComponentesExtensao();
 		// configuro o responsavel por atualizar a listagem. No caso, � o
 		// controlador
-		listagemPaginada.setAtualizador(controlador);
-		listagemPaginada.configurarComponentes();
+		listagem.setAtualizador(controlador);
+		listagem.configurarComponentes();
 
 		montar();
 	}
 
 	private void montar() {
 		toolbar.setParent(this);
-		listagemPaginada.setParent(this);		
+		listagem.setParent(this);		
 	}
 
 	protected void definirComponentesExtensao() {
-		listagemPaginada = definirListagem();
+		listagem = definirListagem();
 
 	}
 
@@ -61,18 +62,18 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 			throw CtrlExcecoes.factoryExcecaoDefinicao("controlador",
 					this.getClass());
 
-		if (listagemPaginada == null)
+		if (listagem == null)
 			throw CtrlExcecoes.factoryExcecaoDefinicao(
 					"listagemPaginada", this.getClass());
 
 	}
 
-	public ListagemPaginada<T> getListagemPaginada() {
-		return listagemPaginada;
+	public ListagemSimples<T> getListagem() {
+		return listagem;
 	}
 
-	public void setListagemPaginada(ListagemPaginada<T> listagemPaginada) {
-		this.listagemPaginada = listagemPaginada;
+	public void setListagem(ListagemSimples<T> listagemPaginada) {
+		this.listagem = listagemPaginada;
 	}
 
 	protected Toolbar definirBarraFerramentas() {
@@ -149,7 +150,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 		public void onEvent(Event event) {
 			// Obt�m os itens selecionados
-			Set itensSelecionados = getListagemPaginada().getSelecionados();
+			Set itensSelecionados = getListagem().getSelecionados();
 
 			// Verifica se o n�mero de itens selecionados � maior que zero.
 			if (itensSelecionados.size() == 1) {

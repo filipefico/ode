@@ -3,13 +3,13 @@ package ode.processoPadrao.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.listagem.ListagemSimples;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
 
-public class ListagemDefinirProcessoPadrao extends ListagemPaginada<CompPP> {
+public class ListagemDefinirProcessoPadrao extends ListagemSimples<CompPP> {
 
 	/**
 	 * 

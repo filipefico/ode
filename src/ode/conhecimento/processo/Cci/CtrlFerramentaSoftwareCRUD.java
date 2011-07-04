@@ -1,5 +1,7 @@
 package ode.conhecimento.processo.Cci;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
@@ -11,7 +13,13 @@ import ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftware;
 import ode.conhecimento.processo.Cih.FormDadosFerramentaSoftware;
 import ode.conhecimento.processo.Cih.PainelCrudFerramentaSoftware;
 
+@Controller(value=CtrlFerramentaSoftwareCRUD.NOME)
 public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
+	
+	
+	public final static String NOME = "CtrlFerramentaSoftwareCRUD";
+	
+	
 	@Override
 	public void iniciar() {
 		super.iniciar();
@@ -19,12 +27,22 @@ public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 		larguraJandados = "400px";
 		
 	}
+	
+	@Autowired
+	private AplCadastrarKFerramentaSoftware aplCadastrarFerramenta;
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	public AplCadastrarKFerramentaSoftware getAplCadastrarFerramenta() {
+		return aplCadastrarFerramenta;
+	}
+
+	public void setAplCadastrarFerramenta(
+			AplCadastrarKFerramentaSoftware aplCadastrarFerramenta) {
+		this.aplCadastrarFerramenta = aplCadastrarFerramenta;
+	}
+
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKFerramentaSoftware) SpringUtil
-				.getBean("aplCadastrarKFerramentaSoftware");
+		return aplCadastrarFerramenta;
 	}
 
 	@Override
