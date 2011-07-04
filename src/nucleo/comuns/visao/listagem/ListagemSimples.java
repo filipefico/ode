@@ -1,4 +1,4 @@
-package nucleo.comuns.visao.paginacao;
+package nucleo.comuns.visao.listagem;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,13 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.persistencia.ObjetoPagina;
-import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.listagem.IAtualizaPesquisa;
+import nucleo.comuns.visao.paginacao.NucleoListHeader;
 
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Caption;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Listbox;
@@ -25,18 +21,16 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vlayout;
-import org.zkoss.zul.api.Paging;
-import org.zkoss.zul.event.PagingEvent;
 import org.zkoss.zul.ext.Paginal;
 
-public abstract class ListagemPaginada<T extends Object> extends Vlayout {
+public abstract class ListagemSimples<T extends Object> extends Vlayout {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4501107226775255414L;
 
-	// private static final int MAX_RESULS = 0;
+
 
 	/** Lista dos objetos. */
 	protected Listbox listBox = new Listbox();
@@ -66,18 +60,15 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 	 * Interface resposavel por atualizar Pesquisa Paginada. Nos Cruds, o
 	 * Controlador que faz esse papel
 	 */
-	protected IAtualizadorPesquisaPaginada atualizador;
+	protected IAtualizaPesquisa atualizador;
 
-	protected ObjetoPagina pagina;
 
-	protected Paging paging = new org.zkoss.zul.Paging();
-
-	protected  int PAGE_SIZE = 20;
+	protected  int PAGE_SIZE = 10;
 
 	// Objetos da listagem
 	private Collection<T> objetos;
 
-	public ListagemPaginada() {
+	public ListagemSimples() {
 	}
 
 	/**
@@ -93,7 +84,9 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 		listBox.setRows(10);
 		listBox.setCheckmark(true);
 		listBox.setMultiple(true);
-	//	listBox.setMold("paging");
+		listBox.setMold("paging");
+		Paginal paginal = listBox.getPaginal();
+		paginal.setPageSize(PAGE_SIZE);
 		// ////////////////////////////////////
 		// Configuração do filtro
 		// ////////////////////////////////////
@@ -111,32 +104,6 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 		montarComponentesExtensao();
 
 	}
-
-	private void configurarPaginacao() {
-
-		paging.setDetailed(true);
-		// pag.setMold("os");
-
-		// cria o objeto pagina
-		pagina = ObjetoPagina.factoryObjetoPagina(0, PAGE_SIZE, null);
-		paging.addEventListener("onPaging", new EventListener() {
-
-			public void onEvent(Event event) {
-				PagingEvent pe = (PagingEvent) event;
-				int pgno = pe.getActivePage();
-				int firstResults = pgno * PAGE_SIZE;
-				pagina.setFirstResults(firstResults);
-				pagina.setPaginaAtual(pgno);
-				// Redraw current paging
-				atualizador.atualizarPesquisa(pagina);
-
-			}
-		});
-
-		listBox.setPaginal(paging);
-		listBox.setMold("paging");
-	}
-
 	protected void montarComponentesExtensao() {
 		// TODO Auto-generated method stub
 
@@ -161,18 +128,6 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 
 		for (NucleoListHeader header : listheaders) {
 			header.setParent(listhead);
-			ativarOrdenacaoListHeader(header);
-			// tenho que colocar um comparator simples para funcionar
-			// NÃO RETIRAR
-			Comparator comp = new Comparator() {
-
-				public int compare(Object arg0, Object arg1) {
-					return 0;
-				}
-			};
-			header.setSortAscending(comp);
-			header.setSortDescending(comp);
-
 		}
 
 		listhead.setSizable(true);
@@ -198,12 +153,7 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 	 * @param listheader
 	 *            Listheader o qual será ativado a ordenação.
 	 */
-	protected void ativarOrdenacaoListHeader(Listheader listheader) {
 
-	//	listheader.addEventListener("onSort", new OnSortEventListener());
-		listheader.setSort("auto");
-
-	}
 
 	/**
 	 * Define configurações extras (inclusive reconfigurações) para os
@@ -312,35 +262,6 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 		// Insere o listitem no listbox
 		lista.appendChild(lt);
 	}
-/*
-	public final class OnSortEventListener implements EventListener {
-
-		public void onEvent(Event event) throws Exception {
-
-			final NucleoListHeader lh = (NucleoListHeader) event.getTarget();
-			final String sortDirection = lh.getSortDirection();
-
-			String atributoOrdenacao = lh.getAtributoBanco();
-			Order criterioOrdenacao = null;
-
-			if ("ascending".equals(sortDirection)) {
-
-				criterioOrdenacao = Order.desc(atributoOrdenacao);
-
-			} else if ("descending".equals(sortDirection)
-					|| "natural".equals(sortDirection)) {
-
-				criterioOrdenacao = Order.asc(atributoOrdenacao);
-
-			} else if (Strings.isBlank(sortDirection)) {
-				criterioOrdenacao = null;
-			}
-			pagina.setCriterioOrdenacao(criterioOrdenacao);
-			atualizador.atualizarPesquisa(pagina);
-
-		}
-	}
-*/
 	public Set<Listitem> getSelecionados() {
 		return listBox.getSelectedItems();
 	}
@@ -353,15 +274,7 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 
 		return selecionado;
 	}
-/*
-	public ObjetoPagina getPagina() {
-		return pagina;
-	}
 
-	public void setPagina(ObjetoPagina pagina) {
-		this.pagina = pagina;
-	}
-*/
 	public Collection<T> getObjetos() {
 		return objetos;
 	}
@@ -370,11 +283,11 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 		this.objetos = objetos;
 	}
 
-	public IAtualizadorPesquisaPaginada getAtualizador() {
+	public IAtualizaPesquisa getAtualizador() {
 		return atualizador;
 	}
 
-	public void setAtualizador(IAtualizadorPesquisaPaginada atualizador) {
+	public void setAtualizador(IAtualizaPesquisa atualizador) {
 		this.atualizador = atualizador;
 	}
 
@@ -388,16 +301,6 @@ public abstract class ListagemPaginada<T extends Object> extends Vlayout {
 	 */
 	protected abstract String[] recuperarDadosObjeto(T objeto);
 
-	public void setResultadoAtualizarPesquisa(ResultadoPaginado resultado) {
-
-		setObjetos(resultado.getListaObjetos());
-		preencherLista();
-		Paginal paginal = listBox.getPaginal();
-		paginal.setTotalSize(resultado.getTamanhoTotal());
-		// paginal.setActivePage(pagina.getPaginaAtual());
-
-	}
-	
 	
 	public void atualizar(Collection<T> objetos){
 		

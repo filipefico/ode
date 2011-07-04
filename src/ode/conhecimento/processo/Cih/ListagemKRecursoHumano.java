@@ -3,14 +3,14 @@ package ode.conhecimento.processo.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.paginacao.ListagemPaginada;
+import nucleo.comuns.visao.listagem.ListagemSimples;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
 
 
-public class ListagemKRecursoHumano extends ListagemPaginada<KRecursoHumano> {
+public class ListagemKRecursoHumano extends ListagemSimples<KRecursoHumano> {
 
 	/**
 	 * 

@@ -1,5 +1,6 @@
 package nucleo.comuns.crud.controlador;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -15,6 +16,7 @@ import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
+import nucleo.comuns.visao.listagem.IAtualizaPesquisa;
 import nucleo.comuns.visao.paginacao.IAtualizadorPesquisaPaginada;
 import nucleo.comuns.visao.principal.JanelaSimples;
 
@@ -24,7 +26,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 
 public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
-		implements IAtualizadorPesquisaPaginada {
+		implements IAtualizaPesquisa {
 
 	// iniciar componentes
 	// definir
@@ -41,7 +43,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 	protected JanelaSimples janDados;
 
-	protected String alturaJanPrincipal = "350px";
+	protected String alturaJanPrincipal = "450px";
 
 	protected String larguraJanPrincipal = "590px";
 
@@ -92,6 +94,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 		return nucleoAplCadastroBase;
 	}
 
+	/*
 	public void atualizarPesquisa(ObjetoPagina pagina) {
 
 		ResultadoPaginado resultado = null;
@@ -103,6 +106,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 				resultado);
 
 	}
+	*/
 
 	public void mostrarJanelaPrincipal() {
 		JanelaSimples jan = factoryJanelaSimples();
@@ -114,7 +118,15 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 		jan.mostrar();
 		// apos mostrar a janela principal, recupera os objetos para pesquisa
-		atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
+	//	atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
+		
+		atualizarPesquisa();
+	}
+
+	public void atualizarPesquisa() {
+		Collection<T> objetos =getNucleoAplCadastroBase().recuperarTodos();		
+		painelCRUD.getListagem().atualizar(objetos);
+		
 	}
 
 	public void acaoExcluir() {
@@ -122,7 +134,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 	}
 
 	public void validarExcluir() {
-		Set<Listitem> itensSelecionados = painelCRUD.getListagemPaginada()
+		Set<Listitem> itensSelecionados = painelCRUD.getListagem()
 				.getSelecionados();
 		try {
 			// verifica se o número de itens selecionados é maior que zero.
@@ -144,7 +156,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 							switch (((Integer) evt.getData()).intValue()) {
 							case Messagebox.YES:
 							
-								excluir(painelCRUD.getListagemPaginada().getSelecionados());
+								excluir(painelCRUD.getListagem().getSelecionados());
 								break; //the No button is pressed
 
 							case Messagebox.NO:
@@ -184,7 +196,8 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 			mostrarJanelaInformacao(NucleoMensagens
 					.getMensagem(NucleoMensagens.MSG_DADOS_SALVOS_SUCESSO));
-			atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
+			//atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
+			atualizarPesquisa();
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			CtrlExcecoes
@@ -237,7 +250,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 				formularioDados.setObjetoCadastroDados(factoryObjetoDados());
 			} else {
 				// Se nao eh novo, tenho que recuperar o objeto do banco
-				T objetoSelecionado = painelCRUD.getListagemPaginada()
+				T objetoSelecionado = painelCRUD.getListagem()
 						.getSelecionado();
 				// atualizo a referencia do objetoSelecionado
 				objetoSelecionado = nucleoAplCadastroBase
@@ -268,7 +281,8 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 			T objetoCadastro = formularioDados.getObjetoCadastroDados();
 			nucleoAplCadastroBase.salvar(objetoCadastro);
 			// /atualiza a pesquisa e fecha a janela
-			atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
+			//atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
+			atualizarPesquisa();
 			janDados.onClose();
 
 		} catch (Exception e) {
