@@ -44,7 +44,7 @@
 		<!-- property name="defaultTargetUrl"
 			value="/visao/principal/janelaPrincipal.zhtml" / -->
 		<property name="defaultTargetUrl"
-			value="/principal.zhtml" />
+			value="/principal.zul" />
 		<property name="filterProcessesUrl" value="/j_security_check" />
 		<property name="rememberMeServices" ref="rememberMeServices" />
 	</bean>
@@ -89,7 +89,7 @@
 			<value>
 				PATTERN_TYPE_APACHE_ANT
 				/visao/**=ROLE_SUPERVISOR,ROLE_USER
-				/principal.zhtml=ROLE_SUPERVISOR,ROLE_USER
+				/principal.zul=ROLE_SUPERVISOR,ROLE_USER
 			</value>
 		</property>
 	</bean>

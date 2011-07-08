@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<?page title="ODE - Ontology Development Environment - Versão 0.01"?>
+<?page title="ODE - Ontology Development Environment - Versão 1.0"?>
 <?link rel="stylesheet" type="text/css" href="/css/style.css"?>
 <zk xmlns:h="xhtml" xmlns:zk="zk">
     <zscript>
@@ -95,7 +95,7 @@
         <vbox align="center">
             <separator />
             <separator />
-            <label value="ODE - Ontology Development Environment - Versão 0.01"
+            <label value="ODE - Ontology Development Environment - Versão 1.0"
                 style="color: #363636; font-size: 10px; font-weight: bold;" />
             <label value="Desenvolvido por: NEMO / DI / UFES"
                 style="color: #363636; font-size: 10px; font-weight: bold;" />
