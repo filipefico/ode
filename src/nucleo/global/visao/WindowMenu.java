@@ -34,6 +34,7 @@ import org.zkoss.zul.Menubar;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
 /**
@@ -52,20 +53,17 @@ public class WindowMenu extends Window {
 
 		// Configura e monta a interface grï¿½fica
 		this.setWidth("100%");
-		this.setHeight("500px");
-		this.setZIndex(1);
-		this.setBorder("normal");
-		this.setTitle("ODE - Caso de Teste");
-
+		
+		// Não utilizado
 		// Adiciona o event listener para as bandeiras
-		Image imgIdiomaIngles = (Image) getReference().getPage().getFellow(
+		Toolbarbutton toolbarbuttonIdiomaIngles = (Toolbarbutton) getReference().getPage().getFellow(
 				"idiomaIngles");
-		imgIdiomaIngles.addEventListener("onClick",
+		toolbarbuttonIdiomaIngles.addEventListener("onClick",
 				new EventListenerIdiomaIngles());
 
-		Image imgIdiomaPortugues = (Image) getReference().getPage().getFellow(
+		Toolbarbutton toolbarbuttonIdiomaPortugues = (Toolbarbutton) getReference().getPage().getFellow(
 				"idiomaPortugues");
-		imgIdiomaPortugues.addEventListener("onClick",
+		toolbarbuttonIdiomaPortugues.addEventListener("onClick",
 				new EventListenerIdiomaPortugues());
 
 		// Monta a interface
@@ -76,27 +74,27 @@ public class WindowMenu extends Window {
 	}
 
 	public void atualizaBarraInformacoes() {
-		// Atualiza o label de informaï¿½ï¿½es de usuï¿½rio e projetoWindowDefinirCompPP.zul
-		Label lblInformacoes = (Label) getReference().getPage().getFellow(
-				"lblInformacoes");
+		
+		// Atualiza o label nomeUsuario da pagina principal.zul
+		Label labelNomeUsuario = (Label) getReference().getPage().getFellow(
+				"nomeUsuario");
+		
 		NucleoUserDetails usuario = NucleoContexto.recuperarUsuarioLogado();
 		String nomeUsuario;
-		@SuppressWarnings("unused")
-		String nomeProjeto;
-
+		
 		nomeUsuario = (usuario == null) ? NucleoMensagens
 				.getMensagem(NucleoMensagens.MSG_USUARIO_NAO_LOGADO)
 				: NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO)
 						+ ": " + usuario.getUsername();
 
-		lblInformacoes.setValue(nomeUsuario);
+		labelNomeUsuario.setValue(nomeUsuario);
 
-		// Atualiza o label e o combo de idioma
-		Label lblIdioma = (Label) getReference().getPage().getFellow(
-				"lblIdioma");
-		lblIdioma.setValue(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_IDIOMA)
-				+ ":");
+		 //Atualiza o label e o combo de idioma
+		 Label lblIdioma = (Label) getReference().getPage().getFellow(
+		 "lblIdioma");
+		 lblIdioma.setValue(NucleoMensagens
+		 .getMensagem(NucleoMensagens.TERMO_IDIOMA)
+			+ ":");
 	}
 
 	private void atualizaBarraMenu() {
@@ -956,7 +954,7 @@ public class WindowMenu extends Window {
 		}
 	}
 
-/** Classe do evento do idioma inglï¿½s. */
+/** Classe do evento do idioma inglês. */
 	private class EventListenerIdiomaIngles implements EventListener {
 
 		public void onEvent(Event event) {
