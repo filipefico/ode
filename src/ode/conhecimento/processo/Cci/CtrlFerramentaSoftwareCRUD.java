@@ -23,8 +23,6 @@ public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "300px";
-		larguraJandados = "400px";
 		
 	}
 	

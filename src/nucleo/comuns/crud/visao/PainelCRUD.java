@@ -108,7 +108,10 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 	protected void definirComponentes() {
 
+		
 		toolbar = definirBarraFerramentas();
+		toolbar.setStyle("border:0px;background:white;");
+		
 	}
 
 	/** Classe do evento do botao novo. */

@@ -15,8 +15,6 @@ public class CtrlCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "300px";
-		larguraJandados = "400px";
 		
 	}
 

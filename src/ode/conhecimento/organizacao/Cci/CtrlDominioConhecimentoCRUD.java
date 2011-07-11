@@ -1,7 +1,5 @@
 package ode.conhecimento.organizacao.Cci;
 
-import org.zkoss.zkplus.spring.SpringUtil;
-
 import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.crud.controlador.CtrlCRUD;
 import nucleo.comuns.crud.visao.FormularioDadosCRUD;
@@ -11,12 +9,17 @@ import ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimento;
 import ode.conhecimento.organizacao.Cih.FormDadosDominioConhecimento;
 import ode.conhecimento.organizacao.Cih.PainelCrudDominioConhecimento;
 
+import org.zkoss.zkplus.spring.SpringUtil;
+
 public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "300px";
-		larguraJandados = "400px";
 		
 	}
 

@@ -15,8 +15,6 @@ public class CtrlKParadigmaCRUD extends CtrlCRUD<KParadigma> {
 @Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "300px";
-		larguraJandados = "400px";
 		/*
 		JanelaSimples jan = factoryJanelaSimples();				
 		String titulo ="Teste Painel Selecao";

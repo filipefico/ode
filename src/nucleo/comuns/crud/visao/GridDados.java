@@ -21,6 +21,9 @@ public class GridDados extends Grid {
 
 	protected void configurarComponentes() {
 		linhas.setParent(this);
+		
+		// Ajusta a divisão entre as colunas do grid
+		this.setSizedByContent(true);
 
 	}
 /**

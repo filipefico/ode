@@ -11,7 +11,6 @@ import ode.conhecimento.requisito.Cih.PainelCrudKTipoRequisito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.zkoss.zkplus.spring.SpringUtil;
 
 @Controller(CtrlKTipoRequisitoCRUD.NOME)
 public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
@@ -29,8 +28,6 @@ public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "400px";
-		larguraJandados = "400px";
 		
 	}
 

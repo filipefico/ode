@@ -12,12 +12,9 @@ import nucleo.comuns.crud.visao.FormularioDadosCRUD.ModoExibicao;
 import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.ObjetoPagina;
 import nucleo.comuns.persistencia.ObjetoPersistente;
-import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.listagem.IAtualizaPesquisa;
-import nucleo.comuns.visao.paginacao.IAtualizadorPesquisaPaginada;
 import nucleo.comuns.visao.principal.JanelaSimples;
 
 import org.zkoss.zk.ui.event.Event;
@@ -43,13 +40,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 	protected JanelaSimples janDados;
 
-	protected String alturaJanPrincipal = "450px";
-
 	protected String larguraJanPrincipal = "590px";
-
-	protected String alturaJanDados = "250px";
-
-	protected String larguraJandados = "300px";
 
 	public CtrlCRUD() {
 	}
@@ -114,7 +105,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 		String titulo = definirTituloJanelaPrincipal();
 		jan.setTitle(titulo);
 		jan.setWidth(larguraJanPrincipal);
-		jan.setHeight(alturaJanPrincipal);
 
 		jan.mostrar();
 		// apos mostrar a janela principal, recupera os objetos para pesquisa
@@ -194,19 +184,14 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 			getNucleoAplCadastroBase().excluir(objetosConvertidosSelecionados);
 			// apos excluir recupera os objetos para pesquisa
 
-			mostrarJanelaInformacao(NucleoMensagens
-					.getMensagem(NucleoMensagens.MSG_DADOS_SALVOS_SUCESSO));
-			//atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
 			atualizarPesquisa();
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			CtrlExcecoes
-					.exibirJanelaErro("Nï¿½o foi possivel excluir os objetos");
+					.exibirJanelaErro("Não foi possivel excluir os objetos");
 
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
+		} 
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -235,8 +220,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 		janDados = factoryJanelaSimples();
 		String titulo = definirTituloJanelaDados();
 		janDados.setTitle(titulo);
-		janDados.setHeight(alturaJanDados);
-		janDados.setWidth(larguraJandados);
 
 		formularioDados = definirFormularioCadastro();
 		formularioDados.setControlador(this);
@@ -303,36 +286,12 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 	public abstract T factoryObjetoDados();
 
-	public String getAlturaJanPrincipal() {
-		return alturaJanPrincipal;
-	}
-
-	public void setAlturaJanPrincipal(String alturaJanPrincipal) {
-		this.alturaJanPrincipal = alturaJanPrincipal;
-	}
-
 	public String getLarguraJanPrincipal() {
 		return larguraJanPrincipal;
 	}
 
 	public void setLarguraJanPrincipal(String larguraJanPrincipal) {
 		this.larguraJanPrincipal = larguraJanPrincipal;
-	}
-
-	public String getAlturaJanDados() {
-		return alturaJanDados;
-	}
-
-	public void setAlturaJanDados(String alturaJanDados) {
-		this.alturaJanDados = alturaJanDados;
-	}
-
-	public String getLarguraJandados() {
-		return larguraJandados;
-	}
-
-	public void setLarguraJandados(String larguraJandados) {
-		this.larguraJandados = larguraJandados;
 	}
 
 }
