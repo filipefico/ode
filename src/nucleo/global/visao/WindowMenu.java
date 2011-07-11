@@ -22,13 +22,13 @@ import ode.conhecimento.processo.Cci.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.Cci.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD;
 import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
+import ode.controleProjeto.cci.CtrlProjetoCRUD;
 import ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Image;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Menubar;
 import org.zkoss.zul.Menuitem;
@@ -142,7 +142,6 @@ public class WindowMenu extends Window {
 		
 		menuitemFerramentaSoftware.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_FERRAMENTA_SOFTWARE));
-
 		
 		menuitemOrganizacao.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_ORGANIZACAO));
@@ -228,19 +227,15 @@ public class WindowMenu extends Window {
 		
 		menuitemDefinirMCV.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_DEFINIR_MCV));
-		
-						
+							
 		// /////////////////////////////
 		// Menu Projeto
 		// ////////////////////////////
-		menuProjeto.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PROJETO));
+		menuControleProjetos.setLabel("Projetos");
 
-		menuitemNovo.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_NOVO));
+		menuitemProjetos.setLabel("Projetos");
 		
-		menuitemAbrir.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_ABRIR));
+		menuitemSelecionarProjeto.setLabel("Selecionar Projeto");
 		
 		// /////////////////////////////
 		// Menu Ferramenta
@@ -366,11 +361,11 @@ public class WindowMenu extends Window {
 		// Menu Projeto
 		// ////////////////////////////
 		
-		menuProjeto.setVisible(admin);
+		menuControleProjetos.setVisible(admin);
 
-		menuitemNovo.setVisible(admin);
+		menuitemProjetos.setVisible(admin);
 		
-		menuitemAbrir.setVisible(admin);
+		menuitemSelecionarProjeto.setVisible(admin);
 
 		// /////////////////////////////
 		// Menu Ferramenta
@@ -411,22 +406,19 @@ public class WindowMenu extends Window {
 		menuitemSair.setHref("/logout.zul");
 
 		// /////////////////////////////
-		// Menu Projeto
+		// Menu Controle de Projetos
 		// ////////////////////////////
-		menuProjeto = new NucleoMenu(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_PROJETO));
-		menuProjeto.setParent(menuBar);
+		menuControleProjetos = new NucleoMenu("Projetos");
+		menuControleProjetos.setParent(menuBar);
 		menupopupProjeto = new Menupopup();
-		menupopupProjeto.setParent(menuProjeto);
-		menuitemNovo = new Menuitem(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_NOVO));
-		menuitemNovo.addEventListener("onClick",
-				new EventListenerMenuItemNovoProjeto());
-		menuitemNovo.setParent(menupopupProjeto);
+		menupopupProjeto.setParent(menuControleProjetos);
+		menuitemProjetos = new Menuitem("Projetos");
+		menuitemProjetos.addEventListener("onClick",
+				new EventListenerMenuItemProjetos());
+		menuitemProjetos.setParent(menupopupProjeto);
 		//menuitemNovo.setHref("/logout.zul");
-		menuitemAbrir = new Menuitem(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_ABRIR));
-		menuitemAbrir.setParent(menupopupProjeto);
+		menuitemSelecionarProjeto = new Menuitem("Selecionar Projeto");
+		menuitemSelecionarProjeto.setParent(menupopupProjeto);
 		//menuitemAbrir.setHref("/logout.zul");
 		
 		// /////////////////////////////
@@ -714,11 +706,8 @@ public class WindowMenu extends Window {
 			EventListener {
 
 		public void onEvent(Event event) {
-			// sem controlador
-			Window win = (Window) Executions.createComponents(
-					"/visao/cadastros_gerais/windowDefinirCompPP.zul",
-					getReference(), null);
-			win.doOverlapped();
+			CtrlDefinirProcessoPadraoCRUD ctrlDC = new CtrlDefinirProcessoPadraoCRUD();
+			ctrlDC.iniciar();
 		}
 		
 		public boolean isAsap() {
@@ -726,15 +715,12 @@ public class WindowMenu extends Window {
 		}
 	}
 	
-	private class EventListenerMenuItemNovoProjeto implements
+	private class EventListenerMenuItemProjetos implements
 	EventListener {
 
 	public void onEvent(Event event) {
-		// sem controlador
-		Window win = (Window) Executions.createComponents(
-				"/visao/cadastros_gerais/windowNovoProjeto.zul",
-				getReference(), null);
-		win.doOverlapped();
+		CtrlProjetoCRUD ctrlProjetoCRUD = (CtrlProjetoCRUD) SpringUtil.getBean(CtrlProjetoCRUD.NOME);
+		ctrlProjetoCRUD.iniciar();
 	}
 	
 	public boolean isAsap() {
@@ -1154,15 +1140,15 @@ public class WindowMenu extends Window {
 	
 	
 	// /////////////////////////////
-	// Menu Projeto
+	// Menu Controle de Projetos
 	// ////////////////////////////
-	NucleoMenu menuProjeto;
+	NucleoMenu menuControleProjetos;
 
 	Menupopup menupopupProjeto;
 
-	Menuitem menuitemNovo;
+	Menuitem menuitemProjetos;
 	
-	Menuitem menuitemAbrir;
+	Menuitem menuitemSelecionarProjeto;
 	
 	// /////////////////////////////
 	// Menu Ferramenta

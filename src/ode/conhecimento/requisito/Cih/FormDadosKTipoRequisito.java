@@ -9,19 +9,23 @@ import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
-import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
 import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
+import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zkplus.spring.SpringUtil;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Radio;
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Combobox;
 
 public class FormDadosKTipoRequisito extends FormularioDadosCRUD<KTipoRequisito>{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
 	

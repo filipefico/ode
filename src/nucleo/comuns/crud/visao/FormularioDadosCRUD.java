@@ -8,9 +8,9 @@ import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.persistencia.ObjetoPersistente;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.componentes.NucleoTab;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Separator;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -39,17 +39,11 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	/** Tamanho do hbox. */
 	public static final String WIDTH_HBOX = "1000px";
 
-	/** Tamanho do toolbar. */
-	public static final String WIDTH_TOOLBAR = "99%";
-
 	/** Toolbar da window. */
 	protected Toolbar toolbar = new Toolbar();
 
 	/** Toolbarbutton salvar. */
 	protected Toolbarbutton tbbtSalvar = new Toolbarbutton();
-
-	/** Espaço(linha) em branco. */
-	private Separator separator = new Separator();
 
 	/** Grupo de abas. */
 	protected Tabbox tabbox = new Tabbox();
@@ -91,7 +85,6 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	private void montar() {
 		toolbar.setParent(this);
 		tbbtSalvar.setParent(toolbar);
-		separator.setParent(this);
 		montarTabs();
 	}
 
@@ -137,7 +130,7 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	protected void configurarBarraFerramentas() {
 		// Configuração da barra de ferramentas
 
-		toolbar.setWidth(WIDTH_TOOLBAR);
+		toolbar.setStyle("border:0px;background:white;");
 		tbbtSalvar.setTooltiptext(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_SALVAR));
 		tbbtSalvar.setImage("/imagens/filesave.png");

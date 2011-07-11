@@ -21,8 +21,6 @@ public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 @Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "350px";
-		larguraJandados = "750px";
 	}
 
 	//lembrar que o controlador eh melhor injetado pelo spring

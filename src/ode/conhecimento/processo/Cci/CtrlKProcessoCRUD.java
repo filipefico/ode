@@ -15,8 +15,6 @@ public class CtrlKProcessoCRUD extends CtrlCRUD<KProcesso> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		alturaJanDados = "550px";
-		larguraJandados = "600px";
 		
 	}
 

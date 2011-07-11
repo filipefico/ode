@@ -35,9 +35,6 @@ public class CtrlDefinirProcessoPadraoCRUD extends CtrlCRUD<CompPP> {
 	    @Override
 		public void iniciar() {
 			super.iniciar();
-			this.setLarguraJandados("500px"); 
-			this.setAlturaJanDados("600px");
-			System.out.print("Aqui!!!");
 		}
 
  	

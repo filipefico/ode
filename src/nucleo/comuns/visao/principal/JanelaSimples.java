@@ -25,8 +25,8 @@ public class JanelaSimples extends Window{
 		this.setWidth(WIDTH_WINDOW);
 		this.setPosition("&quot;center;&quot;;");
 		this.setZIndex(10);
-		setSizable(true);
-		setMaximizable(true);
+		this.setSizable(true);
+		this.setMaximizable(true);
 		
 	}
 

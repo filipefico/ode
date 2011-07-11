@@ -2,23 +2,18 @@ package nucleo.comuns.visao.listagem;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
 import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 
-import org.zkoss.zul.Caption;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
-import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Separator;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.ext.Paginal;
@@ -45,13 +40,6 @@ public abstract class ListagemSimples<T extends Object> extends Vlayout {
 
 	/** Lista de cabecalhos. */
 	protected List<NucleoListHeader> listheaders = new ArrayList<NucleoListHeader>();
-
-	/** Filtro. */
-	protected Groupbox groupboxFiltro = new Groupbox();
-
-	/** Caption do filtro. */
-	protected Caption captionFiltro = new Caption(NucleoMensagens
-			.getMensagem(NucleoMensagens.TERMO_FILTRO));
 
 	/** Filtro utilizado na listagem de elementos. */
 	protected Hashtable<String, String> filtro;
@@ -87,13 +75,7 @@ public abstract class ListagemSimples<T extends Object> extends Vlayout {
 		listBox.setMold("paging");
 		Paginal paginal = listBox.getPaginal();
 		paginal.setPageSize(PAGE_SIZE);
-		// ////////////////////////////////////
-		// Configuração do filtro
-		// ////////////////////////////////////
-		captionFiltro.setImage("/imagens/viewmag.png");
-		// groupbox.setWidth(WIDTH_GROUPBOX);
-		// groupbox.setMold("3d");
-
+		
 		// ////////////////////////////////////
 		// Define configurações extras
 		// ////////////////////////////////////
@@ -170,18 +152,6 @@ public abstract class ListagemSimples<T extends Object> extends Vlayout {
 	 * Adiciona os componentes, posicionando-os na janela.
 	 */
 	protected void montar() {
-
-		// ////////////////////////////////////
-		// Filtro da consulta
-		// ////////////////////////////////////
-		if (possuiFiltro()) {
-			groupboxFiltro.setParent(this);
-			adicionarComponentesExtensaoFiltro(groupboxFiltro);
-			captionFiltro.setParent(groupboxFiltro);
-		} else {
-			// Se não possui filtro, coloca um separador por motivos decorativos
-			(new Separator()).setParent(this);
-		}
 
 		// ////////////////////////////////////
 		// Lista de elementos
