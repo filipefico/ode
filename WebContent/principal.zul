@@ -25,7 +25,7 @@ background-repeat: repeat-x;
 					<toolbarbutton href="#" id="idiomaPortugues" src="imagens/idiomaPort.gif"/>
 					<toolbarbutton href="#" id="idiomaIngles" src="imagens/idiomaIng.gif"/>
 					</hbox>
-					<label id="labelProjeto" value="Projeto: Nenhum projeto selecionado!"  maxlength="50" style="margin-right: 30px;"/>
+					<label id="nomeProjeto" value="Projeto: Nenhum projeto selecionado!"  maxlength="50" style="margin-right: 30px;"/>
 					<label id="nomeUsuario" value="Nome do usuário" maxlength="50"/>
 				</hbox>
 			</div>
