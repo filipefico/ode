@@ -1,7 +1,8 @@
 package nucleo.comuns.autenticacao.acegi.persistencia;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
-import nucleo.comuns.persistencia.NucleoDAOBase;
+
+import ode.nucleo.cgd.NucleoDAOBase;
 
 import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.dao.DataAccessException;

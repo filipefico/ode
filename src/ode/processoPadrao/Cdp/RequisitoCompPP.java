@@ -3,7 +3,8 @@ package ode.processoPadrao.Cdp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
+import ode.nucleo.cgd.ObjetoPersistente;
+
 
 @Entity
 public class RequisitoCompPP extends ObjetoPersistente {

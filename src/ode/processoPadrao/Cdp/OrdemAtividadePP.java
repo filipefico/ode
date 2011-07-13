@@ -4,7 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
+import ode.nucleo.cgd.ObjetoPersistente;
+
 
 @Entity
 public class OrdemAtividadePP extends ObjetoPersistente{

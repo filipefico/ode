@@ -1,11 +1,11 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KProcesso;
 import ode.conhecimento.processo.Cgd.KProcessoDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +25,6 @@ public class AplCadastrarKProcessoImpl extends NucleoAplCadastroBaseImpl<KProces
 
 	public void setKProcessoDAO(KProcessoDAO kProcessoDAO) {
 		this.kProcessoDAO = kProcessoDAO;
-	}
-
-	@Override
-	protected void copiarValor(KProcesso objetoFonte, KProcesso objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
-		objetoDestino.setProposito(objetoFonte.getProposito());
-		objetoDestino.setSigla(objetoFonte.getSigla());
-		objetoDestino.setEhEngenharia(objetoFonte.isEhEngenharia());
-		objetoDestino.setKTipoInteracao(objetoFonte.getKTipoInteracao());
-		objetoDestino.setCategoria(objetoFonte.getCategoria());
-		objetoDestino.setKResultadoProcesso(objetoFonte.getKResultadoProcesso());
 	}
 
 	protected KProcesso alterarDados(KProcesso objeto) throws NucleoRegraNegocioExcecao {

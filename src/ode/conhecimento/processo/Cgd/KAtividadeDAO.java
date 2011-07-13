@@ -1,7 +1,7 @@
 package ode.conhecimento.processo.Cgd;
 
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KAtividade;
+import ode.nucleo.cgd.NucleoDAOBase;
 
 public interface KAtividadeDAO extends NucleoDAOBase<KAtividade>{
     

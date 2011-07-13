@@ -1,6 +1,6 @@
 package ode.processoPadrao.Cgd;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 import ode.processoPadrao.Cdp.RequisitoCompPP;
 
 import org.springframework.stereotype.Repository;

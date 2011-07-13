@@ -1,13 +1,13 @@
 package ode.conhecimento.processo.Cci;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcesso;
 import ode.conhecimento.processo.Cih.FormDadosCategoriaProcesso;
 import ode.conhecimento.processo.Cih.PainelCrudCategoriaProcesso;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 

@@ -2,9 +2,9 @@ package ode.controleProjeto.cgd;
 
 import java.util.Collection;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 
 import ode.controleProjeto.cdp.Projeto;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 

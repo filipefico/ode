@@ -6,7 +6,8 @@ import java.awt.Font;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import nucleo.comuns.visao.NucleoWindow;
+
+import ode.nucleo.cih.NucleoWindow;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;

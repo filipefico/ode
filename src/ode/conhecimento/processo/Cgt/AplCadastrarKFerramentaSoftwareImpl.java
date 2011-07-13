@@ -1,11 +1,11 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.Cgd.KFerramentaSoftwareDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,6 @@ public class AplCadastrarKFerramentaSoftwareImpl extends
 
 		public void setKFerramentaSoftwareDAO(KFerramentaSoftwareDAO kFerramentaSoftwareDAO) {
 			this.kFerramentaSoftwareDAO = kFerramentaSoftwareDAO;
-		}
-
-		@Override
-		protected void copiarValor(KFerramentaSoftware objetoFonte,
-				KFerramentaSoftware objetoDestino) {
-			objetoDestino.setNome(objetoFonte.getNome());
-			objetoDestino.setDescricao(objetoFonte.getDescricao());
 		}
 		
 		protected KFerramentaSoftware alterarDados(KFerramentaSoftware objeto) throws NucleoRegraNegocioExcecao {

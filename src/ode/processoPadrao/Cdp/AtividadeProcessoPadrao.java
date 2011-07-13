@@ -14,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
@@ -24,6 +23,7 @@ import ode.conhecimento.processo.Cdp.KRecursoHardware;
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
 import ode.conhecimento.processo.Cdp.KRoteiro;
 import ode.conhecimento.processo.Cdp.KTecnica;
+import ode.nucleo.cgd.ObjetoPersistente;
 
 @Entity
 public class AtividadeProcessoPadrao extends ObjetoPersistente {

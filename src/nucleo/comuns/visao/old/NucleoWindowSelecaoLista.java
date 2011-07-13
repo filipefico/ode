@@ -6,8 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
-import nucleo.comuns.visao.NucleoWindow;
+
+import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
+import ode.nucleo.cih.NucleoWindow;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

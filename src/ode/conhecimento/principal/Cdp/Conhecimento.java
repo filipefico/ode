@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
+import ode.nucleo.cgd.ObjetoPersistente;
+
 
 
 @Entity

@@ -2,26 +2,22 @@ package ode.processoPadrao.Cih;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Iterator;
 import java.util.Set;
 
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
-import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
+import nucleo.comuns.visao.NucleoWindowCadastroDados;
 import ode.conhecimento.processo.Cdp.KProcesso;
 import ode.conhecimento.processo.Cgt.AplCadastrarKProcesso;
+import ode.nucleo.cih.NucleoTab;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Grid;
-import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;

@@ -1,14 +1,14 @@
 package ode.conhecimento.processo.Cci;
 
 import org.zkoss.zkplus.spring.SpringUtil;
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.processo.Cdp.KParadigma;
 import ode.conhecimento.processo.Cgt.AplCadastrarKParadigma;
 import ode.conhecimento.processo.Cih.FormDadosKParadigma;
 import ode.conhecimento.processo.Cih.PainelCrudKParadigma;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 
 public class CtrlKParadigmaCRUD extends CtrlCRUD<KParadigma> {

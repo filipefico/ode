@@ -1,5 +1,5 @@
 package ode.processoPadrao.Cgd;
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 import ode.processoPadrao.Cdp.InterfaceCompPPProcessoComplexo;
 
 import org.springframework.stereotype.Repository;

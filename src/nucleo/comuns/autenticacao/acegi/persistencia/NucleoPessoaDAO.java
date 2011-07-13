@@ -1,7 +1,7 @@
 package nucleo.comuns.autenticacao.acegi.persistencia;
 
+import ode.nucleo.cgd.NucleoDAOBase;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 
 public interface NucleoPessoaDAO extends NucleoDAOBase<NucleoPessoa> {
 

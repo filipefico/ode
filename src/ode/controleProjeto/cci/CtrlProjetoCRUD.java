@@ -1,13 +1,13 @@
 package ode.controleProjeto.cci;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.controleProjeto.cih.FormDadosProjeto;
 import ode.controleProjeto.cih.PainelCRUDProjeto;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

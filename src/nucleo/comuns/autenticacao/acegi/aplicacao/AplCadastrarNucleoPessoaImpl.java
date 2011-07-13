@@ -5,13 +5,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
 import nucleo.comuns.autenticacao.acegi.persistencia.NucleoPessoaDAO;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import nucleo.comuns.util.NucleoMensagens;
+
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,17 +32,7 @@ public class AplCadastrarNucleoPessoaImpl extends
 	public void setNucleoPessoaDAO(NucleoPessoaDAO nucleoPessoaDAO) {
 		this.nucleoPessoaDAO = nucleoPessoaDAO;
 	}
-
-	@Override
-	protected void copiarValor(NucleoPessoa objetoFonte, NucleoPessoa objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setRamal(objetoFonte.getRamal());
-		objetoDestino.setTelefone(objetoFonte.getTelefone());
-		objetoDestino.setCelular(objetoFonte.getCelular());
-		objetoDestino.setEmail(objetoFonte.getEmail());
-		objetoDestino.setFuncao(objetoFonte.getFuncao());
-	}
-
+	
 	@Override
 	protected void antesIncluirNovo(NucleoPessoa objeto)
 			throws NucleoRegraNegocioExcecao {

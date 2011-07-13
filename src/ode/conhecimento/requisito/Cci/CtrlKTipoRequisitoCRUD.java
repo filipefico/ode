@@ -1,13 +1,13 @@
 package ode.conhecimento.requisito.Cci;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.conhecimento.requisito.Cgt.AplCadastrarKTipoRequisito;
 import ode.conhecimento.requisito.Cih.FormDadosKTipoRequisito;
 import ode.conhecimento.requisito.Cih.PainelCrudKTipoRequisito;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

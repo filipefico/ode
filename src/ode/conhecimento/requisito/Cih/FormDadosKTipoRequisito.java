@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
 import ode.conhecimento.requisito.Cci.CtrlKTipoRequisitoCRUD;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.GridDados;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

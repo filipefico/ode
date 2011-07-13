@@ -1,8 +1,8 @@
 package ode.conhecimento.organizacao.Cih;
 
-import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.visao.listagem.ListagemSimples;
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 
 public class PainelCrudDominioConhecimento extends PainelCRUD<KDominioConhecimento>{

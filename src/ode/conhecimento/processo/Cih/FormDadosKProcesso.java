@@ -15,11 +15,8 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Tab;
 
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
 
 import org.zkoss.zk.ui.event.CheckEvent;
 import org.zkoss.zk.ui.event.Event;
@@ -30,6 +27,9 @@ import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
 import ode.conhecimento.processo.Cgd.KTipoInteracaoDAO;
 import ode.conhecimento.processo.Cdp.KResultadoProcesso;
 import ode.conhecimento.processo.Cdp.KProcesso;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.GridDados;
 
 public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 	

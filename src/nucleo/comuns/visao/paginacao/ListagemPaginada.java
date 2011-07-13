@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.persistencia.ObjetoPagina;
-import nucleo.comuns.persistencia.ResultadoPaginado;
 import nucleo.comuns.util.NucleoMensagens;
 import nucleo.comuns.visao.listagem.IAtualizaPesquisa;
+
+import ode.nucleo.cgd.ObjetoPagina;
+import ode.nucleo.cgd.ResultadoPaginado;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

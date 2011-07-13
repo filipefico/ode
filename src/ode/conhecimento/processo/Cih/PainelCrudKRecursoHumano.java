@@ -1,10 +1,10 @@
 package ode.conhecimento.processo.Cih;
 
-import nucleo.comuns.crud.visao.PainelCRUD;
 import nucleo.comuns.visao.listagem.ListagemSimples;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 public class PainelCrudKRecursoHumano extends PainelCRUD<KRecursoHumano> {
 	

@@ -1,12 +1,12 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
 import ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcesso;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,12 +26,6 @@ public class AplCadastrarKCategoriaProcessoImpl extends NucleoAplCadastroBaseImp
 
 	public void setKCategoriaProcessoDAO(KCategoriaProcessoDAO kCategoriaProcessoDAO) {
 		this.kCategoriaProcessoDAO = kCategoriaProcessoDAO;
-	}
-
-	@Override
-	protected void copiarValor(KCategoriaProcesso objetoFonte, KCategoriaProcesso objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
 	}
 
 	protected KCategoriaProcesso alterarDados(KCategoriaProcesso objeto) throws NucleoRegraNegocioExcecao {

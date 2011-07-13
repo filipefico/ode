@@ -9,10 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
 
 
 import ode.conhecimento.processo.Cdp.KModeloCicloVida;
+import ode.nucleo.cgd.ObjetoPersistente;
 
 @Entity
 public class ModeloCicloVidaProcessoPadrao extends ObjetoPersistente{

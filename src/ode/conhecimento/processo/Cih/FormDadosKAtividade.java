@@ -6,28 +6,21 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
-import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
-import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 import ode.conhecimento.processo.Cdp.KProcedimento;
 import ode.conhecimento.processo.Cdp.KProcesso;
 import ode.conhecimento.processo.Cdp.KRecurso;
-import ode.conhecimento.processo.Cdp.TipoKArtefato;
 import ode.conhecimento.processo.Cgd.KArtefatoDAO;
 import ode.conhecimento.processo.Cgd.KAtividadeDAO;
-import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
 import ode.conhecimento.processo.Cgd.KProcedimentoDAO;
 import ode.conhecimento.processo.Cgd.KProcessoDAO;
 import ode.conhecimento.processo.Cgd.KRecursoDAO;
-import ode.conhecimento.processo.Cgd.TipoKArtefatoDAO;
-import ode.controle.controleProcesso.Cgd.RecursoDAO;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.GridDados;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Combobox;
@@ -53,7 +46,6 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 	Listbox lbProcedimento = new Listbox();
 	Listbox lbSubAtividade = new Listbox();
 	Listbox lbPreAtividade = new Listbox();
-	
 
 	public static KProcesso buscaProcessoPorNome (String nome){
 		KProcessoDAO processo = (KProcessoDAO) SpringUtil.getBean("kProcessoDao");

@@ -3,12 +3,12 @@ package nucleo.comuns.visao;
 import java.util.List;
 import java.util.Map;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.cache.arvore.NucleoItemArvoreCache;
-import nucleo.comuns.visao.componentes.NucleoTab;
+import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.cih.NucleoWindow;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zk.ui.Component;
@@ -24,7 +24,6 @@ import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Toolbarbutton;
-import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.impl.XulElement;
 
@@ -271,86 +270,8 @@ public abstract class NucleoWindowCadastroDados<T extends NucleoObjetoPersistent
 			if (parentWin instanceof NucleoWindowCadastroLista) {
 				NucleoWindowCadastroLista<T> nucleoWindowCadastroLista = (NucleoWindowCadastroLista<T>) parentWin;
 				nucleoWindowCadastroLista.atualizarLista();
-
-			} else if (parentWin instanceof NucleoWindowCadastroTree) {
-
-				// Expande o item, atualizando seus dados a partir do BD
-				NucleoWindowCadastroTree nucleoWindowCadastroTree = (NucleoWindowCadastroTree) parentWin;
-
-				// Recupera o item da interface a ser atualizado
-				Treeitem itemArvoreInterface = (Treeitem) getParametros().get(
-						"treeitemPai");
-
-				if (itemArvoreInterface == null) {
-					nucleoWindowCadastroTree.atualizarArvore();
-				} else {
-					// Configura o item da �rvore de cache para for��-lo a fazer
-					// acesso ao BD quando for atualizar a interface
-					NucleoItemArvoreCache itemArvoreCache = (NucleoItemArvoreCache) itemArvoreInterface
-							.getValue();
-					itemArvoreCache.setAcessouBD(false);
-
-					try {
-						nucleoWindowCadastroTree
-								.acaoExpandirItemArvore(itemArvoreInterface);
-					} catch (NucleoRegraNegocioExcecao e) {
-						exibirJanelaErro(e);
-					}
-				}
-			} else if (parentWin instanceof NucleoWindowCadastroDuploTree) {
-
-				// Expande o item, atualizando seus dados a partir do BD
-				NucleoWindowCadastroDuploTree nucleoWindowCadastroDuploTree = (NucleoWindowCadastroDuploTree) parentWin;
-
-				// Recupera o item da interface a ser atualizado
-				Treeitem itemArvoreInterface = (Treeitem) getParametros().get(
-						"treeitemPai");
-
-				if (itemArvoreInterface == null) {
-					nucleoWindowCadastroDuploTree.atualizarArvore();
-				} else {
-					// Configura o item da �rvore de cache para for��-lo a
-					// fazer acesso ao BD quando for atualizar a interface
-					NucleoItemArvoreCache itemArvoreCache = (NucleoItemArvoreCache) itemArvoreInterface
-							.getValue();
-					itemArvoreCache.setAcessouBD(false);
-
-					try {
-						nucleoWindowCadastroDuploTree
-								.acaoExpandirItemArvore(itemArvoreInterface);
-					} catch (NucleoRegraNegocioExcecao e) {
-						exibirJanelaErro(e);
-					}
-				}
-			} else if (parentWin instanceof NucleoWindowCadastroTriploTree) {
-
-				// Expande o item, atualizando seus dados a partir do BD
-				NucleoWindowCadastroTriploTree nucleoWindowCadastroTriploTree = (NucleoWindowCadastroTriploTree) parentWin;
-
-				// Recupera o item da interface a ser atualizado
-				// Treeitem itemArvoreInterface = (Treeitem)
-				// getParametros().get(
-				// "treeitemPai");
-
-				// if (itemArvoreInterface == null) {
-				nucleoWindowCadastroTriploTree.atualizarArvore();
-				// } else {
-				// // Configura o item da �rvore de cache para for��-lo a
-				// // fazer acesso ao BD quando for atualizar a interface
-				// NucleoItemArvoreCache itemArvoreCache =
-				// (NucleoItemArvoreCache) itemArvoreInterface
-				// .getValue();
-				// itemArvoreCache.setAcessouBD(false);
-				//
-				// try {
-				// nucleoWindowCadastroTriploTree
-				// .acaoExpandirItemArvore(itemArvoreInterface);
-				// } catch (NucleoRegraNegocioExcecao e) {
-				// exibirJanelaErro(e);
-				// }
-				// }
 			}
-
+			
 			// Altera o modo da janela pai para Overlapped
 			if (parentWin != null) {
 				((Window) parentWin).doOverlapped();

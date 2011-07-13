@@ -1,11 +1,11 @@
 package ode.conhecimento.processo.Cgt;
 
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KProcedimento;
 import ode.conhecimento.processo.Cgd.KProcedimentoDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,18 +25,6 @@ public class AplCadastrarKProcedimentoImpl extends
 
 	public void setkProcedimentoDAO(KProcedimentoDAO kProcedimentoDAO) {
 		this.kProcedimentoDAO = kProcedimentoDAO;
-	}
-
-
-
-	@Override
-	protected void copiarValor(KProcedimento objetoFonte, KProcedimento objetoDestino) {
-
-		objetoDestino.setId(objetoFonte.getId());
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
-
-
 	}
 	
 	@Override

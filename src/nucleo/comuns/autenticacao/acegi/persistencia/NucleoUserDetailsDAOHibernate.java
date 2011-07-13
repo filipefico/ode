@@ -3,7 +3,8 @@ package nucleo.comuns.autenticacao.acegi.persistencia;
 import java.util.List;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 
 import org.acegisecurity.userdetails.UserDetails;
 import org.hibernate.HibernateException;

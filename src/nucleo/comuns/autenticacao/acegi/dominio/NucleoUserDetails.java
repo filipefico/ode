@@ -11,7 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
+
+import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;

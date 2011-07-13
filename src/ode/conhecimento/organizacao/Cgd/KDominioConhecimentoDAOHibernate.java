@@ -1,7 +1,7 @@
 package ode.conhecimento.organizacao.Cgd;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 

@@ -4,8 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import ode.nucleo.cgd.ObjetoPersistente;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
+
 
 @Entity
 public class CompPP extends ObjetoPersistente {

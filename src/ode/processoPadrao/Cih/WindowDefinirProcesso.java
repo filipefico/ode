@@ -2,36 +2,24 @@ package ode.processoPadrao.Cih;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Iterator;
-import java.util.Set;
 
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
-import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
-import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
-import ode.conhecimento.processo.Cdp.KProcesso;
+import nucleo.comuns.visao.NucleoWindowCadastroDados;
 import ode.conhecimento.processo.Cgt.AplCadastrarKProcesso;
-import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
+import ode.nucleo.cih.NucleoBandbox;
+import ode.nucleo.cih.NucleoTab;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
-import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Grid;
-import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Radio;
-import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Textbox;

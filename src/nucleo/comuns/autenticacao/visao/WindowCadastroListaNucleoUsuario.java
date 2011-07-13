@@ -10,7 +10,7 @@ import nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.old.GuilexWindowCadastroLista;
+import nucleo.comuns.visao.NucleoWindowCadastroLista;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zkplus.spring.SpringUtil;
@@ -23,7 +23,7 @@ import org.zkoss.zul.Listitem;
  * @author Alexandre G. N. Coelho
  */
 public class WindowCadastroListaNucleoUsuario extends
-		GuilexWindowCadastroLista<NucleoUserDetails> {
+		NucleoWindowCadastroLista<NucleoUserDetails> {
 
 	private static final long serialVersionUID = 3393474802594152573L;
 

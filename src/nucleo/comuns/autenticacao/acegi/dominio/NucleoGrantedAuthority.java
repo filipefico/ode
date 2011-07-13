@@ -2,7 +2,8 @@ package nucleo.comuns.autenticacao.acegi.dominio;
 
 import javax.persistence.Entity;
 
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
+
+import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
 
 import org.acegisecurity.GrantedAuthority;
 

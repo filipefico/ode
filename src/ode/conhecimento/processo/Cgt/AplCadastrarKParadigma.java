@@ -1,7 +1,7 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import ode.conhecimento.processo.Cdp.KParadigma;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
 
 public interface AplCadastrarKParadigma extends
 		NucleoAplCadastroBase<KParadigma> {

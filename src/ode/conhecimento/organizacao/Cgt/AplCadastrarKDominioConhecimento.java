@@ -1,7 +1,7 @@
 package ode.conhecimento.organizacao.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
 
 public interface AplCadastrarKDominioConhecimento extends NucleoAplCadastroBase<KDominioConhecimento> {
 }
