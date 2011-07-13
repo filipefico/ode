@@ -1,6 +1,7 @@
 package nucleo.global.visao;
 
-import nucleo.comuns.visao.principal.JanelaSimples;
+
+import ode.nucleo.crud.cih.JanelaSimples;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;

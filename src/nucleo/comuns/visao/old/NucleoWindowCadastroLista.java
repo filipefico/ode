@@ -2,7 +2,6 @@ package nucleo.comuns.visao.old;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -10,14 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.NucleoWindow;
+import nucleo.comuns.visao.NucleoWindowCadastroDados;
+import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.cih.NucleoWindow;
 
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;

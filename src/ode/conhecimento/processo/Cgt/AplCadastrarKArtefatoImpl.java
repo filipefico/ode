@@ -1,10 +1,10 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cgd.KArtefatoDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,18 +24,6 @@ public class AplCadastrarKArtefatoImpl extends
 
 	public void setkArtefatoDAO(KArtefatoDAO kArtefatoDAO) {
 		this.kArtefatoDAO = kArtefatoDAO;
-	}
-
-	@Override
-	protected void copiarValor(KArtefato objetoFonte, KArtefato objetoDestino) {
-
-		objetoDestino.setId(objetoFonte.getId());
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
-		objetoDestino.setTipo(objetoFonte.getTipo());
-		objetoDestino.setDependencias(objetoFonte.getDependencias());
-		objetoDestino.setSubArtefatos(objetoFonte.getSubArtefatos());
-
 	}
 
 	@Override

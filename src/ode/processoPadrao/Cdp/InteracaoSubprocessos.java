@@ -5,8 +5,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import ode.conhecimento.processo.Cdp.KTipoInteracao;
+import ode.nucleo.cgd.ObjetoPersistente;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
 
 @Entity
 public class InteracaoSubprocessos extends ObjetoPersistente{

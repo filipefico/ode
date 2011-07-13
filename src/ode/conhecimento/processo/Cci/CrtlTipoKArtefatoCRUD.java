@@ -6,10 +6,10 @@ import ode.conhecimento.processo.Cdp.TipoKArtefato;
 import ode.conhecimento.processo.Cgt.AplCadastrarTipoKArtefato;
 import ode.conhecimento.processo.Cih.FormDadosTipoKArtefato;
 import ode.conhecimento.processo.Cih.PainelCrudTipoKArtefato;
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 public class CrtlTipoKArtefatoCRUD extends CtrlCRUD<TipoKArtefato> {
 

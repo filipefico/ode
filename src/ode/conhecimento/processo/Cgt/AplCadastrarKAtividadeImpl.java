@@ -1,10 +1,10 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cgd.KAtividadeDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,16 +24,6 @@ public class AplCadastrarKAtividadeImpl extends
 
 	public void setkAtividadeDAO(KAtividadeDAO kAtividadeDAO) {
 		this.kAtividadeDAO = kAtividadeDAO;
-	}
-
-	@Override
-	protected void copiarValor(KAtividade objetoFonte, KAtividade objetoDestino) {
-
-		objetoDestino.setId(objetoFonte.getId());
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
-
-
 	}
 
 	@Override

@@ -6,8 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import ode.conhecimento.processo.Cdp.KAtividade;
+import ode.nucleo.cgd.ObjetoPersistente;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
 @Entity
 public class ObrigatoriedadeMacroatividade extends ObjetoPersistente{
 

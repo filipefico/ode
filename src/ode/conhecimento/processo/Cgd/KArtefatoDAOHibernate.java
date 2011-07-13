@@ -2,8 +2,8 @@ package ode.conhecimento.processo.Cgd;
 
 import java.util.List;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
 import ode.conhecimento.processo.Cdp.KArtefato;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;

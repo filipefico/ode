@@ -3,17 +3,22 @@ package ode.controleProjeto.cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
 import ode.controleProjeto.cdp.Projeto;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.GridDados;
 
 import org.zkoss.zul.Textbox;
 
 public class FormDadosProjeto extends FormularioDadosCRUD<Projeto> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
 	

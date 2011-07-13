@@ -15,9 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import nucleo.comuns.persistencia.ObjetoPersistente;
 
 import ode.conhecimento.processo.Cdp.KCombinacao;
+import ode.nucleo.cgd.ObjetoPersistente;
 
 //@Entity(name = "padr_combinacao")
 @Entity

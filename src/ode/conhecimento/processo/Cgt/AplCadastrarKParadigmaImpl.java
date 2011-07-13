@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.processo.Cdp.KParadigma;
 import ode.conhecimento.processo.Cgd.KParadigmaDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
@@ -25,13 +25,6 @@ public class AplCadastrarKParadigmaImpl extends
 
 	public void setKDominioAplicacaoDAO(KParadigmaDAO KParadigmaDao) {
 		this.KParadigmaDAO = KParadigmaDao;
-	}
-
-	@Override
-	protected void copiarValor(KParadigma objetoFonte,
-			KParadigma objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
 	}
 	
 	protected KParadigma alterarDados(KParadigma objeto) throws NucleoRegraNegocioExcecao {

@@ -6,12 +6,12 @@ import java.util.List;
 import org.zkoss.zul.Textbox;
 
 import ode.conhecimento.processo.Cdp.TipoKArtefato;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.GridDados;
 
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
 
 public class FormDadosTipoKArtefato extends FormularioDadosCRUD<TipoKArtefato> {
 

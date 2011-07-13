@@ -3,7 +3,7 @@ package ode.conhecimento.principal.Cgd;
 import java.util.Collection;
 
 import ode.conhecimento.principal.Cdp.Conhecimento;
-import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.nucleo.cgd.NucleoDAOBase;
 
 public interface ConhecimentoDAO extends NucleoDAOBase<Conhecimento>{
 

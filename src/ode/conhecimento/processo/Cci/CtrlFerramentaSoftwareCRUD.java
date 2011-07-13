@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftware;
 import ode.conhecimento.processo.Cih.FormDadosFerramentaSoftware;
 import ode.conhecimento.processo.Cih.PainelCrudFerramentaSoftware;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 @Controller(value=CtrlFerramentaSoftwareCRUD.NOME)
 public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {

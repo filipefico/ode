@@ -1,6 +1,6 @@
 package ode.processoPadrao.Cgd;
 
-import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.nucleo.cgd.NucleoDAOBase;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
 public interface CompPPProcessoComplexoDAO  extends NucleoDAOBase<CompPPProcessoComplexo>{

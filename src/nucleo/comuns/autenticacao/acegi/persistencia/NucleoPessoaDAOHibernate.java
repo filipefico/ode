@@ -3,7 +3,8 @@ package nucleo.comuns.autenticacao.acegi.persistencia;
 import java.util.Collection;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 

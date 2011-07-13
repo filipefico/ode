@@ -1,6 +1,6 @@
 package nucleo.comuns.visao.paginacao;
 
-import nucleo.comuns.persistencia.ObjetoPagina;
+import ode.nucleo.cgd.ObjetoPagina;
 
 public interface IAtualizadorPesquisaPaginada {
 	/**

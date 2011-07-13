@@ -2,10 +2,8 @@ package ode.conhecimento.processo.Cih;
 
 import java.util.ArrayList;
 
-import nucleo.comuns.visao.componentes.selecao.PainelSelecaoLista;
-import nucleo.comuns.visao.old.NucleoWindowSelecaoLista;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
-import antlr.collections.List;
+import ode.nucleo.cih.PainelSelecaoLista;
 
 public class PainelSelecaoKDominioAplicacao extends PainelSelecaoLista<KDominioAplicacao> {
 

@@ -1,11 +1,8 @@
 package ode.processoPadrao.Cih;
 
-import nucleo.comuns.crud.visao.PainelCRUD;
-
 import nucleo.comuns.visao.listagem.ListagemSimples;
-import ode.processoPadrao.Cih.ListagemDefinirProcessoPadrao;
+import ode.nucleo.crud.cih.PainelCRUD;
 import ode.processoPadrao.Cdp.CompPP;
-import ode.processoPadrao.Cdp.InterfaceCompPP;
 
 public class PainelCrudDefinirProcessoPadrao extends PainelCRUD<CompPP> {
 	

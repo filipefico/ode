@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBase;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoObjetoPersistenteImpl;
 import nucleo.comuns.util.NucleoMensagens;
+
+import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
+import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.cih.NucleoWindow;
 
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;

@@ -1,11 +1,11 @@
 package ode.conhecimento.requisito.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,6 @@ public class AplCadastrarKTipoRequisitoImpl extends NucleoAplCadastroBaseImpl<KT
 
 	public void setKTipoRequisitoDAO(KTipoRequisitoDAO kTipoRequisitoDAO) {
 		this.kTipoRequisitoDAO = kTipoRequisitoDAO;
-	}
-
-	@Override
-	protected void copiarValor(KTipoRequisito objetoFonte, KTipoRequisito objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
-		objetoDestino.setEhFuncional(objetoFonte.getEhFuncional());
-		objetoDestino.setSuperKTipoRequisito(objetoFonte.getSuperKTipoRequisito());
 	}
 
 	protected KTipoRequisito alterarDados(KTipoRequisito objeto) throws NucleoRegraNegocioExcecao {

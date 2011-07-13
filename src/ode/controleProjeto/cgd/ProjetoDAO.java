@@ -1,7 +1,7 @@
 package ode.controleProjeto.cgd;
 
 import ode.controleProjeto.cdp.Projeto;
-import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.nucleo.cgd.NucleoDAOBase;
 
 public interface ProjetoDAO extends NucleoDAOBase<Projeto> {
 

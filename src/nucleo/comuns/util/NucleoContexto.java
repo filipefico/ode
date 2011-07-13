@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
 
+import ode.controleProjeto.cdp.Projeto;
+
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -21,6 +23,11 @@ public class NucleoContexto {
 	 * Nome do atributo de sessão que contém o Locale da aplicação
 	 */
 	public static final String LOCALE = "locale";
+	
+	/**
+	 * Nome do atributo da sessão que contém o projeto atualmente selecionado.
+	 */
+	public static final String PROJETO = "Projeto";
 
 	/**
 	 * Obtém o Locale da Sessão do Usuário.
@@ -65,5 +72,18 @@ public class NucleoContexto {
 				.getPrincipal();
 
 		return usuario;
+	}
+
+	public static Projeto recuperarProjeto() {
+		Projeto projeto = null;
+		if (Sessions.getCurrent() != null) {
+			projeto = (Projeto) Sessions.getCurrent().getAttribute(PROJETO);
+		}
+
+		return projeto;
+	}
+	
+	public static void atribuirProjeto(Projeto projeto) {
+		Sessions.getCurrent().setAttribute(PROJETO, projeto);
 	}
 }

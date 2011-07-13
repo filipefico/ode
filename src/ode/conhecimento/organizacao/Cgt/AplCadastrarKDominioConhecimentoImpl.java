@@ -1,11 +1,11 @@
 package ode.conhecimento.organizacao.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.conhecimento.organizacao.Cgd.KDominioConhecimentoDAO;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,6 @@ AplCadastrarKDominioConhecimento {
 
 	public void setKDominioConhecimentoDAO(KDominioConhecimentoDAO kDominioConhecimentoDAO) {
 		this.kDominioConhecimentoDAO = kDominioConhecimentoDAO;
-	}
-
-	@Override
-	protected void copiarValor(KDominioConhecimento objetoFonte,
-			KDominioConhecimento objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
 	}
 
 	protected KDominioConhecimento alterarDados(KDominioConhecimento objeto) throws NucleoRegraNegocioExcecao {

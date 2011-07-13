@@ -2,7 +2,7 @@ package ode.processoPadrao.Cgd;
 
 import java.util.List;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
 import org.springframework.stereotype.Repository;

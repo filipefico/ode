@@ -2,9 +2,9 @@ package ode.conhecimento.processo.Cgd;
 
 import java.util.Collection;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
-import nucleo.comuns.persistencia.ObjetoPagina;
 import ode.conhecimento.processo.Cdp.KProcesso;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.cgd.ObjetoPagina;
 
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;

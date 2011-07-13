@@ -1,8 +1,8 @@
 package ode.processoPadrao.Cgt;
 
-import nucleo.comuns.aplicacao.NucleoAplCadastroBaseImpl;
 import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.persistencia.NucleoDAOBase;
+import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgd.CompPPDAO;
 
@@ -24,22 +24,9 @@ implements AplDefinirProcessoPadrao{
 		return compPPDAO;
 	}
 
-
-
 	public void setCompPPDAO(CompPPDAO compPPDAO) {
 		this.compPPDAO = compPPDAO;
 	}
-
-
-
-	@Override
-	protected void copiarValor(CompPP objetoFonte, CompPP objetoDestino) {
-		objetoDestino.setNome(objetoFonte.getNome());
-		objetoDestino.setDescricao(objetoFonte.getDescricao());
-		//objetoDestino.setObjetivo(objetoFonte.getObjetivo());
-	}
-
-
 
 	@Override
 	public NucleoDAOBase<CompPP> getNucleoDaoBase() {

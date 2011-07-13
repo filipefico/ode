@@ -9,14 +9,12 @@ import java.util.Set;
 import nucleo.comuns.excecao.CtrlExcecoes;
 import nucleo.comuns.visao.paginacao.NucleoListHeader;
 
-import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vlayout;
-import org.zkoss.zul.ext.Paginal;
 
 public abstract class ListagemSimples<T extends Object> extends Vlayout {
 
@@ -50,9 +48,6 @@ public abstract class ListagemSimples<T extends Object> extends Vlayout {
 	 */
 	protected IAtualizaPesquisa atualizador;
 
-
-	protected  int PAGE_SIZE = 10;
-
 	// Objetos da listagem
 	private Collection<T> objetos;
 
@@ -69,17 +64,15 @@ public abstract class ListagemSimples<T extends Object> extends Vlayout {
 
 		configurarColunasTabela();
 
-		listBox.setRows(10);
+		listBox.setHeight("350px");
 		listBox.setCheckmark(true);
 		listBox.setMultiple(true);
 		listBox.setMold("paging");
-		Paginal paginal = listBox.getPaginal();
-		paginal.setPageSize(PAGE_SIZE);
 		
 		// ////////////////////////////////////
 		// Define configurações extras
 		// ////////////////////////////////////
-		//configurarPaginacao();
+		
 		configurarComponentesExtensao();
 
 		montar();
@@ -166,27 +159,6 @@ public abstract class ListagemSimples<T extends Object> extends Vlayout {
 	 * Adiciona novos componentes à barra de ferramentas
 	 */
 	protected void adicionarComponentesExtensaoBarraFerramentas(Toolbar toolbar) {
-	}
-
-	/**
-	 * Adiciona componentes ao filtro
-	 */
-	protected void adicionarComponentesExtensaoFiltro(Groupbox groupbox) {
-
-	}
-
-	/**
-	 * Indica se a janela possui caixa de filtro de elementos.
-	 * <p>
-	 * Se esse método for sobrescrito, o método passouFiltro deve ser
-	 * sobrescrito para testar objetos quanto ao atendimento aos critérios do
-	 * filtro.
-	 * 
-	 * @return Verdadeiro caso a janela possua caixa de filtro e falso caso
-	 *         contrário.
-	 */
-	protected boolean possuiFiltro() {
-		return false;
 	}
 
 	/**

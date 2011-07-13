@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import ode.conhecimento.processo.Cdp.KProcesso;
-import nucleo.comuns.persistencia.ObjetoPersistente;
+import ode.nucleo.cgd.ObjetoPersistente;
 
 @Entity
 public class ObrigatoriedadeSubprocesso extends ObjetoPersistente{

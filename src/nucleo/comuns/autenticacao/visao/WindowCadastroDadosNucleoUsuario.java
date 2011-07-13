@@ -3,15 +3,15 @@ package nucleo.comuns.autenticacao.visao;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.autenticacao.acegi.aplicacao.NucleoAplCadastrarNucleoUserDetails;
 import nucleo.comuns.autenticacao.acegi.aplicacao.AplCadastrarNucleoPessoa;
+import nucleo.comuns.autenticacao.acegi.aplicacao.NucleoAplCadastrarNucleoUserDetails;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoGrantedAuthority;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoPessoa;
 import nucleo.comuns.autenticacao.acegi.dominio.NucleoUserDetails;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
-import nucleo.comuns.visao.old.NucleoWindowCadastroDados;
+import nucleo.comuns.visao.NucleoWindowCadastroDados;
+import ode.nucleo.cih.NucleoTab;
 
 import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
 import org.springframework.dao.DataAccessException;

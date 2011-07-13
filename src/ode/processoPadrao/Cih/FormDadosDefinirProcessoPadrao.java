@@ -4,26 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.GridDados;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.componentes.NucleoTab;
-import nucleo.comuns.visao.componentes.selecao.NucleoBandbox;
 import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cdp.KProcesso;
-import ode.conhecimento.processo.Cdp.TipoKArtefato;
 import ode.conhecimento.processo.Cgd.KAtividadeDAO;
-import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
 import ode.conhecimento.processo.Cgd.KProcessoDAO;
-import ode.conhecimento.processo.Cgd.TipoKArtefatoDAO;
-import ode.exemplo2.pessoa.Cdp.PessoaExemplo;
+import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.GridDados;
 import ode.processoPadrao.Cdp.CompPP;
-import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
-import ode.processoPadrao.Cgd.CompPPDAO;
-import ode.processoPadrao.Cgd.CompPPProcessoComplexoDAO;
 import ode.processoPadrao.Cgd.InterfaceCompPPDAO;
 
 import org.zkoss.zkplus.spring.SpringUtil;
@@ -32,11 +23,6 @@ import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Radio;
-import org.zkoss.zul.Radiogroup;
-import org.zkoss.zul.Label;
-import org.zkoss.zul.Row;
-import org.zkoss.zul.Rows;
 
 public class FormDadosDefinirProcessoPadrao extends FormularioDadosCRUD<CompPP>{
 	

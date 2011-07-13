@@ -3,7 +3,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import nucleo.comuns.persistencia.NucleoDAOBaseHibernate;
+import ode.nucleo.cgd.NucleoDAOBaseHibernate;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
