@@ -17,7 +17,7 @@ public abstract class CtrlBase extends Window {
 	private static final long serialVersionUID = 1L;
 
 	///caminho de todas as janelas simples utilizadas no sistema	
-	public static final String CAMINHO_JANELA_SIMPLES = "/visao/principal/janelaSimples.zul";
+	public static final String CAMINHO_JANELA_SIMPLES = "/paginas/principal/janelaSimples.zul";
 
 	public JanelaSimples factoryJanelaSimples() {
 
