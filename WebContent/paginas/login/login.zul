@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<?page title="ODE - Ontology Development Environment - Versão 1.0"?>
+<zk xmlns:h="xhtml" xmlns:zk="zk">
+    <zscript>
+    errorCode = Executions.getCurrent().getParameter("error");
+    errorMessage = "";
+    messageStyle = "color: red; font-weight: bold;";
+    if (errorCode == null) {
+        errorMessage = "Entre com login e senha.";
+        messageStyle = "color: green; font-weight: bold;";
+    } else if ("1".equals(errorCode)) {
+        errorMessage = "Login ou senha incorretos!";
+    } else if ("2".equals(errorCode)) {
+        errorMessage = "Efetue login para continuar.";
+    } else {
+        errorMessage = "Unknown error occured - "
+                + "try again later or contact webmaster";
+    }
+</zscript>
+
+    <div align="center">
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <separator />
+        <image src="imagens/ode.jpg" />
+        <separator />
+        <separator />
+        <box>
+            <window title="Login" width="300px" border="normal">
+                <div align="center">
+                    <separator />
+
+                    <h:form id="loginForm" action="j_security_check"
+                        xmlns:h="http://www.w3.org/1999/xhtml">
+                        <vbox>
+                            <div align="left"
+                                style="margin-top: 5px; margin-bottom: 5px;">
+                                <hbox align="middle">
+                                    <label id="uiLablMessage"
+                                        style="${messageStyle}" value="${errorMessage}" />
+                                </hbox>
+                                <separator />
+                            </div>
+                            <label value="Login:"
+                                style="font-size:11px; font-family:Verdana,Arial,Helvetica,sans-serif;color:#363636;" />
+                            <div align="left">
+                                <vbox>
+                                    <textbox id="ui1TxtbUsername"
+                                        name="j_username" value="" onCreate="self.focus()"
+                                        width="250px" />
+                                </vbox>
+                            </div>
+                            <separator />
+                            <label value="Senha:"
+                                style="font-size:11px; font-family:Verdana,Arial,Helvetica,sans-serif;color:#363636;" />
+                            <div align="left">
+                                <textbox id="ui1TxtbPassword"
+                                    name="j_password" type="password" width="250px" />
+                            </div>
+                            <separator />
+                            <div align="right">
+
+                                <button width="100px" label="login"
+                                    onClick="login()" sclass="botaoPrincipal" />
+                                <zscript>
+                           <![CDATA[
+                           
+                           import org.zkoss.zkplus.spring.SpringUtil;
+                           
+    void login() {
+        //validate data
+        org.zkoss.zk.ui.Sessions.getCurrent().setAttribute("username",
+                ui1TxtbUsername.getValue());
+        ui1TxtbPassword.getValue();
+       
+        //submit the form
+        org.zkoss.zk.ui.util.Clients.submitForm(loginForm);
+    }
+]]>
+                        </zscript>
+                            </div>
+                        </vbox>
+                    </h:form>
+                    <separator />
+                </div>
+
+            </window>
+        </box>
+    </div>
+
+    <div align="center">
+        <vbox align="center">
+            <separator />
+            <separator />
+            <label value="ODE - Ontology Development Environment - Versão 1.0"
+                style="color: #363636; font-size: 10px; font-weight: bold;" />
+            <label value="Desenvolvido por: NEMO / DI / UFES"
+                style="color: #363636; font-size: 10px; font-weight: bold;" />
+        </vbox>
+    </div>
+    <separator />
+</zk>
