@@ -26,27 +26,41 @@ import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
+@Controller
 public class CtrlKProcedimentoCRUD extends CtrlCRUD<KProcedimento> {
-@Override
+	@Override
 	public void iniciar() {
 		super.iniciar();
 	}
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	@Autowired
+	AplCadastrarKProcedimento aplCadastrarKProcedimento;
+	
+
+	public AplCadastrarKProcedimento getAplCadastrarKProcedimento() {
+		return aplCadastrarKProcedimento;
+	}
+
+	public void setAplCadastrarKProcedimento(
+			AplCadastrarKProcedimento aplCadastrarKProcedimento) {
+		this.aplCadastrarKProcedimento = aplCadastrarKProcedimento;
+	}
+
+	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKProcedimento) SpringUtil
-				.getBean("aplCadastrarKProcedimento");
+		return aplCadastrarKProcedimento;
 	}
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
 		return new PainelCrudKProcedimento();
-		
-	}
 
+	}
 
 	@Override
 	public KProcedimento factoryObjetoDados() {
@@ -62,13 +76,10 @@ public class CtrlKProcedimentoCRUD extends CtrlCRUD<KProcedimento> {
 	public String definirTituloJanelaDados() {
 		return "Procedimento";
 	}
-	
+
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de Procedimento";
 	}
-	
-
-
 
 }

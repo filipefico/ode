@@ -15,27 +15,42 @@ import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
+@Controller
 public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
-@Override
+
+
+	@Override
 	public void iniciar() {
 		super.iniciar();
 	}
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	@Autowired
+	AplCadastrarKAtividade aplCadastrarKAtividade;
+
+	public AplCadastrarKAtividade getAplCadastrarKAtividade() {
+		return aplCadastrarKAtividade;
+	}
+
+	public void setAplCadastrarKAtividade(
+			AplCadastrarKAtividade aplCadastrarKAtividade) {
+		this.aplCadastrarKAtividade = aplCadastrarKAtividade;
+	}
+
+	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKAtividade) SpringUtil
-				.getBean("aplCadastrarKAtividade");
+		return aplCadastrarKAtividade;
 	}
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
 		return new PainelCrudKAtividade();
-		
-	}
 
+	}
 
 	@Override
 	public KAtividade factoryObjetoDados() {
@@ -51,13 +66,10 @@ public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 	public String definirTituloJanelaDados() {
 		return "Atividade";
 	}
-	
+
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de Atividade";
 	}
-	
-
-
 
 }

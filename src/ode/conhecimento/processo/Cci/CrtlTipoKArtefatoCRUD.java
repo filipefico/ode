@@ -1,5 +1,7 @@
 package ode.conhecimento.processo.Cci;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
 import ode.conhecimento.processo.Cdp.TipoKArtefato;
@@ -11,6 +13,7 @@ import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+@Controller
 public class CrtlTipoKArtefatoCRUD extends CtrlCRUD<TipoKArtefato> {
 
 	@Override
@@ -23,10 +26,21 @@ public class CrtlTipoKArtefatoCRUD extends CtrlCRUD<TipoKArtefato> {
 		return new FormDadosTipoKArtefato();
 	}
 
+	@Autowired
+	AplCadastrarTipoKArtefato aplCadastrarTipoKArtefato;
+
+	public AplCadastrarTipoKArtefato getAplCadastrarTipoKArtefato() {
+		return aplCadastrarTipoKArtefato;
+	}
+
+	public void setAplCadastrarTipoKArtefato(
+			AplCadastrarTipoKArtefato aplCadastrarTipoKArtefato) {
+		this.aplCadastrarTipoKArtefato = aplCadastrarTipoKArtefato;
+	}
+
 	@Override
 	public NucleoAplCadastroBase<TipoKArtefato> definirNucleoAplCadastroBase() {
-		return (AplCadastrarTipoKArtefato) SpringUtil
-				.getBean("aplCadastrarTipoKArtefato"); 
+		return aplCadastrarTipoKArtefato;
 	}
 
 	@Override

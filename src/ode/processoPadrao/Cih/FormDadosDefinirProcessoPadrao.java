@@ -41,7 +41,7 @@ public class FormDadosDefinirProcessoPadrao extends FormularioDadosCRUD<CompPP>{
 
 	public static KProcesso buscaKProcessoPorNome (String nome){
 				
-		KProcessoDAO kProcesso = (KProcessoDAO) SpringUtil.getBean("kProcessoDao");
+		KProcessoDAO kProcesso = (KProcessoDAO) SpringUtil.getApplicationContext().getBean(KProcessoDAO.class);
 		Collection<KProcesso> listakProcesso = kProcesso.recuperarTodos();
 		for (KProcesso K : listakProcesso) {
 			if (K.getNome().equals(nome)){
@@ -53,7 +53,7 @@ public class FormDadosDefinirProcessoPadrao extends FormularioDadosCRUD<CompPP>{
 	
 	public static KAtividade buscaKAtividadePorNome (String nome){
 		
-		KAtividadeDAO kAtividade = (KAtividadeDAO) SpringUtil.getBean("kAtividadeDao");
+		KAtividadeDAO kAtividade = (KAtividadeDAO) SpringUtil.getApplicationContext().getBean(KAtividadeDAO.class);
 		Collection<KAtividade> listakAtividade = kAtividade.recuperarTodos();
 		for (KAtividade K : listakAtividade) {
 			if (K.getNome().equals(nome)){

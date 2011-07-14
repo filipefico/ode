@@ -25,6 +25,8 @@ public class KAtividade extends Conhecimento {
     /** Indica a obigatoriedade da atividade em um processo padrão. */
     private boolean obrigatoriedade = false;
     
+    
+    
     /** Indica quais os kprocedimentos de uma atividade*/
     private Set<KProcedimento> kProcedimentos;
     

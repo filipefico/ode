@@ -1,48 +1,48 @@
 package ode.conhecimento.processo.Cci;
 
-import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+
+import nucleo.comuns.crud.controlador.CtrlCRUD;
+import nucleo.comuns.crud.visao.FormularioDadosCRUD;
+import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.processo.Cdp.KRecursoHardware;
-import ode.conhecimento.processo.Cdp.KRecursoHumano;
-import ode.conhecimento.processo.Cgt.AplCadastrarKAtividade;
-import ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacao;
 import ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHardware;
-import ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHumano;
-import ode.conhecimento.processo.Cih.FormDadosKAtividade;
-import ode.conhecimento.processo.Cih.FormDadosKDominioAplicacao;
 import ode.conhecimento.processo.Cih.FormDadosKRecursoHardware;
-import ode.conhecimento.processo.Cih.FormDadosKRecursoHumano;
-import ode.conhecimento.processo.Cih.PainelCrudKAtividade;
-import ode.conhecimento.processo.Cih.PainelCrudKDominioAplicacao;
 import ode.conhecimento.processo.Cih.PainelCrudKRecursoHardware;
-import ode.conhecimento.processo.Cih.PainelSelecaoKDominioAplicacao;
 import ode.nucleo.cgt.NucleoAplCadastroBase;
-import ode.nucleo.crud.cci.CtrlCRUD;
-import ode.nucleo.crud.cih.FormularioDadosCRUD;
-import ode.nucleo.crud.cih.JanelaSimples;
-import ode.nucleo.crud.cih.PainelCRUD;
 
-import org.zkoss.zkplus.spring.SpringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class CtrlKRecursoHardwareCRUD extends CtrlCRUD<KRecursoHardware> {
-@Override
+	@Override
 	public void iniciar() {
 		super.iniciar();
 	}
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	@Autowired
+	AplCadastrarKRecursoHardware aplCadastrarKRecursoHardware;
+
+	public AplCadastrarKRecursoHardware getAplCadastrarKRecursoHardware() {
+		return aplCadastrarKRecursoHardware;
+	}
+
+	public void setAplCadastrarKRecursoHardware(
+			AplCadastrarKRecursoHardware aplCadastrarKRecursoHardware) {
+		this.aplCadastrarKRecursoHardware = aplCadastrarKRecursoHardware;
+	}
+
+	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKRecursoHardware) SpringUtil
-				.getBean("aplCadastrarKRecursoHardware");
+		return aplCadastrarKRecursoHardware;
 	}
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
 		return new PainelCrudKRecursoHardware();
-		
-	}
 
+	}
 
 	@Override
 	public KRecursoHardware factoryObjetoDados() {
@@ -58,13 +58,10 @@ public class CtrlKRecursoHardwareCRUD extends CtrlCRUD<KRecursoHardware> {
 	public String definirTituloJanelaDados() {
 		return "Recurso Hardware";
 	}
-	
+
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de Recurso Hardware com Controlador";
 	}
-	
-
-
 
 }

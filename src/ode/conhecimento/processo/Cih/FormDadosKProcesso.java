@@ -46,7 +46,7 @@ public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 	
 	
 	public static KCategoriaProcesso buscaCategoriaPorNome (String nome){
-		KCategoriaProcessoDAO Categoria = (KCategoriaProcessoDAO) SpringUtil.getBean("kcategoriaProcessoDao");
+		KCategoriaProcessoDAO Categoria = (KCategoriaProcessoDAO) SpringUtil.getApplicationContext().getBean(KCategoriaProcessoDAO.class);
 		Collection<KCategoriaProcesso> listaCategorias = Categoria.recuperarTodos();
 		for (KCategoriaProcesso K : listaCategorias) {
 			if (K.getNome().equals(nome)){
@@ -59,7 +59,7 @@ public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 	private static void ReadFromListbox (KProcesso objeto, Listbox lista){
 		int i = 0, j;
 		Set<KTipoInteracao> tiposInteracao = new HashSet();
-		KTipoInteracaoDAO tipo = (KTipoInteracaoDAO) SpringUtil.getBean("kTipoInteracaoDao");
+		KTipoInteracaoDAO tipo = (KTipoInteracaoDAO) SpringUtil.getApplicationContext().getBean(KTipoInteracaoDAO.class);
 		Object[] listaTipos = tipo.recuperarTodos().toArray();
 		KTipoInteracao novo;
 		while (i < 5){
@@ -104,7 +104,7 @@ public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 	}
 	
 	public static void ReadFromCombobox (KProcesso objeto, Combobox coCategoria){
-		KCategoriaProcessoDAO Categoria = (KCategoriaProcessoDAO) SpringUtil.getBean("kcategoriaProcessoDao");
+		KCategoriaProcessoDAO Categoria = (KCategoriaProcessoDAO) SpringUtil.getApplicationContext().getBean(KCategoriaProcessoDAO.class);
 		Collection<KCategoriaProcesso> listaCategorias = Categoria.recuperarTodos();
 		for (KCategoriaProcesso K : listaCategorias) {
 			if (K.getNome().equals(coCategoria.getSelectedItem().getLabel())){
@@ -130,7 +130,7 @@ public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 		
 		//Recupera Categorias de Processo e adiciona ao Combobox
 		KCategoriaProcessoDAO Categoria = (KCategoriaProcessoDAO) SpringUtil
-				.getBean("kcategoriaProcessoDao");
+				.getApplicationContext().getBean(KCategoriaProcessoDAO.class);
 		Collection<KCategoriaProcesso> listaCategorias = Categoria.recuperarTodos();
 		for (KCategoriaProcesso K : listaCategorias) {
 			coCategoria.appendItem(K.getNome());
@@ -181,7 +181,7 @@ public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 		tabTiposInter.setNomeTab(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_TIPOS_INTERACAO));
 		GridDados gridTiposInter = new GridDados ();
 		
-		KTipoInteracaoDAO tipo = (KTipoInteracaoDAO) SpringUtil.getBean("kTipoInteracaoDao");
+		KTipoInteracaoDAO tipo = (KTipoInteracaoDAO) SpringUtil.getApplicationContext().getBean(KTipoInteracaoDAO.class);
 		Collection<KTipoInteracao> listaTipos = tipo.recuperarTodos();
 		for (KTipoInteracao TI : listaTipos) {
 			lbInteracao.appendItem(TI.getNome(), TI.getNome());

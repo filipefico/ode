@@ -11,12 +11,14 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 
 /**
  * 
  * @param <T>
  *            Tipo do objeto persistido.
  */
+
 public class NucleoDAOBaseHibernate<T extends NucleoObjetoPersistenteImpl>
 implements NucleoDAOBase<T> {
 

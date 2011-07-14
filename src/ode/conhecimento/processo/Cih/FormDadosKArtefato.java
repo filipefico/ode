@@ -72,7 +72,7 @@ public class FormDadosKArtefato extends FormularioDadosCRUD<KArtefato> {
 
 		// recuperando TiposdeArtefato e adiciona no listbox
 		TipoKArtefatoDAO tipoArtefatoDAO = (TipoKArtefatoDAO) SpringUtil
-				.getBean("tipoKArtefatoDao");
+				.getApplicationContext().getBean(TipoKArtefatoDAO.class);
 		Collection<TipoKArtefato> listaTipoArtefatos = tipoArtefatoDAO
 				.recuperarTodos();
 		lbTipoArtefato.setModel(new ListModelList(listaTipoArtefatos));
@@ -108,7 +108,7 @@ public class FormDadosKArtefato extends FormularioDadosCRUD<KArtefato> {
 		// ---
 		// recuperando dados e preenche a lista de subArtefatos e Dependencias
 		KArtefatoDAO artefatoDAO = (KArtefatoDAO) SpringUtil
-				.getBean("kArtefatoDao");
+				.getApplicationContext().getBean(KArtefatoDAO.class);
 		Collection<KArtefato> listaKArtefatoDS = artefatoDAO.recuperarTodos();
 
 		// insere nos ListBox's

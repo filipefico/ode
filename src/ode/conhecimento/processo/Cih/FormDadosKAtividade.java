@@ -48,7 +48,7 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 	Listbox lbPreAtividade = new Listbox();
 
 	public static KProcesso buscaProcessoPorNome (String nome){
-		KProcessoDAO processo = (KProcessoDAO) SpringUtil.getBean("kProcessoDao");
+		KProcessoDAO processo = (KProcessoDAO) SpringUtil.getApplicationContext().getBean(KProcessoDAO.class);
 		Collection<KProcesso> listaProcessos = processo.recuperarTodos();
 		for (KProcesso K : listaProcessos) {
 			if (K.getNome().equals(nome)){
@@ -160,7 +160,7 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		
 		
 		KRecursoDAO  recursoDAO = (KRecursoDAO) SpringUtil
-		.getBean("kRecursoDao");
+		.getApplicationContext().getBean(KRecursoDAO.class);
 		Collection<KRecurso> listaRecursos = recursoDAO
 		.recuperarTodos();
 		
@@ -168,7 +168,7 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		lbRecurso.renderAll();
 		
 		KArtefatoDAO  produtoInsumoDAO = (KArtefatoDAO) SpringUtil
-		.getBean("kArtefatoDao");
+		.getApplicationContext().getBean(KArtefatoDAO.class);
 		Collection<KArtefato> listaProdutosInsumo = produtoInsumoDAO
 		.recuperarTodos();
 		
@@ -179,7 +179,7 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		lbInsumo.renderAll();
 		
 		KProcedimentoDAO  procedimentoDAO = (KProcedimentoDAO) SpringUtil
-		.getBean("kProcedimentoDao");
+		.getApplicationContext().getBean(KProcedimentoDAO.class);
 		Collection<KProcedimento> listaProcedimentos = procedimentoDAO
 		.recuperarTodos();
 		
@@ -187,7 +187,7 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		lbProcedimento.renderAll();
 		
 		KAtividadeDAO  atividadeDAO = (KAtividadeDAO) SpringUtil
-		.getBean("kAtividadeDao");
+		.getApplicationContext().getBean(KAtividadeDAO.class);
 		Collection<KAtividade> listaAtividade = atividadeDAO
 		.recuperarTodos();
 		

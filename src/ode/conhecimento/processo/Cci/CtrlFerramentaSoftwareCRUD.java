@@ -13,11 +13,9 @@ import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
-@Controller(value=CtrlFerramentaSoftwareCRUD.NOME)
+@Controller
 public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 	
-	
-	public final static String NOME = "CtrlFerramentaSoftwareCRUD";
 	
 	
 	@Override

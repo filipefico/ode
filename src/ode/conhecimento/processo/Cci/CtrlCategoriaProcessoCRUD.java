@@ -9,20 +9,34 @@ import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
+@Controller
 public class CtrlCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
 		
 	}
+	@Autowired
+	private AplCadastrarKCategoriaProcesso aplCadastrarKCategoriaProcesso;
+	
+	public AplCadastrarKCategoriaProcesso getAplCadastrarKCategoriaProcesso() {
+		return aplCadastrarKCategoriaProcesso;
+	}
+
+	public void setAplCadastrarKCategoriaProcesso(
+			AplCadastrarKCategoriaProcesso aplCadastrarKCategoriaProcesso) {
+		this.aplCadastrarKCategoriaProcesso = aplCadastrarKCategoriaProcesso;
+	}
+
 
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKCategoriaProcesso) SpringUtil
-				.getBean("aplCadastrarKCategoriaProcesso");
+		return aplCadastrarKCategoriaProcesso;
 	}
 
 	@Override
@@ -37,7 +51,7 @@ public class CtrlCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 		return new KCategoriaProcesso();
 	}
 
-	@Override
+
 	public FormularioDadosCRUD definirFormularioCadastro() {
 		return new FormDadosCategoriaProcesso();
 	}

@@ -11,38 +11,48 @@ import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
+@Controller
 public class CtrlKDominioAplicacaoCRUD extends CtrlCRUD<KDominioAplicacao> {
-@Override
+	@Override
 	public void iniciar() {
 		super.iniciar();
 		/*
-		JanelaSimples jan = factoryJanelaSimples();				
-		String titulo ="Teste Painel Selecao";
-		PainelSelecaokDominioAplicacao p = new PainelSelecaokDominioAplicacao();		
-		p.setParent(jan);
-		jan.setTitle(titulo);
-		jan.setWidth(getLarguraJandados());
-		jan.setHeight(getAlturaJanDados());
-		jan.mostrar();
-		*/
-		
+		 * JanelaSimples jan = factoryJanelaSimples(); String titulo
+		 * ="Teste Painel Selecao"; PainelSelecaokDominioAplicacao p = new
+		 * PainelSelecaokDominioAplicacao(); p.setParent(jan);
+		 * jan.setTitle(titulo); jan.setWidth(getLarguraJandados());
+		 * jan.setHeight(getAlturaJanDados()); jan.mostrar();
+		 */
+
 	}
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	@Autowired
+	AplCadastrarKDominioAplicacao aplCadastrarKDominioAplicacao;
+
+	public AplCadastrarKDominioAplicacao getAplCadastrarKDominioAplicacao() {
+		return aplCadastrarKDominioAplicacao;
+	}
+
+	public void setAplCadastrarKDominioAplicacao(
+			AplCadastrarKDominioAplicacao aplCadastrarKDominioAplicacao) {
+		this.aplCadastrarKDominioAplicacao = aplCadastrarKDominioAplicacao;
+	}
+
+	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKDominioAplicacao) SpringUtil
-				.getBean("aplCadastrarKDominioAplicacao");
+		return aplCadastrarKDominioAplicacao;
 	}
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
 		return new PainelCrudKDominioAplicacao();
-		
-	}
 
+	}
 
 	@Override
 	public KDominioAplicacao factoryObjetoDados() {
@@ -58,13 +68,10 @@ public class CtrlKDominioAplicacaoCRUD extends CtrlCRUD<KDominioAplicacao> {
 	public String definirTituloJanelaDados() {
 		return "kDominioAplicacao";
 	}
-	
+
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de kDominioAplicacao com Controlador";
 	}
-	
-
-
 
 }

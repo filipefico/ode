@@ -61,7 +61,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public static KProcesso buscaCategoriaPorNome (String nome){
-		KProcessoDAO Categoria = (KProcessoDAO) SpringUtil.getBean("kProcessoDao");
+		KProcessoDAO Categoria = (KProcessoDAO) SpringUtil.getApplicationContext().getBean(KProcessoDAO.class);
 		Collection<KProcesso> listaCategorias = Categoria.recuperarTodos();
 		for (KProcesso K : listaCategorias) {
 			if (K.getNome().equals(nome)){
