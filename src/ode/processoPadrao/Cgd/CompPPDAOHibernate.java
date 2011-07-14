@@ -13,6 +13,7 @@ public class CompPPDAOHibernate extends NucleoDAOBaseHibernate<CompPP> implement
 	    public CompPP obterPorNome(String parNome){
 	        
 	        List locProc = getHibernateTemplate().find("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'");
+	        
 	        if (locProc.isEmpty())
 	            return null;
 	        return (CompPP)locProc.get(0);

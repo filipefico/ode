@@ -3,12 +3,12 @@ package ode.conhecimento.organizacao.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
+import nucleo.comuns.crud.visao.FormularioDadosCRUD;
 import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import nucleo.comuns.util.NucleoMensagens;
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.nucleo.cih.NucleoBandbox;
 import ode.nucleo.cih.NucleoTab;
-import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
 
 import org.zkoss.zul.Textbox;

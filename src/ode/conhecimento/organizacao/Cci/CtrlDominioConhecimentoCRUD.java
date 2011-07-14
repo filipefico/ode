@@ -1,16 +1,19 @@
 package ode.conhecimento.organizacao.Cci;
 
+
+import nucleo.comuns.crud.controlador.CtrlCRUD;
+import nucleo.comuns.crud.visao.FormularioDadosCRUD;
+import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimento;
 import ode.conhecimento.organizacao.Cih.FormDadosDominioConhecimento;
 import ode.conhecimento.organizacao.Cih.PainelCrudDominioConhecimento;
 import ode.nucleo.cgt.NucleoAplCadastroBase;
-import ode.nucleo.crud.cci.CtrlCRUD;
-import ode.nucleo.crud.cih.FormularioDadosCRUD;
-import ode.nucleo.crud.cih.PainelCRUD;
 
-import org.zkoss.zkplus.spring.SpringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> {
 	/**
 	 * 
@@ -22,12 +25,25 @@ public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> 
 		super.iniciar();
 		
 	}
+	
+
+	
+	@Autowired
+	AplCadastrarKDominioConhecimento aplCadastrarKDominioConhecimento;
 
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKDominioConhecimento) SpringUtil
-				.getBean("aplCadastrarKDominioConhecimento");
+		return aplCadastrarKDominioConhecimento;
+	}
+
+	public AplCadastrarKDominioConhecimento getAplCadastrarKDominioConhecimento() {
+		return aplCadastrarKDominioConhecimento;
+	}
+
+	public void setAplCadastrarKDominioConhecimento(
+			AplCadastrarKDominioConhecimento aplCadastrarKDominioConhecimento) {
+		this.aplCadastrarKDominioConhecimento = aplCadastrarKDominioConhecimento;
 	}
 
 	@Override

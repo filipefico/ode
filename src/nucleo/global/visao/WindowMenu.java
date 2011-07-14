@@ -684,7 +684,8 @@ public class WindowMenu extends Window {
 
 	private class EventListenerTipoKArtefato implements EventListener {
 		public void onEvent(Event event) {
-			CrtlTipoKArtefatoCRUD ctrlTipoKA = new CrtlTipoKArtefatoCRUD();
+			
+			CrtlTipoKArtefatoCRUD ctrlTipoKA = (CrtlTipoKArtefatoCRUD) SpringUtil.getApplicationContext().getBean(CrtlTipoKArtefatoCRUD.class);
 			ctrlTipoKA.iniciar();
 		}
 
@@ -697,8 +698,9 @@ public class WindowMenu extends Window {
 
 	private class EListenerProcessoPadrao implements EventListener{
 		public void onEvent(Event event){
-			CtrlDefinirProcessoPadraoCRUD ctrlDC = new CtrlDefinirProcessoPadraoCRUD();
-			ctrlDC.iniciar();
+			
+			CtrlDefinirProcessoPadraoCRUD ctrl = (CtrlDefinirProcessoPadraoCRUD) SpringUtil.getApplicationContext().getBean(CtrlDefinirProcessoPadraoCRUD.class);
+			ctrl.iniciar();
 		}
 
 		@SuppressWarnings("unused")
@@ -767,8 +769,9 @@ public class WindowMenu extends Window {
 	private class EListenerKParadigmaComControlador implements EventListener {
 
 		public void onEvent(Event event) {
-			// COm controlador
-			CtrlKParadigmaCRUD ctrlP = new CtrlKParadigmaCRUD();
+
+			CtrlKParadigmaCRUD ctrlP = (CtrlKParadigmaCRUD) SpringUtil.getApplicationContext().getBean(CtrlKParadigmaCRUD.class);
+			
 			ctrlP.iniciar();
 		}
 
@@ -783,7 +786,9 @@ public class WindowMenu extends Window {
 	private class EListenerDominioConhecimento implements EventListener {
 		public void onEvent(Event event) {
 
-			CtrlDominioConhecimentoCRUD ctrlDC = new CtrlDominioConhecimentoCRUD();
+			//CtrlDominioConhecimentoCRUD ctrlDC = new CtrlDominioConhecimentoCRUD();
+			CtrlDominioConhecimentoCRUD ctrlDC = (CtrlDominioConhecimentoCRUD) SpringUtil.getApplicationContext().getBean(CtrlDominioConhecimentoCRUD.class);
+			
 			ctrlDC.iniciar();
 		}
 
@@ -796,7 +801,8 @@ public class WindowMenu extends Window {
 	private class EListenerKCategoriaProcesso implements EventListener {
 		public void onEvent(Event event) {
 
-			CtrlCategoriaProcessoCRUD ctrl = new CtrlCategoriaProcessoCRUD();
+		//	CtrlCategoriaProcessoCRUD ctrl = new CtrlCategoriaProcessoCRUD();
+			CtrlCategoriaProcessoCRUD ctrl = (CtrlCategoriaProcessoCRUD) SpringUtil.getApplicationContext().getBean(CtrlCategoriaProcessoCRUD.class);
 			ctrl.iniciar();
 		}
 
@@ -809,7 +815,7 @@ public class WindowMenu extends Window {
 	private class EListenerKProcesso implements EventListener {
 		public void onEvent(Event event) {
 
-			CtrlKProcessoCRUD ctrl = new CtrlKProcessoCRUD();
+			CtrlKProcessoCRUD ctrl = (CtrlKProcessoCRUD) SpringUtil.getApplicationContext().getBean(CtrlKProcessoCRUD.class);
 			ctrl.iniciar();
 		}
 
@@ -821,7 +827,8 @@ public class WindowMenu extends Window {
 
 	private class EventListenerKArtefato implements EventListener {
 		public void onEvent(Event event) {
-			CtrlKArtefatoCRUD ctrlKA = new CtrlKArtefatoCRUD();
+			
+			CtrlKArtefatoCRUD ctrlKA = (CtrlKArtefatoCRUD) SpringUtil.getApplicationContext().getBean(CtrlKArtefatoCRUD.class);
 			ctrlKA.iniciar();
 		}
 
@@ -837,8 +844,8 @@ public class WindowMenu extends Window {
 	EventListener {
 
 		public void onEvent(Event event) {
-			// Com controlador
-			CtrlKDominioAplicacaoCRUD ctrlO = new CtrlKDominioAplicacaoCRUD();
+			// Com controlador			
+			CtrlKDominioAplicacaoCRUD ctrlO = (CtrlKDominioAplicacaoCRUD) SpringUtil.getApplicationContext().getBean(CtrlKDominioAplicacaoCRUD.class);
 			ctrlO.iniciar();
 
 		}
@@ -852,9 +859,8 @@ public class WindowMenu extends Window {
 	private class EListenerPessoaComControlador implements EventListener {
 
 		public void onEvent(Event event) {
-			// COm controlador
-			//ControladorPrincipal ctrlP = (ControladorPrincipal) SpringUtil.getBean("ControladorPrincipal");
-			//ctrlP.exibirControlador();
+
+
 		}
 
 		@SuppressWarnings("unused")
@@ -868,7 +874,8 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			CtrlTipoSoftwareCRUD ctrlP = new CtrlTipoSoftwareCRUD();
+			//CtrlTipoSoftwareCRUD ctrlP = new CtrlTipoSoftwareCRUD();
+			CtrlTipoSoftwareCRUD ctrlP = (CtrlTipoSoftwareCRUD) SpringUtil.getApplicationContext().getBean(CtrlTipoSoftwareCRUD.class);
 			ctrlP.iniciar();
 		}
 
@@ -882,7 +889,7 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 
-			CtrlFerramentaSoftwareCRUD ctrl = (CtrlFerramentaSoftwareCRUD) SpringUtil.getBean(CtrlFerramentaSoftwareCRUD.NOME);			
+			CtrlFerramentaSoftwareCRUD ctrl = (CtrlFerramentaSoftwareCRUD) SpringUtil.getApplicationContext().getBean(CtrlFerramentaSoftwareCRUD.class);			
 			ctrl.iniciar();
 		}
 
@@ -910,8 +917,9 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			CtrlKRecursoHardwareCRUD ctrlP = new CtrlKRecursoHardwareCRUD();
-			ctrlP.iniciar();
+//			CtrlKRecursoHardwareCRUD ctrlP = new CtrlKRecursoHardwareCRUD();
+			CtrlKRecursoHardwareCRUD ctrl = (CtrlKRecursoHardwareCRUD) SpringUtil.getApplicationContext().getBean(CtrlKRecursoHardwareCRUD.class);
+			ctrl.iniciar();
 		}
 
 		@SuppressWarnings("unused")
@@ -923,7 +931,8 @@ public class WindowMenu extends Window {
 	private class EListenerKAtividade implements EventListener {
 		public void onEvent(Event event) {
 
-			CtrlKAtividadeCRUD ctrl = new CtrlKAtividadeCRUD();
+		//	CtrlKAtividadeCRUD ctrl = new CtrlKAtividadeCRUD();
+			CtrlKAtividadeCRUD ctrl = (CtrlKAtividadeCRUD) SpringUtil.getApplicationContext().getBean(CtrlKAtividadeCRUD.class);
 			ctrl.iniciar();
 		}
 
@@ -935,7 +944,7 @@ public class WindowMenu extends Window {
 
 	private class EListenerKTipoRequisito implements EventListener {
 		public void onEvent(Event event) {
-			CtrlKTipoRequisitoCRUD ctrl = (CtrlKTipoRequisitoCRUD) SpringUtil.getBean(CtrlKTipoRequisitoCRUD.NOME);
+			CtrlKTipoRequisitoCRUD ctrl = (CtrlKTipoRequisitoCRUD) SpringUtil.getApplicationContext().getBean(CtrlKTipoRequisitoCRUD.class);
 			ctrl.iniciar();
 		}
 
@@ -950,7 +959,8 @@ public class WindowMenu extends Window {
 
 		public void onEvent(Event event) {
 			// COm controlador
-			CtrlKProcedimentoCRUD ctrlP = new CtrlKProcedimentoCRUD();
+			
+			CtrlKProcedimentoCRUD ctrlP = (CtrlKProcedimentoCRUD) SpringUtil.getApplicationContext().getBean(CtrlKProcedimentoCRUD.class);
 			ctrlP.iniciar();
 		}
 

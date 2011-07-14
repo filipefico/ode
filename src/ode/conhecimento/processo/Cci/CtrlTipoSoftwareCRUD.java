@@ -9,30 +9,40 @@ import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
-
+@Controller
 public class CtrlTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
-@Override
+	@Override
 	public void iniciar() {
 		super.iniciar();
 		/*
-		JanelaSimples jan = factoryJanelaSimples();				
-		String titulo ="Teste Painel Selecao";
-		PainelSelecaoPessoa p = new PainelSelecaoPessoa();		
-		p.setParent(jan);
-		jan.setTitle(titulo);
-		jan.setWidth(getLarguraJandados());
-		jan.setHeight(getAlturaJanDados());
-		jan.mostrar();
-		*/
-		
+		 * JanelaSimples jan = factoryJanelaSimples(); String titulo
+		 * ="Teste Painel Selecao"; PainelSelecaoPessoa p = new
+		 * PainelSelecaoPessoa(); p.setParent(jan); jan.setTitle(titulo);
+		 * jan.setWidth(getLarguraJandados());
+		 * jan.setHeight(getAlturaJanDados()); jan.mostrar();
+		 */
+
 	}
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	@Autowired
+	AplCadastrarKTipoSoftware aplCadastrarTipoSoftware;
+
+	public AplCadastrarKTipoSoftware getAplCadastrarTipoSoftware() {
+		return aplCadastrarTipoSoftware;
+	}
+
+	public void setAplCadastrarTipoSoftware(
+			AplCadastrarKTipoSoftware aplCadastrarTipoSoftware) {
+		this.aplCadastrarTipoSoftware = aplCadastrarTipoSoftware;
+	}
+
+	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKTipoSoftware) SpringUtil
-				.getBean("aplCadastrarTipoSoftware");
+		return aplCadastrarTipoSoftware;
 	}
 
 	@Override
@@ -54,12 +64,10 @@ public class CtrlTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
 	public String definirTituloJanelaDados() {
 		return "Tipo de Software";
 	}
-	
+
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de Tipo de Software";
 	}
-	
-
 
 }

@@ -35,7 +35,7 @@ public class FormDadosKTipoRequisito extends FormularioDadosCRUD<KTipoRequisito>
 	private Combobox coSuper = new Combobox();
 
 	public KTipoRequisito buscaRequisitoPorNome (String nome, Radio cbFuncionalSim){
-		KTipoRequisitoDAO Req = (KTipoRequisitoDAO) SpringUtil.getBean("kTipoRequisitoDao");
+		KTipoRequisitoDAO Req = (KTipoRequisitoDAO) SpringUtil.getApplicationContext().getBean(KTipoRequisitoDAO.class);
 		Collection<KTipoRequisito> listaRequisitos = Req.recuperarTodos();
 		for (KTipoRequisito K : listaRequisitos) {
 			if (K.getNome().equals(nome) && K.getEhFuncional() == cbFuncionalSim.isChecked()){

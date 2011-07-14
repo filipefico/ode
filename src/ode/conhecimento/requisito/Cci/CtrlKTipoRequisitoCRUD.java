@@ -12,26 +12,26 @@ import ode.nucleo.crud.cih.PainelCRUD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller(CtrlKTipoRequisitoCRUD.NOME)
+@Controller
 public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public final static String NOME = "CtrlKTipoRequisitoCRUD";
-	
+
+
+
 	@Autowired
 	private AplCadastrarKTipoRequisito aplCadastrarKTipoRequisito;
-	
+
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		
+
 	}
 
-	//lembrar que o controlador eh melhor injetado pelo spring
+	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKTipoRequisito;
@@ -40,9 +40,8 @@ public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
 	@Override
 	public PainelCRUD definirPainelCRUD() {
 		return new PainelCrudKTipoRequisito();
-		
-	}
 
+	}
 
 	@Override
 	public KTipoRequisito factoryObjetoDados() {
@@ -58,7 +57,7 @@ public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
 	public String definirTituloJanelaDados() {
 		return "Tipo de Requisito";
 	}
-	
+
 	@Override
 	public String definirTituloJanelaPrincipal() {
 		return "Cadastro de Tipo de Requisito";

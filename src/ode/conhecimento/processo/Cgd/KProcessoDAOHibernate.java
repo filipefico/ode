@@ -10,7 +10,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository(value="kProcessoDao")
 public class KProcessoDAOHibernate extends NucleoDAOBaseHibernate<KProcesso> implements
 KProcessoDAO{
 

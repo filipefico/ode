@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
+
 public class AplCadastrarKArtefatoImpl extends
 		NucleoAplCadastroBaseImpl<KArtefato> implements AplCadastrarKArtefato {
 
@@ -21,6 +22,8 @@ public class AplCadastrarKArtefatoImpl extends
 	public KArtefatoDAO getkArtefatoDAO() {
 		return kArtefatoDAO;
 	}
+	
+
 
 	public void setkArtefatoDAO(KArtefatoDAO kArtefatoDAO) {
 		this.kArtefatoDAO = kArtefatoDAO;
