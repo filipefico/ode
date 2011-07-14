@@ -259,8 +259,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 			formularioDados.atualizarObjeto();
 			T objetoCadastro = formularioDados.getObjetoCadastroDados();
 			nucleoAplCadastroBase.salvar(objetoCadastro);
-			// /atualiza a pesquisa e fecha a janela
-			//atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
 			atualizarPesquisa();
 			janDados.onClose();
 

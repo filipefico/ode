@@ -4,11 +4,13 @@ import java.util.Locale;
 
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleUsuario.cdp.NucleoUserDetails;
+import ode.principal.cih.WindowMenu;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zul.Window;
 
 
 /**
@@ -27,6 +29,11 @@ public class NucleoContexto {
 	 * Nome do atributo da sessão que contém o projeto atualmente selecionado.
 	 */
 	public static final String PROJETO = "Projeto";
+	
+	/**
+	 * Nome do atributo da sessão que contém janela principal.
+	 */
+	public static final String JANELA_PRINCIPAL = "JanelaPrincipal";
 
 	/**
 	 * Obtém o Locale da Sessão do Usuário.
@@ -84,5 +91,17 @@ public class NucleoContexto {
 	
 	public static void atribuirProjeto(Projeto projeto) {
 		Sessions.getCurrent().setAttribute(PROJETO, projeto);
+	}
+	
+	public static WindowMenu recuperarJanelaPrincipal() {
+		WindowMenu window = null;
+		if (Sessions.getCurrent() != null) {
+			window = (WindowMenu) Sessions.getCurrent().getAttribute(JANELA_PRINCIPAL);
+		}
+		return window;
+	}
+	
+	public static void atribuirJanelaPrincipal(WindowMenu window) {
+		Sessions.getCurrent().setAttribute(JANELA_PRINCIPAL, window);
 	}
 }
