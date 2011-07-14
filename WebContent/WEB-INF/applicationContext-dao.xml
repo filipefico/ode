@@ -29,8 +29,8 @@
 		</property>
 		<property name="packagesToScan">
             <list>
-                <value>nucleo</value>
                 <value>ode</value>
+                <value>nucleo</value>
             </list>
         </property>
 		<property name="hibernateProperties">
@@ -49,46 +49,3 @@
 	</bean>
 	<tx:annotation-driven />
 </beans>
-
-<!-- Verificar como fazer isso depois
-
-<bean name="propertiesConfigurator"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:/config.properties" />
-
-	</bean>
-
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName">
-			<value>org.postgresql.Driver</value>
-		</property>
-		<property name="url" value="${banco.url}" />
-		<property name="username" value="${banco.username}" />
-		<property name="password" value="${banco.password}" />
-
-
-	</bean>
-
-	<bean id="hibernateProperties"
-		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-		<property name="properties">
-			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.dialect">
-					org.hibernate.dialect.PostgreSQLDialect
-		</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">false</prop>
-				<prop key="hibernate.c3p0.minPoolSize">5</prop>
-				<prop key="hibernate.c3p0.maxPoolSize">20</prop>
-				<prop key="hibernate.c3p0.timeout">600</prop>
-				<prop key="hibernate.c3p0.max_statement">50</prop>
-				<prop key="hibernate.c3p0.testConnectionOnCheckout">
-					false
-		</prop>
-
-			</props>
-		</property>
-	</bean>
--->
-

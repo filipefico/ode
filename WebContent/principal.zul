@@ -33,7 +33,7 @@ background-repeat: repeat-x;
 	</h:tr>
 	<h:tr>
 		<h:td>
-			<window use="nucleo.global.visao.WindowMenu"/>
+			<window use="ode.principal.cih.WindowMenu"/>
 		</h:td>
 	</h:tr>
 </h:table>

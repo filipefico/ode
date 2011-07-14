@@ -70,11 +70,19 @@
                                     onClick="login()" sclass="botaoPrincipal" />
                                 <zscript>
                            <![CDATA[
+                           
+                           import org.zkoss.zkplus.spring.SpringUtil;
+                           
     void login() {
         //validate data
         org.zkoss.zk.ui.Sessions.getCurrent().setAttribute("username",
                 ui1TxtbUsername.getValue());
         ui1TxtbPassword.getValue();
+        
+        System.out.println("Login: " + ui1TxtbUsername.getValue() + " Senha: " + ui1TxtbPassword.getValue()); 
+        
+        System.out.println(SpringUtil.getBean("AplCadastrarUsuario"));
+        
 
         //submit the form
         org.zkoss.zk.ui.util.Clients.submitForm(loginForm);
