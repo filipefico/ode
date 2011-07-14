@@ -86,7 +86,7 @@
 		<property name="objectDefinitionSource">
 			<value>
 				PATTERN_TYPE_APACHE_ANT
-				/paginas/**=ROLE_SUPERVISOR,ROLE_USER
+				/paginas/principal/**=ROLE_SUPERVISOR,ROLE_USER
 			</value>
 		</property>
 	</bean>
