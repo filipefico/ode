@@ -175,6 +175,6 @@
 	</mime-mapping>
 
 	<welcome-file-list>
-		<welcome-file>windowLogin.zul</welcome-file>
+		<welcome-file>login.zul</welcome-file>
 	</welcome-file-list>
 </web-app>
