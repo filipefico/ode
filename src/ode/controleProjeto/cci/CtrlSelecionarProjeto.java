@@ -4,10 +4,12 @@ import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.controleProjeto.cih.PainelSelecionarProjeto;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.crud.cih.JanelaSimples;
+import ode.nucleo.util.NucleoContexto;
 import ode.principal.cih.WindowMenu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.zkoss.zul.Window;
 
 @Controller(CtrlSelecionarProjeto.NOME)
 public class CtrlSelecionarProjeto extends CtrlBase {
@@ -39,10 +41,7 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 	public CtrlSelecionarProjeto(){
 	}
 
-	public void iniciar(WindowMenu windowMenu) {
-		
-		this.windowMenu = windowMenu;
-		
+	public void iniciar() {
 		configurarComponentes();
 		mostrarJanelaPrincipal();
 	}
@@ -63,8 +62,9 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 	}
 	
 	public void atualizarWindowMenu(){
-		windowMenu.atualizaBarraInformacoes();
-		windowMenu.atualizarPermissoesAcesso();
+		WindowMenu windowMenu = NucleoContexto.recuperarJanelaPrincipal();
+//		windowMenu.atualizaBarraInformacoes();
+//		windowMenu.atualizarPermissoesAcesso();
 	}
 
 	public void finalizar(){

@@ -51,5 +51,7 @@ public abstract class CtrlBase extends Window {
 	}
 
 	public abstract void configurarComponentes();
+	
+	public abstract void iniciar();
 
 }

@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -35,6 +36,8 @@ public class NucleoUserDetails extends ObjetoPersistente
 	private String password;
 
 	private RecursoHumano recursoHumano;
+	
+	private PerfilAcesso perfilAcesso;
 
 	private Set<GrantedAuthorityImpl> grantedAuthorities;
 
@@ -79,6 +82,15 @@ public class NucleoUserDetails extends ObjetoPersistente
 
 	public void setRecursoHumano(RecursoHumano recursoHumano) {
 		this.recursoHumano = recursoHumano;
+	}
+	
+	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	public PerfilAcesso getPerfilAcesso() {
+		return perfilAcesso;
+	}
+
+	public void setPerfilAcesso(PerfilAcesso perfilAcesso) {
+		this.perfilAcesso = perfilAcesso;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
