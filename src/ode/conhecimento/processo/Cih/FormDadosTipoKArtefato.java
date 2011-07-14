@@ -9,9 +9,9 @@ import ode.conhecimento.processo.Cdp.TipoKArtefato;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
 
 public class FormDadosTipoKArtefato extends FormularioDadosCRUD<TipoKArtefato> {
 

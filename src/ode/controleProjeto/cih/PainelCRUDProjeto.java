@@ -1,7 +1,7 @@
 package ode.controleProjeto.cih;
 
-import nucleo.comuns.visao.listagem.ListagemSimples;
 import ode.controleProjeto.cdp.Projeto;
+import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
 public class PainelCRUDProjeto extends PainelCRUD<Projeto> {

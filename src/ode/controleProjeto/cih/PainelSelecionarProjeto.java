@@ -3,10 +3,10 @@ package ode.controleProjeto.cih;
 import java.util.Collection;
 import java.util.Set;
 
-import nucleo.comuns.util.NucleoContexto;
-import nucleo.comuns.util.NucleoMensagens;
 import ode.controleProjeto.cci.CtrlSelecionarProjeto;
 import ode.controleProjeto.cdp.Projeto;
+import ode.nucleo.util.NucleoContexto;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;

@@ -2,12 +2,11 @@ package ode.nucleo.crud.cih;
 
 import java.util.Set;
 
-import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.listagem.ListagemSimples;
 
 import ode.nucleo.cgd.ObjetoPersistente;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.excecao.CtrlExcecoes;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -38,9 +37,6 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 		definirComponentes();
 		definirComponentesExtensao();
 		validarComponentesExtensao();
-		// configuro o responsavel por atualizar a listagem. No caso, � o
-		// controlador
-		listagem.setAtualizador(controlador);
 		listagem.configurarComponentes();
 
 		montar();

@@ -5,26 +5,23 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.listagem.IAtualizaPesquisa;
-
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.cgd.ObjetoPersistente;
 import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD.ModoExibicao;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
-import ode.nucleo.crud.cih.FormularioDadosCRUD.ModoExibicao;
+import ode.nucleo.excecao.CtrlExcecoes;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 
-public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
-		implements IAtualizaPesquisa {
+public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 
 	/**
 	 * 
@@ -72,10 +69,23 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 			throw CtrlExcecoes.factoryExcecaoDefinicao("painelCRUD",
 					this.getClass());
 
-		if (nucleoAplCadastroBase == null)
-			throw CtrlExcecoes.factoryExcecaoDefinicao("nucleoAplCadastroBase",
-					this.getClass());
+		if (estaUsandoNucleoAplCadastroBase()){
+			if (nucleoAplCadastroBase == null)
+				throw CtrlExcecoes.factoryExcecaoDefinicao("nucleoAplCadastroBase",
+						this.getClass());
+		}
 
+	}
+
+	/**
+	 * Indica se o controlador está usuando a nucleoaplcadastrobase. 
+	 * As vezes, não é necessário utilizá-la ou pode optar por usar outra apl.
+	 * Para quando a nucleoaplcadastrobase for nula, este método deve ser sobrescrito retornando false.
+	 *  
+	 * @return verdadeiro, caso esteja usuando a nucleoaplcadastrobase. Falso, caso contrário.
+	 */
+	protected boolean estaUsandoNucleoAplCadastroBase(){
+		return true;
 	}
 
 	public void setNucleoAplCadastroBase(
@@ -95,14 +105,14 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 		jan.setWidth(larguraJanPrincipal);
 
 		jan.mostrar();
-		
+
 		atualizarPesquisa();
 	}
 
 	public void atualizarPesquisa() {
 		Collection<T> objetos =getNucleoAplCadastroBase().recuperarTodos();		
 		painelCRUD.getListagem().atualizar(objetos);
-		
+
 	}
 
 	public void acaoExcluir() {
@@ -111,7 +121,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 	public void validarExcluir() {
 		Set<Listitem> itensSelecionados = painelCRUD.getListagem()
-				.getSelecionados();
+		.getSelecionados();
 		try {
 			// verifica se o nÃºmero de itens selecionados Ã© maior que zero.
 			if (itensSelecionados.size() > 0) {
@@ -120,31 +130,31 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 				if (itensSelecionados.size() > 1) {
 					mensagemConfirmacao = NucleoMensagens
-							.getMensagem(NucleoMensagens.MSG_CONFIRMACAO_EXCLUSAO_PLURAL);
+					.getMensagem(NucleoMensagens.MSG_CONFIRMACAO_EXCLUSAO_PLURAL);
 				} else {
 					mensagemConfirmacao = NucleoMensagens
-							.getMensagem(NucleoMensagens.MSG_CONFIRMACAO_EXCLUSAO_SINGULAR);
+					.getMensagem(NucleoMensagens.MSG_CONFIRMACAO_EXCLUSAO_SINGULAR);
 				}
 
 				confirmaSimNao(mensagemConfirmacao, new EventListener() {
-					
-						public void onEvent(Event evt) {
-							switch (((Integer) evt.getData()).intValue()) {
-							case Messagebox.YES:
-							
-								excluir(painelCRUD.getListagem().getSelecionados());
-								break; //the No button is pressed
 
-							case Messagebox.NO:
-							
-								break; //the No button is pressed
+					public void onEvent(Event evt) {
+						switch (((Integer) evt.getData()).intValue()) {
+						case Messagebox.YES:
 
-							default:
+							excluir(painelCRUD.getListagem().getSelecionados());
+							break; //the No button is pressed
+
+						case Messagebox.NO:
+
+							break; //the No button is pressed
+
+						default:
 
 
-							}
+						}
 
-						
+
 					}
 				});
 
@@ -174,10 +184,10 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			CtrlExcecoes
-					.exibirJanelaErro("Não foi possivel excluir os objetos");
+			.exibirJanelaErro("Não foi possivel excluir os objetos");
 
 		} 
-		
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -220,10 +230,10 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase
 			} else {
 				// Se nao eh novo, tenho que recuperar o objeto do banco
 				T objetoSelecionado = painelCRUD.getListagem()
-						.getSelecionado();
+				.getSelecionado();
 				// atualizo a referencia do objetoSelecionado
 				objetoSelecionado = nucleoAplCadastroBase
-						.recuperarPorId(objetoSelecionado.getId());
+				.recuperarPorId(objetoSelecionado.getId());
 
 				formularioDados.setObjetoCadastroDados(objetoSelecionado);
 				// copio os dados do objeto pro formulario

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
+import ode.nucleo.cgd.ObjetoPersistente;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -22,7 +22,7 @@ import org.zkoss.zul.Listitem;
  * BandBox funciona como um combo box
  * */
 
-public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, Long>> extends Bandbox {
+public abstract class NucleoBandbox<T extends ObjetoPersistente> extends Bandbox {
         
         private static final long serialVersionUID = 1740909544218270482L;
 
@@ -83,13 +83,23 @@ public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, 
         }
 
         public void setObjetoSelecionado(T objetoSelecionado) {
+        		this.setValue(this.recuperarLabelObjetoSelecionado(objetoSelecionado));
                 this.objetoSelecionado = objetoSelecionado;
         }
+        
+        /**
+         * Recupera o label a ser exibido do objeto dentro do bandbox.
+         * @param objeto Objeto contido dentro do bandbox.
+         * @return Nome do label.
+         */
+        public abstract String recuperarLabelObjetoSelecionado(T objeto);
 
         /**
          * Inicia componentes gráficos.
          */
         private void iniciarComponentesInterface() {
+        	
+        		this.setWidth("200px");
 
                 // instancia componentes de interface
                 listBox = new Listbox();
@@ -103,7 +113,6 @@ public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, 
                 listBox.setMultiple(true);
                 bandpopup.setWidth(WIDTH_BANDPOPUP);
                 configurarCabecalhoLista();
-                
                 
                 // agrupa componentes
                 bandpopup.setParent(this);
@@ -143,7 +152,7 @@ public abstract class NucleoBandbox<T extends NucleoObjetoPersistenteImpl<Long, 
 
                         // Associa um listitem
                         Listitem lt = new Listitem();
-                        lt.addEventListener("onDoubleClick", new EventListenerItemLista());
+                        lt.addEventListener("onClick", new EventListenerItemLista());
                         lt.setValue(obj);
 
                         // Recupera os dados do objeto a serem exibidos na lista

@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.NucleoWindowCadastroDados;
 import ode.conhecimento.processo.Cdp.KProcesso;
 import ode.conhecimento.processo.Cgt.AplCadastrarKProcesso;
 import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.NucleoWindowCadastroDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
 

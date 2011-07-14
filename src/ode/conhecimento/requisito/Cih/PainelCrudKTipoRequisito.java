@@ -1,8 +1,8 @@
 package ode.conhecimento.requisito.Cih;
 
-import nucleo.comuns.visao.listagem.ListagemSimples;
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.conhecimento.requisito.Cih.ListagemKTipoRequisito;
+import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
 public class PainelCrudKTipoRequisito extends PainelCRUD<KTipoRequisito>{

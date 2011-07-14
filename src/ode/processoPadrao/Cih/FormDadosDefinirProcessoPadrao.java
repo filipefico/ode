@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KProcesso;
 import ode.conhecimento.processo.Cgd.KAtividadeDAO;
@@ -13,6 +11,8 @@ import ode.conhecimento.processo.Cgd.KProcessoDAO;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
 import ode.processoPadrao.Cgd.InterfaceCompPPDAO;

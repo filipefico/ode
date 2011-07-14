@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import ode.conhecimento.processo.Cdp.KParadigma;
 import ode.conhecimento.processo.Cgd.KParadigmaDAO;
 import ode.nucleo.cgd.NucleoDAOBase;
 import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.excecao.NucleoExcecao;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)

@@ -1,6 +1,6 @@
 package ode.processoPadrao.Cih;
 
-import nucleo.comuns.visao.listagem.ListagemSimples;
+import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 import ode.processoPadrao.Cdp.CompPP;
 

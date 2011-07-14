@@ -3,13 +3,14 @@ package ode.conhecimento.processo.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
+import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.Cdp.KParadigma;
 import ode.nucleo.cih.NucleoBandbox;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zul.Textbox;
 
@@ -70,7 +71,12 @@ public class FormDadosKParadigma extends FormularioDadosCRUD<KParadigma>{
  
 				return new String[]{objeto.getNome()};
 			}
-			
+		
+			@Override
+			public String recuperarLabelObjetoSelecionado(
+					KParadigma objeto) {
+				return objeto.getNome();
+			}
 			
 		};
 		

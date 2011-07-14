@@ -12,15 +12,13 @@ import ode.nucleo.crud.cih.PainelCRUD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller(CtrlProjetoCRUD.NOME)
+@Controller
 public class CtrlProjetoCRUD extends CtrlCRUD<Projeto> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public final static String NOME = "CtrlProjetoCRUD";
 	
 	@Autowired
 	private AplCadastrarProjeto aplCadastrarProjeto;

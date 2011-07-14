@@ -1,12 +1,12 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import ode.conhecimento.processo.Cdp.KResultadoProcesso;
 import ode.conhecimento.processo.Cgd.KResultadoProcessoDAO;
 import ode.conhecimento.processo.Cgt.AplCadastrarKResultadoProcesso;
 import ode.nucleo.cgd.NucleoDAOBase;
 import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.excecao.NucleoExcecao;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

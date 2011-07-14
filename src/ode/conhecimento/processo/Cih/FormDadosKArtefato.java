@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cdp.TipoKArtefato;
 import ode.conhecimento.processo.Cgd.KArtefatoDAO;
@@ -15,6 +13,8 @@ import ode.conhecimento.processo.Cgd.TipoKArtefatoDAO;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Comboitem;

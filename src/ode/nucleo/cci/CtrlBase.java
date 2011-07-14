@@ -1,8 +1,8 @@
 package ode.nucleo.cci;
 
-import nucleo.comuns.util.NucleoMensagens;
 
 import ode.nucleo.crud.cih.JanelaSimples;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;

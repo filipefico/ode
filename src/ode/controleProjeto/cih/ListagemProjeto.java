@@ -5,8 +5,8 @@ import java.util.List;
 
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.controleProjeto.cdp.Projeto;
-import nucleo.comuns.visao.listagem.ListagemSimples;
-import nucleo.comuns.visao.paginacao.NucleoListHeader;
+import ode.nucleo.crud.cih.ListagemSimples;
+import ode.nucleo.crud.cih.NucleoListHeader;
 
 public class ListagemProjeto extends ListagemSimples<Projeto> {
 

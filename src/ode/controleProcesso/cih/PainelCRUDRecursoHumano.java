@@ -1,7 +1,7 @@
 package ode.controleProcesso.cih;
 
-import nucleo.comuns.visao.listagem.ListagemSimples;
 import ode.controleProcesso.cdp.RecursoHumano;
+import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
 public class PainelCRUDRecursoHumano extends PainelCRUD<RecursoHumano> {

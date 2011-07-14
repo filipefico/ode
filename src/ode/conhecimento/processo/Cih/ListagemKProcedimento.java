@@ -3,13 +3,13 @@ package ode.conhecimento.processo.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.listagem.ListagemSimples;
-import nucleo.comuns.visao.paginacao.NucleoListHeader;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
 import ode.conhecimento.processo.Cdp.KProcedimento;
 import ode.conhecimento.processo.Cdp.KRecursoHardware;
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
+import ode.nucleo.crud.cih.ListagemSimples;
+import ode.nucleo.crud.cih.NucleoListHeader;
 
 
 public class ListagemKProcedimento extends ListagemSimples<KProcedimento> {

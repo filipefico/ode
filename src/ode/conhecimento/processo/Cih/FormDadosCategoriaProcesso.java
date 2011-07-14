@@ -3,13 +3,14 @@ package ode.conhecimento.processo.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
+import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.nucleo.cih.NucleoBandbox;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zul.Textbox;
 
@@ -63,6 +64,12 @@ public class FormDadosCategoriaProcesso  extends FormularioDadosCRUD<KCategoriaP
 			protected String[] recuperarDadosObjeto(KCategoriaProcesso objeto) {
  
 				return new String[]{objeto.getNome()};
+			}
+			
+			@Override
+			public String recuperarLabelObjetoSelecionado(
+					KCategoriaProcesso objeto) {
+				return objeto.getNome();
 			}
 			
 			
