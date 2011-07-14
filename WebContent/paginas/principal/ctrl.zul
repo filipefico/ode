@@ -1,0 +1,7 @@
+<zk>
+<zscript>
+	Map parametros = Executions.getCurrent().getArg();
+	String use = (String) parametros.get("use");
+</zscript>
+	<window use="${use}" />
+</zk>
