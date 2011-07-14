@@ -9,6 +9,7 @@ import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
@@ -24,12 +25,14 @@ public class CtrlKRecursoHumanoCRUD extends CtrlCRUD<KRecursoHumano> {
 	public void iniciar() {
 		super.iniciar();
 	}
+	
+	@Autowired
+	private AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano;
 
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
 	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
-		return (AplCadastrarKRecursoHumano) SpringUtil
-				.getBean("aplCadastrarKRecursoHumano");
+		return aplCadastrarKRecursoHumano;
 	}
 
 	@Override
@@ -56,7 +59,7 @@ public class CtrlKRecursoHumanoCRUD extends CtrlCRUD<KRecursoHumano> {
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Recurso Humano com Controlador";
+		return "Recursos Humanos";
 	}
 	
 
