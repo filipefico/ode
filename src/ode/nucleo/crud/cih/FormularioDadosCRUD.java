@@ -2,13 +2,12 @@ package ode.nucleo.crud.cih;
 
 import java.util.List;
 
-import nucleo.comuns.excecao.CtrlExcecoes;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
-
 import ode.nucleo.cgd.ObjetoPersistente;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.excecao.CtrlExcecoes;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -19,10 +18,10 @@ import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Toolbarbutton;
-import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.impl.XulElement;
 
-public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends Vbox {
+public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 	public enum ModoExibicao {
 		EDITAR, NOVO, CONSULTAR
@@ -36,9 +35,6 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 
 	/** Tamanho do botão. */
 	public static final String WIDTH_BUTTON = "100px";
-
-	/** Tamanho do hbox. */
-	public static final String WIDTH_HBOX = "1000px";
 
 	/** Toolbar da window. */
 	protected Toolbar toolbar = new Toolbar();
@@ -70,8 +66,6 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	}
 
 	public void configurarComponentes() {
-		this.setWidth("100%");
-		this.setHeight("100%");
 		definirComponentes();
 		validarComponentes();
 		configurarBarraFerramentas();

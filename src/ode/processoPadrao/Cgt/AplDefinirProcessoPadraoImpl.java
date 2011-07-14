@@ -1,8 +1,8 @@
 package ode.processoPadrao.Cgt;
 
-import nucleo.comuns.excecao.NucleoExcecao;
 import ode.nucleo.cgd.NucleoDAOBase;
 import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.excecao.NucleoExcecao;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgd.CompPPDAO;
 

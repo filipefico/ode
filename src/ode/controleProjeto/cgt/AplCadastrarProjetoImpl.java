@@ -5,12 +5,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgd.ProjetoDAO;
 import ode.nucleo.cgd.NucleoDAOBase;
 import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.excecao.NucleoExcecao;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cih;
 
 import ode.conhecimento.processo.Cdp.KArtefato;
+import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
-import nucleo.comuns.visao.listagem.ListagemSimples;
 
 public class PainelCrudKArtefato extends PainelCRUD<KArtefato>{
 

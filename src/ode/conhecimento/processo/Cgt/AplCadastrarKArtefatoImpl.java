@@ -1,10 +1,10 @@
 package ode.conhecimento.processo.Cgt;
 
-import nucleo.comuns.excecao.NucleoExcecao;
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cgd.KArtefatoDAO;
 import ode.nucleo.cgd.NucleoDAOBase;
 import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.excecao.NucleoExcecao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

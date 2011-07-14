@@ -3,8 +3,8 @@ package ode.processoPadrao.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.visao.listagem.ListagemSimples;
-import nucleo.comuns.visao.paginacao.NucleoListHeader;
+import ode.nucleo.crud.cih.ListagemSimples;
+import ode.nucleo.crud.cih.NucleoListHeader;
 import ode.processoPadrao.Cdp.CompPP;
 
 public class ListagemDefinirProcessoPadrao extends ListagemSimples<CompPP> {

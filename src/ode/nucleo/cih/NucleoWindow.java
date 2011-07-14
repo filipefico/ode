@@ -2,8 +2,9 @@ package ode.nucleo.cih;
 
 import java.util.Map;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
+
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.springframework.dao.DataAccessException;
 import org.zkoss.zk.ui.Executions;

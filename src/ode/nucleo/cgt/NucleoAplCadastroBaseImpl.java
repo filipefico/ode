@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-import nucleo.comuns.excecao.NucleoExcecao;
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 
 import ode.nucleo.cgd.NucleoDAOBase;
 import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
 import ode.nucleo.cgd.ObjetoPagina;
 import ode.nucleo.cgd.ResultadoPaginado;
+import ode.nucleo.excecao.NucleoExcecao;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

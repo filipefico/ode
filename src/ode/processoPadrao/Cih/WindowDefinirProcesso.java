@@ -4,12 +4,12 @@ package ode.processoPadrao.Cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
-import nucleo.comuns.util.NucleoMensagens;
-import nucleo.comuns.visao.NucleoWindowCadastroDados;
 import ode.conhecimento.processo.Cgt.AplCadastrarKProcesso;
 import ode.nucleo.cih.NucleoBandbox;
 import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cih.NucleoWindowCadastroDados;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+import ode.nucleo.util.NucleoMensagens;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
 
@@ -100,6 +100,12 @@ private static final long serialVersionUID = 1L;
  
 				return new String[]{objeto.getNome()};
 			}
+			
+			@Override
+			public String recuperarLabelObjetoSelecionado(CompPP objeto) {
+				return objeto.getNome();
+			}
+			
 			
 			
 		};

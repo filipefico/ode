@@ -1,14 +1,14 @@
 package ode.conhecimento.processo.Cci;
 
 
-import nucleo.comuns.crud.controlador.CtrlCRUD;
-import nucleo.comuns.crud.visao.FormularioDadosCRUD;
-import nucleo.comuns.crud.visao.PainelCRUD;
 import ode.conhecimento.processo.Cdp.KRecursoHardware;
 import ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHardware;
 import ode.conhecimento.processo.Cih.FormDadosKRecursoHardware;
 import ode.conhecimento.processo.Cih.PainelCrudKRecursoHardware;
 import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cih.FormularioDadosCRUD;
+import ode.nucleo.crud.cih.PainelCRUD;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

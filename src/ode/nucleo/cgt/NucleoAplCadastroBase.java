@@ -6,8 +6,8 @@ import java.util.Set;
 import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
 import ode.nucleo.cgd.ObjetoPagina;
 import ode.nucleo.cgd.ResultadoPaginado;
+import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
-import nucleo.comuns.excecao.NucleoRegraNegocioExcecao;
 
 
 /**

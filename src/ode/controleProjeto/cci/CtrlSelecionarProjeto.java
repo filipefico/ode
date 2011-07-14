@@ -1,10 +1,10 @@
 package ode.controleProjeto.cci;
 
-import nucleo.global.visao.WindowMenu;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.controleProjeto.cih.PainelSelecionarProjeto;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.crud.cih.JanelaSimples;
+import ode.principal.cih.WindowMenu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
