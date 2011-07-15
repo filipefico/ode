@@ -138,6 +138,7 @@ public class NucleoUserDetails extends ObjetoPersistente
 		this.setUsername(fonte.getUsername());
 		this.setPassword(fonte.getPassword());
 		this.setRecursoHumano(fonte.getRecursoHumano());
+		this.setPerfilAcesso(fonte.getPerfilAcesso());
 		GrantedAuthorityImpl grantedAuthorityDestino = this
 				.getGrantedAuthorities().iterator().next();
 		GrantedAuthorityImpl grantedAuthorityFonte = fonte

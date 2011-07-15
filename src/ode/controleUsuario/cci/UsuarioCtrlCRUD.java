@@ -5,6 +5,7 @@ import java.util.Set;
 
 import ode.controleProcesso.cgt.AplCadastrarRecursoHumano;
 import ode.controleUsuario.cdp.NucleoUserDetails;
+import ode.controleUsuario.cgt.AplCadastrarPerfilAcesso;
 import ode.controleUsuario.cgt.AplCadastrarUsuario;
 import ode.controleUsuario.cih.UsuarioFormularioDadosCRUD;
 import ode.controleUsuario.cih.UsuarioPainelCRUD;
@@ -14,7 +15,6 @@ import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD.ModoExibicao;
 import ode.nucleo.crud.cih.PainelCRUD;
 import ode.nucleo.excecao.CtrlExcecoes;
-import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,15 +35,9 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 
 	@Autowired
 	public AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
-
-	public AplCadastrarRecursoHumano getAplCadastrarRecursoHumano() {
-		return aplCadastrarRecursoHumano;
-	}
-
-	public void setAplCadastrarRecursoHumano(
-			AplCadastrarRecursoHumano aplCadastrarRecursoHumano) {
-		this.aplCadastrarRecursoHumano = aplCadastrarRecursoHumano;
-	}
+	
+	@Autowired
+	public AplCadastrarPerfilAcesso aplCadastrarPerfilAcesso;
 
 	@Override
 	public String definirTituloJanelaDados() {
@@ -100,8 +94,6 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 		// apos excluir recupera os objetos para pesquisa
 
 		atualizarPesquisa();
-
-
 
 	}
 
@@ -161,5 +153,31 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 
 	}
 
+	public AplCadastrarUsuario getNucleoAplCadastrarNucleoUserDetails() {
+		return nucleoAplCadastrarNucleoUserDetails;
+	}
+
+	public void setNucleoAplCadastrarNucleoUserDetails(
+			AplCadastrarUsuario nucleoAplCadastrarNucleoUserDetails) {
+		this.nucleoAplCadastrarNucleoUserDetails = nucleoAplCadastrarNucleoUserDetails;
+	}
+
+	public AplCadastrarRecursoHumano getAplCadastrarRecursoHumano() {
+		return aplCadastrarRecursoHumano;
+	}
+
+	public void setAplCadastrarRecursoHumano(
+			AplCadastrarRecursoHumano aplCadastrarRecursoHumano) {
+		this.aplCadastrarRecursoHumano = aplCadastrarRecursoHumano;
+	}
+
+	public AplCadastrarPerfilAcesso getAplCadastrarPerfilAcesso() {
+		return aplCadastrarPerfilAcesso;
+	}
+
+	public void setAplCadastrarPerfilAcesso(
+			AplCadastrarPerfilAcesso aplCadastrarPerfilAcesso) {
+		this.aplCadastrarPerfilAcesso = aplCadastrarPerfilAcesso;
+	}
 
 }
