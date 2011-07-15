@@ -63,8 +63,8 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 	
 	public void atualizarWindowMenu(){
 		WindowPrincipal windowMenu = NucleoContexto.recuperarJanelaPrincipal();
-//		windowMenu.atualizaBarraInformacoes();
-//		windowMenu.atualizarPermissoesAcesso();
+		windowMenu.atualizaBarraInformacoes();
+		//windowMenu.atualizarPermissoesAcesso();
 	}
 
 	public void finalizar(){

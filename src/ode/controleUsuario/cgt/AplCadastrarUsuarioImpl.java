@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Alexandre G. N. Coelho
  */
-@Service
+@Service("aplCadastrarUsuarioImpl")
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarUsuarioImpl implements UserDetailsService,
 		AplCadastrarUsuario {
@@ -61,7 +61,6 @@ public class AplCadastrarUsuarioImpl implements UserDetailsService,
 	public Collection<NucleoUserDetails> recuperarTodos() {
 		List<NucleoUserDetails> pessoas = (List<NucleoUserDetails>) nucleoUserDetailsDAO
 				.recuperarTodos();
-		Collections.sort(pessoas, new ComparaPessoa());
 		return pessoas;
 	}
 
@@ -138,11 +137,4 @@ public class AplCadastrarUsuarioImpl implements UserDetailsService,
 		return nucleoUserDetailsPersistido;
 	}
 
-	private class ComparaPessoa implements Comparator<NucleoUserDetails> {
-
-		public int compare(NucleoUserDetails objeto1, NucleoUserDetails objeto2) {
-			return objeto1.getRecursoHumano().getNome().compareToIgnoreCase(
-					objeto2.getRecursoHumano().getNome());
-		}
-	}
 }

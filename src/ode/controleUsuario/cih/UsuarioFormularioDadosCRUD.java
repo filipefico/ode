@@ -6,6 +6,7 @@ import java.util.List;
 import ode.controleProcesso.cih.RecursoHuamanoBandbox;
 import ode.controleUsuario.cci.UsuarioCtrlCRUD;
 import ode.controleUsuario.cdp.NucleoUserDetails;
+import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
@@ -14,6 +15,7 @@ import ode.nucleo.util.NucleoMensagens;
 
 import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 
 public class UsuarioFormularioDadosCRUD extends
@@ -51,7 +53,19 @@ FormularioDadosCRUD<NucleoUserDetails> {
 		tbSenha2.setWidth("200px");
 		tbSenha2.setType("password");
 		tbSenha2.setMaxlength(15);		
-		gridDadosCadastro.adicionarLinhaObrigatoria("Repita a Senha",tbSenha2);
+		
+		listboxPerfilAcesso.setWidth("200px");
+		listboxPerfilAcesso.setRows(1);
+		listboxPerfilAcesso.setMold("select");
+		List<PerfilAcesso> lista = new ArrayList(((UsuarioCtrlCRUD)this.getControlador()).getAplCadastrarPerfilAcesso().recuperarTodos());
+		for (int i=0; i<lista.size(); i++){
+			PerfilAcesso objeto = lista.get(i);
+			Listitem listitem = new Listitem(objeto.getNome());
+			listitem.setValue(objeto);
+			listboxPerfilAcesso.appendChild(listitem);
+		}
+		listboxPerfilAcesso.setSelectedIndex(0);
+		gridDadosCadastro.adicionarLinhaObrigatoria("Perfil de Acesso",listboxPerfilAcesso);
 
 		//adiciono o grid de dados na tab
 		tabDadosCadastro.setConteudoTab(gridDadosCadastro);
@@ -62,7 +76,6 @@ FormularioDadosCRUD<NucleoUserDetails> {
 
 	@Override
 	protected void preencherDadosObjeto(NucleoUserDetails objeto) {		
-		System.out.println("Objeto: " + recursoHuamanoBandbox.getObjetoSelecionado().getNome());
 		objeto.setRecursoHumano(recursoHuamanoBandbox.getObjetoSelecionado());
 		objeto.setUsername(tbLogin.getValue());
 		
@@ -72,12 +85,21 @@ FormularioDadosCRUD<NucleoUserDetails> {
 					.encodePassword(tbSenha.getValue(), null));
 		}
 		
+		objeto.setPerfilAcesso((PerfilAcesso)listboxPerfilAcesso.getSelectedItem().getValue());
+		
 	}
 
 	@Override
 	protected void preencherDadosTela(NucleoUserDetails objeto) throws NucleoRegraNegocioExcecao {
 		recursoHuamanoBandbox.setObjetoSelecionado(objeto.getRecursoHumano());
 		tbLogin.setValue(objeto.getUsername());
+		List<Listitem> listItems = listboxPerfilAcesso.getItems();
+		for (Listitem item : listItems) {
+			if (item.getValue().equals(objeto.getPerfilAcesso())) {
+				listboxPerfilAcesso.selectItem(item);
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -93,6 +115,6 @@ FormularioDadosCRUD<NucleoUserDetails> {
 
 	private Textbox tbSenha2 = new Textbox();
 
-	private Listbox listboxPerfilNucleoUserDetails = new Listbox();
+	private Listbox listboxPerfilAcesso = new Listbox();
 
 }

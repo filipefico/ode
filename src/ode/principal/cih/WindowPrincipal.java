@@ -303,8 +303,8 @@ public class WindowPrincipal extends Window {
 	/** 
 	 * Evento executado ao fechar a window. 
 	 */
-	public void onClose() {
-		this.detach();
+	public void atualizaBarraInformacoes() {
+		this.labelProjeto.setValue("Projeto: " + NucleoContexto.recuperarProjeto().getNome());
 	}
 
 }

@@ -19,13 +19,14 @@ public class UsuarioListagemSimples extends ListagemSimples<NucleoUserDetails> {
 	public List<NucleoListHeader> definirColunasTabela() {
 		
 		List<NucleoListHeader> colunas = new ArrayList<NucleoListHeader>();
-		colunas.add(new NucleoListHeader("Nome","nome","100%"));
+		colunas.add(new NucleoListHeader("Nome","nome","50%"));
+		colunas.add(new NucleoListHeader("Perfil de Acesso","perfilacesso","50%"));
 		return colunas;
 	}
 
 	@Override
 	protected String[] recuperarDadosObjeto(NucleoUserDetails objeto) {
-		return new String[]{objeto.getRecursoHumano().getNome()};
+		return new String[]{objeto.getRecursoHumano().getNome(),objeto.getPerfilAcesso().getNome()};
 	}
 
 }

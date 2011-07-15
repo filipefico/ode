@@ -25,8 +25,8 @@ public class ListagemProjeto extends ListagemSimples<Projeto> {
 	public List<NucleoListHeader> definirColunasTabela() {
 		
 		List<NucleoListHeader> colunas = new ArrayList<NucleoListHeader>();
-		colunas.add(new NucleoListHeader("Nome","nome","150px"));
-		colunas.add(new NucleoListHeader("Descrição","descricao","350px"));
+		colunas.add(new NucleoListHeader("Nome","nome","50%"));
+		colunas.add(new NucleoListHeader("Descrição","descricao","50%"));
 		return colunas;
 		
 	}

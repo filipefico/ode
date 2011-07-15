@@ -132,9 +132,6 @@ public class PainelSelecionarProjeto extends Panel{
 						.getMensagem(NucleoMensagens.MSG_SELECIONE_APENAS_UM_ITEM);
 					}
 
-					// Fecha a lista de projetos
-					PainelSelecionarProjeto.this.detach();
-
 					// Exibe mensagem de erro
 					Messagebox.show(mensagem, NucleoMensagens
 							.getMensagem(NucleoMensagens.TERMO_AVISO), 1,
@@ -154,7 +151,8 @@ public class PainelSelecionarProjeto extends Panel{
 	private class EventListenerCancelar implements EventListener {
 
 		public void onEvent(Event arg0) {
-			PainelSelecionarProjeto.this.detach();
+			// Finaliza a aplicação
+			ctrlSelecionarProjeto.finalizar();
 		}
 
 		public boolean isAsap() {
