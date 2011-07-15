@@ -159,7 +159,7 @@
 		<property name="filterInvocationDefinitionSource">
 			<value>
 				PATTERN_TYPE_APACHE_ANT
-				/admin/**=REQUIRES_SECURE_CHANNEL
+				/paginas/**=REQUIRES_SECURE_CHANNEL
 				/login*=REQUIRES_SECURE_CHANNEL
 				/j_security_check*=REQUIRES_SECURE_CHANNEL
 				/**=REQUIRES_INSECURE_CHANNEL
