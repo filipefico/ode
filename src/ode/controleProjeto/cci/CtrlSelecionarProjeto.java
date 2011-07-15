@@ -5,7 +5,7 @@ import ode.controleProjeto.cih.PainelSelecionarProjeto;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.util.NucleoContexto;
-import ode.principal.cih.WindowMenu;
+import ode.principal.cih.WindowPrincipal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 	
 	public static final String NOME = "CtrlSelecionarProjeto";
 	
-	private WindowMenu windowMenu;
+	private WindowPrincipal windowMenu;
 	
 	private PainelSelecionarProjeto painelSelecionarProjeto;
 	
@@ -62,7 +62,7 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 	}
 	
 	public void atualizarWindowMenu(){
-		WindowMenu windowMenu = NucleoContexto.recuperarJanelaPrincipal();
+		WindowPrincipal windowMenu = NucleoContexto.recuperarJanelaPrincipal();
 //		windowMenu.atualizaBarraInformacoes();
 //		windowMenu.atualizarPermissoesAcesso();
 	}

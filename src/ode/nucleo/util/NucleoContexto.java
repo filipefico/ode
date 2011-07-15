@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleUsuario.cdp.NucleoUserDetails;
-import ode.principal.cih.WindowMenu;
+import ode.principal.cih.WindowPrincipal;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
@@ -93,15 +93,15 @@ public class NucleoContexto {
 		Sessions.getCurrent().setAttribute(PROJETO, projeto);
 	}
 	
-	public static WindowMenu recuperarJanelaPrincipal() {
-		WindowMenu window = null;
+	public static WindowPrincipal recuperarJanelaPrincipal() {
+		WindowPrincipal window = null;
 		if (Sessions.getCurrent() != null) {
-			window = (WindowMenu) Sessions.getCurrent().getAttribute(JANELA_PRINCIPAL);
+			window = (WindowPrincipal) Sessions.getCurrent().getAttribute(JANELA_PRINCIPAL);
 		}
 		return window;
 	}
 	
-	public static void atribuirJanelaPrincipal(WindowMenu window) {
+	public static void atribuirJanelaPrincipal(WindowPrincipal window) {
 		Sessions.getCurrent().setAttribute(JANELA_PRINCIPAL, window);
 	}
 }
