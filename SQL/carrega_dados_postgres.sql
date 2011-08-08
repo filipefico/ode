@@ -15,37 +15,37 @@ INSERT INTO HIBERNATE_SEQUENCES (SEQUENCE_NAME, SEQUENCE_NEXT_HI_VALUE )
 
 -- Projeto			
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (1, '1', 1, 'Projetos', '', null, 1, 0, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (1, '1', 1, 'Projetos', '', false, null, 1, 0, null);
             
 -- Cadastrar Projetos          
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (11, '11', 11, 'Cadastrar Projetos', 'ode.controleProjeto.cci.CtrlProjetoCRUD', 1, null, 0, 1);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (11, '11', 11, 'Cadastrar Projetos', 'ode.controleProjeto.cci.CtrlProjetoCRUD', false, 1, null, 0, 1);
 
 -- Selecionar Projetos            
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (12, '12', 12, 'Selecionar Projeto', 'ode.controleProjeto.cci.CtrlSelecionarProjeto', 1, null, 1, 1);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (12, '12', 12, 'Selecionar Projeto', 'ode.controleProjeto.cci.CtrlSelecionarProjeto', false, 1, null, 1, 1);
 
 -- Administracao 
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (2, '2', 2, 'Administração', '', null, 1, 1, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (2, '2', 2, 'Administração', '', false, null, 1, 1, null);
 -- Usuarios
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (21, '21', 21, 'Usuários', 'ode.controleUsuario.cci.UsuarioCtrlCRUD', 2, null, 0, 2);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (21, '21', 21, 'Usuários', 'ode.controleUsuario.cci.UsuarioCtrlCRUD', false, 2, null, 0, 2);
 
 -- Menu Recursos
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (3, '3', 3, 'Recursos', '', null, 1, 2, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (3, '3', 3, 'Recursos', '', true, null, 1, 2, null);
 
 -- Recursos Humanos            
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcjanela, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (31, '31', 31, 'Recursos Humanos', 'ode.controleProcesso.cci.CtrlCRUDRecursoHumano', 3, null, 0, 3);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
+            VALUES (31, '31', 31, 'Recursos Humanos', 'ode.controleProcesso.cci.CtrlCRUDRecursoHumano', true, 3, null, 0, 3);
             
 -- Sequences: Deve conter o próximo id a ser utilizado            
 INSERT INTO HIBERNATE_SEQUENCES (SEQUENCE_NAME, SEQUENCE_NEXT_HI_VALUE ) 

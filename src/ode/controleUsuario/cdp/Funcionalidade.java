@@ -26,12 +26,11 @@ public class Funcionalidade extends
 	// Nome da funcionalidade
 	private String nome;
 
-	// String contendo o nome da ação a ser executada para iniciar a
-	// funcionalidade
-	private String acao;
-
-	// Caminho da janela da funcionalidade
-	private String srcJanela;
+	// Caminho da Controlador da funcionalidade
+	private String srcCtrl;
+	
+	// Verifica se a funcionalidade está disponível apenas para projetos abertos
+	private boolean disponivelApenasParaProjetosAbertos;
 
 	// Funcionalidade Pai
 	private Funcionalidade funcionalidadePai;
@@ -51,20 +50,21 @@ public class Funcionalidade extends
 		this.nome = nome;
 	}
 
-	public String getAcao() {
-		return acao;
+	public String getSrcCtrl() {
+		return srcCtrl;
 	}
 
-	public void setAcao(String acao) {
-		this.acao = acao;
+	public boolean isDisponivelApenasParaProjetosAbertos() {
+		return disponivelApenasParaProjetosAbertos;
 	}
 
-	public String getSrcJanela() {
-		return srcJanela;
+	public void setDisponivelApenasParaProjetosAbertos(
+			boolean disponivelApenasParaProjetosAbertos) {
+		this.disponivelApenasParaProjetosAbertos = disponivelApenasParaProjetosAbertos;
 	}
 
-	public void setSrcJanela(String srcJanela) {
-		this.srcJanela = srcJanela;
+	public void setSrcCtrl(String srcCtrl) {
+		this.srcCtrl = srcCtrl;
 	}
 
 	@ManyToOne

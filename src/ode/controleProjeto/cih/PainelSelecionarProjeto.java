@@ -109,7 +109,7 @@ public class PainelSelecionarProjeto extends Panel{
 				NucleoContexto.atribuirProjeto(projeto);
 
 				// Atualiza o menu
-				ctrlSelecionarProjeto.atualizarWindowMenu();
+				ctrlSelecionarProjeto.atualizarWindowPrincipal();
 
 				// Finaliza a aplicação
 				ctrlSelecionarProjeto.finalizar();
