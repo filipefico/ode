@@ -3,7 +3,6 @@ package ode.controleProjeto.cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.controleProjeto.cdp.Projeto;
 import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.NucleoListHeader;

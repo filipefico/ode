@@ -11,13 +11,13 @@ import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Toolbar;
-import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.impl.XulElement;
 
@@ -28,20 +28,24 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	}
 
 	private ModoExibicao modoExibicao = ModoExibicao.NOVO;
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2269516935940124572L;
 
 	/** Tamanho do botão. */
-	public static final String WIDTH_BUTTON = "100px";
+	public static final String WIDTH_BUTTON = "80px";
 
 	/** Toolbar da window. */
 	protected Toolbar toolbar = new Toolbar();
 
-	/** Toolbarbutton salvar. */
-	protected Toolbarbutton tbbtSalvar = new Toolbarbutton();
-
+	/** Button cancelar. */
+	protected Button buttonCancelar = new Button();
+	
+	/** Button salvar. */
+	protected Button buttonSalvar = new Button();
+	
 	/** Grupo de abas. */
 	protected Tabbox tabbox = new Tabbox();
 
@@ -78,9 +82,10 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	}
 
 	private void montar() {
-		toolbar.setParent(this);
-		tbbtSalvar.setParent(toolbar);
 		montarTabs();
+		toolbar.setParent(this);
+		buttonCancelar.setParent(toolbar);
+		buttonSalvar.setParent(toolbar);
 	}
 
 	private void validarComponentes() {
@@ -123,13 +128,20 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	}
 
 	protected void configurarBarraFerramentas() {
+		
 		// Configuração da barra de ferramentas
 
 		toolbar.setStyle("border:0px;background:white;");
-		tbbtSalvar.setTooltiptext(NucleoMensagens
+		toolbar.setAlign("end");
+		
+		buttonCancelar.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CANCELAR));
+		buttonCancelar.addEventListener("onClick", new EventListenerCancelar());
+		buttonCancelar.setWidth(WIDTH_BUTTON);	
+		buttonSalvar.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_SALVAR));
-		tbbtSalvar.setImage("/imagens/filesave.png");
-		tbbtSalvar.addEventListener("onClick", new EventListenerSalvar());
+		buttonSalvar.addEventListener("onClick", new EventListenerSalvar());
+		buttonSalvar.setWidth(WIDTH_BUTTON);
 
 		configurarComponentesExtensaoBarraFerramentas(toolbar);
 
@@ -184,7 +196,21 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	protected void configurarConstraints() {
 
 	}
+	
+	/** Classe do evento do botão cancelar. */
+	public class EventListenerCancelar implements EventListener {
 
+		public void onEvent(Event event) {
+			controlador.atualizarPesquisa();
+			controlador.getJanDados().onClose();
+		}
+
+		public boolean isAsap() {
+			return true;
+		}
+
+	}
+	
 	/** Classe do evento do botão salvar. */
 	public class EventListenerSalvar implements EventListener {
 

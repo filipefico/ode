@@ -268,6 +268,14 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 
 	}
 
+	public JanelaSimples getJanDados() {
+		return janDados;
+	}
+
+	public void setJanDados(JanelaSimples janDados) {
+		this.janDados = janDados;
+	}
+
 	public abstract String definirTituloJanelaDados();
 
 	public abstract NucleoAplCadastroBase<T> definirNucleoAplCadastroBase();

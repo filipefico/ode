@@ -87,7 +87,7 @@ public class PanelAlterarSenha extends Panel {
 		div.setAlign("right");
 		
 		Button buttonCancelar = new Button("Cancelar");
-		buttonCancelar.setWidth("100px");
+		buttonCancelar.setWidth("80px");
 		buttonCancelar.setParent(div);
 		buttonCancelar.addEventListener("onClick", new EventListener() {
 			
@@ -97,7 +97,7 @@ public class PanelAlterarSenha extends Panel {
 		});	
 		
 		Button buttonSalvar = new Button("Salvar");
-		buttonSalvar.setWidth("100px");
+		buttonSalvar.setWidth("80px");
 		buttonSalvar.setParent(div);
 		buttonSalvar.addEventListener("onClick", new EventListener() {
 			

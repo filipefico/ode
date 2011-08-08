@@ -31,7 +31,7 @@ public class FormDadosRecursoHumano extends FormularioDadosCRUD<RecursoHumano> {
 		// Atribui o conteúdo à tab
 		GridDados gridDadosCadastro = new GridDados();
 		tbNome.setWidth("285px");
-		tbNome.setMaxlength(100);		
+		tbNome.setMaxlength(80);		
 		gridDadosCadastro.adicionarLinha(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_NOME),tbNome);
 		

@@ -215,7 +215,6 @@ public class WindowPrincipal extends Window {
 		});
 		menuitemAlterarSenha.setParent(menupopupOpcoes);
 
-
 		// Adiciona separator
 		Menuseparator menuseparator = new Menuseparator();
 		menuseparator.setParent(menupopupOpcoes);

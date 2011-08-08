@@ -23,8 +23,6 @@ public class AplCadastrarKArtefatoImpl extends
 		return kArtefatoDAO;
 	}
 	
-
-
 	public void setkArtefatoDAO(KArtefatoDAO kArtefatoDAO) {
 		this.kArtefatoDAO = kArtefatoDAO;
 	}
