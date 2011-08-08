@@ -37,7 +37,7 @@ public class FormDadosProjeto extends FormularioDadosCRUD<Projeto> {
 				.getMensagem(NucleoMensagens.TERMO_NOME),tbNome);
 		
 		tbDescricao.setWidth("285px");
-		tbDescricao.setMaxlength(500);
+		tbDescricao.setMaxlength(255);
 		tbDescricao.setHeight("145px");
 		tbDescricao.setMultiline(true);
 		gridDadosCadastro.adicionarLinha(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DESCRICAO),tbDescricao);	

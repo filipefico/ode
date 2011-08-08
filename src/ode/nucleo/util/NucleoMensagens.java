@@ -187,6 +187,11 @@ public class NucleoMensagens {
 	 * Chave do termo "Cadastro de Usuários"
 	 */
 	public static final String TERMO_CADASTRO_USUARIOS = "termo.cadastro.usuarios";
+	
+	/**
+	 * Chave do termo "Cancelar"
+	 */
+	public static final String TERMO_CANCELAR = "termo.cancelar";
 
 	/**
 	 * Chave do termo "Celular"
