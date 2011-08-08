@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import ode.controleUsuario.cdp.Funcionalidade;
@@ -15,6 +16,7 @@ import ode.controleUsuario.cgt.AplCadastrarPerfilAcesso;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.cih.NucleoMenu;
 import ode.nucleo.util.NucleoContexto;
+import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -28,6 +30,7 @@ import org.zkoss.zul.Menubar;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Menuseparator;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Window;
 
@@ -41,14 +44,24 @@ public class WindowPrincipal extends Window {
 	private static final long serialVersionUID = -1857633860305556039L;
 	
 	/**
+	 * Label idiomas.
+	 */
+	private Label labelIdiomas;
+
+	/**
 	 * Label com o nome do projeto atual selecionado.
 	 */
 	private Label labelProjeto;
-	
+
 	/**
 	 * Label com as informações sobre o usuário atual logado.
 	 */
 	private Label labelUsuario;
+	
+	/**
+	 * Menubar.
+	 */
+	private Menubar menubar;
 
 	/**
 	 *	AplCadastrarFuncionalidade. 
@@ -66,7 +79,7 @@ public class WindowPrincipal extends Window {
 	private List<Funcionalidade> funcionalidadesDisponiveisUsuario = new ArrayList<Funcionalidade>();
 
 	public void onCreate() throws InterruptedException {
-		
+
 		// Atribui a janela principal ao context
 		NucleoContexto.atribuirJanelaPrincipal(this);
 
@@ -126,35 +139,49 @@ public class WindowPrincipal extends Window {
 		hboxLadoDireito.setParent(divLadoDireito);
 		hboxLadoDireito.setAlign("middle");
 		hboxLadoDireito.setHeight("25px");
-		
+
 		// Adiciona label e toolbarbuttons dos idiomas
-		Label labelIdioma = new Label("Idiomas:");
-		labelIdioma.setParent(hboxLadoDireito);
-		
+		labelIdiomas = new Label(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_IDIOMAS) + ":");
+		labelIdiomas.setParent(hboxLadoDireito);
+
 		Toolbarbutton toolbarbuttonPortuguesBR = new Toolbarbutton();
 		toolbarbuttonPortuguesBR.setTooltiptext("Português - Brasil");
 		toolbarbuttonPortuguesBR.setParent(hboxLadoDireito);
 		toolbarbuttonPortuguesBR.setImage("/imagens/idiomaPort.gif");
-		
+		toolbarbuttonPortuguesBR.addEventListener("onClick", new EventListener() {
+			public void onEvent(Event arg0) throws Exception {
+				NucleoContexto.atribuirLocale(new Locale("pt", "BR"));
+				atualizarWindowPrincipal();
+				Messagebox.show(NucleoMensagens.getMensagem(NucleoMensagens.MSG_IDIOMA_ALTERADO));
+			}
+		});
+
 		Toolbarbutton toolbarbuttonEnglish = new Toolbarbutton();
 		toolbarbuttonEnglish.setTooltiptext("English");
 		toolbarbuttonEnglish.setParent(hboxLadoDireito);
 		toolbarbuttonEnglish.setImage("/imagens/idiomaIng.gif");
 		toolbarbuttonEnglish.setStyle("margin-right: 50px;");
-		
+		toolbarbuttonEnglish.addEventListener("onClick", new EventListener() {
+			public void onEvent(Event arg0) throws Exception {
+				NucleoContexto.atribuirLocale(new Locale("en", "US"));
+				atualizarWindowPrincipal();
+				Messagebox.show(NucleoMensagens.getMensagem(NucleoMensagens.MSG_IDIOMA_ALTERADO));
+			}
+		});
+
 		// Adiciona nome do projeto
-		labelProjeto = new Label("Projeto: Nenhum projeto selecionado!");
+		labelProjeto = new Label(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_PROJETO) + ": " + NucleoMensagens.getMensagem(NucleoMensagens.MSG_NENHUM_PROJETO_SELECIONADO));
 		labelProjeto.setParent(hboxLadoDireito);
 		labelProjeto.setStyle("margin-right: 50px; color: black;");
 		labelProjeto.setMaxlength(70);
-		
+
 		// Recupera usuário logado na sessão
 		NucleoUserDetails usuario = NucleoContexto.recuperarUsuarioLogado();
 
-		String nomeUsuario = (usuario == null) ? "Usuário: Usuário Não Logado" : usuario.getRecursoHumano().getNome();
+		String nomeUsuario = usuario.getRecursoHumano().getNome();
 
 		// Adiciona nome do usuário		
-		labelUsuario = new Label("Usuário: " + nomeUsuario + " - " + usuario.getPerfilAcesso().getNome());
+		labelUsuario = new Label(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": " + nomeUsuario + " - " + usuario.getPerfilAcesso().getNome());
 		labelUsuario.setParent(hboxLadoDireito);
 		labelUsuario.setMaxlength(70);
 
@@ -166,33 +193,33 @@ public class WindowPrincipal extends Window {
 	private void adicionarFuncionalidadesDisponiveisUsuario(){
 
 		// Cria o menu
-		Menubar menuBar = new Menubar();
-		menuBar.setParent(this);
-		
+		menubar = new Menubar();
+		menubar.setParent(this);
+
 		//////////////////////////////////////////////////////////////////////////
 		// Adiciona as funcionalidades comuns a todos os usuários
 		//////////////////////////////////////////////////////////////////////////
 
 		// Adiciona o menu Opções
 		Menu menuOpcoes = new NucleoMenu("Opções");
-		menuOpcoes.setParent(menuBar);
+		menuOpcoes.setParent(menubar);
 		Menupopup menupopupOpcoes = new Menupopup();
 		menupopupOpcoes.setParent(menuOpcoes);
-		
+
 		// Adiciona menuitem Alterar Senha
 		Menuitem menuitemAlterarSenha = new Menuitem("Alterar Senha");
 		menuitemAlterarSenha.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event arg0) throws Exception {
-				abrirJanela("nucleo.autenticacao.view.WindowDadosAlterarSenha");
+				abrirJanela("ode.controleUsuario.cci.AlterarSenhaCtrl");
 			}
 		});
 		menuitemAlterarSenha.setParent(menupopupOpcoes);
-		
+
 
 		// Adiciona separator
 		Menuseparator menuseparator = new Menuseparator();
 		menuseparator.setParent(menupopupOpcoes);
-		
+
 		// Adiciona menuitem Sair
 		Menuitem menuitemSair = new Menuitem("Sair");
 		menuitemSair.addEventListener("onClick", new EventListener() {
@@ -202,15 +229,18 @@ public class WindowPrincipal extends Window {
 		});
 		menuitemSair.setParent(menupopupOpcoes);
 
-		//////////////////////////////////////////////////////////////////////////
-		// Adiciona as funcionalidades permitidas para o perfil do usuário logado
-		//////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Adiciona as funcionalidades permitidas de acordo com o perfil do usuário logado e com o projeto aberto
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		// Obtém o perfil do usuário autenticado
 		PerfilAcesso grupoUsuario = aplCadastrarPerfilAcesso.recuperarPorId(NucleoContexto.recuperarUsuarioLogado().getPerfilAcesso().getId());
 
 		// Obtém as funcionalidades do perfil do usuário
 		funcionalidadesDisponiveisUsuario.addAll(grupoUsuario.getFuncionalidadesPermitidas());
+
+		// Recupera o projeto
+		boolean existeProjetoAberto = NucleoContexto.recuperarProjeto() != null ? true : false;
 
 		// Recupera do banco todas as funcionalidades raíz
 		Collection<Funcionalidade> funcionalidades = aplCadastrarFuncionalidade.recuperarFuncionalidadesRaiz();
@@ -221,24 +251,28 @@ public class WindowPrincipal extends Window {
 
 			final Funcionalidade funcionalidade = i.next();
 
-			// Adiciona a funcionalidade na interface, caso esteja disponível para o usuário
+			// Verifica se a funcionalidade está disponível para o usuário
 			if (funcionalidadesDisponiveisUsuario.contains(funcionalidade)) {
 
-				if (funcionalidade.getSubfuncionalidades().size() > 0) {
-					Menu menu = new Menu(funcionalidade.getNome());
-					menu.setParent(menuBar);
-					this.adicionarSubFuncionalidades(funcionalidade, menu);
-				} else {
-					Menuitem menuitem = new Menuitem(funcionalidade.getNome());
-					menuitem.setAttribute("srcJanela", funcionalidade.getSrcJanela());
-					menuitem.addEventListener("onClick", new EventListener() {
-						public void onEvent(Event arg0) throws Exception {
-							abrirJanela(funcionalidade.getSrcJanela());
-						}
-					});
-					menuitem.setParent(menuBar);
-				}
+				// Verifica se a funcionalidade está disponível de acordo com o projeto aberto
+				if ((funcionalidade.isDisponivelApenasParaProjetosAbertos() && existeProjetoAberto) || !funcionalidade.isDisponivelApenasParaProjetosAbertos()) {
 
+					if (funcionalidade.getSubfuncionalidades().size() > 0) {
+						Menu menu = new Menu(funcionalidade.getNome());
+						menu.setParent(menubar);
+						this.adicionarSubFuncionalidades(funcionalidade, menu);
+					} else {
+						Menuitem menuitem = new Menuitem(funcionalidade.getNome());
+						menuitem.setAttribute("srcJanela", funcionalidade.getSrcCtrl());
+						menuitem.addEventListener("onClick", new EventListener() {
+							public void onEvent(Event arg0) throws Exception {
+								abrirJanela(funcionalidade.getSrcCtrl());
+							}
+						});
+						menuitem.setParent(menubar);
+					}
+
+				}
 			}
 
 		}
@@ -252,6 +286,10 @@ public class WindowPrincipal extends Window {
 	 */
 	private void adicionarSubFuncionalidades(Funcionalidade funcionalidadePai, final Menu menuPai){
 
+		// Recupera o projeto
+		boolean existeProjetoAberto = NucleoContexto.recuperarProjeto() != null ? true : false;
+
+		// Recupera funcionalidades
 		Collection<Funcionalidade> funcionalidades = aplCadastrarFuncionalidade.recuperarSubFuncionalidadesPorFuncionalidade(funcionalidadePai);
 
 		Iterator<Funcionalidade> i = funcionalidades.iterator();
@@ -263,24 +301,29 @@ public class WindowPrincipal extends Window {
 
 			final Funcionalidade funcionalidade = i.next();
 
-			// Adiciona a funcionalidade na interface, caso esteja disponível para o usuário
+			// Verifica se funcionalidade está disponível para o usuário
 			if (funcionalidadesDisponiveisUsuario.contains(funcionalidade)) {
 
-				if (funcionalidade.getSubfuncionalidades().size() > 0) {
-					Menu menu = new Menu(funcionalidade.getNome());
-					menu.setParent(menupopup);
-					this.adicionarSubFuncionalidades(funcionalidade, menu);
-				} else {
-					Menuitem menuitem = new Menuitem(funcionalidade.getNome());
-					menuitem.setAttribute("srcJanela", funcionalidade.getSrcJanela());
-					menuitem.addEventListener("onClick", new EventListener() {
-						public void onEvent(Event arg0) throws Exception {
-							abrirJanela(funcionalidade.getSrcJanela());
-						}
-					});
-					menuitem.setParent(menupopup);
-				}
+				// Verifica se a funcionalidade está disponível de acordo com o projeto aberto
+				if ((funcionalidade.isDisponivelApenasParaProjetosAbertos() && existeProjetoAberto) || !funcionalidade.isDisponivelApenasParaProjetosAbertos()) {
 
+
+					if (funcionalidade.getSubfuncionalidades().size() > 0) {
+						Menu menu = new Menu(funcionalidade.getNome());
+						menu.setParent(menupopup);
+						this.adicionarSubFuncionalidades(funcionalidade, menu);
+					} else {
+						Menuitem menuitem = new Menuitem(funcionalidade.getNome());
+						menuitem.setAttribute("srcJanela", funcionalidade.getSrcCtrl());
+						menuitem.addEventListener("onClick", new EventListener() {
+							public void onEvent(Event arg0) throws Exception {
+								abrirJanela(funcionalidade.getSrcCtrl());
+							}
+						});
+						menuitem.setParent(menupopup);
+					}
+
+				}
 			}
 		}
 
@@ -303,8 +346,23 @@ public class WindowPrincipal extends Window {
 	/** 
 	 * Evento executado ao fechar a window. 
 	 */
-	public void atualizaBarraInformacoes() {
-		this.labelProjeto.setValue("Projeto: " + NucleoContexto.recuperarProjeto().getNome());
+	public void atualizarBarraInformacoes() {
+		this.labelIdiomas.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_IDIOMAS) + ":");
+		this.labelProjeto.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_PROJETO) + ": " + (NucleoContexto.recuperarProjeto() == null ? NucleoMensagens.getMensagem(NucleoMensagens.MSG_NENHUM_PROJETO_SELECIONADO) : NucleoContexto.recuperarProjeto().getNome()));
+		this.labelUsuario.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": " + NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome() + " - " + NucleoContexto.recuperarUsuarioLogado().getPerfilAcesso().getNome());
+	}
+	
+	/**
+	 * Atualiza Menubar.
+	 */
+	public void atualizarMenubar(){
+		this.menubar.detach();
+		this.adicionarFuncionalidadesDisponiveisUsuario();
+	}
+	
+	public void atualizarWindowPrincipal(){
+		this.atualizarBarraInformacoes();
+		this.atualizarMenubar();
 	}
 
 }

@@ -46,6 +46,13 @@ public class NucleoMensagens {
 		return messageSource.getMessage(chave, parametros, NucleoContexto
 				.recuperarLocale());
 	}
+	
+	//////////////////////////////////////////////////////////////////////
+	////// MENSAGENS
+	//////
+	////// MANTER EM ORDEM ALFABÉTICA
+	//////
+	//////////////////////////////////////////////////////////////////////
 
 	/**
 	 * Chave da mensagem "Confirmação Exclusão Plural"
@@ -110,6 +117,11 @@ public class NucleoMensagens {
 	public static final String MSG_NENHUM_ELEMENTO_SELECIONADO = "msg.nenhum.elemento.selecionado";
 
 	/**
+	 * Chave da mensagem "Nenhum projeto selecionado!"
+	 */
+	public static final String MSG_NENHUM_PROJETO_SELECIONADO = "msg.nenhum.projeto.selecionado";
+	
+	/**
 	 * Chave da mensagem "Selecione apenas um item"
 	 */
 	public static final String MSG_SELECIONE_APENAS_UM_ITEM = "msg.selecione.apenas.um.item";
@@ -129,6 +141,13 @@ public class NucleoMensagens {
 	 */
 	public static final String MSG_USUARIO_NAO_LOGADO = "msg.usuario.nao.logado";
 
+	//////////////////////////////////////////////////////////////////////
+	////// TERMOS
+	//////
+	////// MANTER EM ORDEM ALFABÉTICA
+	//////
+	//////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * Chave do termo "Abrir"
 	 */
@@ -217,7 +236,7 @@ public class NucleoMensagens {
 	/**
 	 * Chave do termo "Idioma"
 	 */
-	public static final String TERMO_IDIOMA = "termo.idioma";
+	public static final String TERMO_IDIOMAS = "termo.idiomas";
 
 	/**
 	 * Chave do termo "Informação"

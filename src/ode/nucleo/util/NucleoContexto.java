@@ -10,7 +10,6 @@ import org.acegisecurity.Authentication;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.zkoss.zk.ui.Sessions;
-import org.zkoss.zul.Window;
 
 
 /**
