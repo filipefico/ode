@@ -60,6 +60,6 @@ public class CtrlKProcessoCRUD extends CtrlCRUD<KProcesso> {
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Processo";
+		return "Processos";
 	}
 }

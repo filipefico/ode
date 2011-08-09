@@ -50,12 +50,12 @@ public class CrtlTipoKArtefatoCRUD extends CtrlCRUD<TipoKArtefato> {
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "Tipo Artefato";
+		return "Tipo de Artefato";
 	}
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Tipo de artefato";
+		return "Tipos de Artefato";
 	}
 
 	@Override

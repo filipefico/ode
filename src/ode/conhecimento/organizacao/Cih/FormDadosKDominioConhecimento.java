@@ -13,7 +13,7 @@ import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zul.Textbox;
 
-public class FormDadosDominioConhecimento extends FormularioDadosCRUD<KDominioConhecimento>{
+public class FormDadosKDominioConhecimento extends FormularioDadosCRUD<KDominioConhecimento>{
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
 

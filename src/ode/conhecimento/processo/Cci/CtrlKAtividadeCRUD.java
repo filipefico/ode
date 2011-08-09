@@ -69,7 +69,7 @@ public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Atividade";
+		return "Atividades";
 	}
 
 }

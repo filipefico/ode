@@ -7,7 +7,7 @@ import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.NucleoListHeader;
 
-public class ListagemDominioConhecimento extends ListagemSimples<KDominioConhecimento> {
+public class ListagemKDominioConhecimento extends ListagemSimples<KDominioConhecimento> {
 	
 	/**
 	 * 

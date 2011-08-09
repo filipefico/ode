@@ -24,9 +24,6 @@ public class CtrlDefinirProcessoPadraoCRUD extends CtrlCRUD<CompPP> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
-		//this.setLarguraJandados("500px");
-		//this.setAlturaJanDados("600px");
-		System.out.print("Aqui!!!");
 	}
 
 	@Autowired
@@ -65,12 +62,12 @@ public class CtrlDefinirProcessoPadraoCRUD extends CtrlCRUD<CompPP> {
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "CompPP";
+		return "Componente Processo Padrão";
 	}
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Definir CompPP";
+		return "Componentes Processo Padrão";
 	}
 
 }

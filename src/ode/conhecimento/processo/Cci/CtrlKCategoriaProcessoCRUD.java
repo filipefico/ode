@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 
 @Controller
-public class CtrlCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
+public class CtrlKCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 	@Override
 	public void iniciar() {
 		super.iniciar();
@@ -63,6 +63,7 @@ public class CtrlCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Categoria de Processo";
+		return "Categorias de Processo";
 	}
+	
 }

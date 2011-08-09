@@ -53,7 +53,7 @@ public class CtrlKArtefatoCRUD extends CtrlCRUD<KArtefato> {
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de artefato";
+		return "Artefatos";
 	}
 
 	@Override

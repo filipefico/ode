@@ -14,7 +14,7 @@ import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
 @Controller
-public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
+public class CtrlKFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 	
 	
 	
@@ -60,11 +60,11 @@ public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "Domínio de Conhecimento";
+		return "Ferramenta de Software";
 	}
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Domínio de Conhecimento";
+		return "Ferramentas de Software";
 	}
 }

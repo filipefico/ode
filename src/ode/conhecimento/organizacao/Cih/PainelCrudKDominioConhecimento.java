@@ -6,7 +6,7 @@ import ode.nucleo.crud.cih.PainelCRUD;
 
 
 
-public class PainelCrudDominioConhecimento extends PainelCRUD<KDominioConhecimento>{
+public class PainelCrudKDominioConhecimento extends PainelCRUD<KDominioConhecimento>{
 	/**
 	 * 
 	 */
@@ -14,7 +14,7 @@ public class PainelCrudDominioConhecimento extends PainelCRUD<KDominioConhecimen
 
 	@Override
 	public ListagemSimples<KDominioConhecimento> definirListagem() {
-		ListagemDominioConhecimento listagem = new ListagemDominioConhecimento();
+		ListagemKDominioConhecimento listagem = new ListagemKDominioConhecimento();
 		return listagem;
 	}
 }
