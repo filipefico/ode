@@ -67,7 +67,7 @@ public class CtrlTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Tipo de Software";
+		return "Tipos de Software";
 	}
 
 }

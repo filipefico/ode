@@ -56,12 +56,12 @@ public class CtrlKRecursoHardwareCRUD extends CtrlCRUD<KRecursoHardware> {
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "Recurso Hardware";
+		return "Recurso de Hardware";
 	}
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Recurso Hardware com Controlador";
+		return "Recursos de Hardware";
 	}
 
 }

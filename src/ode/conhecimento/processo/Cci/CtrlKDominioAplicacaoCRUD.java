@@ -66,12 +66,12 @@ public class CtrlKDominioAplicacaoCRUD extends CtrlCRUD<KDominioAplicacao> {
 
 	@Override
 	public String definirTituloJanelaDados() {
-		return "kDominioAplicacao";
+		return "Domínio de Conhecimento";
 	}
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de kDominioAplicacao com Controlador";
+		return "Domínios de Conhecimento";
 	}
 
 }

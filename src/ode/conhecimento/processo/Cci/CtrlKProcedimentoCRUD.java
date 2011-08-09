@@ -79,7 +79,7 @@ public class CtrlKProcedimentoCRUD extends CtrlCRUD<KProcedimento> {
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Procedimento";
+		return "Procedimentos";
 	}
 
 }

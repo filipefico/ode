@@ -3,8 +3,8 @@ package ode.conhecimento.organizacao.Cci;
 
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimento;
-import ode.conhecimento.organizacao.Cih.FormDadosDominioConhecimento;
-import ode.conhecimento.organizacao.Cih.PainelCrudDominioConhecimento;
+import ode.conhecimento.organizacao.Cih.FormDadosKDominioConhecimento;
+import ode.conhecimento.organizacao.Cih.PainelCrudKDominioConhecimento;
 import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> {
+public class CtrlKDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> {
 	/**
 	 * 
 	 */
@@ -48,7 +48,7 @@ public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> 
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
-		return new PainelCrudDominioConhecimento();
+		return new PainelCrudKDominioConhecimento();
 		
 	}
 
@@ -60,7 +60,7 @@ public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> 
 
 	@Override
 	public FormularioDadosCRUD definirFormularioCadastro() {
-		return new FormDadosDominioConhecimento();
+		return new FormDadosKDominioConhecimento();
 	}
 
 	@Override
@@ -70,6 +70,6 @@ public class CtrlDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento> 
 	
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Domínio de Conhecimento";
+		return "Domínios de Conhecimento";
 	}
 }

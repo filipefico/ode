@@ -69,6 +69,6 @@ public class CtrlKParadigmaCRUD extends CtrlCRUD<KParadigma> {
 
 	@Override
 	public String definirTituloJanelaPrincipal() {
-		return "Cadastro de Paradigma com Controlador";
+		return "Paradigmas";
 	}
 }
