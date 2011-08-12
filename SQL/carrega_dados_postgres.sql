@@ -10,7 +10,7 @@ INSERT INTO HIBERNATE_SEQUENCES (SEQUENCE_NAME, SEQUENCE_NEXT_HI_VALUE )
 			VALUES  ('ConfiguracaoSistema', 1000);
 
 ---------------------------------------------------------------------------------------------
--- Criação de Menus 
+-- Menus/Funcionalidades 
 ---------------------------------------------------------------------------------------------
 
 -- Projeto			
