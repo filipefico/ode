@@ -84,8 +84,8 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	private void montar() {
 		montarTabs();
 		toolbar.setParent(this);
-		buttonCancelar.setParent(toolbar);
 		buttonSalvar.setParent(toolbar);
+		buttonCancelar.setParent(toolbar);
 	}
 
 	private void validarComponentes() {
@@ -134,14 +134,14 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 		toolbar.setStyle("border:0px;background:white;");
 		toolbar.setAlign("end");
 		
-		buttonCancelar.setLabel(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_CANCELAR));
-		buttonCancelar.addEventListener("onClick", new EventListenerCancelar());
-		buttonCancelar.setWidth(WIDTH_BUTTON);	
 		buttonSalvar.setLabel(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_SALVAR));
 		buttonSalvar.addEventListener("onClick", new EventListenerSalvar());
 		buttonSalvar.setWidth(WIDTH_BUTTON);
+		buttonCancelar.setLabel(NucleoMensagens
+				.getMensagem(NucleoMensagens.TERMO_CANCELAR));
+		buttonCancelar.addEventListener("onClick", new EventListenerCancelar());
+		buttonCancelar.setWidth(WIDTH_BUTTON);	
 
 		configurarComponentesExtensaoBarraFerramentas(toolbar);
 
