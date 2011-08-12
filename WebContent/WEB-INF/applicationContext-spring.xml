@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	">
+	
+	<!-- Ativa o uso de annotations do Spring -->
+	<context:annotation-config/>
+	
+	<!-- Scanner para identificar as classes que usam annotations do Spring -->
+	<context:component-scan base-package="**" />
+	
+	<!-- Configuração do banco -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 
@@ -22,15 +32,17 @@
 			<value>postgres</value>
 		</property>
 	</bean>
+	
+	<!--  Configurações do session factory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
+		<!-- Scanner para identificar todas as entidades no diretório ODE -->
 		<property name="packagesToScan">
             <list>
-                <value>ode</value>
-                <value>nucleo</value>
+            	<value>ode</value>
             </list>
         </property>
 		<property name="hibernateProperties">
@@ -41,11 +53,16 @@
 			</props>
 		</property>
 	</bean>
+	
+	<!-- Informa que as transações serão gerenciadas pelo session factory definido -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
+	<!--  Ativa o tratamento de transações do Spring -->
 	<tx:annotation-driven />
+	
 </beans>

@@ -10,8 +10,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			/WEB-INF/applicationContext-acegi-security.xml
-			/WEB-INF/applicationContext-aplicacao.xml
-			/WEB-INF/applicationContext-dao.xml
+			/WEB-INF/applicationContext-spring.xml
 			/WEB-INF/applicationContext-mensagens.xml
 		</param-value>
 	</context-param>
