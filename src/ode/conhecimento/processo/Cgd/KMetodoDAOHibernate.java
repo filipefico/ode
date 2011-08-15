@@ -1,11 +1,11 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KMetodo;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class KMetodoDAOHibernate extends NucleoDAOBaseHibernate<KMetodo> implements KMetodoDAO{
+public class KMetodoDAOHibernate extends DAOBaseHibernate<KMetodo> implements KMetodoDAO{
 
 }

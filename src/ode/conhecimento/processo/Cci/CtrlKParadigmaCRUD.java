@@ -7,8 +7,8 @@ import ode.conhecimento.processo.Cdp.KParadigma;
 import ode.conhecimento.processo.Cgt.AplCadastrarKParadigma;
 import ode.conhecimento.processo.Cih.FormDadosKParadigma;
 import ode.conhecimento.processo.Cih.PainelCrudKParadigma;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -41,7 +41,7 @@ public class CtrlKParadigmaCRUD extends CtrlCRUD<KParadigma> {
 
 	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKParadigma;
 	}
 

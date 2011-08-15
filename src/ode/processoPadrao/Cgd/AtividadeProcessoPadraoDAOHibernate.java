@@ -1,11 +1,11 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.AtividadeProcessoPadrao;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AtividadeProcessoPadraoDAOHibernate extends NucleoDAOBaseHibernate<AtividadeProcessoPadrao> implements AtividadeProcessoPadraoDAO {
+public class AtividadeProcessoPadraoDAOHibernate extends DAOBaseHibernate<AtividadeProcessoPadrao> implements AtividadeProcessoPadraoDAO {
 	    
 }

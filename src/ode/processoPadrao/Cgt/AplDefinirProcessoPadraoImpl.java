@@ -1,7 +1,7 @@
 package ode.processoPadrao.Cgt;
 
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgd.CompPPDAO;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplDefinirProcessoPadraoImpl extends NucleoAplCadastroBaseImpl<CompPP> 
+public class AplDefinirProcessoPadraoImpl extends AplBaseImpl<CompPP> 
 implements AplDefinirProcessoPadrao{
 	public static String BUSCAR_DIRETAMENTE = "0";
     public static String BUSCAR_A_PARTIR_DOS_REQUISTOS = "1";
@@ -29,7 +29,7 @@ implements AplDefinirProcessoPadrao{
 	}
 
 	@Override
-	public NucleoDAOBase<CompPP> getNucleoDaoBase() {
+	public DAOBase<CompPP> getNucleoDaoBase() {
 		// TODO Auto-generated method stub
 		return compPPDAO;
 	}

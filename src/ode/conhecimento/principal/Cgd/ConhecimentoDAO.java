@@ -3,9 +3,9 @@ package ode.conhecimento.principal.Cgd;
 import java.util.Collection;
 
 import ode.conhecimento.principal.Cdp.Conhecimento;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface ConhecimentoDAO extends NucleoDAOBase<Conhecimento>{
+public interface ConhecimentoDAO extends DAOBase<Conhecimento>{
 
 	 	public void salvar(Conhecimento par);
 	    

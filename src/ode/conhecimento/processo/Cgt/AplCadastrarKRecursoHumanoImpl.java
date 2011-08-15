@@ -6,14 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
 import ode.conhecimento.processo.Cgd.KRecursoHumanoDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKRecursoHumanoImpl extends
-		NucleoAplCadastroBaseImpl<KRecursoHumano> implements AplCadastrarKRecursoHumano {
+		AplBaseImpl<KRecursoHumano> implements AplCadastrarKRecursoHumano {
 
 	@Autowired
 	private KRecursoHumanoDAO kRecursoHumanoDAO;
@@ -27,7 +27,7 @@ public class AplCadastrarKRecursoHumanoImpl extends
 	}
 
 	@Override
-	public NucleoDAOBase<KRecursoHumano> getNucleoDaoBase() {
+	public DAOBase<KRecursoHumano> getNucleoDaoBase() {
 		return kRecursoHumanoDAO;
 	}
 

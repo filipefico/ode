@@ -8,8 +8,8 @@ import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftware;
 import ode.conhecimento.processo.Cih.FormDadosFerramentaSoftware;
 import ode.conhecimento.processo.Cih.PainelCrudFerramentaSoftware;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -37,7 +37,7 @@ public class CtrlKFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 	}
 
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarFerramenta;
 	}
 

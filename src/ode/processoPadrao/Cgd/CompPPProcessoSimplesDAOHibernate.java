@@ -1,13 +1,13 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.CompPPProcessoSimples;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class CompPPProcessoSimplesDAOHibernate extends
-NucleoDAOBaseHibernate<CompPPProcessoSimples> implements CompPPProcessoSimplesDAO{
+DAOBaseHibernate<CompPPProcessoSimples> implements CompPPProcessoSimplesDAO{
     
   /*  public List obterTodos(){
         return super.obterTodos(CompPPProcessoSimples.class);

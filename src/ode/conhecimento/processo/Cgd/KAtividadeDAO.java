@@ -1,9 +1,9 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KAtividadeDAO extends NucleoDAOBase<KAtividade>{
+public interface KAtividadeDAO extends DAOBase<KAtividade>{
     
     /** Obtém as macro-atividades do Conhecimento Atividade. */
     //public List obterMacroAtividades();

@@ -7,8 +7,8 @@ import ode.controleProcesso.cdp.RecursoHumano;
 import ode.controleProcesso.cgt.AplCadastrarRecursoHumano;
 import ode.controleProcesso.cih.FormDadosRecursoHumano;
 import ode.controleProcesso.cih.PainelCRUDRecursoHumano;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -31,7 +31,7 @@ public class CtrlCRUDRecursoHumano extends CtrlCRUD<RecursoHumano> {
 	}
 
 	@Override
-	public NucleoAplCadastroBase<RecursoHumano> definirNucleoAplCadastroBase() {
+	public AplBase<RecursoHumano> definirNucleoAplCadastroBase() {
 		return this.aplCadastrarRecursoHumano;
 	}
 

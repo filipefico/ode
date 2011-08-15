@@ -1,8 +1,8 @@
 package ode.conhecimento.organizacao.Cgd;
 
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KDominioConhecimentoDAO extends NucleoDAOBase<KDominioConhecimento> {
+public interface KDominioConhecimentoDAO extends DAOBase<KDominioConhecimento> {
 
 }

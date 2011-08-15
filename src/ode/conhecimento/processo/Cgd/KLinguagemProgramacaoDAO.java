@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KLinguagemProgramacao;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KLinguagemProgramacaoDAO extends NucleoDAOBase<KLinguagemProgramacao>{
+public interface KLinguagemProgramacaoDAO extends DAOBase<KLinguagemProgramacao>{
 
 }

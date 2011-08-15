@@ -6,8 +6,8 @@ import java.util.List;
 
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cgd.FuncionalidadeDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.principal.cdp.ConfiguracoesSistema;
 import ode.principal.cgd.ConfiguracoesSistemaDAO;
@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("AplCadastrarFuncionalidade")
 @Transactional(rollbackFor = NucleoRegraNegocioExcecao.class)
 public class AplCadastrarFuncionalidadeImpl extends
-NucleoAplCadastroBaseImpl<Funcionalidade> implements AplCadastrarFuncionalidade {
+AplBaseImpl<Funcionalidade> implements AplCadastrarFuncionalidade {
 	
 	@Autowired
 	private FuncionalidadeDAO funcionalidadeDAO;
@@ -154,7 +154,7 @@ NucleoAplCadastroBaseImpl<Funcionalidade> implements AplCadastrarFuncionalidade 
 	}
 
 	@Override
-	public NucleoDAOBase<Funcionalidade> getNucleoDaoBase() {
+	public DAOBase<Funcionalidade> getNucleoDaoBase() {
 		return this.funcionalidadeDAO;
 	}
 

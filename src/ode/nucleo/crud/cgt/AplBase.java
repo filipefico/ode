@@ -1,11 +1,9 @@
-package ode.nucleo.cgt;
+package ode.nucleo.crud.cgt;
 
 import java.util.Collection;
 import java.util.Set;
 
-import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
-import ode.nucleo.cgd.ObjetoPagina;
-import ode.nucleo.cgd.ResultadoPaginado;
+import ode.nucleo.cdp.ObjetoPersistente;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 
@@ -15,7 +13,7 @@ import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
  * 
  * @author Alexandre G. N. Coelho
  */
-public interface NucleoAplCadastroBase<T extends NucleoObjetoPersistenteImpl<Long, Long>> {
+public interface AplBase<T extends ObjetoPersistente> {
 
 	/**
 	 * Exclui o objeto passado da mídia persistente.

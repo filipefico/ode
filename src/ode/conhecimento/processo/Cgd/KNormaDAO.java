@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KNorma;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KNormaDAO extends NucleoDAOBase<KNorma>{
+public interface KNormaDAO extends DAOBase<KNorma>{
 
 }

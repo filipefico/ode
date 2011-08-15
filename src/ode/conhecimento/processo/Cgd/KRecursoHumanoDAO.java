@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KRecursoHumanoDAO extends NucleoDAOBase<KRecursoHumano>{
+public interface KRecursoHumanoDAO extends DAOBase<KRecursoHumano>{
 
 }

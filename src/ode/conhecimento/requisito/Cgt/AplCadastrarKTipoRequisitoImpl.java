@@ -2,8 +2,8 @@ package ode.conhecimento.requisito.Cgt;
 
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.conhecimento.requisito.Cgd.KTipoRequisitoDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadastrarKTipoRequisitoImpl extends NucleoAplCadastroBaseImpl<KTipoRequisito> 
+public class AplCadastrarKTipoRequisitoImpl extends AplBaseImpl<KTipoRequisito> 
 				implements AplCadastrarKTipoRequisito {
 
 	@Autowired
@@ -34,7 +34,7 @@ public class AplCadastrarKTipoRequisitoImpl extends NucleoAplCadastroBaseImpl<KT
 	}
 
 	@Override
-	public NucleoDAOBase<KTipoRequisito> getNucleoDaoBase() {
+	public DAOBase<KTipoRequisito> getNucleoDaoBase() {
 		// TODO Auto-generated method stub
 		return kTipoRequisitoDAO;
 	}

@@ -1,8 +1,7 @@
-package ode.nucleo.cgd;
+package ode.nucleo.cdp;
 
 import java.io.Serializable;
 
-import ode.nucleo.cdp.NucleoObjetoDominio;
 
 
 

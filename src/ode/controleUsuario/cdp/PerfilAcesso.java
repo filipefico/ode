@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 /**
  * Classe que representa perfil de acesso. Utilizada para gerenciar

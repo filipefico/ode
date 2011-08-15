@@ -1,11 +1,11 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.CombinacaoPP;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CombinacaoPPDAOHibernate extends NucleoDAOBaseHibernate<CombinacaoPP> implements CombinacaoPPDAO {
+public class CombinacaoPPDAOHibernate extends DAOBaseHibernate<CombinacaoPP> implements CombinacaoPPDAO {
 	
 }

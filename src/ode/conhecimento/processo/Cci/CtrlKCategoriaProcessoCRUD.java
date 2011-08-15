@@ -4,8 +4,8 @@ import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcesso;
 import ode.conhecimento.processo.Cih.FormDadosCategoriaProcesso;
 import ode.conhecimento.processo.Cih.PainelCrudCategoriaProcesso;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -35,7 +35,7 @@ public class CtrlKCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKCategoriaProcesso;
 	}
 

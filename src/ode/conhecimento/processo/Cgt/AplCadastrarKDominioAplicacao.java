@@ -1,9 +1,9 @@
 package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
 public interface AplCadastrarKDominioAplicacao extends
-		NucleoAplCadastroBase<KDominioAplicacao> {
+		AplBase<KDominioAplicacao> {
 
 }

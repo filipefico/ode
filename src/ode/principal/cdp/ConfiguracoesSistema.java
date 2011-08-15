@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import ode.controleUsuario.cdp.Funcionalidade;
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 import org.hibernate.annotations.IndexColumn;
 

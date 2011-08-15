@@ -4,8 +4,8 @@ import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.controleProjeto.cih.FormDadosProjeto;
 import ode.controleProjeto.cih.PainelCRUDProjeto;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -29,7 +29,7 @@ public class CtrlProjetoCRUD extends CtrlCRUD<Projeto> {
 	}
 
 	@Override
-	public NucleoAplCadastroBase<Projeto> definirNucleoAplCadastroBase() {
+	public AplBase<Projeto> definirNucleoAplCadastroBase() {
 		return aplCadastrarProjeto;
 	}
 

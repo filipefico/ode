@@ -14,7 +14,6 @@ import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.cgt.AplCadastrarFuncionalidade;
 import ode.controleUsuario.cgt.AplCadastrarPerfilAcesso;
 import ode.nucleo.cci.CtrlBase;
-import ode.nucleo.cih.NucleoMenu;
 import ode.nucleo.util.NucleoContexto;
 import ode.nucleo.util.NucleoMensagens;
 
@@ -201,7 +200,7 @@ public class WindowPrincipal extends Window {
 		//////////////////////////////////////////////////////////////////////////
 
 		// Adiciona o menu Opções
-		Menu menuOpcoes = new NucleoMenu("Opções");
+		Menu menuOpcoes = new Menu("Opções");
 		menuOpcoes.setParent(menubar);
 		Menupopup menupopupOpcoes = new Menupopup();
 		menupopupOpcoes.setParent(menuOpcoes);

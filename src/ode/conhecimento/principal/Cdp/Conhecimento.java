@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 
 

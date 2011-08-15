@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.TipoKArtefato;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface TipoKArtefatoDAO extends NucleoDAOBase<TipoKArtefato> {
+public interface TipoKArtefatoDAO extends DAOBase<TipoKArtefato> {
 
 }

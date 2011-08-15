@@ -2,7 +2,7 @@ package ode.controleProjeto.cdp;
 
 import javax.persistence.Entity;
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 
 

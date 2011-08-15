@@ -1,8 +1,8 @@
 package ode.controleUsuario.cgd;
 
 import ode.controleUsuario.cdp.PerfilAcesso;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface PerfilAcessoDAO extends NucleoDAOBase<PerfilAcesso> {
+public interface PerfilAcessoDAO extends DAOBase<PerfilAcesso> {
 
 }

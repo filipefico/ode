@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KMetodo;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KMetodoDAO extends NucleoDAOBase<KMetodo> {
+public interface KMetodoDAO extends DAOBase<KMetodo> {
 
 }

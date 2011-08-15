@@ -5,8 +5,8 @@ import ode.conhecimento.processo.Cdp.KRecursoHardware;
 import ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHardware;
 import ode.conhecimento.processo.Cih.FormDadosKRecursoHardware;
 import ode.conhecimento.processo.Cih.PainelCrudKRecursoHardware;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -34,7 +34,7 @@ public class CtrlKRecursoHardwareCRUD extends CtrlCRUD<KRecursoHardware> {
 
 	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKRecursoHardware;
 	}
 

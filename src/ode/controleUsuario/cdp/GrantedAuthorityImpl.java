@@ -3,7 +3,7 @@ package ode.controleUsuario.cdp;
 import javax.persistence.Entity;
 
 
-import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
+import ode.nucleo.cdp.NucleoObjetoPersistenteImpl;
 
 import org.acegisecurity.GrantedAuthority;
 

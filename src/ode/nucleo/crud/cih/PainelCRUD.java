@@ -3,7 +3,7 @@ package ode.nucleo.crud.cih;
 import java.util.Set;
 
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.excecao.CtrlExcecoes;
 import ode.nucleo.util.NucleoMensagens;

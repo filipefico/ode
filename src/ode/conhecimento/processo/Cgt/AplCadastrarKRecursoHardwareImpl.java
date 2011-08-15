@@ -6,14 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ode.conhecimento.processo.Cdp.KRecursoHardware;
 import ode.conhecimento.processo.Cgd.KRecursoHardwareDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKRecursoHardwareImpl extends
-		NucleoAplCadastroBaseImpl<KRecursoHardware> implements AplCadastrarKRecursoHardware {
+		AplBaseImpl<KRecursoHardware> implements AplCadastrarKRecursoHardware {
 
 	@Autowired
 	private KRecursoHardwareDAO kRecursoHardwareDAO;
@@ -28,7 +28,7 @@ public class AplCadastrarKRecursoHardwareImpl extends
 	}
 
 	@Override
-	public NucleoDAOBase<KRecursoHardware> getNucleoDaoBase() {
+	public DAOBase<KRecursoHardware> getNucleoDaoBase() {
 		return kRecursoHardwareDAO;
 	}
 	

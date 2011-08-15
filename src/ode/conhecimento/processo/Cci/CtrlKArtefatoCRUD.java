@@ -8,8 +8,8 @@ import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cgt.AplCadastrarKArtefato;
 import ode.conhecimento.processo.Cih.FormDadosKArtefato;
 import ode.conhecimento.processo.Cih.PainelCrudKArtefato;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 @Controller
@@ -37,7 +37,7 @@ public class CtrlKArtefatoCRUD extends CtrlCRUD<KArtefato> {
 	}
 
 	@Override
-	public NucleoAplCadastroBase<KArtefato> definirNucleoAplCadastroBase() {
+	public AplBase<KArtefato> definirNucleoAplCadastroBase() {
 		return aplCadastrarKArtefato;
 	}
 

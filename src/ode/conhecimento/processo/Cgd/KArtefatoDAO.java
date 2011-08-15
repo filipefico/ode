@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KArtefato;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KArtefatoDAO extends NucleoDAOBase<KArtefato> {
+public interface KArtefatoDAO extends DAOBase<KArtefato> {
 	
 }

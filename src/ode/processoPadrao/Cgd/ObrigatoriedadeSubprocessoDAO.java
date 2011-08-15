@@ -1,8 +1,8 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.processoPadrao.Cdp.ObrigatoriedadeSubprocesso;
 
-public interface ObrigatoriedadeSubprocessoDAO extends NucleoDAOBase<ObrigatoriedadeSubprocesso>{
+public interface ObrigatoriedadeSubprocessoDAO extends DAOBase<ObrigatoriedadeSubprocesso>{
 
 }

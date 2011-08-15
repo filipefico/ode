@@ -1,5 +1,6 @@
 package ode.controleUsuario.cdp;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import ode.controleProcesso.cdp.RecursoHumano;
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
@@ -39,7 +40,7 @@ public class NucleoUserDetails extends ObjetoPersistente
 	
 	private PerfilAcesso perfilAcesso;
 
-	private Set<GrantedAuthorityImpl> grantedAuthorities;
+	private Set<GrantedAuthorityImpl> grantedAuthorities = new HashSet<GrantedAuthorityImpl>();
 
 	@Transient
 	public GrantedAuthority[] getAuthorities() {

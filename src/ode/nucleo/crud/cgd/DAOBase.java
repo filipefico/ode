@@ -1,35 +1,33 @@
-package ode.nucleo.cgd;
+package ode.nucleo.crud.cgd;
 
 import java.util.Collection;
-import java.util.List;
 
-import org.hibernate.criterion.Criterion;
+import ode.nucleo.cdp.ObjetoPersistente;
+
 
 /**
- * Interface base para todos as classes DAO do sistema.
+ * Interface DAO do sistema.
  * 
- * </p>
- * <p>
- * Para mais informações sobre o padrão de projeto DAO, visite: <a
- * href="http://java.sun.com/blueprints/corej2eepatterns/Patterns/DataAccessObject.html"
- * target="_blank">http://java.sun.com/blueprints/corej2eepatterns/Patterns/DataAccessObject.html</a>.
- * 
- * @author Vitor Souza
  */
-public interface NucleoDAOBase<T extends NucleoObjetoPersistenteImpl> {
+public interface DAOBase<T extends ObjetoPersistente> {
+	
 	/**
-	 * Recupera todos os objetos persistentes da classe de domínio.
+	 * Recupera todos os objetos persistentes da classe de domínio T.
 	 * 
-	 * @return Coleção de todos os objetos persistentes da classe de domínio.
+	 * @return Coleção de todos os objetos persistentes da classe de domínio T.
 	 * @throws NucleoDAOExcecao
 	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 */
-	Collection<T> recuperarTodos();
+	public Collection<T> recuperarTodos();
 	
+	/**
+	 * Atualiza um objeto já existente no banco.
+	 * @param objeto Objeto a ser atualizado.
+	 */
 	public void merge(T objeto);
 
 	/**
-	 * Obtém um objeto persistente da classe de domínio dado seu identificador.
+	 * Obtém um objeto persistente da classe de domínio T, de acordo com seu identificador.
 	 * 
 	 * @param id
 	 *            Identificador do objeto persistente.
@@ -37,7 +35,7 @@ public interface NucleoDAOBase<T extends NucleoObjetoPersistenteImpl> {
 	 * @throws NucleoDAOExcecao
 	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 */
-	T recuperarPorId(Long id);
+	public T recuperarPorId(Long id);
 
 	/**
 	 * Salva um objeto de domínio na mídia persistente.
@@ -58,11 +56,5 @@ public interface NucleoDAOBase<T extends NucleoObjetoPersistenteImpl> {
 	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 */
 	void excluir(T objeto);
-	
 		
-	public Collection<T> recuperarTodosPaginado(ObjetoPagina pagina) ;
-	
-	public int recuperarQteTodos(ObjetoPagina pagina) ;
-	
-	
 }

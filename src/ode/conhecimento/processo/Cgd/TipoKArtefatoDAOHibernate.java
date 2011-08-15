@@ -3,9 +3,9 @@ package ode.conhecimento.processo.Cgd;
 import org.springframework.stereotype.Repository;
 
 import ode.conhecimento.processo.Cdp.TipoKArtefato;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 @Repository
-public class TipoKArtefatoDAOHibernate extends NucleoDAOBaseHibernate<TipoKArtefato> implements TipoKArtefatoDAO{
+public class TipoKArtefatoDAOHibernate extends DAOBaseHibernate<TipoKArtefato> implements TipoKArtefatoDAO{
 
 }

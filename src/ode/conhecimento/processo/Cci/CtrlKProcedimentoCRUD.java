@@ -20,8 +20,8 @@ import ode.conhecimento.processo.Cih.PainelCrudKDominioAplicacao;
 import ode.conhecimento.processo.Cih.PainelCrudKProcedimento;
 import ode.conhecimento.processo.Cih.PainelCrudKRecursoHardware;
 import ode.conhecimento.processo.Cih.PainelSelecaoKDominioAplicacao;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
@@ -52,7 +52,7 @@ public class CtrlKProcedimentoCRUD extends CtrlCRUD<KProcedimento> {
 
 	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKProcedimento;
 	}
 

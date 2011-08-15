@@ -5,6 +5,7 @@ import java.util.List;
 
 import ode.controleProcesso.cih.RecursoHuamanoBandbox;
 import ode.controleUsuario.cci.UsuarioCtrlCRUD;
+import ode.controleUsuario.cdp.GrantedAuthorityImpl;
 import ode.controleUsuario.cdp.NucleoUserDetails;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.nucleo.cih.NucleoTab;
@@ -84,6 +85,25 @@ FormularioDadosCRUD<NucleoUserDetails> {
 			objeto.setPassword(new Md5PasswordEncoder()
 					.encodePassword(tbSenha.getValue(), null));
 		}
+		
+		////////////////////////////
+		// Configurações Acegi
+		////////////////////////////
+		
+		// Limpa as authorities
+		objeto.getGrantedAuthorities().clear();
+
+		// Cria nova authority
+		GrantedAuthorityImpl nucleoGrantedAuthority = new GrantedAuthorityImpl();
+		nucleoGrantedAuthority
+					.setAuthority(GrantedAuthorityImpl.AUTHORITY_USUARIO_COMUM);
+		
+		// Adiciona nova authority
+		objeto.getGrantedAuthorities().add(nucleoGrantedAuthority);
+		
+		//////////////////////////////
+		// Perfil de Acesso
+		//////////////////////////////
 		
 		objeto.setPerfilAcesso((PerfilAcesso)listboxPerfilAcesso.getSelectedItem().getValue());
 		

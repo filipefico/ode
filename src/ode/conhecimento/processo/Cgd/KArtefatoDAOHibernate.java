@@ -3,7 +3,7 @@ package ode.conhecimento.processo.Cgd;
 import java.util.List;
 
 import ode.conhecimento.processo.Cdp.KArtefato;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class KArtefatoDAOHibernate extends NucleoDAOBaseHibernate<KArtefato>
+public class KArtefatoDAOHibernate extends DAOBaseHibernate<KArtefato>
 		implements KArtefatoDAO {
 
 	@Override

@@ -1,9 +1,9 @@
 package ode.controleProjeto.cgt;
 
 import ode.controleProjeto.cdp.Projeto;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
-public interface AplCadastrarProjeto extends NucleoAplCadastroBase<Projeto> {
+public interface AplCadastrarProjeto extends AplBase<Projeto> {
 
 
 }

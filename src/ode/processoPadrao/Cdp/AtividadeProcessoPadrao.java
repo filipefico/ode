@@ -23,7 +23,7 @@ import ode.conhecimento.processo.Cdp.KRecursoHardware;
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
 import ode.conhecimento.processo.Cdp.KRoteiro;
 import ode.conhecimento.processo.Cdp.KTecnica;
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 @Entity
 public class AtividadeProcessoPadrao extends ObjetoPersistente {

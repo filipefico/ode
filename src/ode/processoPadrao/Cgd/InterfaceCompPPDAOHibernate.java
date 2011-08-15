@@ -1,11 +1,11 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.InterfaceCompPP;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class InterfaceCompPPDAOHibernate extends NucleoDAOBaseHibernate<InterfaceCompPP> implements InterfaceCompPPDAO {
+public class InterfaceCompPPDAOHibernate extends DAOBaseHibernate<InterfaceCompPP> implements InterfaceCompPPDAO {
 		
 }
