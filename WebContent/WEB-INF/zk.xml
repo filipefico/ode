@@ -12,6 +12,7 @@
 		</listener-class>
 	</listener>
 	
+	<!-- Tamanho do arquivo de upload -->
 	<system-config>
 		<max-upload-size>100000</max-upload-size>
 	</system-config>
