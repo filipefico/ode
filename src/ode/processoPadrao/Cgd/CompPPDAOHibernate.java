@@ -3,12 +3,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
 @Repository
-public class CompPPDAOHibernate extends NucleoDAOBaseHibernate<CompPP> implements CompPPDAO{
+public class CompPPDAOHibernate extends DAOBaseHibernate<CompPP> implements CompPPDAO{
 
 	    public CompPP obterPorNome(String parNome){
 	        

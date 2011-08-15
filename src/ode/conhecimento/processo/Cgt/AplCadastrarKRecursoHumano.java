@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
-public interface AplCadastrarKRecursoHumano extends NucleoAplCadastroBase<KRecursoHumano> {
+public interface AplCadastrarKRecursoHumano extends AplBase<KRecursoHumano> {
 
 }

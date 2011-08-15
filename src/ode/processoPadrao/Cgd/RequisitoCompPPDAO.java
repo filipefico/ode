@@ -1,8 +1,8 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.processoPadrao.Cdp.RequisitoCompPP;
 
-public interface RequisitoCompPPDAO extends NucleoDAOBase<RequisitoCompPP> {
+public interface RequisitoCompPPDAO extends DAOBase<RequisitoCompPP> {
 
 }

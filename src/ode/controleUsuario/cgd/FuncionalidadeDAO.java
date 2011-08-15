@@ -3,10 +3,10 @@ package ode.controleUsuario.cgd;
 import java.util.Collection;
 
 import ode.controleUsuario.cdp.Funcionalidade;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
 public interface FuncionalidadeDAO extends
-		NucleoDAOBase<Funcionalidade> {
+		DAOBase<Funcionalidade> {
 	
 	/**
 	 * Recupera subfuncionalidades de uma funcionalidade.

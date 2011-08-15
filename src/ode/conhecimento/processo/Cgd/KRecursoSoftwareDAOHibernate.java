@@ -1,11 +1,11 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KRecursoSoftware;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class KRecursoSoftwareDAOHibernate extends NucleoDAOBaseHibernate<KRecursoSoftware> implements KRecursoSoftwareDAO {
+public class KRecursoSoftwareDAOHibernate extends DAOBaseHibernate<KRecursoSoftware> implements KRecursoSoftwareDAO {
 
 }

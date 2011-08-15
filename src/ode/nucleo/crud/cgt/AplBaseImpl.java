@@ -1,14 +1,11 @@
-package ode.nucleo.cgt;
+package ode.nucleo.crud.cgt;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgd.NucleoObjetoPersistenteImpl;
-import ode.nucleo.cgd.ObjetoPagina;
-import ode.nucleo.cgd.ResultadoPaginado;
+import ode.nucleo.cdp.ObjetoPersistente;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
@@ -17,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service(value = "NucleoAplCadastroBase")
 @Transactional(rollbackFor = NucleoExcecao.class)
-public abstract class NucleoAplCadastroBaseImpl<T extends NucleoObjetoPersistenteImpl<Long, Long>>
-		implements NucleoAplCadastroBase<T> {
+public abstract class AplBaseImpl<T extends ObjetoPersistente>
+		implements AplBase<T> {
 
-	public abstract NucleoDAOBase<T> getNucleoDaoBase();
+	public abstract DAOBase<T> getNucleoDaoBase();
 
 	public void excluir(T objeto) throws NucleoRegraNegocioExcecao {
 

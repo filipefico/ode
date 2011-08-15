@@ -1,9 +1,9 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.processoPadrao.Cdp.CompPPMacroatividade;
 
-public interface CompPPMacroatividadeDAO extends NucleoDAOBase<CompPPMacroatividade>{
+public interface CompPPMacroatividadeDAO extends DAOBase<CompPPMacroatividade>{
 
 	    //public CompPPMacroatividade obterPorNome(String parNome);
 

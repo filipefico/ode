@@ -1,9 +1,9 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.processoPadrao.Cdp.AtividadeProcessoPadrao;
 
-public interface AtividadeProcessoPadraoDAO extends NucleoDAOBase<AtividadeProcessoPadrao> {
+public interface AtividadeProcessoPadraoDAO extends DAOBase<AtividadeProcessoPadrao> {
 	    
 	  //  public List obterMacroAtividades(CompPPProcessoSimples parPPE);
 	    

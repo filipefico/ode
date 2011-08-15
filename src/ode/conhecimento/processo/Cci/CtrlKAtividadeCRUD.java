@@ -9,8 +9,8 @@ import ode.conhecimento.processo.Cih.FormDadosKDominioAplicacao;
 import ode.conhecimento.processo.Cih.PainelCrudKAtividade;
 import ode.conhecimento.processo.Cih.PainelCrudKDominioAplicacao;
 import ode.conhecimento.processo.Cih.PainelSelecaoKDominioAplicacao;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
@@ -42,7 +42,7 @@ public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 
 	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKAtividade;
 	}
 

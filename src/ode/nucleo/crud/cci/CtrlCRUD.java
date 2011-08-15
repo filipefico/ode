@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import ode.nucleo.cci.CtrlBase;
-import ode.nucleo.cgd.ObjetoPersistente;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.cdp.ObjetoPersistente;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD.ModoExibicao;
 import ode.nucleo.crud.cih.JanelaSimples;
@@ -31,7 +31,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 	/**
 	 * Interface de aplicaçãoo usada para cadastros básicos (CRUD)
 	 */
-	private NucleoAplCadastroBase<T> nucleoAplCadastroBase;
+	private AplBase<T> nucleoAplCadastroBase;
 
 	protected PainelCRUD<T> painelCRUD;
 
@@ -89,11 +89,11 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 	}
 
 	public void setNucleoAplCadastroBase(
-			NucleoAplCadastroBase<T> nucleoAplCadastroBase) {
+			AplBase<T> nucleoAplCadastroBase) {
 		this.nucleoAplCadastroBase = nucleoAplCadastroBase;
 	}
 
-	public NucleoAplCadastroBase<T> getNucleoAplCadastroBase() {
+	public AplBase<T> getNucleoAplCadastroBase() {
 		return nucleoAplCadastroBase;
 	}
 
@@ -278,7 +278,7 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 
 	public abstract String definirTituloJanelaDados();
 
-	public abstract NucleoAplCadastroBase<T> definirNucleoAplCadastroBase();
+	public abstract AplBase<T> definirNucleoAplCadastroBase();
 
 	public abstract PainelCRUD<T> definirPainelCRUD();
 

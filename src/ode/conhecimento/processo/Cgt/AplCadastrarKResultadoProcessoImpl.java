@@ -3,8 +3,8 @@ package ode.conhecimento.processo.Cgt;
 import ode.conhecimento.processo.Cdp.KResultadoProcesso;
 import ode.conhecimento.processo.Cgd.KResultadoProcessoDAO;
 import ode.conhecimento.processo.Cgt.AplCadastrarKResultadoProcesso;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadastrarKResultadoProcessoImpl extends NucleoAplCadastroBaseImpl<KResultadoProcesso> implements AplCadastrarKResultadoProcesso{
+public class AplCadastrarKResultadoProcessoImpl extends AplBaseImpl<KResultadoProcesso> implements AplCadastrarKResultadoProcesso{
 
 	@Autowired
 	private KResultadoProcessoDAO kResultadoProcessoDAO;
@@ -33,7 +33,7 @@ public class AplCadastrarKResultadoProcessoImpl extends NucleoAplCadastroBaseImp
 	}
 
 	@Override
-	public NucleoDAOBase<KResultadoProcesso> getNucleoDaoBase() {
+	public DAOBase<KResultadoProcesso> getNucleoDaoBase() {
 		return kResultadoProcessoDAO;
 	}
 }

@@ -1,9 +1,9 @@
 package ode.principal.cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.principal.cdp.ConfiguracoesSistema;
 
 public interface ConfiguracoesSistemaDAO extends
-		NucleoDAOBase<ConfiguracoesSistema> {
+		DAOBase<ConfiguracoesSistema> {
 
 }

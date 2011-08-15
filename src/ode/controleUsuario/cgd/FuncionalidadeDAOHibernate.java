@@ -3,12 +3,12 @@ package ode.controleUsuario.cgd;
 import java.util.Collection;
 
 import ode.controleUsuario.cdp.Funcionalidade;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class FuncionalidadeDAOHibernate extends NucleoDAOBaseHibernate<Funcionalidade>
+public class FuncionalidadeDAOHibernate extends DAOBaseHibernate<Funcionalidade>
 		implements FuncionalidadeDAO {
 
 	/**

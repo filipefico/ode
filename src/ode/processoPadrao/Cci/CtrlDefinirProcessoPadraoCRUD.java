@@ -1,7 +1,7 @@
 package ode.processoPadrao.Cci;
 
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 import ode.processoPadrao.Cdp.CompPP;
@@ -40,7 +40,7 @@ public class CtrlDefinirProcessoPadraoCRUD extends CtrlCRUD<CompPP> {
 
 	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase<CompPP> definirNucleoAplCadastroBase() {
+	public AplBase<CompPP> definirNucleoAplCadastroBase() {
 		return aplDefinirProcessoPadrao;
 	}
 

@@ -4,8 +4,8 @@ import ode.conhecimento.requisito.Cdp.KTipoRequisito;
 import ode.conhecimento.requisito.Cgt.AplCadastrarKTipoRequisito;
 import ode.conhecimento.requisito.Cih.FormDadosKTipoRequisito;
 import ode.conhecimento.requisito.Cih.PainelCrudKTipoRequisito;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -33,7 +33,7 @@ public class CtrlKTipoRequisitoCRUD extends CtrlCRUD<KTipoRequisito> {
 
 	// lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKTipoRequisito;
 	}
 

@@ -3,7 +3,7 @@ package ode.controleProcesso.cdp;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 
 /**************************** Classe Recurso **********************************/

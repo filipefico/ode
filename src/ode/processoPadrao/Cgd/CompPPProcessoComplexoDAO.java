@@ -1,9 +1,9 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
-public interface CompPPProcessoComplexoDAO  extends NucleoDAOBase<CompPPProcessoComplexo>{
+public interface CompPPProcessoComplexoDAO  extends DAOBase<CompPPProcessoComplexo>{
     
     public CompPPProcessoComplexo obterPorNome(String parNome);
     

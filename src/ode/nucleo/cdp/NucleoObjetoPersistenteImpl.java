@@ -1,4 +1,4 @@
-package ode.nucleo.cgd;
+package ode.nucleo.cdp;
 
 import java.io.Serializable;
 
@@ -10,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
-import ode.nucleo.cdp.NucleoObjetoDominioImpl;
 
 
 

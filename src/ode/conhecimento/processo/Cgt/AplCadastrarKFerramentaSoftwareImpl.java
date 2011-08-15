@@ -2,8 +2,8 @@ package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.Cgd.KFerramentaSoftwareDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKFerramentaSoftwareImpl extends
-			NucleoAplCadastroBaseImpl<KFerramentaSoftware> implements
+			AplBaseImpl<KFerramentaSoftware> implements
 			AplCadastrarKFerramentaSoftware {
 		
 		@Autowired
@@ -49,7 +49,7 @@ public class AplCadastrarKFerramentaSoftwareImpl extends
 		}
 
 		@Override
-		public NucleoDAOBase<KFerramentaSoftware> getNucleoDaoBase() {
+		public DAOBase<KFerramentaSoftware> getNucleoDaoBase() {
 			return kFerramentaSoftwareDAO;
 		}
 

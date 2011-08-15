@@ -3,13 +3,13 @@ package ode.controleUsuario.cgt;
 import java.util.Collection;
 
 import ode.controleUsuario.cdp.Funcionalidade;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.springframework.dao.DataAccessException;
 
 public interface AplCadastrarFuncionalidade extends
-		NucleoAplCadastroBase<Funcionalidade> {
+		AplBase<Funcionalidade> {
 	
 	/**
 	 * Recupera subfuncionalidades de uma funcionalidade.

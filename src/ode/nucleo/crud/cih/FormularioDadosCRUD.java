@@ -2,7 +2,7 @@ package ode.nucleo.crud.cih;
 
 import java.util.List;
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 import ode.nucleo.cih.NucleoTab;
 import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.excecao.CtrlExcecoes;

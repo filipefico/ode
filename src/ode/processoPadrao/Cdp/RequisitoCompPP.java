@@ -3,7 +3,7 @@ package ode.processoPadrao.Cdp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import ode.nucleo.cgd.ObjetoPersistente;
+import ode.nucleo.cdp.ObjetoPersistente;
 
 
 @Entity

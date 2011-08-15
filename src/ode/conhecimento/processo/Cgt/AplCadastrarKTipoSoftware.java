@@ -1,9 +1,9 @@
 package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KTipoSoftware;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
 public interface AplCadastrarKTipoSoftware extends
-		NucleoAplCadastroBase<KTipoSoftware> {
+		AplBase<KTipoSoftware> {
 
 }

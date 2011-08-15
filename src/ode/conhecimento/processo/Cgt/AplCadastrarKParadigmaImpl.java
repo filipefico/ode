@@ -6,15 +6,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ode.conhecimento.processo.Cdp.KParadigma;
 import ode.conhecimento.processo.Cgd.KParadigmaDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKParadigmaImpl extends
-		NucleoAplCadastroBaseImpl<KParadigma> implements AplCadastrarKParadigma {
+		AplBaseImpl<KParadigma> implements AplCadastrarKParadigma {
 
 	@Autowired
 	private KParadigmaDAO KParadigmaDAO;
@@ -48,7 +48,7 @@ public class AplCadastrarKParadigmaImpl extends
 	}
 
 	@Override
-	public NucleoDAOBase<KParadigma> getNucleoDaoBase() {
+	public DAOBase<KParadigma> getNucleoDaoBase() {
 		return KParadigmaDAO;
 	}
 

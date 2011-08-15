@@ -1,8 +1,8 @@
 package ode.controleUsuario.cgt;
 
 import ode.controleUsuario.cdp.PerfilAcesso;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
-public interface AplCadastrarPerfilAcesso extends NucleoAplCadastroBase<PerfilAcesso> {
+public interface AplCadastrarPerfilAcesso extends AplBase<PerfilAcesso> {
 
 }

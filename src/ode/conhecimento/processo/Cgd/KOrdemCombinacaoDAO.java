@@ -5,9 +5,9 @@ import java.util.Collection;
 
 
 import ode.conhecimento.processo.Cdp.KOrdemCombinacao;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KOrdemCombinacaoDAO extends NucleoDAOBase<KOrdemCombinacao>{
+public interface KOrdemCombinacaoDAO extends DAOBase<KOrdemCombinacao>{
 
 	//public List obterPorKMCVOrdenado(KModeloCicloVida parKMVC);
     

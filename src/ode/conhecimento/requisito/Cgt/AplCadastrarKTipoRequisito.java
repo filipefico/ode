@@ -1,8 +1,8 @@
 package ode.conhecimento.requisito.Cgt;
 
 import ode.conhecimento.requisito.Cdp.KTipoRequisito;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
-public interface AplCadastrarKTipoRequisito extends NucleoAplCadastroBase<KTipoRequisito>{
+public interface AplCadastrarKTipoRequisito extends AplBase<KTipoRequisito>{
 	
 }

@@ -4,10 +4,10 @@ import org.springframework.stereotype.Repository;
 
 import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cgd.KCategoriaProcessoDAO;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 @Repository
-public class KCategoriaProcessoDAOHibernate extends NucleoDAOBaseHibernate<KCategoriaProcesso> implements
+public class KCategoriaProcessoDAOHibernate extends DAOBaseHibernate<KCategoriaProcesso> implements
 KCategoriaProcessoDAO{
 	
 }

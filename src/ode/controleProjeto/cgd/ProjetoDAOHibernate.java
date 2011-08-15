@@ -4,12 +4,12 @@ import java.util.Collection;
 
 
 import ode.controleProjeto.cdp.Projeto;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ProjetoDAOHibernate extends NucleoDAOBaseHibernate<Projeto> implements
+public class ProjetoDAOHibernate extends DAOBaseHibernate<Projeto> implements
 		ProjetoDAO {
 	
 	@SuppressWarnings("unchecked")

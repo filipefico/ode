@@ -5,8 +5,8 @@ import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.conhecimento.organizacao.Cgt.AplCadastrarKDominioConhecimento;
 import ode.conhecimento.organizacao.Cih.FormDadosKDominioConhecimento;
 import ode.conhecimento.organizacao.Cih.PainelCrudKDominioConhecimento;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
@@ -33,7 +33,7 @@ public class CtrlKDominioConhecimentoCRUD extends CtrlCRUD<KDominioConhecimento>
 
 	//lembrar que o controlador eh melhor injetado pelo spring
 	@Override
-	public NucleoAplCadastroBase definirNucleoAplCadastroBase() {
+	public AplBase definirNucleoAplCadastroBase() {
 		return aplCadastrarKDominioConhecimento;
 	}
 

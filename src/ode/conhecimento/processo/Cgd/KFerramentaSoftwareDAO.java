@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KFerramentaSoftwareDAO extends NucleoDAOBase<KFerramentaSoftware> {
+public interface KFerramentaSoftwareDAO extends DAOBase<KFerramentaSoftware> {
 
 }

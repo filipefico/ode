@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
-public interface AplCadastrarKAtividade extends NucleoAplCadastroBase<KAtividade> {
+public interface AplCadastrarKAtividade extends AplBase<KAtividade> {
 
 }

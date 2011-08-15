@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgd;
 
 import ode.conhecimento.processo.Cdp.KTecnica;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
-public interface KTecnicaDAO extends NucleoDAOBase<KTecnica> {
+public interface KTecnicaDAO extends DAOBase<KTecnica> {
 
 }

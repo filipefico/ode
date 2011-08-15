@@ -4,7 +4,7 @@ import java.util.List;
 
 
 import ode.controleUsuario.cdp.NucleoUserDetails;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 import org.acegisecurity.userdetails.UserDetails;
 import org.hibernate.HibernateException;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UsuarioDAOHibernate extends
-		NucleoDAOBaseHibernate<NucleoUserDetails> implements UsuarioDAO {
+		DAOBaseHibernate<NucleoUserDetails> implements UsuarioDAO {
 
 	@SuppressWarnings("unchecked")
 	public UserDetails recuperarPorUsername(String username)

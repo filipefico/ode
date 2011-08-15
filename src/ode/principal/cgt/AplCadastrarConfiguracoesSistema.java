@@ -1,9 +1,9 @@
 package ode.principal.cgt;
 
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.principal.cdp.ConfiguracoesSistema;
 
 public interface AplCadastrarConfiguracoesSistema extends
-		NucleoAplCadastroBase<ConfiguracoesSistema> {
+		AplBase<ConfiguracoesSistema> {
 
 }

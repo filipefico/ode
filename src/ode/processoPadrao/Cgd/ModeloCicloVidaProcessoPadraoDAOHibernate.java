@@ -1,11 +1,11 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.ModeloCicloVidaProcessoPadrao;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ModeloCicloVidaProcessoPadraoDAOHibernate extends NucleoDAOBaseHibernate<ModeloCicloVidaProcessoPadrao> implements ModeloCicloVidaProcessoPadraoDAO{
+public class ModeloCicloVidaProcessoPadraoDAOHibernate extends DAOBaseHibernate<ModeloCicloVidaProcessoPadrao> implements ModeloCicloVidaProcessoPadraoDAO{
 
 }

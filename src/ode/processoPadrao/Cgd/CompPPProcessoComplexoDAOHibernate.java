@@ -2,13 +2,13 @@ package ode.processoPadrao.Cgd;
 
 import java.util.List;
 
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
 
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class CompPPProcessoComplexoDAOHibernate extends NucleoDAOBaseHibernate<CompPPProcessoComplexo> implements CompPPProcessoComplexoDAO{
+public class CompPPProcessoComplexoDAOHibernate extends DAOBaseHibernate<CompPPProcessoComplexo> implements CompPPProcessoComplexoDAO{
 		
 	/*  public KArtefato recuperarPorId(Long id) {
 		    DetachedCriteria detaCriteria = DetachedCriteria.forClass(getClasseDominio());

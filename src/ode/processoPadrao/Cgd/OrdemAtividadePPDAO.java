@@ -1,9 +1,9 @@
 package ode.processoPadrao.Cgd;
 
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 import ode.processoPadrao.Cdp.OrdemAtividadePP;
 
-public interface OrdemAtividadePPDAO extends NucleoDAOBase<OrdemAtividadePP>{
+public interface OrdemAtividadePPDAO extends DAOBase<OrdemAtividadePP>{
 	    
 	    //public List obterPorCombinacaoOrdenado(CombinacaoPP parCombinacao);
 	    

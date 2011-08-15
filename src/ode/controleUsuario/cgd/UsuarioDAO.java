@@ -2,13 +2,13 @@ package ode.controleUsuario.cgd;
 
 
 import ode.controleUsuario.cdp.NucleoUserDetails;
-import ode.nucleo.cgd.NucleoDAOBase;
+import ode.nucleo.crud.cgd.DAOBase;
 
 import org.acegisecurity.userdetails.UserDetails;
 import org.springframework.dao.DataAccessException;
 
 
-public interface UsuarioDAO extends NucleoDAOBase<NucleoUserDetails> {
+public interface UsuarioDAO extends DAOBase<NucleoUserDetails> {
 	/**
 	 * Recupera um usuário por username
 	 * 

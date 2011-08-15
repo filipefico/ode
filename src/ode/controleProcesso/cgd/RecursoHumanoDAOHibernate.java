@@ -3,10 +3,10 @@ package ode.controleProcesso.cgd;
 import org.springframework.stereotype.Repository;
 
 import ode.controleProcesso.cdp.RecursoHumano;
-import ode.nucleo.cgd.NucleoDAOBaseHibernate;
+import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
 @Repository
 public class RecursoHumanoDAOHibernate extends
-		NucleoDAOBaseHibernate<RecursoHumano> implements RecursoHumanoDAO {
+		DAOBaseHibernate<RecursoHumano> implements RecursoHumanoDAO {
 
 }

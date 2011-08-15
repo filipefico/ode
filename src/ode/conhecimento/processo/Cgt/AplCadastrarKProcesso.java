@@ -1,8 +1,8 @@
 package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KProcesso;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
-public interface AplCadastrarKProcesso extends NucleoAplCadastroBase<KProcesso>{
+public interface AplCadastrarKProcesso extends AplBase<KProcesso>{
 
 }

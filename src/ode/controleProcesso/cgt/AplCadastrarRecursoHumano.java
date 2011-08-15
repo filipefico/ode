@@ -1,9 +1,9 @@
 package ode.controleProcesso.cgt;
 
 import ode.controleProcesso.cdp.RecursoHumano;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
+import ode.nucleo.crud.cgt.AplBase;
 
 public interface AplCadastrarRecursoHumano extends
-		NucleoAplCadastroBase<RecursoHumano> {
+		AplBase<RecursoHumano> {
 
 }

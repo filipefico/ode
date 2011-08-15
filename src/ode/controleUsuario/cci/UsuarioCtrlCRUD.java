@@ -9,8 +9,8 @@ import ode.controleUsuario.cgt.AplCadastrarPerfilAcesso;
 import ode.controleUsuario.cgt.AplCadastrarUsuario;
 import ode.controleUsuario.cih.UsuarioFormularioDadosCRUD;
 import ode.controleUsuario.cih.UsuarioPainelCRUD;
-import ode.nucleo.cgt.NucleoAplCadastroBase;
 import ode.nucleo.crud.cci.CtrlCRUD;
+import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD.ModoExibicao;
 import ode.nucleo.crud.cih.PainelCRUD;
@@ -45,7 +45,7 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 	}
 
 	@Override
-	public NucleoAplCadastroBase<NucleoUserDetails> definirNucleoAplCadastroBase() {
+	public AplBase<NucleoUserDetails> definirNucleoAplCadastroBase() {
 		// Está usando outra apl.
 		return null;
 	}

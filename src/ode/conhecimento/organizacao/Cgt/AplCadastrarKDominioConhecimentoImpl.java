@@ -2,8 +2,8 @@ package ode.conhecimento.organizacao.Cgt;
 
 import ode.conhecimento.organizacao.Cdp.KDominioConhecimento;
 import ode.conhecimento.organizacao.Cgd.KDominioConhecimentoDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKDominioConhecimentoImpl extends
-NucleoAplCadastroBaseImpl<KDominioConhecimento> implements
+AplBaseImpl<KDominioConhecimento> implements
 AplCadastrarKDominioConhecimento {
 
 
@@ -50,7 +50,7 @@ AplCadastrarKDominioConhecimento {
 	}
 
 	@Override
-	public NucleoDAOBase<KDominioConhecimento> getNucleoDaoBase() {
+	public DAOBase<KDominioConhecimento> getNucleoDaoBase() {
 		return kDominioConhecimentoDAO;
 	}
 

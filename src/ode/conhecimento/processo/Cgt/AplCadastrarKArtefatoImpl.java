@@ -2,8 +2,8 @@ package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cgd.KArtefatoDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = NucleoExcecao.class)
 
 public class AplCadastrarKArtefatoImpl extends
-		NucleoAplCadastroBaseImpl<KArtefato> implements AplCadastrarKArtefato {
+		AplBaseImpl<KArtefato> implements AplCadastrarKArtefato {
 
 	@Autowired
 	private KArtefatoDAO kArtefatoDAO;
@@ -28,7 +28,7 @@ public class AplCadastrarKArtefatoImpl extends
 	}
 
 	@Override
-	public NucleoDAOBase<KArtefato> getNucleoDaoBase() {
+	public DAOBase<KArtefato> getNucleoDaoBase() {
 		return kArtefatoDAO;
 	}
 

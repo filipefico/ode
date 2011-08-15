@@ -2,8 +2,8 @@ package ode.controleUsuario.cgt;
 
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.cgd.PerfilAcessoDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("AplCadastrarPerfilAcesso")
 @Transactional(rollbackFor = NucleoRegraNegocioExcecao.class)
 public class AplCadastrarPerfilAcessoImpl extends
-		NucleoAplCadastroBaseImpl<PerfilAcesso> implements AplCadastrarPerfilAcesso {
+		AplBaseImpl<PerfilAcesso> implements AplCadastrarPerfilAcesso {
 	
 	@Autowired
 	private PerfilAcessoDAO perfilAcessoDAO;
@@ -28,7 +28,7 @@ public class AplCadastrarPerfilAcessoImpl extends
 	}
 
 	@Override
-	public NucleoDAOBase<PerfilAcesso> getNucleoDaoBase() {
+	public DAOBase<PerfilAcesso> getNucleoDaoBase() {
 		return this.perfilAcessoDAO;
 	}
 

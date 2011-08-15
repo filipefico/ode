@@ -2,8 +2,8 @@ package ode.conhecimento.processo.Cgt;
 
 import ode.conhecimento.processo.Cdp.KTipoSoftware;
 import ode.conhecimento.processo.Cgd.KTipoSoftwareDAO;
-import ode.nucleo.cgd.NucleoDAOBase;
-import ode.nucleo.cgt.NucleoAplCadastroBaseImpl;
+import ode.nucleo.crud.cgd.DAOBase;
+import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarKTipoSoftwareImpl extends
-		NucleoAplCadastroBaseImpl<KTipoSoftware> implements
+		AplBaseImpl<KTipoSoftware> implements
 		AplCadastrarKTipoSoftware {
 	
 	@Autowired
@@ -49,7 +49,7 @@ public class AplCadastrarKTipoSoftwareImpl extends
 	}
 
 	@Override
-	public NucleoDAOBase<KTipoSoftware> getNucleoDaoBase() {
+	public DAOBase<KTipoSoftware> getNucleoDaoBase() {
 		return kTipoSoftwareDAO;
 	}
 

@@ -1,4 +1,4 @@
-package ode.nucleo.cgd;
+package ode.nucleo.cdp;
 
 import javax.persistence.MappedSuperclass;
 
