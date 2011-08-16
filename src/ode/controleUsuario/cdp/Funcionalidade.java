@@ -75,7 +75,7 @@ public class Funcionalidade extends
 	public void setFuncionalidadePai(Funcionalidade funcionalidadePai) {
 		this.funcionalidadePai = funcionalidadePai;
 	}
-
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "FUNCIONALIDADE_ID")
 	@IndexColumn(name = "POS")
@@ -88,43 +88,4 @@ public class Funcionalidade extends
 		this.subfuncionalidades = subfuncionalidades;
 	}
 
-	/**
-	 * Adiciona uma subfuncionalidade
-	 * 
-	 * @param subFuncionalidade
-	 *            Sub-grupo a ser adicionado
-	 * 
-	 */
-	public void adicionarSubfuncionalidade(Funcionalidade subFuncionalidade) {
-		subFuncionalidade.setFuncionalidadePai(this);
-		this.getSubfuncionalidades().add(subFuncionalidade);
-	}
-
-	/**
-	 * Remove uma subfuncionalidade.
-	 * 
-	 * @param subFuncionalidade
-	 *            Subfuncionalidade a ser removida.
-	 */
-	public void removerSubfuncionalidade(Funcionalidade subFuncionalidade) {
-		int indiceDeletar = -1;
-		int i = 0;
-		for (Funcionalidade funcionalidade : this.getSubfuncionalidades()) {
-			if (funcionalidade == subFuncionalidade) {
-				indiceDeletar = i;
-				break;
-			}
-			i++;
-		}
-		if (indiceDeletar != -1) {
-			this.getSubfuncionalidades().remove(indiceDeletar);
-		}
-	}
-	
-	/**
-	 * Sobrescreve o toString.
-	 */
-	public String toString(){
-		return this.getNome();
-	}
 }

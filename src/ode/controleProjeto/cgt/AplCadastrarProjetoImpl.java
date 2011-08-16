@@ -29,7 +29,7 @@ public class AplCadastrarProjetoImpl extends
 			throws NucleoRegraNegocioExcecao {
 
 		// Verifica se existe outro projeto com o mesmo nome
-		if (((ProjetoDAO) this.getNucleoDaoBase()).recuperarPorNome(objeto
+		if (nucleoOrganizacaoDAO.recuperarPorNome(objeto
 				.getNome()) != null) {
 			throw new NucleoRegraNegocioExcecao("Já existe projeto com o nome informado.",
 					null);
