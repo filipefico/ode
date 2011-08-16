@@ -1,146 +1,135 @@
 ---------------------------------------------------------------------------------------------
--- Configuracoes do Sistema : Usada para recuperar as funcionalidades disponíveis no ODE  
----------------------------------------------------------------------------------------------
-
-INSERT INTO CONFIGURACOESSISTEMA(id, uuid, version) 
-			VALUES (1, '1' , 1);
-			
--- Sequences: Deve conter o próximo id a ser utilizado 
-INSERT INTO HIBERNATE_SEQUENCES (SEQUENCE_NAME, SEQUENCE_NEXT_HI_VALUE ) 
-			VALUES  ('ConfiguracaoSistema', 1000);
-
----------------------------------------------------------------------------------------------
 -- Menus/Funcionalidades 
 ---------------------------------------------------------------------------------------------
 
 -- Projeto			
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (1, '1', 1, 'Projetos', '', false, null, 1, 0, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (1, '1', 1, 'Projetos', '', false, null, 0, null);
             
 -- Cadastrar Projetos          
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (11, '11', 11, 'Cadastrar Projetos', 'ode.controleProjeto.cci.CtrlProjetoCRUD', false, 1, null, 0, 1);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (11, '11', 11, 'Cadastrar Projetos', 'ode.controleProjeto.cci.CtrlProjetoCRUD', false, 1, 0, 1);
 
 -- Selecionar Projetos            
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (12, '12', 12, 'Selecionar Projeto', 'ode.controleProjeto.cci.CtrlSelecionarProjeto', false, 1, null, 1, 1);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (12, '12', 12, 'Selecionar Projeto', 'ode.controleProjeto.cci.CtrlSelecionarProjeto', false, 1, 1, 1);
 
 -- Administracao 
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (2, '2', 2, 'Administração', '', false, null, 1, 1, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (2, '2', 2, 'Administração', '', false, null, 1, null);
 -- Usuarios
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (21, '21', 21, 'Usuários', 'ode.controleUsuario.cci.UsuarioCtrlCRUD', false, 2, null, 0, 2);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (21, '21', 21, 'Usuários', 'ode.controleUsuario.cci.UsuarioCtrlCRUD', false, 2, 0, 2);
 
 -- Menu Recursos
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (3, '3', 3, 'Recursos', '', false, null, 1, 2, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (3, '3', 3, 'Recursos', '', false, null, 2, null);
 
 -- Recursos Humanos            
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (31, '31', 31, 'Recursos Humanos', 'ode.controleProcesso.cci.CtrlCRUDRecursoHumano', false, 3, null, 0, 3);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (31, '31', 31, 'Recursos Humanos', 'ode.controleProcesso.cci.CtrlCRUDRecursoHumano', false, 3, 0, 3);
 
 -- Conhecimento           
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (4, '4', 4, 'Conhecimento', '', false, null, 1, 3, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (4, '4', 4, 'Conhecimento', '', false, null, 3, null);
             
 -- Recursos           
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (41, '41', 41, 'Recursos', '', false, 4, null, 0, 4);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (41, '41', 41, 'Recursos', '', false, 4, 0, 4);
             
 -- Ferramentas de Software
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (411, '411', 411, 'Ferramentas de Software', 'ode.conhecimento.processo.Cci.CtrlKFerramentaSoftwareCRUD', false, 41, null, 0, 41);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (411, '411', 411, 'Ferramentas de Software', 'ode.conhecimento.processo.Cci.CtrlKFerramentaSoftwareCRUD', false, 41, 0, 41);
 
 -- Recursos Humanos
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (412, '412', 412, 'Recursos Humanos', 'ode.conhecimento.processo.Cci.CtrlKRecursoHumanoCRUD', false, 41, null, 1, 41);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (412, '412', 412, 'Recursos Humanos', 'ode.conhecimento.processo.Cci.CtrlKRecursoHumanoCRUD', false, 41, 1, 41);
             
 -- Recursos de Hardware
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (413, '413', 413, 'Recursos de Hardware', 'ode.conhecimento.processo.Cci.CtrlKRecursoHardwareCRUD', false, 41, null, 2, 41);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (413, '413', 413, 'Recursos de Hardware', 'ode.conhecimento.processo.Cci.CtrlKRecursoHardwareCRUD', false, 41, 2, 41);
             
 -- Processo
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (42, '42', 42, 'Processos', '', false, 4, null, 0, 4);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (42, '42', 42, 'Processos', '', false, 4, 0, 4);
             
 -- Paradigmas
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (421, '421', 421, 'Paradigmas', 'ode.conhecimento.processo.Cci.CtrlKParadigmaCRUD', false, 42, null, 0, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (421, '421', 421, 'Paradigmas', 'ode.conhecimento.processo.Cci.CtrlKParadigmaCRUD', false, 42, 0, 42);
 
 -- Tipos de Software
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (422, '422', 422, 'Tipos de Software', 'ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD', false, 42, null, 1, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (422, '422', 422, 'Tipos de Software', 'ode.conhecimento.processo.Cci.CtrlTipoSoftwareCRUD', false, 42, 1, 42);
             
 -- Tipos de Artefato
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (423, '423', 423, 'Tipos de Artefato', 'ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD', false, 42, null, 2, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (423, '423', 423, 'Tipos de Artefato', 'ode.conhecimento.processo.Cci.CrtlTipoKArtefatoCRUD', false, 42, 2, 42);
 
 -- Artefatos
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (424, '424', 424, 'Artefatos', 'ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD', false, 42, null, 3, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (424, '424', 424, 'Artefatos', 'ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD', false, 42, 3, 42);
             
 -- Domínios de Aplicação
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (425, '425', 425, 'Domínios de Aplicação', 'ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD', false, 42, null, 4, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (425, '425', 425, 'Domínios de Aplicação', 'ode.conhecimento.processo.Cci.CtrlKDominioAplicacaoCRUD', false, 42, 4, 42);
                         
 -- Categorias de Processo
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (426, '426', 426, 'Categorias de Processo', 'ode.conhecimento.processo.Cci.CtrlKCategoriaProcessoCRUD', false, 42, null, 5, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (426, '426', 426, 'Categorias de Processo', 'ode.conhecimento.processo.Cci.CtrlKCategoriaProcessoCRUD', false, 42, 5, 42);
             
 -- Processos
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (427, '427', 427, 'Processos', 'ode.conhecimento.processo.Cci.CtrlKProcessoCRUD', false, 42, null, 6, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (427, '427', 427, 'Processos', 'ode.conhecimento.processo.Cci.CtrlKProcessoCRUD', false, 42, 6, 42);
             
 -- Atividades
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (428, '428', 428, 'Atividades', 'ode.conhecimento.processo.Cci.CtrlKAtividadeCRUD', false, 42, null, 7, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (428, '428', 428, 'Atividades', 'ode.conhecimento.processo.Cci.CtrlKAtividadeCRUD', false, 42, 7, 42);
             
 -- Procedimentos
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (429, '429', 429, 'Procedimentos', 'ode.conhecimento.processo.Cci.CtrlKProcedimentoCRUD', false, 42, null, 8, 42);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (429, '429', 429, 'Procedimentos', 'ode.conhecimento.processo.Cci.CtrlKProcedimentoCRUD', false, 42, 8, 42);
             
 -- Organização
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (43, '43', 43, 'Organização', '', false, 4, null, 0, 4);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (43, '43', 43, 'Organização', '', false, 4, 0, 4);
             
 -- Domínios de Conhecimento
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (431, '431', 431, 'Domínios de Conhecimento', 'ode.conhecimento.organizacao.Cci.CtrlKDominioConhecimentoCRUD', false, 43, null, 0, 43);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (431, '431', 431, 'Domínios de Conhecimento', 'ode.conhecimento.organizacao.Cci.CtrlKDominioConhecimentoCRUD', false, 43, 0, 43);
             
 -- Processo Padrão
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (5, '5', 5, 'Processo Padrão', '', false, null, 1, 4, null);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (5, '5', 5, 'Processo Padrão', '', false, null, 4, null);
 
 -- Componentes de Processo Padrão             
 INSERT INTO FUNCIONALIDADE(
-            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, configuracoes_sistema_id, pos, funcionalidade_id) 
-            VALUES (51, '51', 51, 'Componentes de Processo Padrão', 'ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD', false, 5, null, 0, 5);
+            id, uuid, version, nome, srcctrl, disponivelapenasparaprojetosabertos, funcionalidadepai_id, pos, funcionalidade_id) 
+            VALUES (51, '51', 51, 'Componentes de Processo Padrão', 'ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD', false, 5, 0, 5);
   
 -- Sequences: Deve conter o próximo id a ser utilizado            
 INSERT INTO HIBERNATE_SEQUENCES (SEQUENCE_NAME, SEQUENCE_NEXT_HI_VALUE ) 
