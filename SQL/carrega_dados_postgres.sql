@@ -1,5 +1,15 @@
 ---------------------------------------------------------------------------------------------
 -- Menus/Funcionalidades 
+-- Parâmetros:
+-- id: ID da funcionalidade.
+-- uuid: UUID da funcionalidade.
+-- version: Version da funcionalidade.
+-- Nome: nome da funcionalidade.
+-- srcctrl: Src do controlador da funcionalidade. 
+-- disponivelapenasparaprojetosabertos: indica se a funcionalidade deve ser exibida somente quanto projetos estiverem abertos para trabalho.
+-- funcionalidadepai_id: ID da funcionalidade pai. Se for uma funcionalidade raíz, a funcionalidade_pai é null.
+-- pos: Índice indicando a posição da funcionalidade no nível que ela se encontra. Funcionalidades com o "pos" menor serão exibidas primeiro.
+-- funcionalidade_id: Deve ser o mesmo valor da funcionalidadepai_id. 
 ---------------------------------------------------------------------------------------------
 
 -- Projeto			
@@ -208,7 +218,7 @@ INSERT INTO PERFILACESSO_FUNCIONALIDADE(
             perfilacesso_id, funcionalidadespermitidas_id)
     		VALUES (1, 423);
 
-    		INSERT INTO PERFILACESSO_FUNCIONALIDADE(
+INSERT INTO PERFILACESSO_FUNCIONALIDADE(
             perfilacesso_id, funcionalidadespermitidas_id)
     		VALUES (1, 424);
     		
