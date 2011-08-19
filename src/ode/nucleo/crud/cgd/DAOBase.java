@@ -6,25 +6,39 @@ import ode.nucleo.cdp.ObjetoPersistente;
 
 
 /**
- * Interface DAO do sistema.
+ * Interface DAOBase. Contém métodos genéricos para serem utilizados por qualquer objeto persistente.
  * 
  */
 public interface DAOBase<T extends ObjetoPersistente> {
-	
+
 	/**
-	 * Recupera todos os objetos persistentes da classe de domínio T.
+	 * Salva um objeto de domínio na mídia persistente.
 	 * 
-	 * @return Coleção de todos os objetos persistentes da classe de domínio T.
-	 * @throws NucleoDAOExcecao
-	 *             Caso ocorra algum problema no acesso ao banco de dados.
+	 * @param objeto
+	 *            Objeto de domínio.
 	 */
-	public Collection<T> recuperarTodos();
+	public void salvar(T objeto);
+
+	/**
+	 * Exclui um objeto de domínio da mídia persistente.
+	 * 
+	 * @param objeto
+	 *            Objeto de domínio.
+	 */
+	public void excluir(T objeto);
 	
 	/**
 	 * Atualiza um objeto já existente no banco.
 	 * @param objeto Objeto a ser atualizado.
 	 */
-	public void merge(T objeto);
+	public void atualizar(T objeto);
+
+	/**
+	 * Recupera todos os objetos persistentes da classe de domínio T.
+	 * 
+	 * @return Coleção de todos os objetos persistentes da classe de domínio T.
+	 */
+	public Collection<T> recuperarTodos();
 
 	/**
 	 * Obtém um objeto persistente da classe de domínio T, de acordo com seu identificador.
@@ -32,29 +46,13 @@ public interface DAOBase<T extends ObjetoPersistente> {
 	 * @param id
 	 *            Identificador do objeto persistente.
 	 * @return O objeto persistente cujo identificador foi dado.
-	 * @throws NucleoDAOExcecao
-	 *             Caso ocorra algum problema no acesso ao banco de dados.
 	 */
 	public T recuperarPorId(Long id);
 
 	/**
-	 * Salva um objeto de domínio na mídia persistente.
-	 * 
-	 * @param objeto
-	 *            Objeto de domínio.
-	 * @throws NucleoDAOExcecao
-	 *             Caso ocorra algum problema no acesso ao banco de dados.
+	 * Recupera a classe do objeto T.
+	 * @return Classe do objeto T.
 	 */
-	void salvar(T objeto);
+	public Class<T> getClasseDominio();
 
-	/**
-	 * Exclui um objeto de domínio da mídia persistente.
-	 * 
-	 * @param objeto
-	 *            Objeto de domínio.
-	 * @throws NucleoDAOExcecao
-	 *             Caso ocorra algum problema no acesso ao banco de dados.
-	 */
-	void excluir(T objeto);
-		
 }

@@ -85,7 +85,7 @@ public class NucleoUserDetails extends ObjetoPersistente
 		this.recursoHumano = recursoHumano;
 	}
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToOne
 	public PerfilAcesso getPerfilAcesso() {
 		return perfilAcesso;
 	}

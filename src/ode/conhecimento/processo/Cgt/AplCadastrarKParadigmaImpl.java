@@ -40,7 +40,7 @@ public class AplCadastrarKParadigmaImpl extends
 //		depoisAlterarDados(objeto);
 		
 		// Inclui o Principal Serviço
-	getNucleoDaoBase().merge(objeto);
+	getNucleoDaoBase().atualizar(objeto);
 
 
 		//return objetoPersistido;

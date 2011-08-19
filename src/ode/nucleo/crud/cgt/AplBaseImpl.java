@@ -203,7 +203,7 @@ public abstract class AplBaseImpl<T extends ObjetoPersistente>
 		antesAlterarDados(objeto);
 
 		// Obtém o Principal Serviço persistido e altera seus dados
-		getNucleoDaoBase().merge(objeto);
+		getNucleoDaoBase().atualizar(objeto);
 
 		// Executa a ação necessária depois de alterar os dados
 		depoisAlterarDados(objeto);

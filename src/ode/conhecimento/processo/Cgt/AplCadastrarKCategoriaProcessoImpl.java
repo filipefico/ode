@@ -29,7 +29,7 @@ public class AplCadastrarKCategoriaProcessoImpl extends AplBaseImpl<KCategoriaPr
 	}
 
 	protected KCategoriaProcesso alterarDados(KCategoriaProcesso objeto) throws NucleoRegraNegocioExcecao {
-		getNucleoDaoBase().merge(objeto);
+		getNucleoDaoBase().atualizar(objeto);
 		//Retorna objetoPersistido;
 		return objeto;
 	}

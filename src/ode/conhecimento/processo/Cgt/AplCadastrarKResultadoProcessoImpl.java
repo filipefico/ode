@@ -28,7 +28,7 @@ public class AplCadastrarKResultadoProcessoImpl extends AplBaseImpl<KResultadoPr
 	}
 	
 	protected KResultadoProcesso alterarDados(KResultadoProcesso objeto) throws NucleoRegraNegocioExcecao {
-		getNucleoDaoBase().merge(objeto);
+		getNucleoDaoBase().atualizar(objeto);
 		return objeto;
 	}
 

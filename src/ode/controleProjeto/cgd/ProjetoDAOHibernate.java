@@ -2,7 +2,6 @@ package ode.controleProjeto.cgd;
 
 import java.util.Collection;
 
-
 import ode.controleProjeto.cdp.Projeto;
 import ode.nucleo.crud.cgd.DAOBaseHibernate;
 
@@ -14,17 +13,15 @@ public class ProjetoDAOHibernate extends DAOBaseHibernate<Projeto> implements
 	
 	@SuppressWarnings("unchecked")
 	public Projeto recuperarPorNome(String nome) {
-		Collection<Projeto> Organizacao = getHibernateTemplate()
-				.findByNamedParam(
-						"from Projeto projeto where projeto.nome = :nome ",
-						new String[] { "nome" },
-						new Object[] { nome });
+		
+		Collection<Projeto> projetos = getEntityManager().createQuery("from Projeto where nome = :nome ").setParameter("nome", nome).getResultList();
 
-		if (Organizacao.size() > 0) {
-			return Organizacao.iterator().next();
+		if (projetos.size() > 0) {
+			return projetos.iterator().next();
 		} else {
 			return null;
 		}
+		
 	}
 
 }

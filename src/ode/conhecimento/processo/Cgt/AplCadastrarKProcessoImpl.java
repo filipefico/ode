@@ -28,7 +28,7 @@ public class AplCadastrarKProcessoImpl extends AplBaseImpl<KProcesso>
 	}
 
 	protected KProcesso alterarDados(KProcesso objeto) throws NucleoRegraNegocioExcecao {
-		getNucleoDaoBase().merge(objeto);
+		getNucleoDaoBase().atualizar(objeto);
 		//Retorna objetoPersistido;
 		return objeto;
 	}
