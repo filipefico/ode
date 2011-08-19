@@ -25,7 +25,7 @@ public class CompPPProcessoComplexoDAOHibernate extends DAOBaseHibernate<CompPPP
 	  public CompPPProcessoComplexo obterPorNome(String parNome){
 	      
 	
-	        List locProc = getHibernateTemplate().find("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'");
+	        List locProc = getEntityManager().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'").getResultList();
 	        if (locProc.isEmpty())
 	            return null;
 	        return (CompPPProcessoComplexo)locProc.get(0);

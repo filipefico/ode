@@ -28,7 +28,7 @@ public class AplCadastrarKTipoRequisitoImpl extends AplBaseImpl<KTipoRequisito>
 	}
 
 	protected KTipoRequisito alterarDados(KTipoRequisito objeto) throws NucleoRegraNegocioExcecao {
-		getNucleoDaoBase().merge(objeto);
+		getNucleoDaoBase().atualizar(objeto);
 		//Retorna objetoPersistido;
 		return objeto;
 	}

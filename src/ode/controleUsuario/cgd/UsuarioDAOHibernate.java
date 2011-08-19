@@ -20,11 +20,8 @@ public class UsuarioDAOHibernate extends
 	public UserDetails recuperarPorUsername(String username)
 			throws DataAccessException {
 		try {
-			List<NucleoUserDetails> usuarios = getHibernateTemplate()
-					.findByNamedParam(
-							"from NucleoUserDetails ud "
-									+ " where ud.username = :username",
-							"username", username);
+			List<NucleoUserDetails> usuarios = getEntityManager().createQuery(
+					"from NucleoUserDetails ud where ud.username = :user").setParameter("user", username).getResultList();
 
 			if (usuarios.size() == 0) {
 				return null;

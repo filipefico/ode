@@ -18,9 +18,9 @@ public class FuncionalidadeDAOHibernate extends DAOBaseHibernate<Funcionalidade>
 	 */
 	@SuppressWarnings("unchecked")
 	public Collection<Funcionalidade> recuperarSubFuncionalidadesPorFuncionalidade(Funcionalidade funcionalidadePai) {
-		Collection<Funcionalidade> funcionalidades = getHibernateTemplate().findByNamedParam(
-				"from Funcionalidade subfuncionalidade " + " where subfuncionalidade.funcionalidadePai = :funcionalidadePai order by pos",
-				new String[] { "funcionalidadePai" }, new Object[] { funcionalidadePai });
+		Collection<Funcionalidade> funcionalidades = getEntityManager().createQuery(
+				"from Funcionalidade subfuncionalidade " + 
+				"where subfuncionalidade.funcionalidadePai = :funcionalidadePai").setParameter("funcionalidadePai", funcionalidadePai).getResultList();
 		return funcionalidades;
 	}
 	
@@ -30,9 +30,11 @@ public class FuncionalidadeDAOHibernate extends DAOBaseHibernate<Funcionalidade>
 	 */
 	@SuppressWarnings("unchecked")
 	public Collection<Funcionalidade> recuperarFuncionalidadesRaiz() {
-		Collection<Funcionalidade> funcionalidades = getHibernateTemplate().find("from Funcionalidade f where f.funcionalidadePai is null order by pos");
+		
+			Collection<Funcionalidade> funcionalidades = getEntityManager().createQuery("from Funcionalidade f where f.funcionalidadePai is null order by pos").getResultList();
 
-		return funcionalidades;
+			return funcionalidades;
+			
 	}
 	
 	

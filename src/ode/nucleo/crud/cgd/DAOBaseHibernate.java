@@ -1,16 +1,12 @@
 package ode.nucleo.crud.cgd;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import ode.nucleo.cdp.ObjetoPersistente;
-
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * 
@@ -20,103 +16,71 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 public class DAOBaseHibernate<T extends ObjetoPersistente>
 implements DAOBase<T> {
-	/**
-     * Classe a ser tratada na sub-classe.
-     */
-    private Class<T> entityClass;
 
-    private HibernateTemplate hibernateTemplate;
+	@PersistenceContext
+	EntityManager entityManager;
+	
+	/*
+	 * (non-Javadoc)
+	 * @see ode.nucleo.crud.cgd.DAOBase#salvar(ode.nucleo.cdp.ObjetoPersistente)
+	 */
+	public void salvar(T objeto) {
+		entityManager.persist(objeto);
+	}
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-            hibernateTemplate = new HibernateTemplate(sessionFactory);
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see ode.nucleo.crud.cgd.DAOBase#atualizar(ode.nucleo.cdp.ObjetoPersistente)
+	 */
+	public void atualizar(T objeto) {
+		entityManager.merge(objeto);
+	}
 
-    public HibernateTemplate getHibernateTemplate(){
-            return this.hibernateTemplate;
-    }
+	/*
+	 * (non-Javadoc)
+	 * @see ode.nucleo.crud.cgd.DAOBase#excluir(ode.nucleo.cdp.ObjetoPersistente)
+	 */
+	public void excluir(T objeto) {
+		entityManager.remove(entityManager.find(this.getClasseDominio(),objeto.getId()));
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see ode.nucleo.crud.cgd.DAOBase#recuperarTodos()
+	 */
+	public Collection<T> recuperarTodos() {
+		return entityManager.createQuery("from " + getClasseDominio().getSimpleName()).getResultList();
+	}
 
-    /**
-     * Recupera a classe de domínio que é persistida.
-     * 
-     * @return Classe de domínio que é persistida pelas subclasses.
-     */
+	/*
+	 * (non-Javadoc)
+	 * @see ode.nucleo.crud.cgd.DAOBase#recuperarPorId(java.lang.Long)
+	 */
+	public T recuperarPorId(Long id) {
 
-    public Class<T> getClasseDominio() {
+		T objeto = null;
+		objeto = (T) entityManager.find(getClasseDominio(), id);
+		
+		return objeto;
+	}
 
-            ParameterizedType parameterizedType = (ParameterizedType) getClass()
-            .getGenericSuperclass();
+	/*
+	 * (non-Javadoc)
+	 * @see ode.nucleo.crud.cgd.DAOBase#getClasseDominio()
+	 */
+	public Class<T> getClasseDominio() {
 
-            return (Class<T>) parameterizedType.getActualTypeArguments()[0];
-    }
+		ParameterizedType parameterizedType = (ParameterizedType) getClass()
+		.getGenericSuperclass();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see br.ufes.inf.labes.util.persistencia.DAOBase#recuperarTodos()
-     */
-    @SuppressWarnings("unchecked")
-    public Collection<T> recuperarTodos() {
-            // Usa o suporte do Spring para recuperar todos os objetos.
-            // Encapsula dentro de um new LinkedHashSet para corrigir problema
-            // de retorno de objetos repetidos.
-            // O encapsulamento final dentro do ArrayList visa ï¿½ melhoria de
-            // performance da Collection.
-            List<T> todosElementos = new ArrayList<T>(new LinkedHashSet<T>(
-                            getHibernateTemplate().loadAll(getClasseDominio())));
-            // Collections.sort(todosElementos);
+		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
+	}
 
-            return todosElementos;
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
 
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * br.ufes.inf.labes.util.persistencia.DAOBase#recuperarPorId(java.lang.
-     * Long)
-     */
-    @SuppressWarnings("unchecked")
-    public T recuperarPorId(Long id) {
-            // Usa o suporte do Spring para recuperar o objeto pelo id.
-            T objeto = null;
-            try {
-                    objeto = (T) getHibernateTemplate().load(getClasseDominio(), id);
-
-                    // Verificar se o objeto ï¿½ vï¿½lido.
-                    objeto.toString();
-            } catch (Exception e) {
-                    return null;
-            }
-
-            return objeto;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see br.ufes.inf.labes.util.persistencia.DAOBase#salvar(java.lang.Object)
-     */
-    public void salvar(T objeto) {
-            // Usa o suporte do Spring para salvar o objeto.
-            getHibernateTemplate().save(objeto);
-
-    }
-
-    public void merge(T objeto) {
-            getHibernateTemplate().merge(objeto);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * br.ufes.inf.labes.util.persistencia.DAOBase#excluir(java.lang.Object)
-     */
-    public void excluir(T objeto) {
-            // Usa o suporte do Spring para excluir o objeto.
-            getHibernateTemplate().delete(objeto);
-    }
-
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
 }
