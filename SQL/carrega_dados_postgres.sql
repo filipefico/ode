@@ -6,7 +6,7 @@
 -- version: Version da funcionalidade.
 -- Nome: nome da funcionalidade.
 -- srcctrl: Src do controlador da funcionalidade. 
--- disponivelapenasparaprojetosabertos: indica se a funcionalidade deve ser exibida somente quanto projetos estiverem abertos para trabalho.
+-- disponivelapenasparaprojetosabertos: indica se a funcionalidade deve ser exibida somente quando projetos estiverem abertos para trabalho.
 -- funcionalidadepai_id: ID da funcionalidade pai. Se for uma funcionalidade raíz, a funcionalidade_pai é null.
 -- pos: Índice indicando a posição da funcionalidade no nível que ela se encontra. Funcionalidades com o "pos" menor serão exibidas primeiro.
 -- funcionalidade_id: Deve ser o mesmo valor da funcionalidadepai_id. 
