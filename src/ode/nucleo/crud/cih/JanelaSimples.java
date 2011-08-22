@@ -4,6 +4,7 @@ import org.zkoss.zul.Window;
 
 public class JanelaSimples extends Window{
 	private static final long serialVersionUID = -5859724805082908994L;
+	
 	/** Tamanho da window. */
 	protected String WIDTH_WINDOW = "450px";
 
@@ -11,7 +12,6 @@ public class JanelaSimples extends Window{
 	
 	public JanelaSimples(){
 		 configurarPropriedadesPadrao();
-		
 	}
 
 	
