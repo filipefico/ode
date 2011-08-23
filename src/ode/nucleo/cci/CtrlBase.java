@@ -49,8 +49,6 @@ public abstract class CtrlBase extends Window {
 				Messagebox.INFORMATION);
 
 	}
-
-	public abstract void configurarComponentes();
 	
 	public abstract void iniciar();
 
