@@ -24,10 +24,6 @@ public class AlterarSenhaCtrl extends CtrlBase {
 	private PanelAlterarSenha PainelAlterarSenha;
 
 	@Override
-	public void configurarComponentes() {
-	}
-
-	@Override
 	public void iniciar() {
 
 		jan = factoryJanelaSimples();

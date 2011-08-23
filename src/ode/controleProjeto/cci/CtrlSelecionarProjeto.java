@@ -21,8 +21,6 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 	
 	public static final String NOME = "CtrlSelecionarProjeto";
 	
-	private WindowPrincipal windowMenu;
-	
 	private PainelSelecionarProjeto painelSelecionarProjeto;
 	
 	private JanelaSimples jan;
@@ -46,7 +44,6 @@ public class CtrlSelecionarProjeto extends CtrlBase {
 		mostrarJanelaPrincipal();
 	}
 
-	@Override
 	public void configurarComponentes() {
 		painelSelecionarProjeto = new PainelSelecionarProjeto(this);
 	}
