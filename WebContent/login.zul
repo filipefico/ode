@@ -36,7 +36,7 @@
                     <separator />
 
                     <h:form id="loginForm" action="j_security_check"
-                        xmlns:h="http://www.w3.org/1999/xhtml">
+                        xmlns:h="http://www.w3.org/1999/xhtml" onSubmit="login(); return false;">
                         <vbox>
                             <div align="left"
                                 style="margin-top: 5px; margin-bottom: 5px;">
@@ -65,8 +65,7 @@
                             <separator />
                             <div align="right">
 
-                                <button width="100px" label="login"
-                                    onClick="login()" sclass="botaoPrincipal" />
+                                <h:input type="submit" style="width:100px" value="login" sclass="botaoPrincipal" />
                                 <zscript>
                            <![CDATA[
                            
