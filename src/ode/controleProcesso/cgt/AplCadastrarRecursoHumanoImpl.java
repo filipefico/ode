@@ -12,7 +12,7 @@ import ode.nucleo.excecao.NucleoExcecao;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadadastrarRecursoHumanoImpl extends
+public class AplCadastrarRecursoHumanoImpl extends
 		AplBaseImpl<RecursoHumano> implements
 		AplCadastrarRecursoHumano {
 

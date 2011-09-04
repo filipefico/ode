@@ -5,7 +5,7 @@ import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
 
-public class PainelCrudFerramentaSoftware extends PainelCRUD<KFerramentaSoftware>{
+public class PainelCrudKFerramentaSoftware extends PainelCRUD<KFerramentaSoftware>{
 	/**
 	 * 
 	 */
@@ -13,7 +13,7 @@ public class PainelCrudFerramentaSoftware extends PainelCRUD<KFerramentaSoftware
 
 	@Override
 	public ListagemSimples<KFerramentaSoftware> definirListagem() {
-		ListagemFerramentaSoftware listagem = new ListagemFerramentaSoftware();
+		ListagemKFerramentaSoftware listagem = new ListagemKFerramentaSoftware();
 		return listagem;
 	}
 }

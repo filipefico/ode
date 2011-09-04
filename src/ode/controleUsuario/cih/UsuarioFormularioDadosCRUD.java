@@ -3,7 +3,7 @@ package ode.controleUsuario.cih;
 import java.util.ArrayList;
 import java.util.List;
 
-import ode.controleProcesso.cih.RecursoHuamanoBandbox;
+import ode.controleProcesso.cih.RecursoHumanoBandbox;
 import ode.controleUsuario.cci.UsuarioCtrlCRUD;
 import ode.controleUsuario.cdp.GrantedAuthorityImpl;
 import ode.controleUsuario.cdp.NucleoUserDetails;
@@ -28,7 +28,7 @@ FormularioDadosCRUD<NucleoUserDetails> {
 	private static final long serialVersionUID = 1L;
 	
 	@Override
-	protected List definirTabs() {
+	protected List<NucleoTab> definirTabs() {
 		List<NucleoTab> listaTabs = new ArrayList<NucleoTab>();
 
 		NucleoTab tabDadosCadastro = new NucleoTab();
@@ -38,8 +38,8 @@ FormularioDadosCRUD<NucleoUserDetails> {
 		GridDados gridDadosCadastro = new GridDados();
 		
 		UsuarioCtrlCRUD ctrl= (UsuarioCtrlCRUD) this.getControlador();
-		recursoHuamanoBandbox.preencherLista(ctrl.getAplCadastrarRecursoHumano().recuperarTodos());
-		gridDadosCadastro.adicionarLinhaObrigatoria("Recurso Humano", recursoHuamanoBandbox);
+		recursoHumanoBandbox.preencherLista(ctrl.getAplCadastrarRecursoHumano().recuperarTodos());
+		gridDadosCadastro.adicionarLinhaObrigatoria("Recurso Humano", recursoHumanoBandbox);
 		
 		tbLogin.setWidth("200px");
 		tbLogin.setMaxlength(100);		
@@ -58,7 +58,7 @@ FormularioDadosCRUD<NucleoUserDetails> {
 		listboxPerfilAcesso.setWidth("200px");
 		listboxPerfilAcesso.setRows(1);
 		listboxPerfilAcesso.setMold("select");
-		List<PerfilAcesso> lista = new ArrayList(((UsuarioCtrlCRUD)this.getControlador()).getAplCadastrarPerfilAcesso().recuperarTodos());
+		List<PerfilAcesso> lista = new ArrayList<PerfilAcesso>(((UsuarioCtrlCRUD)this.getControlador()).getAplCadastrarPerfilAcesso().recuperarTodos());
 		for (int i=0; i<lista.size(); i++){
 			PerfilAcesso objeto = lista.get(i);
 			Listitem listitem = new Listitem(objeto.getNome());
@@ -77,7 +77,7 @@ FormularioDadosCRUD<NucleoUserDetails> {
 
 	@Override
 	protected void preencherDadosObjeto(NucleoUserDetails objeto) {		
-		objeto.setRecursoHumano(recursoHuamanoBandbox.getObjetoSelecionado());
+		objeto.setRecursoHumano(recursoHumanoBandbox.getObjetoSelecionado());
 		objeto.setUsername(tbLogin.getValue());
 		
 		// Só modifica a senha caso algo seja digitado
@@ -111,7 +111,7 @@ FormularioDadosCRUD<NucleoUserDetails> {
 
 	@Override
 	protected void preencherDadosTela(NucleoUserDetails objeto) throws NucleoRegraNegocioExcecao {
-		recursoHuamanoBandbox.setObjetoSelecionado(objeto.getRecursoHumano());
+		recursoHumanoBandbox.setObjetoSelecionado(objeto.getRecursoHumano());
 		tbLogin.setValue(objeto.getUsername());
 		List<Listitem> listItems = listboxPerfilAcesso.getItems();
 		for (Listitem item : listItems) {
@@ -127,7 +127,7 @@ FormularioDadosCRUD<NucleoUserDetails> {
 		tbLogin.setConstraint("no empty");
 	}
 	
-	private RecursoHuamanoBandbox recursoHuamanoBandbox = new RecursoHuamanoBandbox();
+	private RecursoHumanoBandbox recursoHumanoBandbox = new RecursoHumanoBandbox();
 	
 	private Textbox tbLogin = new Textbox();
 	

@@ -6,8 +6,8 @@ import org.zkoss.zkplus.spring.SpringUtil;
 
 import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.Cgt.AplCadastrarKFerramentaSoftware;
-import ode.conhecimento.processo.Cih.FormDadosFerramentaSoftware;
-import ode.conhecimento.processo.Cih.PainelCrudFerramentaSoftware;
+import ode.conhecimento.processo.Cih.FormDadosKFerramentaSoftware;
+import ode.conhecimento.processo.Cih.PainelCrudKFerramentaSoftware;
 import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
@@ -43,7 +43,7 @@ public class CtrlKFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
-		return new PainelCrudFerramentaSoftware();
+		return new PainelCrudKFerramentaSoftware();
 		
 	}
 
@@ -54,8 +54,8 @@ public class CtrlKFerramentaSoftwareCRUD extends CtrlCRUD<KFerramentaSoftware> {
 	}
 
 	@Override
-	public FormDadosFerramentaSoftware definirFormularioCadastro() {
-		return new FormDadosFerramentaSoftware();
+	public FormDadosKFerramentaSoftware definirFormularioCadastro() {
+		return new FormDadosKFerramentaSoftware();
 	}
 
 	@Override

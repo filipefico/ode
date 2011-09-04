@@ -3,7 +3,7 @@ package ode.controleProcesso.cih;
 import ode.controleProcesso.cdp.RecursoHumano;
 import ode.nucleo.cih.NucleoBandbox;
 
-public class RecursoHuamanoBandbox extends NucleoBandbox<RecursoHumano> {
+public class RecursoHumanoBandbox extends NucleoBandbox<RecursoHumano> {
 
 	/**
 	 * 
