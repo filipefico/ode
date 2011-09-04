@@ -22,7 +22,7 @@
 	<!-- Filtro que processa a ação de logout. A ação é identificada pela propriedade filterProcessesUrl. -->
 	<bean id="logoutFilter"
 		class="org.acegisecurity.ui.logout.LogoutFilter">
-		<constructor-arg value="/login.zul" />
+		<constructor-arg value="/login.jsp" />
 		<!-- URL redirected to after logout -->
 		<constructor-arg>
 			<list>
@@ -40,7 +40,7 @@
 		<property name="authenticationManager"
 			ref="authenticationManager" />
 		<property name="authenticationFailureUrl"
-			value="/login.zul?error=1" />
+			value="/login.jsp?error=1" />
 		<property name="defaultTargetUrl"
 			value="/paginas/principal/principal.zul" />
 		<property name="filterProcessesUrl" value="/j_security_check" />
@@ -70,7 +70,7 @@
 			<bean
 				class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
 				<property name="loginFormUrl"
-					value="/login.zul?error=2" />
+					value="/login.jsp?error=2" />
 				<property name="forceHttps" value="false" />
 			</bean>
 		</property>
