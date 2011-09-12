@@ -1,52 +1,44 @@
 package ode.controleUsuario.cdp;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-
-import ode.nucleo.cdp.ObjetoPersistente;
-
 /**
- * Classe que representa perfil de acesso. Utilizada para gerenciar
- * permissões de acesso às funcionalidades do sistema.
+ * Classe que representa perfil de acesso. Utilizada para gerenciar permissões
+ * de acesso às funcionalidades do sistema.
  * 
  */
-@Entity
-public class PerfilAcesso extends ObjetoPersistente {
+public enum PerfilAcesso {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	Administrador("Administrador", 1), Desenvolvedor("Desenvolvedor", 2);
 
-	/**
-	 * Nome do perfil de acesso.
-	 */
 	private String nome;
+	private int id;
 
-	/**
-	 * Funcionalidades permitidas.
-	 */
-	private List<Funcionalidade> funcionalidadesPermitidas = new ArrayList<Funcionalidade>();
+	private PerfilAcesso(String nome, int id) {
+		this.nome = nome;
+		this.setId(id);
+	}
+
+	public String toString() {
+		return this.getNome();
+	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public int getId() {
+		return id;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	public List<Funcionalidade> getFuncionalidadesPermitidas() {
-		return funcionalidadesPermitidas;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setFuncionalidadesPermitidas(List<Funcionalidade> funcionalidadesPermitidas) {
-		this.funcionalidadesPermitidas = funcionalidadesPermitidas;
+	public static PerfilAcesso obterPorId(int id) {
+		for (PerfilAcesso perfil : PerfilAcesso.values()) {
+			if (perfil.getId() == id)
+				return perfil;
+		}
+		return null;
 	}
 
 }

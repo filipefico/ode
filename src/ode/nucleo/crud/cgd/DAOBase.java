@@ -39,6 +39,8 @@ public interface DAOBase<T extends ObjetoPersistente> {
 	 * @return Coleção de todos os objetos persistentes da classe de domínio T.
 	 */
 	public Collection<T> recuperarTodos();
+	
+	public Collection<T> recuperarTodosComOrdenacao(String orderBy);
 
 	/**
 	 * Obtém um objeto persistente da classe de domínio T, de acordo com seu identificador.

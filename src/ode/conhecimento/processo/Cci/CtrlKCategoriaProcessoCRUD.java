@@ -2,8 +2,8 @@ package ode.conhecimento.processo.Cci;
 
 import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.Cgt.AplCadastrarKCategoriaProcesso;
-import ode.conhecimento.processo.Cih.FormDadosCategoriaProcesso;
-import ode.conhecimento.processo.Cih.PainelCrudCategoriaProcesso;
+import ode.conhecimento.processo.Cih.FormDadosKCategoriaProcesso;
+import ode.conhecimento.processo.Cih.PainelCrudKCategoriaProcesso;
 import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
@@ -41,7 +41,7 @@ public class CtrlKCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 
 	@Override
 	public PainelCRUD definirPainelCRUD() {
-		return new PainelCrudCategoriaProcesso();
+		return new PainelCrudKCategoriaProcesso();
 		
 	}
 
@@ -53,7 +53,7 @@ public class CtrlKCategoriaProcessoCRUD extends CtrlCRUD<KCategoriaProcesso> {
 
 
 	public FormularioDadosCRUD definirFormularioCadastro() {
-		return new FormDadosCategoriaProcesso();
+		return new FormDadosKCategoriaProcesso();
 	}
 
 	@Override

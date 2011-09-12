@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zkplus.spring.SpringUtil;
 @Controller
-public class CtrlTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
+public class CtrlKTipoSoftwareCRUD extends CtrlCRUD<KTipoSoftware> {
 	@Override
 	public void iniciar() {
 		super.iniciar();

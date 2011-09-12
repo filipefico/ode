@@ -1,11 +1,14 @@
 package ode.conhecimento.processo.Cgt;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
 import ode.conhecimento.processo.Cgd.KRecursoHumanoDAO;
+import ode.controleProcesso.cdp.RecursoHumano;
 import ode.nucleo.crud.cgd.DAOBase;
 import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;
@@ -29,6 +32,11 @@ public class AplCadastrarKRecursoHumanoImpl extends
 	@Override
 	public DAOBase<KRecursoHumano> getNucleoDaoBase() {
 		return kRecursoHumanoDAO;
+	}
+	
+	@Override
+	public Collection<KRecursoHumano> recuperarTodos() {
+		return getNucleoDaoBase().recuperarTodosComOrdenacao("nome");
 	}
 
 }

@@ -14,7 +14,7 @@ import ode.nucleo.util.NucleoMensagens;
 
 import org.zkoss.zul.Textbox;
 
-public class FormDadosCategoriaProcesso  extends FormularioDadosCRUD<KCategoriaProcesso>{
+public class FormDadosKCategoriaProcesso  extends FormularioDadosCRUD<KCategoriaProcesso>{
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
 

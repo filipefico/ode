@@ -1,21 +1,14 @@
 package ode.controleUsuario.cgt;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
-import ode.controleUsuario.cdp.NucleoUserDetails;
+import ode.controleUsuario.cdp.Usuario;
 import ode.controleUsuario.cgd.UsuarioDAO;
 import ode.nucleo.excecao.NucleoExcecao;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.nucleo.util.NucleoMensagens;
 
-import org.acegisecurity.userdetails.UserDetails;
-import org.acegisecurity.userdetails.UserDetailsService;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,103 +18,87 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Alexandre G. N. Coelho
  */
-@Service("aplCadastrarUsuarioImpl")
+@Service("AplCadastrarUsuario")
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadastrarUsuarioImpl implements UserDetailsService,
-		AplCadastrarUsuario {
+public class AplCadastrarUsuarioImpl implements AplCadastrarUsuario {
 
 	@Autowired
-	private UsuarioDAO nucleoUserDetailsDAO;
+	private UsuarioDAO usuarioDAO;
 
-	public UsuarioDAO getNucleoUserDetailsDAO() {
-		return nucleoUserDetailsDAO;
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
 	}
 
-	public void setNucleoUserDetailsDAO(UsuarioDAO nucleoUserDetailsDAO) {
-		this.nucleoUserDetailsDAO = nucleoUserDetailsDAO;
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
 	}
 
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException, DataAccessException {
-		// Recupera por username
-		UserDetails usuario = nucleoUserDetailsDAO.recuperarPorUsername(username);
-
-		// Se o usuário não existir, dispara exceção para o Acegi
-		if (usuario == null) {
-			throw new UsernameNotFoundException("Usuário não encontrado!");
-		}
-
-		return usuario;
+	public void excluir(Usuario usuario) {
+		usuarioDAO.excluir(usuario);
 	}
 
-	public void excluir(NucleoUserDetails nucleoUserDetails) {
-		nucleoUserDetailsDAO.excluir(nucleoUserDetails);
+	public Collection<Usuario> recuperarTodos() {
+		return usuarioDAO.recuperarTodosComOrdenacao("nomeUsuario");
 	}
 
-	public Collection<NucleoUserDetails> recuperarTodos() {
-		List<NucleoUserDetails> pessoas = (List<NucleoUserDetails>) nucleoUserDetailsDAO
-				.recuperarTodos();
-		return pessoas;
+	public Usuario recuperarPorId(Long id) {
+		return usuarioDAO.recuperarPorId(id);
 	}
 
-	public NucleoUserDetails recuperarPorId(Long id) {
-		return nucleoUserDetailsDAO.recuperarPorId(id);
-	}
-
-	public NucleoUserDetails salvar(NucleoUserDetails nucleoUserDetails)
+	public Usuario salvar(Usuario usuario)
 			throws NucleoRegraNegocioExcecao {
-		if (nucleoUserDetails.isPersistente()) {
-			return alterarDados(nucleoUserDetails);
+		if (usuario.isPersistente()) {
+			return alterarDados(usuario);
 		} else {
-			return incluirNovo(nucleoUserDetails);
+			return incluirNovo(usuario);
 		}
 	}
 
 	/**
-	 * Inclui um novo NucleoUserDetails no sistema. É importante observar que o
-	 * NucleoUserDetails não pode ser persistente, ou seja, seu método
+	 * Inclui um novo Usuario no sistema. É importante observar que o
+	 * Usuario não pode ser persistente, ou seja, seu método
 	 * isPersistente() deve retornar falso.
 	 * 
-	 * @param nucleoUserDetails
-	 *            NucleoUserDetails a ser persistido
-	 * @return NucleoUserDetails persistido.
+	 * @param usuario
+	 *            Usuario a ser persistido
+	 * @return Usuario persistido.
 	 * @throws NucleoRegraNegocioExcecao
 	 *             Caso haja algum erro de regra de negócio
 	 */
-	private NucleoUserDetails incluirNovo(NucleoUserDetails nucleoUserDetails)
+	private Usuario incluirNovo(Usuario usuario)
 			throws NucleoRegraNegocioExcecao {
 		// Verifica se já existe algum usuário com o mesmo username
-		UserDetails usuario = nucleoUserDetailsDAO
-				.recuperarPorUsername(nucleoUserDetails.getUsername());
-		if (usuario != null) {
+		Usuario novo = usuarioDAO
+				.recuperarPorNomeUsuario(usuario.getNomeUsuario());
+		if (novo != null) {
 			throw new NucleoRegraNegocioExcecao(
 					NucleoMensagens
 							.getMensagem(NucleoMensagens.MSG_EXISTE_USUARIO_MESMO_USERNAME),
 					null);
 		}
 
-		// Inclui o NucleoUserDetails
-		nucleoUserDetailsDAO.salvar(nucleoUserDetails);
+		// Inclui o Usuario
+		usuarioDAO.salvar(usuario);
 
-		return nucleoUserDetails;
+		return usuario;
 	}
 
 	/**
-	 * Salva os dados de um NucleoUserDetails já persistido.
+	 * Salva os dados de um Usuario já persistido.
 	 * 
-	 * @param nucleoUserDetails
-	 *            NucleoUserDetails cujos dados devem ser alterados.
-	 * @return o NucleoUserDetails alterado.
+	 * @param usuario
+	 *            Usuario cujos dados devem ser alterados.
+	 * @return o Usuario alterado.
 	 * @throws NucleoRegraNegocioExcecao
 	 *             Caso haja algum erro de regra de negócio
 	 */
-	private NucleoUserDetails alterarDados(NucleoUserDetails nucleoUserDetails)
+	private Usuario alterarDados(Usuario usuario)
 			throws NucleoRegraNegocioExcecao {
 		// Verifica se já existe algum usuário com o mesmo username
-		NucleoUserDetails usuario = (NucleoUserDetails) nucleoUserDetailsDAO
-				.recuperarPorUsername(nucleoUserDetails.getUsername());
-		if (usuario != null) {
-			if (!usuario.getId().equals(nucleoUserDetails.getId())) {
+		Usuario existente = (Usuario) usuarioDAO
+				.recuperarPorNomeUsuario(usuario.getNomeUsuario());
+		if (existente != null) {
+			if (!existente.getId().equals(usuario.getId())) {
 				throw new NucleoRegraNegocioExcecao(
 						NucleoMensagens
 								.getMensagem(NucleoMensagens.MSG_EXISTE_USUARIO_MESMO_USERNAME),
@@ -130,11 +107,11 @@ public class AplCadastrarUsuarioImpl implements UserDetailsService,
 		}
 
 		// Obtém o Principal Serviço persistido e altera seus dados
-		NucleoUserDetails nucleoUserDetailsPersistido = nucleoUserDetailsDAO
-				.recuperarPorId(nucleoUserDetails.getId());
-		nucleoUserDetailsPersistido.alterarDados(nucleoUserDetails);
+		Usuario usuarioPersistido = usuarioDAO
+				.recuperarPorId(usuario.getId());
+		usuarioPersistido.alterarDados(usuario);
 
-		return nucleoUserDetailsPersistido;
+		return usuarioPersistido;
 	}
 
 }

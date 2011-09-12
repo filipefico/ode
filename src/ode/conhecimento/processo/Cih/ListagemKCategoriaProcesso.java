@@ -7,7 +7,7 @@ import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
 import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.NucleoListHeader;
 
-public class ListagemCategoriaProcesso extends ListagemSimples<KCategoriaProcesso> {
+public class ListagemKCategoriaProcesso extends ListagemSimples<KCategoriaProcesso> {
 
 	@Override
 	protected String[] recuperarDadosObjeto(KCategoriaProcesso objeto) {

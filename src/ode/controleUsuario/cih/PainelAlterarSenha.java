@@ -1,11 +1,11 @@
 package ode.controleUsuario.cih;
 
-import ode.controleUsuario.cci.AlterarSenhaCtrl;
-import ode.controleUsuario.cdp.NucleoUserDetails;
+import ode.controleUsuario.cci.CtrlAlterarSenha;
+import ode.controleUsuario.cdp.Usuario;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.nucleo.util.NucleoContexto;
+import ode.nucleo.util.NucleoUtil;
 
-import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
@@ -20,25 +20,25 @@ import org.zkoss.zul.Rows;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.Textbox;
 
-public class PanelAlterarSenha extends Panel {
+public class PainelAlterarSenha extends Panel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private NucleoUserDetails usuario;
+	private Usuario usuario;
 	
-	private AlterarSenhaCtrl alterarSenhaCtrl;
+	private CtrlAlterarSenha ctrlAlterarSenha;
 	
-	public PanelAlterarSenha(AlterarSenhaCtrl alterarSenhaCtrl){
+	public PainelAlterarSenha(CtrlAlterarSenha ctrlAlterarSenha){
 		
 		super();
 		
 		Panelchildren panelchildren = new Panelchildren();
 		panelchildren.setParent(this);
 		
-		this.alterarSenhaCtrl = alterarSenhaCtrl;
+		this.ctrlAlterarSenha = ctrlAlterarSenha;
 		
 		usuario = NucleoContexto.recuperarUsuarioLogado();
 		
@@ -135,12 +135,11 @@ public class PanelAlterarSenha extends Panel {
 		}
 		
 		// Atualiza os dados
-		usuario.setPassword(new Md5PasswordEncoder()
-		.encodePassword(textboxSenha.getValue(), null));
+		usuario.setSenha(NucleoUtil.encrypt(textboxSenha.getValue()));
 		
 		try {
 			// Salva os dados
-			alterarSenhaCtrl.getAplCadastrarUsuario().salvar(usuario);
+			ctrlAlterarSenha.getAplCadastrarUsuario().salvar(usuario);
 			fecharJanela();
 		} catch (NucleoRegraNegocioExcecao e) {
 			e.printStackTrace();
@@ -152,7 +151,7 @@ public class PanelAlterarSenha extends Panel {
 	 * Fechar janela.
 	 */
 	public void fecharJanela(){
-		alterarSenhaCtrl.finalizar();
+		ctrlAlterarSenha.finalizar();
 	}
 
 	Textbox textboxSenha = new Textbox();

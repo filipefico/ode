@@ -1,5 +1,6 @@
+<?init class="ode.nucleo.util.AuthInit"?>
 <zk>
-<zscript>
+<zscript>	
 	Map parametros = Executions.getCurrent().getArg();
 	String use = (String) parametros.get("use");
 </zscript>

@@ -1,0 +1,8 @@
+<zk xmlns:h="xhtml" xmlns:zk="zk">
+    <zscript>
+	import ode.controleUsuario.cgt.AplAutenticarUsuario;
+	AplAutenticarUsuario apl = (AplAutenticarUsuario) org.zkoss.zkplus.spring.SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
+	apl.efetuarLogout();
+	Executions.getCurrent().sendRedirect("/login.zul");
+</zscript>
+</zk>

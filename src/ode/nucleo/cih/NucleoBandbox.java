@@ -99,7 +99,8 @@ public abstract class NucleoBandbox<T extends ObjetoPersistente> extends Bandbox
          */
         private void iniciarComponentesInterface() {
         	
-        		this.setWidth("200px");
+        		this.setWidth("194px");
+        		this.setAutodrop(true);
 
                 // instancia componentes de interface
                 listBox = new Listbox();
@@ -193,10 +194,10 @@ public abstract class NucleoBandbox<T extends ObjetoPersistente> extends Bandbox
         }
 
         /** Tamanho do listbox. */
-        public static final String WIDTH_LISTBOX = "600px";
+        public static final String WIDTH_LISTBOX = "194px";
         
         /** Tamanho do listbox. */
-        public static final String WIDTH_BANDPOPUP = "300px";
+        public static final String WIDTH_BANDPOPUP = "194px";
 
 
         /** Bandpopup. */
