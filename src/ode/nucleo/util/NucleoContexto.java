@@ -3,14 +3,10 @@ package ode.nucleo.util;
 import java.util.Locale;
 
 import ode.controleProjeto.cdp.Projeto;
-import ode.controleUsuario.cdp.NucleoUserDetails;
+import ode.controleUsuario.cdp.Usuario;
 import ode.principal.cih.WindowPrincipal;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.zkoss.zk.ui.Sessions;
-
 
 /**
  * Classe que disponibiliza informações de contexto para a sessão do usuário.
@@ -20,15 +16,20 @@ import org.zkoss.zk.ui.Sessions;
 public class NucleoContexto {
 
 	/**
+	 * Nome do atributo da sessão que contém o usuário logado.
+	 */
+	public static final String USUARIO = "Usuario";
+
+	/**
 	 * Nome do atributo de sessão que contém o Locale da aplicação
 	 */
 	public static final String LOCALE = "locale";
-	
+
 	/**
 	 * Nome do atributo da sessão que contém o projeto atualmente selecionado.
 	 */
 	public static final String PROJETO = "Projeto";
-	
+
 	/**
 	 * Nome do atributo da sessão que contém janela principal.
 	 */
@@ -70,13 +71,16 @@ public class NucleoContexto {
 	 * 
 	 * @return Usuário logado.
 	 */
-	public static NucleoUserDetails recuperarUsuarioLogado() {
-		SecurityContext securityContext = SecurityContextHolder.getContext();
-		Authentication authentication = securityContext.getAuthentication();
-		NucleoUserDetails usuario = (NucleoUserDetails) authentication
-				.getPrincipal();
-
+	public static Usuario recuperarUsuarioLogado() {
+		Usuario usuario = null;
+		if (Sessions.getCurrent() != null) {
+			usuario = (Usuario) Sessions.getCurrent().getAttribute(USUARIO);
+		}
 		return usuario;
+	}
+
+	public static void atribuirUsuarioLogado(Usuario usuario) {
+		Sessions.getCurrent().setAttribute(USUARIO, usuario);
 	}
 
 	public static Projeto recuperarProjeto() {
@@ -87,19 +91,20 @@ public class NucleoContexto {
 
 		return projeto;
 	}
-	
+
 	public static void atribuirProjeto(Projeto projeto) {
 		Sessions.getCurrent().setAttribute(PROJETO, projeto);
 	}
-	
+
 	public static WindowPrincipal recuperarJanelaPrincipal() {
 		WindowPrincipal window = null;
 		if (Sessions.getCurrent() != null) {
-			window = (WindowPrincipal) Sessions.getCurrent().getAttribute(JANELA_PRINCIPAL);
+			window = (WindowPrincipal) Sessions.getCurrent().getAttribute(
+					JANELA_PRINCIPAL);
 		}
 		return window;
 	}
-	
+
 	public static void atribuirJanelaPrincipal(WindowPrincipal window) {
 		Sessions.getCurrent().setAttribute(JANELA_PRINCIPAL, window);
 	}

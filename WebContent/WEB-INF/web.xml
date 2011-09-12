@@ -9,7 +9,6 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/applicationContext-acegi-security.xml
 			/WEB-INF/applicationContext-spring.xml
 			/WEB-INF/applicationContext-mensagens.xml
 		</param-value>
@@ -23,33 +22,15 @@
 		</filter-class>
 	</filter>
 
-	<!-- Acegi Security filter: authentication and authorization. -->
-	<filter>
-		<filter-name>acegiFilter</filter-name>
-		<filter-class>
-			org.acegisecurity.util.FilterToBeanProxy
-		</filter-class>
-		<init-param>
-			<param-name>targetBean</param-name>
-			<param-value>filterChainProxy</param-value>
-		</init-param>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>acegiFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-
 	<!--
 		Context Listener que carrega o contexto do Spring a partir dos
 		arquivos listados no context-param contextConfigLocation
 	-->
 	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+	<listener-class>
+	org.springframework.web.context.ContextLoaderListener
+	</listener-class>
 	</listener>
-
 	<!-- //// -->
 	<!-- ZK -->
 	<listener>
@@ -174,6 +155,6 @@
 	</mime-mapping>
 
 	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>paginas/principal/principal.zul</welcome-file>
 	</welcome-file-list>
 </web-app>

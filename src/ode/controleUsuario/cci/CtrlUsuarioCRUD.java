@@ -3,12 +3,12 @@ package ode.controleUsuario.cci;
 import java.util.Collection;
 import java.util.Set;
 
+import ode.controleProcesso.cdp.RecursoHumano;
 import ode.controleProcesso.cgt.AplCadastrarRecursoHumano;
-import ode.controleUsuario.cdp.NucleoUserDetails;
-import ode.controleUsuario.cgt.AplCadastrarPerfilAcesso;
+import ode.controleUsuario.cdp.Usuario;
 import ode.controleUsuario.cgt.AplCadastrarUsuario;
-import ode.controleUsuario.cih.UsuarioFormularioDadosCRUD;
-import ode.controleUsuario.cih.UsuarioPainelCRUD;
+import ode.controleUsuario.cih.FormDadosUsuario;
+import ode.controleUsuario.cih.PainelCRUDUsuario;
 import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
@@ -20,32 +20,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zul.Listitem;
 
-@Controller(UsuarioCtrlCRUD.NOME)
-public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
+@Controller(CtrlUsuarioCRUD.NOME)
+public class CtrlUsuarioCRUD extends CtrlCRUD<Usuario> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final String NOME = "NucleoUserDetailsCtrlCRUD";
+	public static final String NOME = "UsuarioCtrlCRUD";
 
 	@Autowired
-	AplCadastrarUsuario nucleoAplCadastrarNucleoUserDetails;
+	AplCadastrarUsuario aplCadastrarUsuario;
 
 	@Autowired
 	public AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
 	
-	@Autowired
-	public AplCadastrarPerfilAcesso aplCadastrarPerfilAcesso;
-
 	@Override
 	public String definirTituloJanelaDados() {
 		return "Usuário";
 	}
 
 	@Override
-	public AplBase<NucleoUserDetails> definirNucleoAplCadastroBase() {
+	public AplBase<Usuario> definirNucleoAplCadastroBase() {
 		// Está usando outra apl.
 		return null;
 	}
@@ -58,8 +55,8 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 	}
 
 	@Override
-	public PainelCRUD<NucleoUserDetails> definirPainelCRUD() {
-		return new UsuarioPainelCRUD();
+	public PainelCRUD<Usuario> definirPainelCRUD() {
+		return new PainelCRUDUsuario();
 	}
 
 	@Override
@@ -68,17 +65,17 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 	}
 
 	@Override
-	public FormularioDadosCRUD<NucleoUserDetails> definirFormularioCadastro() {
-		return new UsuarioFormularioDadosCRUD();
+	public FormularioDadosCRUD<Usuario> definirFormularioCadastro() {
+		return new FormDadosUsuario();
 	}
 
 	@Override
-	public NucleoUserDetails factoryObjetoDados() {
-		return new NucleoUserDetails();
+	public Usuario factoryObjetoDados() {
+		return new Usuario();
 	}
 
 	public void atualizarPesquisa() {
-		Collection<NucleoUserDetails> objetos = nucleoAplCadastrarNucleoUserDetails.recuperarTodos();		
+		Collection<Usuario> objetos = aplCadastrarUsuario.recuperarTodos();		
 		painelCRUD.getListagem().atualizar(objetos);
 	}
 
@@ -86,9 +83,9 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 
 		// Exclui os itens selecionados
 
-		Set<NucleoUserDetails> objetosConvertidosSelecionados = converterObjetos(objetosSelecionados);
-		for (NucleoUserDetails nucleoUserDetails : objetosConvertidosSelecionados){
-			nucleoAplCadastrarNucleoUserDetails.excluir(nucleoUserDetails);
+		Set<Usuario> objetosConvertidosSelecionados = converterObjetos(objetosSelecionados);
+		for (Usuario usuario : objetosConvertidosSelecionados){
+			aplCadastrarUsuario.excluir(usuario);
 		}
 
 		// apos excluir recupera os objetos para pesquisa
@@ -116,10 +113,10 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 				formularioDados.setObjetoCadastroDados(factoryObjetoDados());
 			} else {
 				// Se nao eh novo, tenho que recuperar o objeto do banco
-				NucleoUserDetails objetoSelecionado = painelCRUD.getListagem()
+				Usuario objetoSelecionado = painelCRUD.getListagem()
 				.getSelecionado();
 				// atualizo a referencia do objetoSelecionado
-				objetoSelecionado = nucleoAplCadastrarNucleoUserDetails
+				objetoSelecionado = aplCadastrarUsuario
 				.recuperarPorId(objetoSelecionado.getId());
 
 				formularioDados.setObjetoCadastroDados(objetoSelecionado);
@@ -140,8 +137,8 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 		try {
 			// os dados do formulario para o objeto antes de pega-lo
 			formularioDados.atualizarObjeto();
-			NucleoUserDetails objetoCadastro = formularioDados.getObjetoCadastroDados();
-			nucleoAplCadastrarNucleoUserDetails.salvar(objetoCadastro);
+			Usuario objetoCadastro = formularioDados.getObjetoCadastroDados();
+			aplCadastrarUsuario.salvar(objetoCadastro);
 			// /atualiza a pesquisa e fecha a janela
 			//atualizarPesquisa(painelCRUD.getListagemPaginada().getPagina());
 			atualizarPesquisa();
@@ -153,13 +150,13 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 
 	}
 
-	public AplCadastrarUsuario getNucleoAplCadastrarNucleoUserDetails() {
-		return nucleoAplCadastrarNucleoUserDetails;
+	public AplCadastrarUsuario getAplCadastrarUsuario() {
+		return aplCadastrarUsuario;
 	}
 
-	public void setNucleoAplCadastrarNucleoUserDetails(
-			AplCadastrarUsuario nucleoAplCadastrarNucleoUserDetails) {
-		this.nucleoAplCadastrarNucleoUserDetails = nucleoAplCadastrarNucleoUserDetails;
+	public void setAplCadastrarUsuario(
+			AplCadastrarUsuario aplCadastrarUsuario) {
+		this.aplCadastrarUsuario = aplCadastrarUsuario;
 	}
 
 	public AplCadastrarRecursoHumano getAplCadastrarRecursoHumano() {
@@ -170,14 +167,9 @@ public class UsuarioCtrlCRUD extends CtrlCRUD<NucleoUserDetails> {
 			AplCadastrarRecursoHumano aplCadastrarRecursoHumano) {
 		this.aplCadastrarRecursoHumano = aplCadastrarRecursoHumano;
 	}
-
-	public AplCadastrarPerfilAcesso getAplCadastrarPerfilAcesso() {
-		return aplCadastrarPerfilAcesso;
-	}
-
-	public void setAplCadastrarPerfilAcesso(
-			AplCadastrarPerfilAcesso aplCadastrarPerfilAcesso) {
-		this.aplCadastrarPerfilAcesso = aplCadastrarPerfilAcesso;
+	
+	public Collection<RecursoHumano> listarRecursosHumanos() {
+		return getAplCadastrarRecursoHumano().recuperarTodos();
 	}
 
 }

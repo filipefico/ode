@@ -5,12 +5,6 @@
 		EventThreadClose e copiar o contexto do Spring entre várias threads do
 		ZK
 	-->
-	<listener>
-		<description>Acegi SecurityContext Handler</description>
-		<listener-class>
-			org.zkoss.zkplus.acegi.AcegiSecurityContextListener
-		</listener-class>
-	</listener>
 	
 	<!-- Tamanho do arquivo de upload -->
 	<system-config>

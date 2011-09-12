@@ -1,6 +1,8 @@
 package ode.nucleo.util;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +10,7 @@ import java.util.Date;
 
 public class NucleoUtil {
 
+	public static final String SALT = "97hg4wg";
 	/**
 	 * Verifica se dois objetos são iguais, mesmo se forem nulos.
 	 * 
@@ -72,4 +75,17 @@ public class NucleoUtil {
 		}
 	}
 
+	
+	public static String encrypt(String str) {
+		String output = "";
+		try {
+			str = SALT+str; //SALT
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			BigInteger hash = new BigInteger(1, md.digest(str.getBytes("UTF-8")));
+			output = hash.toString(16);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return output;
+	}
 }

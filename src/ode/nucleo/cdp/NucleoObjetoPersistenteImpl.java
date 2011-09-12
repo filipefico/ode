@@ -7,11 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-
-
-
 
 /**
  * @version 1.0
@@ -37,7 +35,8 @@ public class NucleoObjetoPersistenteImpl<I extends Serializable, V extends Seria
 	 * @see nucleo.comuns.persistencia.NucleoObjetoPersistente#getId()
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@TableGenerator(name = "TableGenerator", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator="TableGenerator")
 	public I getId() {
 		return id;
 	}

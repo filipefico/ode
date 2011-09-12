@@ -9,10 +9,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import ode.controleUsuario.cdp.Funcionalidade;
-import ode.controleUsuario.cdp.NucleoUserDetails;
 import ode.controleUsuario.cdp.PerfilAcesso;
-import ode.controleUsuario.cgt.AplCadastrarFuncionalidade;
-import ode.controleUsuario.cgt.AplCadastrarPerfilAcesso;
+import ode.controleUsuario.cdp.Usuario;
+import ode.controleUsuario.cgt.AplAutenticarUsuario;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.util.NucleoContexto;
 import ode.nucleo.util.NucleoMensagens;
@@ -62,20 +61,8 @@ public class WindowPrincipal extends Window {
 	 */
 	private Menubar menubar;
 
-	/**
-	 *	AplCadastrarFuncionalidade. 
-	 */
-	private AplCadastrarFuncionalidade aplCadastrarFuncionalidade;
-
-	/**
-	 *	AplCadastrarPerfilAcesso. 
-	 */
-	private AplCadastrarPerfilAcesso aplCadastrarPerfilAcesso;
-
-	/**
-	 * Funcionalidades disponíveis para o usuário autenticado.
-	 */
-	private List<Funcionalidade> funcionalidadesDisponiveisUsuario = new ArrayList<Funcionalidade>();
+	// Obtém o perfil do usuário autenticado
+	private PerfilAcesso perfilUsuario = NucleoContexto.recuperarUsuarioLogado().getPerfilAcesso();
 
 	public void onCreate() throws InterruptedException {
 
@@ -83,9 +70,7 @@ public class WindowPrincipal extends Window {
 		NucleoContexto.atribuirJanelaPrincipal(this);
 
 		// Faz a injeção das apl's da janela
-		aplCadastrarFuncionalidade = (AplCadastrarFuncionalidade) SpringUtil.getBean("AplCadastrarFuncionalidade");
 
-		aplCadastrarPerfilAcesso = (AplCadastrarPerfilAcesso) SpringUtil.getBean("AplCadastrarPerfilAcesso");
 
 		// Monta a página principal
 		this.MontarPagina();
@@ -109,7 +94,7 @@ public class WindowPrincipal extends Window {
 		Div divCabecalho = new Div();
 		divCabecalho.setParent(this);
 		divCabecalho.setHeight("25px");
-		divCabecalho.setStyle("background-image: url('../../imagens/wnd-hm.png');background-repeat: repeat-x;");
+		divCabecalho.setStyle("background-image: url('imagens/wnd-hm.png');background-repeat: repeat-x;");
 
 		Div divLadoEsquerdo = new Div();
 		divLadoEsquerdo.setParent(divCabecalho);
@@ -175,12 +160,12 @@ public class WindowPrincipal extends Window {
 		labelProjeto.setMaxlength(70);
 
 		// Recupera usuário logado na sessão
-		NucleoUserDetails usuario = NucleoContexto.recuperarUsuarioLogado();
+		Usuario usuario = NucleoContexto.recuperarUsuarioLogado();
 
 		String nomeUsuario = usuario.getRecursoHumano().getNome();
 
 		// Adiciona nome do usuário		
-		labelUsuario = new Label(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": " + nomeUsuario + " - " + usuario.getPerfilAcesso().getNome());
+		labelUsuario = new Label(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": " + nomeUsuario + " - " + usuario.getPerfilAcesso().toString());
 		labelUsuario.setParent(hboxLadoDireito);
 		labelUsuario.setMaxlength(70);
 
@@ -209,7 +194,7 @@ public class WindowPrincipal extends Window {
 		Menuitem menuitemAlterarSenha = new Menuitem("Alterar Senha");
 		menuitemAlterarSenha.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event arg0) throws Exception {
-				abrirJanela("ode.controleUsuario.cci.AlterarSenhaCtrl");
+				abrirJanela(ode.controleUsuario.cci.CtrlAlterarSenha.class.getCanonicalName());
 			}
 		});
 		menuitemAlterarSenha.setParent(menupopupOpcoes);
@@ -231,17 +216,14 @@ public class WindowPrincipal extends Window {
 		// Adiciona as funcionalidades permitidas de acordo com o perfil do usuário logado e com o projeto aberto
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		// Obtém o perfil do usuário autenticado
-		PerfilAcesso grupoUsuario = aplCadastrarPerfilAcesso.recuperarPorId(NucleoContexto.recuperarUsuarioLogado().getPerfilAcesso().getId());
-
-		// Obtém as funcionalidades do perfil do usuário
-		funcionalidadesDisponiveisUsuario.addAll(grupoUsuario.getFuncionalidadesPermitidas());
+		
 
 		// Recupera o projeto
 		boolean existeProjetoAberto = NucleoContexto.recuperarProjeto() != null ? true : false;
 
-		// Recupera do banco todas as funcionalidades raíz
-		Collection<Funcionalidade> funcionalidades = aplCadastrarFuncionalidade.recuperarFuncionalidadesRaiz();
+		// Recupera todas as funcionalidades
+		AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
+		Collection<Funcionalidade> funcionalidades = apl.obterFuncionalidades();
 
 		Iterator<Funcionalidade> i = funcionalidades.iterator();	
 
@@ -250,10 +232,10 @@ public class WindowPrincipal extends Window {
 			final Funcionalidade funcionalidade = i.next();
 
 			// Verifica se a funcionalidade está disponível para o usuário
-			if (funcionalidadesDisponiveisUsuario.contains(funcionalidade)) {
+			if (funcionalidade.permite(perfilUsuario)) {
 
 				// Verifica se a funcionalidade está disponível de acordo com o projeto aberto
-				if ((funcionalidade.isDisponivelApenasParaProjetosAbertos() && existeProjetoAberto) || !funcionalidade.isDisponivelApenasParaProjetosAbertos()) {
+				if (existeProjetoAberto || !funcionalidade.isDisponivelApenasParaProjetosAbertos()) {
 
 					if (funcionalidade.getSubfuncionalidades().size() > 0) {
 						Menu menu = new Menu(funcionalidade.getNome());
@@ -261,10 +243,10 @@ public class WindowPrincipal extends Window {
 						this.adicionarSubFuncionalidades(funcionalidade, menu);
 					} else {
 						Menuitem menuitem = new Menuitem(funcionalidade.getNome());
-						menuitem.setAttribute("srcJanela", funcionalidade.getSrcCtrl());
+						//menuitem.setAttribute("srcJanela", funcionalidade.getSrcCtrl());
 						menuitem.addEventListener("onClick", new EventListener() {
 							public void onEvent(Event arg0) throws Exception {
-								abrirJanela(funcionalidade.getSrcCtrl());
+								abrirJanela(funcionalidade.getCtrl());
 							}
 						});
 						menuitem.setParent(menubar);
@@ -288,7 +270,7 @@ public class WindowPrincipal extends Window {
 		boolean existeProjetoAberto = NucleoContexto.recuperarProjeto() != null ? true : false;
 
 		// Recupera funcionalidades
-		Collection<Funcionalidade> funcionalidades = aplCadastrarFuncionalidade.recuperarSubFuncionalidadesPorFuncionalidade(funcionalidadePai);
+		Collection<Funcionalidade> funcionalidades = funcionalidadePai.getSubfuncionalidades();
 
 		Iterator<Funcionalidade> i = funcionalidades.iterator();
 
@@ -300,11 +282,10 @@ public class WindowPrincipal extends Window {
 			final Funcionalidade funcionalidade = i.next();
 
 			// Verifica se funcionalidade está disponível para o usuário
-			if (funcionalidadesDisponiveisUsuario.contains(funcionalidade)) {
+			if (funcionalidade.permite(perfilUsuario)) {
 
 				// Verifica se a funcionalidade está disponível de acordo com o projeto aberto
-				if ((funcionalidade.isDisponivelApenasParaProjetosAbertos() && existeProjetoAberto) || !funcionalidade.isDisponivelApenasParaProjetosAbertos()) {
-
+				if (existeProjetoAberto || !funcionalidade.isDisponivelApenasParaProjetosAbertos()) {
 
 					if (funcionalidade.getSubfuncionalidades().size() > 0) {
 						Menu menu = new Menu(funcionalidade.getNome());
@@ -312,15 +293,14 @@ public class WindowPrincipal extends Window {
 						this.adicionarSubFuncionalidades(funcionalidade, menu);
 					} else {
 						Menuitem menuitem = new Menuitem(funcionalidade.getNome());
-						menuitem.setAttribute("srcJanela", funcionalidade.getSrcCtrl());
+//						menuitem.setAttribute("srcJanela", funcionalidade.getSrcCtrl());
 						menuitem.addEventListener("onClick", new EventListener() {
 							public void onEvent(Event arg0) throws Exception {
-								abrirJanela(funcionalidade.getSrcCtrl());
+								abrirJanela(funcionalidade.getCtrl());
 							}
 						});
 						menuitem.setParent(menupopup);
 					}
-
 				}
 			}
 		}
@@ -347,7 +327,7 @@ public class WindowPrincipal extends Window {
 	public void atualizarBarraInformacoes() {
 		this.labelIdiomas.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_IDIOMAS) + ":");
 		this.labelProjeto.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_PROJETO) + ": " + (NucleoContexto.recuperarProjeto() == null ? NucleoMensagens.getMensagem(NucleoMensagens.MSG_NENHUM_PROJETO_SELECIONADO) : NucleoContexto.recuperarProjeto().getNome()));
-		this.labelUsuario.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": " + NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome() + " - " + NucleoContexto.recuperarUsuarioLogado().getPerfilAcesso().getNome());
+		this.labelUsuario.setValue(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_USUARIO) + ": " + NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome() + " - " + NucleoContexto.recuperarUsuarioLogado().getPerfilAcesso());
 	}
 	
 	/**

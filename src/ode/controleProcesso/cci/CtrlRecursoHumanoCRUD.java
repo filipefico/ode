@@ -1,8 +1,12 @@
 package ode.controleProcesso.cci;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import ode.conhecimento.processo.Cdp.KRecursoHumano;
+import ode.conhecimento.processo.Cgt.AplCadastrarKRecursoHumano;
 import ode.controleProcesso.cdp.RecursoHumano;
 import ode.controleProcesso.cgt.AplCadastrarRecursoHumano;
 import ode.controleProcesso.cih.FormDadosRecursoHumano;
@@ -12,8 +16,8 @@ import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.PainelCRUD;
 
-@Controller(CtrlCRUDRecursoHumano.NOME)
-public class CtrlCRUDRecursoHumano extends CtrlCRUD<RecursoHumano> {
+@Controller(CtrlRecursoHumanoCRUD.NOME)
+public class CtrlRecursoHumanoCRUD extends CtrlCRUD<RecursoHumano> {
 
 	/**
 	 * 
@@ -24,6 +28,9 @@ public class CtrlCRUDRecursoHumano extends CtrlCRUD<RecursoHumano> {
 	
 	@Autowired
 	private AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
+	
+	@Autowired
+	private AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano;
 
 	@Override
 	public String definirTituloJanelaDados() {
@@ -53,6 +60,19 @@ public class CtrlCRUDRecursoHumano extends CtrlCRUD<RecursoHumano> {
 	@Override
 	public RecursoHumano factoryObjetoDados() {
 		return new RecursoHumano();
+	}
+
+	public AplCadastrarKRecursoHumano getAplCadastrarKRecursoHumano() {
+		return aplCadastrarKRecursoHumano;
+	}
+
+	public void setAplCadastrarKRecursoHumano(
+			AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano) {
+		this.aplCadastrarKRecursoHumano = aplCadastrarKRecursoHumano;
+	}
+	
+	public Collection<KRecursoHumano> listarKRecursosHumanos() {
+		return getAplCadastrarKRecursoHumano().recuperarTodos();
 	}
 
 }

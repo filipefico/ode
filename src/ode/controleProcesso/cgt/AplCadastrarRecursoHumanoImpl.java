@@ -1,5 +1,7 @@
 package ode.controleProcesso.cgt;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,11 @@ public class AplCadastrarRecursoHumanoImpl extends
 	@Override
 	public DAOBase<RecursoHumano> getNucleoDaoBase() {
 		return recursoHumanoDAO;
+	}
+	
+	@Override
+	public Collection<RecursoHumano> recuperarTodos() {
+		return getNucleoDaoBase().recuperarTodosComOrdenacao("nome");
 	}
 
 }

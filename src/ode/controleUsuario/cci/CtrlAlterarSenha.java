@@ -1,7 +1,7 @@
 package ode.controleUsuario.cci;
 
 import ode.controleUsuario.cgt.AplCadastrarUsuario;
-import ode.controleUsuario.cih.PanelAlterarSenha;
+import ode.controleUsuario.cih.PainelAlterarSenha;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.crud.cih.JanelaSimples;
 
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class AlterarSenhaCtrl extends CtrlBase {
+public class CtrlAlterarSenha extends CtrlBase {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class AlterarSenhaCtrl extends CtrlBase {
 	
 	private JanelaSimples jan;
 	
-	private PanelAlterarSenha PainelAlterarSenha;
+	private PainelAlterarSenha PainelAlterarSenha;
 
 	@Override
 	public void iniciar() {
@@ -29,7 +29,7 @@ public class AlterarSenhaCtrl extends CtrlBase {
 		jan = factoryJanelaSimples();
 		jan.setTitle("Alterar Senha");
 		
-		PainelAlterarSenha = new PanelAlterarSenha(this);
+		PainelAlterarSenha = new PainelAlterarSenha(this);
 		PainelAlterarSenha.setParent(jan);
 		
 		jan.doOverlapped();

@@ -1,11 +1,11 @@
 package ode.conhecimento.processo.Cih;
 
 import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
-import ode.conhecimento.processo.Cih.ListagemCategoriaProcesso;
+import ode.conhecimento.processo.Cih.ListagemKCategoriaProcesso;
 import ode.nucleo.crud.cih.ListagemSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 
-public class PainelCrudCategoriaProcesso extends PainelCRUD<KCategoriaProcesso>{
+public class PainelCrudKCategoriaProcesso extends PainelCRUD<KCategoriaProcesso>{
 	/**
 	 * 
 	 */
@@ -13,7 +13,7 @@ public class PainelCrudCategoriaProcesso extends PainelCRUD<KCategoriaProcesso>{
 
 	@Override
 	public ListagemSimples<KCategoriaProcesso> definirListagem() {
-		ListagemCategoriaProcesso listagem = new ListagemCategoriaProcesso();
+		ListagemKCategoriaProcesso listagem = new ListagemKCategoriaProcesso();
 		return listagem;
 	}
 }
