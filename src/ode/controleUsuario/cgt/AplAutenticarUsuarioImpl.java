@@ -38,13 +38,17 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 		this.usuarioDAO = usuarioDAO;
 	}
 	
-	
+	/*
+	 * (non-Javadoc)
+	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#efetuarLogin(java.lang.String, java.lang.String, boolean)
+	 */
 
 	public void efetuarLogin(String nomeUsuario, String senha, boolean rememberme) throws NucleoRegraNegocioExcecao {
 		Usuario usuario = usuarioDAO.recuperarPorNomeUsuario(nomeUsuario);
 		if (usuario == null) {
 			throw new NucleoRegraNegocioExcecao("Usuário não encontrado!", null);
 		}
+		//verifica a senha do usuário
 		if (!usuario.getSenha().equals(NucleoUtil.encrypt(senha))) {
 			throw new NucleoRegraNegocioExcecao("Senha incorreta!", null);
 		} else {
@@ -62,15 +66,27 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#recuperarLoginCookie(java.lang.String, java.lang.String)
+	 */
+	
 	public boolean recuperarLoginCookie(String nomeUsuario, String tokenCookie) {
 		Usuario usuario = usuarioDAO.recuperarPorNomeUsuario(nomeUsuario);
+		//caso o cookie seja válido, registra a sessão do usuário
 		if(usuario!=null && tokenCookie.equals(NucleoUtil.encrypt(usuario.getSenha()))) {
 			NucleoContexto.atribuirUsuarioLogado(usuario);
 			return true;
 		}
+		//caso contrário, exclui o cookie do navegador
 		efetuarLogout();
 		return false;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#efetuarLogout()
+	 */
 	
 	public void efetuarLogout() {
 		HttpServletResponse response = (HttpServletResponse) Executions.getCurrent().getNativeResponse();
@@ -82,10 +98,28 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 		response.addCookie(c2);
 		NucleoContexto.atribuirUsuarioLogado(null);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#obterFuncionalidades()
+	 */
 
 	public List<Funcionalidade> obterFuncionalidades() {
+		
+		/*
+		 * Seguir o padrão para cadastrar as funcionalidades:
+		 *
+		 * Itens para a raiz do menu entram em funcionalidades.add()
+		 * Itens em nível hierárquico inferior entram em .addSubfuncionalidade() do item pai
+		 * 
+		 * Criar cada funcionalidade com o método criar(String nomeFuncionalidade)
+		 * 
+		 *  Atribuir a classe controladora que contém o método iniciar() através de setCtrl()
+		 *  Atribuir as eventuais permissões além do Perfil de Acesso Administrador através de permitir()
+		 */
+
 		List<Funcionalidade> funcionalidades = new ArrayList<Funcionalidade>();
-			
+		
 		funcionalidades.add(criar("Projeto").permitir(PerfilAcesso.Desenvolvedor)
 			.addSubfuncionalidade(criar("Selecionar Projeto").setCtrl(CtrlSelecionarProjeto.class).permitir(PerfilAcesso.Desenvolvedor))
 			.addSubfuncionalidade(criar("Cadastrar Projeto").setCtrl(CtrlProjetoCRUD.class))
@@ -129,6 +163,10 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 		return funcionalidades;
 
 	}
+	
+	/*
+	 * Função auxiliar para o método obterFuncionalidades
+	 */
 
 	private Funcionalidade criar(String s) {
 		Funcionalidade f = new Funcionalidade(s);

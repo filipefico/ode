@@ -18,30 +18,30 @@ public class AuthInit implements Initiator {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void doInit(Page page, Map args) throws Exception {
-		
-		boolean autenticado = false;
-		if (NucleoContexto.recuperarUsuarioLogado() != null)
-			autenticado = true;
-
-		Execution exec = Executions.getCurrent();
-		Cookie[] cookies = ((HttpServletRequest) exec.getNativeRequest()).getCookies();
-
-		String nomeUsuario = null;
-		String token = null;
-		for (Cookie cookie : cookies) {
-			if ("nomeUsuario".equals(cookie.getName()))
-				nomeUsuario = cookie.getValue();
-			else if ("token".equals(cookie.getName()))
-				token = cookie.getValue();
-		}
-		if (nomeUsuario != null) {
-			AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
-			autenticado = apl.recuperarLoginCookie(nomeUsuario, token);
-		}
-
-		if (!autenticado) {
-			((HttpServletResponse) exec.getNativeResponse()).sendRedirect("login.zul");
-			exec.setVoided(true);
+		//se o usuario nao está na sessao, deve-se verificar os cookies  
+		if (NucleoContexto.recuperarUsuarioLogado() == null) {
+			boolean autenticado = false;
+			Execution exec = Executions.getCurrent();
+			Cookie[] cookies = ((HttpServletRequest) exec.getNativeRequest()).getCookies();
+	
+			String nomeUsuario = null;
+			String token = null;
+			for (Cookie cookie : cookies) {
+				if ("nomeUsuario".equals(cookie.getName()))
+					nomeUsuario = cookie.getValue();
+				else if ("token".equals(cookie.getName()))
+					token = cookie.getValue();
+			}
+			if (nomeUsuario != null) {
+				//caso os cookies existam, executa o método da cgt
+				AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
+				autenticado = apl.recuperarLoginCookie(nomeUsuario, token);
+			}
+			//cookies inexistentes ou invalidos -> redirecionar para login
+			if (!autenticado) {
+				((HttpServletResponse) exec.getNativeResponse()).sendRedirect("login.zul");
+				exec.setVoided(true);
+			}
 		}
 	}
 
