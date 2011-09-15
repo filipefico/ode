@@ -23,19 +23,21 @@ public class AuthInit implements Initiator {
 			boolean autenticado = false;
 			Execution exec = Executions.getCurrent();
 			Cookie[] cookies = ((HttpServletRequest) exec.getNativeRequest()).getCookies();
-	
-			String nomeUsuario = null;
-			String token = null;
-			for (Cookie cookie : cookies) {
-				if ("nomeUsuario".equals(cookie.getName()))
-					nomeUsuario = cookie.getValue();
-				else if ("token".equals(cookie.getName()))
-					token = cookie.getValue();
-			}
-			if (nomeUsuario != null) {
-				//caso os cookies existam, executa o método da cgt
-				AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
-				autenticado = apl.recuperarLoginCookie(nomeUsuario, token);
+			//caso o navegador suporte cookies
+			if(cookies!=null) {
+				String nomeUsuario = null;
+				String token = null;
+				for (Cookie cookie : cookies) {
+					if ("nomeUsuario".equals(cookie.getName()))
+						nomeUsuario = cookie.getValue();
+					else if ("token".equals(cookie.getName()))
+						token = cookie.getValue();
+				}
+				if (nomeUsuario != null) {
+					//caso os cookies existam, executa o método da cgt
+					AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
+					autenticado = apl.recuperarLoginCookie(nomeUsuario, token);
+				}
 			}
 			//cookies inexistentes ou invalidos -> redirecionar para login
 			if (!autenticado) {
