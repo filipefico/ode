@@ -12,7 +12,7 @@ public class CompPPDAOHibernate extends DAOBaseHibernate<CompPP> implements Comp
 
 	    public CompPP obterPorNome(String parNome){
 	        
-	        List locProc = getEntityManager().createQuery("from "+ CompPPProcessoComplexo.nomeClass + " as proc where proc.nome = '" + parNome + "'").getResultList();
+	        List locProc = getEntityManager().createQuery("from "+ CompPPProcessoComplexo.class.getName() + " as proc where proc.nome = '" + parNome + "'").getResultList();
 	        
 	        if (locProc.isEmpty())
 	            return null;

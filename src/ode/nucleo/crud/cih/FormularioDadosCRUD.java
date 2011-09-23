@@ -129,7 +129,7 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 
 	protected void configurarBarraFerramentas() {
 		
-		// Configuração da barra de ferramentas
+		// Configuração da barra de ferramenpreencherDadosTelatas
 
 		toolbar.setStyle("border:0px;background:white;");
 		toolbar.setAlign("end");
