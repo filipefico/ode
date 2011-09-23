@@ -156,9 +156,8 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 				.addSubfuncionalidade(criar("Procedimentos").setCtrl(ode.conhecimento.organizacao.Cci.CtrlKDominioConhecimentoCRUD.class))
 			)
 		);
-		
 		funcionalidades.add(criar("Processo Padrão")
-			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(ode.processoPadrao.Cci.CtrlDefinirProcessoPadraoCRUD.class))
+			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(ode.processoPadrao.Cci.CtrlDefinirProcessoPadrao.class))
 		);
 		return funcionalidades;
 

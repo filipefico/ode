@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import ode.conhecimento.processo.Cdp.KAtividade;
+import ode.conhecimento.processo.Cdp.KProcesso;
+import ode.conhecimento.processo.Cgd.KAtividadeDAO;
+import ode.conhecimento.processo.Cgd.KProcessoDAO;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.cdp.ObjetoPersistente;
 import ode.nucleo.crud.cgt.AplBase;
@@ -16,6 +20,7 @@ import ode.nucleo.excecao.CtrlExcecoes;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.nucleo.util.NucleoMensagens;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Listitem;
@@ -185,8 +190,8 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 		} catch (NucleoRegraNegocioExcecao e) {
 			CtrlExcecoes
 			.exibirJanelaErro("Não foi possivel excluir os objetos");
-
-		} 
+			e.printStackTrace();
+		}
 
 	}
 
@@ -295,5 +300,4 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 	public void setLarguraJanPrincipal(String larguraJanPrincipal) {
 		this.larguraJanPrincipal = larguraJanPrincipal;
 	}
-
 }

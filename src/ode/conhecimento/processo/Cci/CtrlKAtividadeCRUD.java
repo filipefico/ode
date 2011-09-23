@@ -1,7 +1,18 @@
 package ode.conhecimento.processo.Cci;
 
+import java.util.Collection;
+
+import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KDominioAplicacao;
+import ode.conhecimento.processo.Cdp.KProcedimento;
+import ode.conhecimento.processo.Cdp.KProcesso;
+import ode.conhecimento.processo.Cdp.KRecurso;
+import ode.conhecimento.processo.Cgd.KArtefatoDAO;
+import ode.conhecimento.processo.Cgd.KAtividadeDAO;
+import ode.conhecimento.processo.Cgd.KProcedimentoDAO;
+import ode.conhecimento.processo.Cgd.KProcessoDAO;
+import ode.conhecimento.processo.Cgd.KRecursoDAO;
 import ode.conhecimento.processo.Cgt.AplCadastrarKAtividade;
 import ode.conhecimento.processo.Cgt.AplCadastrarKDominioAplicacao;
 import ode.conhecimento.processo.Cih.FormDadosKAtividade;
@@ -71,5 +82,34 @@ public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 	public String definirTituloJanelaPrincipal() {
 		return "Atividades";
 	}
+	
+	@Autowired
+	KProcessoDAO kprocessoDAO;
+	public Collection<KProcesso> getAllKProcesso(){
+		return kprocessoDAO.recuperarTodos();
+	}
+	
+	@Autowired
+	KRecursoDAO recursoDAO;
+	public Collection<KRecurso> getAllKRecurso() {
+		return recursoDAO.recuperarTodos();
+	}
 
+	@Autowired 
+	KArtefatoDAO produtoInsumoDAO;
+	public Collection<KArtefato> getAllKArtefato() {
+		return produtoInsumoDAO.recuperarTodos();
+	}
+
+	@Autowired
+	KProcedimentoDAO procedimentoDAO;
+	public Collection<KProcedimento> getAllKProcedimento() {
+		return procedimentoDAO.recuperarTodos();
+	}
+	
+	@Autowired
+	KAtividadeDAO atividadeDAO;
+	public Collection<KAtividade> getAllKAtividade() {
+		return atividadeDAO.recuperarTodos();
+	}
 }

@@ -8,7 +8,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CompPPProcessoSimplesDAOHibernate extends
 DAOBaseHibernate<CompPPProcessoSimples> implements CompPPProcessoSimplesDAO{
-    
+   
+	
+	
+	
+	
   /*  public List obterTodos(){
         return super.obterTodos(CompPPProcessoSimples.class);
     }

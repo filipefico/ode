@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import ode.conhecimento.processo.Cci.CtrlKArtefatoCRUD;
+import ode.conhecimento.processo.Cci.CtrlKAtividadeCRUD;
 import ode.conhecimento.processo.Cdp.KArtefato;
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KProcedimento;
@@ -17,11 +19,13 @@ import ode.conhecimento.processo.Cgd.KProcedimentoDAO;
 import ode.conhecimento.processo.Cgd.KProcessoDAO;
 import ode.conhecimento.processo.Cgd.KRecursoDAO;
 import ode.nucleo.cih.NucleoTab;
+import ode.nucleo.crud.cci.CtrlCRUD;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
 import ode.nucleo.crud.cih.GridDados;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.nucleo.util.NucleoMensagens;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.ListModelList;
@@ -32,10 +36,6 @@ import org.zkoss.zul.Textbox;
 
 public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 	
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4523082469660955412L;
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
@@ -47,9 +47,9 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 	Listbox lbSubAtividade = new Listbox();
 	Listbox lbPreAtividade = new Listbox();
 
-	public static KProcesso buscaProcessoPorNome (String nome){
-		KProcessoDAO processo = (KProcessoDAO) SpringUtil.getApplicationContext().getBean(KProcessoDAO.class);
-		Collection<KProcesso> listaProcessos = processo.recuperarTodos();
+	public KProcesso buscaProcessoPorNome (String nome){
+		//KProcessoDAO processo = (KProcessoDAO) SpringUtil.getApplicationContext().getBean(KProcessoDAO.class);
+		Collection<KProcesso> listaProcessos = ((CtrlKAtividadeCRUD) this.getControlador()).getAllKProcesso();
 		for (KProcesso K : listaProcessos) {
 			if (K.getNome().equals(nome)){
 				return K;
@@ -59,6 +59,15 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 	}
 	
 
+
+	
+	
+	
+
+	
+
+	
+	
 	@Override
 	protected List definirTabs() {
 		// Cria a nova lista
@@ -66,9 +75,7 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		
 	
 		//Recupera Processo e adiciona ao Combobox
-		KProcessoDAO processo = (KProcessoDAO) SpringUtil
-				.getBean("kProcessoDao");
-		Collection<KProcesso> listaProcessos = processo.recuperarTodos();
+		Collection<KProcesso> listaProcessos = ((CtrlKAtividadeCRUD) this.getControlador()).getAllKProcesso();
 		
 		for (KProcesso K : listaProcessos) {
 			coProcesso.appendItem(K.getNome());
@@ -159,18 +166,14 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		// recuperando os objetos
 		
 		
-		KRecursoDAO  recursoDAO = (KRecursoDAO) SpringUtil
-		.getApplicationContext().getBean(KRecursoDAO.class);
-		Collection<KRecurso> listaRecursos = recursoDAO
-		.recuperarTodos();
+		//KRecursoDAO  recursoDAO = (KRecursoDAO) SpringUtil.getApplicationContext().getBean(KRecursoDAO.class);
+		Collection<KRecurso> listaRecursos = ((CtrlKAtividadeCRUD) this.getControlador()).getAllKRecurso();
 		
 		lbRecurso.setModel(new ListModelList(listaRecursos));
 		lbRecurso.renderAll();
 		
-		KArtefatoDAO  produtoInsumoDAO = (KArtefatoDAO) SpringUtil
-		.getApplicationContext().getBean(KArtefatoDAO.class);
-		Collection<KArtefato> listaProdutosInsumo = produtoInsumoDAO
-		.recuperarTodos();
+		//KArtefatoDAO  produtoInsumoDAO = (KArtefatoDAO) SpringUtil.getApplicationContext().getBean(KArtefatoDAO.class);
+		Collection<KArtefato> listaProdutosInsumo = ((CtrlKAtividadeCRUD) this.getControlador()).getAllKArtefato();
 		
 		lbProduto.setModel(new ListModelList(listaProdutosInsumo));
 		lbProduto.renderAll();
@@ -178,18 +181,14 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		lbInsumo.setModel(new ListModelList(listaProdutosInsumo));
 		lbInsumo.renderAll();
 		
-		KProcedimentoDAO  procedimentoDAO = (KProcedimentoDAO) SpringUtil
-		.getApplicationContext().getBean(KProcedimentoDAO.class);
-		Collection<KProcedimento> listaProcedimentos = procedimentoDAO
-		.recuperarTodos();
+		//KProcedimentoDAO  procedimentoDAO = (KProcedimentoDAO) SpringUtil.getApplicationContext().getBean(KProcedimentoDAO.class);
+		Collection<KProcedimento> listaProcedimentos = ((CtrlKAtividadeCRUD) this.getControlador()).getAllKProcedimento();
 		
 		lbProcedimento.setModel(new ListModelList(listaProcedimentos));
 		lbProcedimento.renderAll();
 		
-		KAtividadeDAO  atividadeDAO = (KAtividadeDAO) SpringUtil
-		.getApplicationContext().getBean(KAtividadeDAO.class);
-		Collection<KAtividade> listaAtividade = atividadeDAO
-		.recuperarTodos();
+		//KAtividadeDAO  atividadeDAO = (KAtividadeDAO) SpringUtil.getApplicationContext().getBean(KAtividadeDAO.class);
+		Collection<KAtividade> listaAtividade = ((CtrlKAtividadeCRUD) this.getControlador()).getAllKAtividade();
 		
 		lbSubAtividade.setModel(new ListModelList(listaAtividade));
 		lbSubAtividade.renderAll();

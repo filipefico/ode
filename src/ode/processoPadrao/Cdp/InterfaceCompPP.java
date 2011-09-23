@@ -14,8 +14,8 @@ public class InterfaceCompPP extends ObjetoPersistente {
 
 	private static final long serialVersionUID = -1819692208262943582L;
 		String nome;
-	    String objetivo;
 	    String descricao;
+	    String objetivo;
 	    CompPP compPP;
 
 	    public InterfaceCompPP(String nome, String objetivo, String descricao, CompPP compPP) {
