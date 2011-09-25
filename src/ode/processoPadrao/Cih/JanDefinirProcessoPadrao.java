@@ -44,21 +44,21 @@ public class JanDefinirProcessoPadrao {
 
 		listaProcessoPadrao.setParent(janela);
 		listaProcessoPadrao.setAttribute("testeNOME", null);
-		
+
 		Listhead listHead = new Listhead();
 		listHead.setAttribute("teste", null);
-		
-		//listaProcessoPadrao.setWidth("200px");
-		//listaProcessoPadrao.setHeight("300px");
+
+		// listaProcessoPadrao.setWidth("200px");
+		// listaProcessoPadrao.setHeight("300px");
 
 		Collection<CompPP> listaCompPP = ctrl.getAllCompPP();
 		for (CompPP compPP : listaCompPP) {
 			itemLista = new Listitem();
 			Listcell listcell = new Listcell();
-			
+
 			itemLista.setParent(listaProcessoPadrao);
 			itemLista.appendChild(listcell);
-			
+
 			listcell.setLabel(compPP.getNome());
 		}
 	}
@@ -84,12 +84,20 @@ public class JanDefinirProcessoPadrao {
 
 		menu.setLabel("Processo");
 
+		newItemBasicoMenu(menupopup, "Definir CompPP",
+				new EventListnerDefinirCompPP());
+		newItemBasicoMenu(menupopup, "Estabelecer Requisitos",
+				new EventListnerEstabelecerRequisitos());
+		newItemBasicoMenu(menupopup, "Abrir Processo Padrão", new EventListnerSelecionarProcessoPadrao());
+
+	}
+
+	private void newItemBasicoMenu(Menupopup menupopup, String label,
+			EventListener eventListner) {
 		Menuitem menuItemDefinirCompPP = new Menuitem();
 		menuItemDefinirCompPP.setParent(menupopup);
-		menuItemDefinirCompPP.setLabel("Definir CompPP");
-		menuItemDefinirCompPP.addEventListener("onClick",
-				new EventListnerDefinirCompPP());
-
+		menuItemDefinirCompPP.setLabel(label);
+		menuItemDefinirCompPP.addEventListener("onClick", eventListner);
 	}
 
 	class EventListnerDefinirCompPP implements EventListener {
@@ -99,4 +107,20 @@ public class JanDefinirProcessoPadrao {
 			ctrl.abrirJanDefinirCompPP();
 		}
 	}
+	
+	public class EventListnerEstabelecerRequisitos implements EventListener {
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			ctrl.abrrrJanEstabelecerRequisitos();
+		}
+	}
+	public class EventListnerSelecionarProcessoPadrao implements EventListener {
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			ctrl.abrirJanSelecionaProcessoPadrao();
+		}
+	}
+	
+	
+
 }

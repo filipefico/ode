@@ -19,6 +19,8 @@ import ode.processoPadrao.Cgd.CompPPDAO;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
 import ode.processoPadrao.Cih.JanDefinirCompPP;
 import ode.processoPadrao.Cih.JanDefinirProcessoPadrao;
+import ode.processoPadrao.Cih.JanEstabelecerRequisitosCompPP;
+import ode.processoPadrao.Cih.JanSelecionaProcessoPadrao;
 
 @Controller
 public class CtrlDefinirProcessoPadrao extends CtrlBase {
@@ -33,6 +35,7 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	JanDefinirProcessoPadrao janDefinirProcessoPadrao;
 
 	private void mostrarJanelaPrincipal() {
+		//essa janela faz chamadas para abrir as outras janelas.
 		janDefinirProcessoPadrao = new JanDefinirProcessoPadrao(this,
 				factoryJanelaSimples());
 	}
@@ -78,6 +81,18 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	CompPPDAO compPPDAO;
 	public Collection<CompPP> getAllCompPP() {
 		return  compPPDAO.recuperarTodos();
+	}
+	
+	
+	private JanEstabelecerRequisitosCompPP JanEstabelecerRequisitosCompPP;
+	
+	public void abrrrJanEstabelecerRequisitos() {
+		JanEstabelecerRequisitosCompPP = new JanEstabelecerRequisitosCompPP(this, factoryJanelaSimples());
+	}
+
+	private JanSelecionaProcessoPadrao janSelecionaProcessoPadrao;
+	public void abrirJanSelecionaProcessoPadrao() {
+		janSelecionaProcessoPadrao = new JanSelecionaProcessoPadrao(this, factoryJanelaSimples());		
 	}
 
 }
