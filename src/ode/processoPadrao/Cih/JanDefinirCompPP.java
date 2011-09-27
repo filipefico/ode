@@ -132,8 +132,6 @@ public class JanDefinirCompPP {
 			if(comboBGranularidade.getText().compareTo("Macroatividade")==0){
 				ObjTipo = comboBListaTipoDeMacroAtividade.getSelectedItem().getValue();
 			}
-			
-			
 			ctrl.salvarCompPP(txtboxNome.getText(),txtboxDescricao.getText(),txtboxObjetivo.getText(),comboBGranularidade.getText(),ObjTipo);
 			janela.onClose();//fecha a janela
 		}
