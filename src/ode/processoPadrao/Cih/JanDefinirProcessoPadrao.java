@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
@@ -33,12 +34,27 @@ public class JanDefinirProcessoPadrao {
 
 		configuracaoBasica();
 		menu();
-		listaProcessoPadrao();
+		conteudo();
+		//listaProcessoPadrao();
 		janela.mostrar();
 
 	}
 
-	private void listaProcessoPadrao() {
+	Label comppSelecionado = new Label();
+	public void setComppSelecionado(CompPP comppSelecionado) {
+		this.comppSelecionado.setValue("CompPP selecionado: "+comppSelecionado.getNome());
+	}
+
+	private void conteudo() {
+		comppSelecionado.setParent(janela);
+		if(ctrl.getcompPPSelecionado()==null){
+			comppSelecionado.setValue("Nenhum CompPP selecionado.");			
+		}else{
+			this.setComppSelecionado(ctrl.getcompPPSelecionado());			
+		}
+	}
+
+	/*private void listaProcessoPadrao() {
 		Listbox listaProcessoPadrao = new Listbox();
 		Listitem itemLista;
 
@@ -61,7 +77,7 @@ public class JanDefinirProcessoPadrao {
 
 			listcell.setLabel(compPP.getNome());
 		}
-	}
+	}*/
 
 	private void configuracaoBasica() {
 		janela.setTitle("Definir Processo Padrao");

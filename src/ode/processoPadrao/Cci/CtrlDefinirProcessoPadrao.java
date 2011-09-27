@@ -1,19 +1,15 @@
 package ode.processoPadrao.Cci;
 
 import java.util.Collection;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.zkoss.zul.Textbox;
 
 import ode.conhecimento.processo.Cdp.KAtividade;
 import ode.conhecimento.processo.Cdp.KProcesso;
 import ode.conhecimento.processo.Cgd.KAtividadeDAO;
 import ode.conhecimento.processo.Cgd.KProcessoDAO;
-import ode.controleUsuario.cgt.AplCadastrarUsuario;
 import ode.nucleo.cci.CtrlBase;
-import ode.nucleo.crud.cih.JanelaSimples;
 import ode.processoPadrao.Cdp.CompPP;
 import ode.processoPadrao.Cgd.CompPPDAO;
 import ode.processoPadrao.Cgt.AplDefinirProcessoPadrao;
@@ -27,6 +23,8 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	private static final long serialVersionUID = -2967662654799321521L;
 
+	private CompPP compPPSelecionado;
+	
 	@Override
 	public void iniciar() {
 		mostrarJanelaPrincipal();
@@ -93,6 +91,16 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	private JanSelecionaProcessoPadrao janSelecionaProcessoPadrao;
 	public void abrirJanSelecionaProcessoPadrao() {
 		janSelecionaProcessoPadrao = new JanSelecionaProcessoPadrao(this, factoryJanelaSimples());		
+	}
+	
+	
+	public void setCompPPSelecionado(CompPP selecionado) {
+		compPPSelecionado = selecionado;
+		janDefinirProcessoPadrao.setComppSelecionado(selecionado);
+		
+	}
+	public CompPP getcompPPSelecionado(){
+		return compPPSelecionado;
 	}
 
 }
