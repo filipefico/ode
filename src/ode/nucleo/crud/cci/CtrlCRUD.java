@@ -5,22 +5,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.conhecimento.processo.Cdp.KProcesso;
-import ode.conhecimento.processo.Cgd.KAtividadeDAO;
-import ode.conhecimento.processo.Cgd.KProcessoDAO;
 import ode.nucleo.cci.CtrlBase;
 import ode.nucleo.cdp.ObjetoPersistente;
 import ode.nucleo.crud.cgt.AplBase;
 import ode.nucleo.crud.cih.FormularioDadosCRUD;
-import ode.nucleo.crud.cih.FormularioDadosCRUD.ModoExibicao;
 import ode.nucleo.crud.cih.JanelaSimples;
 import ode.nucleo.crud.cih.PainelCRUD;
 import ode.nucleo.excecao.CtrlExcecoes;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.nucleo.util.NucleoMensagens;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Listitem;
@@ -52,6 +46,10 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 	public void iniciar() {
 		configurarComponentes();
 		mostrarJanelaPrincipal();
+	}
+	
+	public enum ModoExibicao {
+		EDITAR, NOVO, CONSULTAR
 	}
 
 	public void configurarComponentes() {
@@ -212,7 +210,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 	}
 
 	public void acaoNovo() {
-
 		mostrarFormulario(ModoExibicao.NOVO);
 	}
 
@@ -226,7 +223,6 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 		formularioDados.setControlador(this);
 		formularioDados.setParent(janDados);
 		formularioDados.configurarComponentes();
-		formularioDados.setModoExibicao(modoExibicao);
 
 		try {
 
@@ -234,11 +230,9 @@ public abstract class CtrlCRUD<T extends ObjetoPersistente> extends CtrlBase {
 				formularioDados.setObjetoCadastroDados(factoryObjetoDados());
 			} else {
 				// Se nao eh novo, tenho que recuperar o objeto do banco
-				T objetoSelecionado = painelCRUD.getListagem()
-				.getSelecionado();
+				T objetoSelecionado = painelCRUD.getListagem().getSelecionado();
 				// atualizo a referencia do objetoSelecionado
-				objetoSelecionado = nucleoAplCadastroBase
-				.recuperarPorId(objetoSelecionado.getId());
+				objetoSelecionado = nucleoAplCadastroBase.recuperarPorId(objetoSelecionado.getId());
 
 				formularioDados.setObjetoCadastroDados(objetoSelecionado);
 				// copio os dados do objeto pro formulario

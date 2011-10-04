@@ -9,6 +9,7 @@ import ode.nucleo.excecao.CtrlExcecoes;
 import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 import ode.nucleo.util.NucleoMensagens;
 
+import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
@@ -23,12 +24,6 @@ import org.zkoss.zul.impl.XulElement;
 
 public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends Vlayout {
 
-	public enum ModoExibicao {
-		EDITAR, NOVO, CONSULTAR
-	}
-
-	private ModoExibicao modoExibicao = ModoExibicao.NOVO;
-	
 	/**
 	 * 
 	 */
@@ -228,10 +223,10 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 
 	}
 
-	private boolean isValido() {
+	protected boolean isValido()
+	{
 		return true;
 	}
-
 	public CtrlCRUD<T> getControlador() {
 		return controlador;
 	}
@@ -239,10 +234,9 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	public void setControlador(CtrlCRUD<T> controlador) {
 		this.controlador = controlador;
 	}
-
-	public void setModoExibicao(ModoExibicao modoExibicao) {
-		this.modoExibicao = modoExibicao;
-
+	
+	public void disparaErro(XulElement element, String message) {
+			throw new WrongValueException(element,	message);
 	}
 
 }

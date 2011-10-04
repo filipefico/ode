@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import ode.controleProcesso.cdp.RecursoHumano;
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode.nucleo.cdp.ObjetoPersistente;
 
 
@@ -72,17 +72,4 @@ public class Usuario extends ObjetoPersistente {
 		this.perfilAcessoId = perfilAcesso.getId();
 	}
 
-	/**
-	 * Altera os dados do Usuario para os dados do Usuario
-	 * fonte.
-	 * 
-	 * @param fonte
-	 *            Usuario de onde os dados devem ser copiados.
-	 */
-	public void alterarDados(Usuario fonte) {
-		this.setNomeUsuario(fonte.getNomeUsuario());
-		this.setSenha(fonte.getSenha());
-		this.setRecursoHumano(fonte.getRecursoHumano());
-		this.setPerfilAcesso(fonte.getPerfilAcesso());
-	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import ode.controleUsuario.cdp.Usuario;
 import ode.nucleo.crud.cgd.DAOBaseHibernate;
-import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
 
 import org.hibernate.HibernateException;
 import org.springframework.dao.DataAccessException;
@@ -32,11 +31,5 @@ public class UsuarioDAOHibernate extends
 			throw new DataRetrievalFailureException(
 					"Erro ao tentar obter usuário por nome de usuário!", e);
 		}
-	}
-	
-	public void Salvar(Usuario u) throws NucleoRegraNegocioExcecao {
-		if(u.getRecursoHumano()==null)
-				throw new NucleoRegraNegocioExcecao("É necessário informar um Recurso Humano", null);
-		super.salvar(u);
 	}
 }

@@ -7,7 +7,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import ode.conhecimento.processo.Cci.*;
-import ode.controleProcesso.cci.*;
 import ode.controleProjeto.cci.*;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
@@ -130,9 +129,8 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 		);
 		
 		funcionalidades.add(criar("Recursos")
-			.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlRecursoHumanoCRUD.class))
-			//.addSubfuncionalidade(criar("Recursos de Hardware").setCtrl(CtrlRecursoHardwareCRUD.class))
-			//.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlFerramentaSoftwareCRUD.class))
+			.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(ode._controleRecursoHumano.cci.CtrlRecursoHumanoCRUD.class))
+			.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(ode._controleFerramenta.cci.CtrlFerramentaSoftwareCRUD.class))
 		);
 			
 		funcionalidades.add(criar("Conhecimento")
@@ -153,12 +151,18 @@ public class AplAutenticarUsuarioImpl implements AplAutenticarUsuario {
 				.addSubfuncionalidade(criar("Procedimentos").setCtrl(CtrlKProcedimentoCRUD.class))
 			)
 			.addSubfuncionalidade(criar("Organização")
-				.addSubfuncionalidade(criar("Procedimentos").setCtrl(ode.conhecimento.organizacao.Cci.CtrlKDominioConhecimentoCRUD.class))
+				.addSubfuncionalidade(criar("Domínios de Conhecimento").setCtrl(ode.conhecimento.organizacao.Cci.CtrlKDominioConhecimentoCRUD.class))
+				.addSubfuncionalidade(criar("Competências").setCtrl(ode.conhecimento.organizacao.Cci.CtrlKCompetenciaCRUD.class))
 			)
 		);
 		funcionalidades.add(criar("Processo Padrão")
 			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(ode.processoPadrao.Cci.CtrlDefinirProcessoPadrao.class))
 		);
+		
+		funcionalidades.add(criar("Ferramentas")
+			.addSubfuncionalidade(criar("Alocação de Recursos")).setCtrl("")//.setDisponivelApenasParaProjetosAbertos(true)
+		);
+		
 		return funcionalidades;
 
 	}

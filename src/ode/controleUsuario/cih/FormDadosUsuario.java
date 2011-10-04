@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ode.controleProcesso.cih.RecursoHumanoBandbox;
+import ode._controleRecursoHumano.cih.RecursoHumanoBandbox;
 import ode.controleUsuario.cci.CtrlUsuarioCRUD;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.cdp.Usuario;
@@ -37,13 +37,12 @@ FormularioDadosCRUD<Usuario> {
 		GridDados gridDadosCadastro = new GridDados();
 		
 		CtrlUsuarioCRUD ctrl= (CtrlUsuarioCRUD) this.getControlador();
-		recursoHumanoBandbox.preencherLista(ctrl.listarRecursosHumanos());
+		recursoHumanoBandbox.setObjetos(ctrl.listarRecursosHumanos());
 		gridDadosCadastro.adicionarLinhaObrigatoria("Recurso Humano", recursoHumanoBandbox);
 		
 		tbLogin.setWidth("200px");
 		tbLogin.setMaxlength(100);		
-		gridDadosCadastro.adicionarLinhaObrigatoria(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_LOGIN),tbLogin);
+		gridDadosCadastro.adicionarLinhaObrigatoria(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_LOGIN),tbLogin);
 		
 		tbSenha.setWidth("200px");
 		tbSenha.setType("password");
@@ -94,6 +93,13 @@ FormularioDadosCRUD<Usuario> {
 	@Override
 	protected void configurarConstraints() {
 		tbLogin.setConstraint("no empty");
+	}
+	
+	@Override
+	protected boolean isValido() {
+		if (recursoHumanoBandbox.getObjetoSelecionado() == null)
+			disparaErro(recursoHumanoBandbox, "É necessário informar um Recurso Humano!");
+		return super.isValido();
 	}
 	
 	private RecursoHumanoBandbox recursoHumanoBandbox = new RecursoHumanoBandbox();

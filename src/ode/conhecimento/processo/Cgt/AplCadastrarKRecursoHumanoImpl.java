@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ode.conhecimento.processo.Cdp.KRecursoHumano;
 import ode.conhecimento.processo.Cgd.KRecursoHumanoDAO;
-import ode.controleProcesso.cdp.RecursoHumano;
 import ode.nucleo.crud.cgd.DAOBase;
 import ode.nucleo.crud.cgt.AplBaseImpl;
 import ode.nucleo.excecao.NucleoExcecao;

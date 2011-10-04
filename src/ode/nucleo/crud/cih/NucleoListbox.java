@@ -6,12 +6,12 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
 
 @SuppressWarnings("unchecked")
-public class NucleoListbox<T> extends Listbox {
+public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void setObjetoSelecionado(T objeto) {
-
 		List<Listitem> listItems = this.getItems();
 		for (Listitem item : listItems) {
 			if (item.getValue().equals(objeto)) {
@@ -21,10 +21,12 @@ public class NucleoListbox<T> extends Listbox {
 		}
 	}
 
+	@Override
 	public T getObjetoSelecionado() {
-		return (T) this.getSelectedItem().getValue();
+		return this.getSelectedItem() != null ? (T) this.getSelectedItem().getValue() : null;
 	}
 
+	@Override
 	public Listitem getItem(T objeto) {
 		List<Listitem> listItems = this.getItems();
 		for (Listitem item : listItems)
@@ -37,7 +39,7 @@ public class NucleoListbox<T> extends Listbox {
 		List<Listitem> listItems = this.getItems();
 		for (Listitem item : listItems) {
 			item.setSelected(false);
-			if (conjunto.contains((T)item.getValue()))
+			if (conjunto.contains((T) item.getValue()))
 				item.setSelected(true);
 		}
 	}
@@ -51,18 +53,28 @@ public class NucleoListbox<T> extends Listbox {
 				conjunto.add((T) item.getValue());
 		return conjunto;
 	}
-	
+
+	@Override
 	public void addObjeto(T objeto) {
 		Listitem listitem = new Listitem(objeto.toString(), objeto);
 		this.appendChild(listitem);
 	}
-	
+
+	@Override
 	public void setObjetos(Iterable<T> conjunto) {
-		for(T objeto : conjunto) {
+		for (T objeto : conjunto) {
 			addObjeto(objeto);
 		}
+		if (this.getItemCount()>0 && this.isMultiple() == false)
+			selecionarPrimeiroElemento();
 	}
 	
+	@Override
+	public void setObjetos(T[] conjunto) {
+		setObjetos(Arrays.asList(conjunto));
+	}
+
+	@Override
 	public void selecionarPrimeiroElemento() {
 		this.setSelectedIndex(0);
 	}
