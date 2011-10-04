@@ -11,6 +11,7 @@ public class CtrlExcecoes {
 	/**
 	 * Método Fábrica que cria uma execacao de definição de objetos
 	 * */
+	@SuppressWarnings("rawtypes")
 	public static RuntimeException factoryExcecaoDefinicao(String nomeObjeto,
 			Class classe) {
 
@@ -29,8 +30,9 @@ public class CtrlExcecoes {
 	 */
 	public static void exibirJanelaErro(String mensagemErro) {
 		try {
-			Messagebox.show(mensagemErro, NucleoMensagens
-					.getMensagem(NucleoMensagens.TERMO_ERRO), Messagebox.OK,
+			Messagebox.show(mensagemErro,
+					NucleoMensagens.getMensagem(NucleoMensagens.TERMO_ERRO),
+					Messagebox.OK,
 					Messagebox.ERROR);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,32 +49,18 @@ public class CtrlExcecoes {
 	public static void tratarExcecao(Exception excecao) {
 
 		// Inicializa a mensagem de erro com "Erro Desconhecido!"
-		String mensagemErro = NucleoMensagens
-				.getMensagem(NucleoMensagens.MSG_ERRO_DESCONHECIDO);
+		String mensagemErro = NucleoMensagens.getMensagem(NucleoMensagens.MSG_ERRO_DESCONHECIDO);
 		
-		try {
-
-			throw excecao;
-
-		} catch (DataAccessException e) {
-			mensagemErro = NucleoMensagens
-					.getMensagem(NucleoMensagens.MSG_ERRO_ACESSO_BD);
-
-		} catch (NucleoRegraNegocioExcecao e) {
+		if (excecao instanceof DataAccessException) {
+			mensagemErro = NucleoMensagens.getMensagem(NucleoMensagens.MSG_ERRO_ACESSO_BD);
+		} else if (excecao instanceof NucleoRegraNegocioExcecao) {
 			mensagemErro = ((NucleoRegraNegocioExcecao) excecao).getMensagem();
-
-		} catch (WrongValueException e) {
+		} else if (excecao instanceof WrongValueException) {
 			mensagemErro = excecao.getMessage();
-		}
-
-		catch (Exception e) {
-//faz nada pra mensagem
 		}
 		
 		// TODO LOG
 		excecao.printStackTrace();
-
-		// Exibe a janela de erro
 		exibirJanelaErro(mensagemErro);
 
 	}

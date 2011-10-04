@@ -7,4 +7,8 @@ public class NucleoRegraNegocioExcecao extends NucleoExcecao {
 	public NucleoRegraNegocioExcecao(String msg, Throwable tr) {
 		super(msg, tr);
 	}
+	
+	public NucleoRegraNegocioExcecao(String msg) {
+		super(msg, null);
+	}
 }

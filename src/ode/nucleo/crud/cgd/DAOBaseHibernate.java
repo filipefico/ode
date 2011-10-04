@@ -1,13 +1,10 @@
 package ode.nucleo.crud.cgd;
 
-import java.io.Console;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.zkoss.util.logging.Log;
 
 import ode.nucleo.cdp.ObjetoPersistente;
 
@@ -58,10 +55,12 @@ public class DAOBaseHibernate<T extends ObjetoPersistente> implements
 	 * 
 	 * @see ode.nucleo.crud.cgd.DAOBase#recuperarTodos()
 	 */
+	@SuppressWarnings("unchecked")
 	public Collection<T> recuperarTodos() {
 		return entityManager.createQuery("from " + getClasseDominio().getSimpleName()).getResultList();			
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Collection<T> recuperarTodosComOrdenacao(String orderBy) {
 		return entityManager.createQuery("from " + getClasseDominio().getSimpleName() + " order by "+ orderBy).getResultList();			
 	}
@@ -84,6 +83,7 @@ public class DAOBaseHibernate<T extends ObjetoPersistente> implements
 	 * 
 	 * @see ode.nucleo.crud.cgd.DAOBase#getClasseDominio()
 	 */
+	@SuppressWarnings("unchecked")
 	public Class<T> getClasseDominio() {
 
 		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
