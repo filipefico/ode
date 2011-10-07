@@ -1,4 +1,4 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

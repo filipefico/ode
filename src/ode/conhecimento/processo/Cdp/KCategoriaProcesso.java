@@ -1,7 +1,8 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import javax.persistence.Entity;
-import ode.conhecimento.principal.Cdp.Conhecimento;
+
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KCategoriaProcesso extends Conhecimento{

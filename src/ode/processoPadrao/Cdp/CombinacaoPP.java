@@ -1,4 +1,4 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,14 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
-import ode.conhecimento.processo.Cdp.KCombinacao;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KCombinacao;
 
 //@Entity(name = "padr_combinacao")
 @Entity

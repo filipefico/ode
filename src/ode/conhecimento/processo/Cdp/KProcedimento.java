@@ -1,12 +1,12 @@
-package ode.conhecimento.processo.Cdp;
-
-import ode.conhecimento.principal.Cdp.Conhecimento;
+package ode.conhecimento.processo.cdp;
 
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 
 

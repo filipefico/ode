@@ -1,18 +1,15 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ode.conhecimento.processo.Cdp.KProcesso;
-import ode.processoPadrao.Cdp.CompPP;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import ode.conhecimento.processo.cdp.KProcesso;
 
 @Entity
 public class CompPPProcessoComplexo extends CompPP {

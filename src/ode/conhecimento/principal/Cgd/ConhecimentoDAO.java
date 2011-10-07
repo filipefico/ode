@@ -1,9 +1,9 @@
-package ode.conhecimento.principal.Cgd;
+package ode.conhecimento.principal.cgd;
 
 import java.util.Collection;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
-import ode.nucleo.crud.cgd.DAOBase;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 public interface ConhecimentoDAO extends DAOBase<Conhecimento>{
 

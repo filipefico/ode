@@ -1,9 +1,9 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 /** Representa os conhecimentos sobre as Combinacoes do ambiente ODE.
 **/

@@ -1,7 +1,5 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 import javax.persistence.Entity;
-
-import ode.conhecimento.processo.Cdp.KRecurso;
 
 /************************ Classe KRecursoSoftware ****************************/
 /** Representa os conhecimentos sobre Recursos de Software do ambiente ODE. 

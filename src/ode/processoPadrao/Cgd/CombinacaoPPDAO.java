@@ -1,7 +1,7 @@
-package ode.processoPadrao.Cgd;
+package ode.processoPadrao.cgd;
 
-import ode.nucleo.crud.cgd.DAOBase;
-import ode.processoPadrao.Cdp.CombinacaoPP;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.processoPadrao.cdp.CombinacaoPP;
 
 public interface CombinacaoPPDAO extends DAOBase<CombinacaoPP>{
 	    

@@ -1,10 +1,9 @@
-package ode.conhecimento.requisito.Cdp;
+package ode.conhecimento.requisito.cdp;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KTipoRequisito extends Conhecimento{

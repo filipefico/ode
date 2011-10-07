@@ -1,11 +1,9 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
-import ode.conhecimento.processo.Cdp.KProcesso;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KResultadoProcesso extends Conhecimento {

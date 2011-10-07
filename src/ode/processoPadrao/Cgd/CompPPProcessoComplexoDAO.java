@@ -1,7 +1,7 @@
-package ode.processoPadrao.Cgd;
+package ode.processoPadrao.cgd;
 
-import ode.nucleo.crud.cgd.DAOBase;
-import ode.processoPadrao.Cdp.CompPPProcessoComplexo;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 
 public interface CompPPProcessoComplexoDAO  extends DAOBase<CompPPProcessoComplexo>{
     

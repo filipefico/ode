@@ -1,4 +1,4 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 
 @Entity

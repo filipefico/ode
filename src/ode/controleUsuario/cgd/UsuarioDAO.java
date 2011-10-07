@@ -1,8 +1,9 @@
 package ode.controleUsuario.cgd;
 
 
+import ode._infraestruturaBase.cgd.DAOBase;
 import ode.controleUsuario.cdp.Usuario;
-import ode.nucleo.crud.cgd.DAOBase;
+
 import org.springframework.dao.DataAccessException;
 
 

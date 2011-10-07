@@ -1,7 +1,7 @@
-package ode.conhecimento.organizacao.Cgd;
+package ode.conhecimento.organizacao.cgd;
 
-import ode.conhecimento.organizacao.Cdp.KCompetencia;
-import ode.nucleo.crud.cgd.DAOBase;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.conhecimento.organizacao.cdp.KCompetencia;
 
 public interface KCompetenciaDAO extends DAOBase<KCompetencia> {
 

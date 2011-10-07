@@ -1,11 +1,11 @@
 package ode._controleFerramenta.cdp;
 
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
-import ode.conhecimento.processo.Cdp.KRecurso;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KRecurso;
 
 @MappedSuperclass
 public abstract class Recurso extends ObjetoPersistente{

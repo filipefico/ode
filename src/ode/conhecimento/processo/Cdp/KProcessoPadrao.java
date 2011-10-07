@@ -1,10 +1,10 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 /************************** Classe KProcessoPadrao ***************************/
 /** Representa os conhecimentos sobre Processo Padrão do ambiente ODE.

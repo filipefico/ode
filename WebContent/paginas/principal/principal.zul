@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<?init class="ode.nucleo.util.AuthInit"?>
+<?init class="ode._infraestruturaBase.util.AuthInit"?>
 <?page title="ODE - Ontology Development Environment - Versão 1.0"?>
 <zk xmlns:h="xhtml" xmlns:zk="zk">
 <style>
 	body { padding: 0;}
 </style>
-<window use="ode.principal.cih.WindowPrincipal"/>
+<window use="ode.principal.ciu.WindowPrincipal"/>
 </zk>

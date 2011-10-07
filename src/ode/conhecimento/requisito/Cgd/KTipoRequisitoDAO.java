@@ -1,7 +1,7 @@
-package ode.conhecimento.requisito.Cgd;
+package ode.conhecimento.requisito.cgd;
 
-import ode.conhecimento.requisito.Cdp.KTipoRequisito;
-import ode.nucleo.crud.cgd.DAOBase;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.conhecimento.requisito.cdp.KTipoRequisito;
 
 public interface KTipoRequisitoDAO extends DAOBase<KTipoRequisito>{
 

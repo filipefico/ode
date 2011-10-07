@@ -1,19 +1,14 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
-import ode.conhecimento.processo.Cdp.KCategoriaProcesso;
-import ode.conhecimento.processo.Cdp.KResultadoProcesso;
-import ode.conhecimento.processo.Cdp.KTipoInteracao;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KProcesso extends Conhecimento{

@@ -66,7 +66,7 @@
                            
                            import org.zkoss.zkplus.spring.SpringUtil;
                            import ode.controleUsuario.cgt.AplAutenticarUsuario;
-                           import ode.nucleo.excecao.NucleoRegraNegocioExcecao;
+                           import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
                            
     void login() {       
         String nomeUsuario = txtNomeUsuario.getValue();
