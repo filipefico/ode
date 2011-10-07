@@ -1,4 +1,4 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KModeloCicloVida extends Conhecimento{

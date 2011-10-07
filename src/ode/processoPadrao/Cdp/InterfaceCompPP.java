@@ -1,10 +1,10 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 
 

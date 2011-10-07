@@ -3,8 +3,8 @@ package ode.controleUsuario.cdp;
 import java.util.ArrayList;
 import java.util.List;
 
-import ode.nucleo.cci.CtrlBase;
-import ode.nucleo.cdp.NucleoObjetoDominioImpl;
+import ode._infraestruturaBase.cdp.NucleoObjetoDominioImpl;
+import ode._infraestruturaBase.ciu.CtrlBase;
 
 public class Funcionalidade extends NucleoObjetoDominioImpl {
 

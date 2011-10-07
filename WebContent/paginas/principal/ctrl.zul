@@ -1,4 +1,4 @@
-<?init class="ode.nucleo.util.AuthInit"?>
+<?init class="ode._infraestruturaBase.util.AuthInit"?>
 <zk>
 <zscript>	
 	Map parametros = Executions.getCurrent().getArg();

@@ -1,4 +1,4 @@
-package ode.conhecimento.processo.Cdp;
+package ode.conhecimento.processo.cdp;
 
 import java.util.Set;
 
@@ -7,7 +7,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 /**
  * Representa os conhecimentos sobre Artefatos do ambiente ODE.

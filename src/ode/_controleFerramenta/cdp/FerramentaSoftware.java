@@ -1,9 +1,10 @@
 package ode._controleFerramenta.cdp;
 
-import javax.persistence.Enumerated;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Transient;
-import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
+
+import ode.conhecimento.processo.cdp.KFerramentaSoftware;
 
 @Entity
 public class FerramentaSoftware extends Recurso {

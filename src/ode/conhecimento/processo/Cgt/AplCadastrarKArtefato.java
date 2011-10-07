@@ -1,8 +1,35 @@
-package ode.conhecimento.processo.Cgt;
+package ode.conhecimento.processo.cgt;
 
-import ode.conhecimento.processo.Cdp.KArtefato;
-import ode.nucleo.crud.cgt.AplBase;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode._infraestruturaBase.excecao.NucleoExcecao;
+import ode._infraestruturaCRUD.cgt.AplCRUD;
+import ode.conhecimento.processo.cdp.KArtefato;
+import ode.conhecimento.processo.cgd.KArtefatoDAO;
 
-public interface AplCadastrarKArtefato extends AplBase<KArtefato> {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(rollbackFor = NucleoExcecao.class)
+
+public class AplCadastrarKArtefato extends
+		AplCRUD<KArtefato> {
+
+	@Autowired
+	private KArtefatoDAO kArtefatoDAO;
+	
+	public KArtefatoDAO getkArtefatoDAO() {
+		return kArtefatoDAO;
+	}
+	
+	public void setkArtefatoDAO(KArtefatoDAO kArtefatoDAO) {
+		this.kArtefatoDAO = kArtefatoDAO;
+	}
+
+	@Override
+	public DAOBase<KArtefato> getNucleoDaoBase() {
+		return kArtefatoDAO;
+	}
 
 }

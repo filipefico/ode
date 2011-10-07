@@ -1,8 +1,8 @@
-package ode.conhecimento.organizacao.Cdp;
+package ode.conhecimento.organizacao.cdp;
 
 import javax.persistence.Entity;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KCompetencia extends Conhecimento {

@@ -1,4 +1,4 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,16 +14,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import ode.conhecimento.processo.Cdp.KArtefato;
-import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.conhecimento.processo.Cdp.KFerramentaSoftware;
-import ode.conhecimento.processo.Cdp.KMetodo;
-import ode.conhecimento.processo.Cdp.KNorma;
-import ode.conhecimento.processo.Cdp.KRecursoHardware;
-import ode.conhecimento.processo.Cdp.KRecursoHumano;
-import ode.conhecimento.processo.Cdp.KRoteiro;
-import ode.conhecimento.processo.Cdp.KTecnica;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KArtefato;
+import ode.conhecimento.processo.cdp.KAtividade;
+import ode.conhecimento.processo.cdp.KFerramentaSoftware;
+import ode.conhecimento.processo.cdp.KMetodo;
+import ode.conhecimento.processo.cdp.KNorma;
+import ode.conhecimento.processo.cdp.KRecursoHardware;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
+import ode.conhecimento.processo.cdp.KRoteiro;
+import ode.conhecimento.processo.cdp.KTecnica;
 
 @Entity
 public class AtividadeProcessoPadrao extends ObjetoPersistente {

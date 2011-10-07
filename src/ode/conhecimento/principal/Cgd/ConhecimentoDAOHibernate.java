@@ -1,14 +1,11 @@
-package ode.conhecimento.principal.Cgd;
+package ode.conhecimento.principal.cgd;
 
-import java.util.Collection;
+import ode._infraestruturaBase.cgd.DAOBaseImpl;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 import org.springframework.stereotype.Repository;
 
-import ode.conhecimento.principal.Cdp.Conhecimento;
-import ode.conhecimento.processo.Cdp.KAtividade;
-import ode.nucleo.crud.cgd.DAOBaseHibernate;
-
 @Repository
-public class ConhecimentoDAOHibernate extends DAOBaseHibernate<Conhecimento> implements ConhecimentoDAO{
+public class ConhecimentoDAOHibernate extends DAOBaseImpl<Conhecimento> implements ConhecimentoDAO{
 	    
 }

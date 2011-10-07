@@ -1,7 +1,7 @@
-package ode.conhecimento.processo.Cgd;
+package ode.conhecimento.processo.cgd;
 
-import ode.conhecimento.processo.Cdp.KProcedimento;
-import ode.nucleo.crud.cgd.DAOBase;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.conhecimento.processo.cdp.KProcedimento;
 
 public interface KProcedimentoDAO extends DAOBase<KProcedimento>{
 	

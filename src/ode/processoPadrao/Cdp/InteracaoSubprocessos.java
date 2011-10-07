@@ -1,11 +1,10 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import ode.conhecimento.processo.Cdp.KTipoInteracao;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KTipoInteracao;
 
 
 @Entity

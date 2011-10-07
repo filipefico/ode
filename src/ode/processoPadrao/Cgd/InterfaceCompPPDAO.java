@@ -1,7 +1,7 @@
-package ode.processoPadrao.Cgd;
+package ode.processoPadrao.cgd;
 
-import ode.nucleo.crud.cgd.DAOBase;
-import ode.processoPadrao.Cdp.InterfaceCompPP;
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode.processoPadrao.cdp.InterfaceCompPP;
 
 public interface InterfaceCompPPDAO extends DAOBase<InterfaceCompPP> {
 

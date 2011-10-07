@@ -1,4 +1,4 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import java.util.HashSet;
 import java.util.Set;

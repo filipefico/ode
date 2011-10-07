@@ -1,18 +1,15 @@
-package ode.processoPadrao.Cdp;
+package ode.processoPadrao.cdp;
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-
-
-import ode.conhecimento.processo.Cdp.KModeloCicloVida;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KModeloCicloVida;
 
 @Entity
 public class ModeloCicloVidaProcessoPadrao extends ObjetoPersistente{

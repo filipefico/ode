@@ -1,2 +1,2 @@
-<?init class="ode.nucleo.util.AuthInit"?>
-<window use="ode.nucleo.crud.cih.JanelaSimples" width="550px"/>
+<?init class="ode._infraestruturaBase.util.AuthInit"?>
+<window use="ode._infraestruturaCRUD.ciu.JanelaSimples" width="550px"/>

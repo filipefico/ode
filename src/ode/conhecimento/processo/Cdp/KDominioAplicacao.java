@@ -1,8 +1,8 @@
-package ode.conhecimento.processo.Cdp;
-
-import ode.conhecimento.principal.Cdp.Conhecimento;
+package ode.conhecimento.processo.cdp;
 
 import javax.persistence.Entity;
+
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 
 

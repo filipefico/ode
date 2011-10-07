@@ -6,7 +6,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 
 /**

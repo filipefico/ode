@@ -9,8 +9,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import ode.conhecimento.processo.Cdp.KRecursoHumano;
-import ode.nucleo.cdp.ObjetoPersistente;
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
 
 @Entity
 public class RecursoHumano extends ObjetoPersistente {
