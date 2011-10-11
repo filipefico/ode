@@ -6,6 +6,6 @@ import ode.conhecimento.requisito.cdp.KTipoRequisito;
 import org.springframework.stereotype.Repository;
 
 @Repository(value="kTipoRequisitoDao")
-public class KTipoRequisitoDAOHibernate extends DAOBaseImpl<KTipoRequisito> implements KTipoRequisitoDAO{
+public class KTipoRequisitoDAOImpl extends DAOBaseImpl<KTipoRequisito> implements KTipoRequisitoDAO{
 
 }

@@ -6,6 +6,6 @@ import ode.conhecimento.principal.cdp.Conhecimento;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ConhecimentoDAOHibernate extends DAOBaseImpl<Conhecimento> implements ConhecimentoDAO{
+public class ConhecimentoDAOImpl extends DAOBaseImpl<Conhecimento> implements ConhecimentoDAO{
 	    
 }
