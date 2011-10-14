@@ -19,26 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplDefinirProcessoPadrao extends AplCRUD<CompPP> {
-
-	@Autowired
-	private CompPPDAO compPPDAO;
-
-	public CompPPDAO getCompPPDAO() {
-		return compPPDAO;
-	}
-
-	public void setCompPPDAO(CompPPDAO compPPDAO) {
-		this.compPPDAO = compPPDAO;
-	}
-
-	@Override
-	public DAOBase<CompPP> getNucleoDaoBase() {
-		return compPPDAO;
-	}
-
-	
-	
+public class AplDefinirProcessoPadrao extends AplCRUD<CompPP>{
 	@Autowired
 	private CompPPProcessoComplexoDAO compPPProcessoComplexoDAO;
 
@@ -50,12 +31,18 @@ public class AplDefinirProcessoPadrao extends AplCRUD<CompPP> {
 		compPPcomplexo.setObjetivo(objetivo);
 
 		compPPProcessoComplexoDAO.salvar(compPPcomplexo);
-
 	}
 
 	@Autowired
+	private CompPPDAO compPPDAO;
+	public void salvarCompPP(CompPP compPP) {
+		compPPDAO.salvar(compPP);
+	}
+
+
+	@Autowired
 	private CompPPProcessoSimplesDAO compPPProcessoSimplesDAO;
-	
+
 	@Autowired
 	KProcessoDAO kProcessoDAO;
 
@@ -65,10 +52,10 @@ public class AplDefinirProcessoPadrao extends AplCRUD<CompPP> {
 		compPPsimples.setNome(nome);
 		compPPsimples.setDescricao(descricao);
 		compPPsimples.setObjetivo(objetivo);
-		compPPsimples.setTipo(kProcessoDAO.recuperarPorId(((KProcesso)objTipo).getId()));
+		compPPsimples.setTipo(kProcessoDAO.recuperarPorId(((KProcesso) objTipo)
+				.getId()));
 		compPPProcessoSimplesDAO.salvar(compPPsimples);
-		
-		
+
 	}
 
 	public void salvarMacroatividade(String nome, String descricao,
@@ -77,8 +64,13 @@ public class AplDefinirProcessoPadrao extends AplCRUD<CompPP> {
 		compPPMacroatividade.setNome(nome);
 		compPPMacroatividade.setDescricao(descricao);
 		compPPMacroatividade.setObjetivo(objetivo);
-	
-		
+
+	}
+
+	@Override
+	public DAOBase<CompPP> getNucleoDaoBase() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

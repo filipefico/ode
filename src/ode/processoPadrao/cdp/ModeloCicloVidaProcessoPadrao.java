@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KModeloCicloVida;
 
+
+
 @Entity
 public class ModeloCicloVidaProcessoPadrao extends ObjetoPersistente{
 
