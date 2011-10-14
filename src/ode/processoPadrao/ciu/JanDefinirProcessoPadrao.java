@@ -1,20 +1,24 @@
 package ode.processoPadrao.ciu;
 
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
-import ode.processoPadrao.cdp.CompPP;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Label;
 import org.zkoss.zul.Menu;
 import org.zkoss.zul.Menubar;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
+import org.zkoss.zul.Tree;
+import org.zkoss.zul.Treecell;
+import org.zkoss.zul.Treechildren;
+import org.zkoss.zul.Treeitem;
+import org.zkoss.zul.Treerow;
 
 public class JanDefinirProcessoPadrao {
 
 	CtrlDefinirProcessoPadrao ctrl;
 	JanelaSimples janela;
+	private Tree tree = null;
 
 	public JanDefinirProcessoPadrao(
 			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
@@ -26,53 +30,61 @@ public class JanDefinirProcessoPadrao {
 		configuracaoBasica();
 		menu();
 		conteudo();
-		//listaProcessoPadrao();
+		// listaProcessoPadrao();
 		janela.mostrar();
 
 	}
 
-	Label comppSelecionado = new Label();
-	public void setComppSelecionado(CompPP comppSelecionado) {
-		this.comppSelecionado.setValue("CompPP selecionado: "+comppSelecionado.getNome());
+	public void setCompPPSelecionado() {
+		Treechildren treechildren = new Treechildren();
+		Treeitem treeitem = new Treeitem();
+		Treerow treerow = new Treerow();
+		Treecell treecell = new Treecell();
+
+		if (tree != null) {// remove a arvore antiga da janela.
+			janela.removeChild(tree);
+		}
+		tree = new Tree();// cria uma nova arvore e insere na janela.
+		tree.setParent(janela);
+		treechildren.setParent(tree);
+		treeitem.setParent(treechildren);
+		treerow.setParent(treeitem);
+		treecell.setParent(treerow);
+		
+		if (ctrl.getcompPPSelecionado() == null) {
+			treecell.setLabel("Nenhum CompPP selecionado.");
+		} else {
+			treecell.setLabel(ctrl.getcompPPSelecionado().getNome());
+			tree.setTooltiptext(ctrl.getcompPPSelecionado().getClass().getSimpleName());
+		}
+				
+		Menupopup menuContexto = menuDeContexto();
+		menuContexto.setParent(janela);
+		tree.setContext(menuContexto);		
+	}
+
+	private Menupopup menuDeContexto() {
+		Menupopup menupopupContexto = new Menupopup();
+				
+		newItemBasicoMenu(menupopupContexto, "Definir Interface",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						ctrl.abrirJanDefinirInterfaceCompPP();
+					}
+				});
+		
+		return menupopupContexto;
 	}
 
 	private void conteudo() {
-		comppSelecionado.setParent(janela);
-		if(ctrl.getcompPPSelecionado()==null){
-			comppSelecionado.setValue("Nenhum CompPP selecionado.");			
-		}else{
-			this.setComppSelecionado(ctrl.getcompPPSelecionado());			
-		}
+		setCompPPSelecionado();// inicialmente não passa nenhum CompPP
 	}
-
-	/*private void listaProcessoPadrao() {
-		Listbox listaProcessoPadrao = new Listbox();
-		Listitem itemLista;
-
-		listaProcessoPadrao.setParent(janela);
-		listaProcessoPadrao.setAttribute("testeNOME", null);
-
-		Listhead listHead = new Listhead();
-		listHead.setAttribute("teste", null);
-
-		// listaProcessoPadrao.setWidth("200px");
-		// listaProcessoPadrao.setHeight("300px");
-
-		Collection<CompPP> listaCompPP = ctrl.getAllCompPP();
-		for (CompPP compPP : listaCompPP) {
-			itemLista = new Listitem();
-			Listcell listcell = new Listcell();
-
-			itemLista.setParent(listaProcessoPadrao);
-			itemLista.appendChild(listcell);
-
-			listcell.setLabel(compPP.getNome());
-		}
-	}*/
 
 	private void configuracaoBasica() {
 		janela.setTitle("Definir Processo Padrao");
 		janela.setWidth("450px");
+		janela.setHeight("600px");
 		janela.setBorder("normal");
 		janela.setClosable(true);
 		janela.setPosition("&quot;center;&quot;;");
@@ -95,8 +107,8 @@ public class JanDefinirProcessoPadrao {
 				new EventListnerDefinirCompPP());
 		newItemBasicoMenu(menupopup, "Estabelecer Requisitos",
 				new EventListnerEstabelecerRequisitos());
-		newItemBasicoMenu(menupopup, "Abrir Processo Padrão", new EventListnerSelecionarProcessoPadrao());
-
+		newItemBasicoMenu(menupopup, "Abrir Processo Padrão",
+				new EventListnerSelecionarProcessoPadrao());
 	}
 
 	private void newItemBasicoMenu(Menupopup menupopup, String label,
@@ -114,20 +126,19 @@ public class JanDefinirProcessoPadrao {
 			ctrl.abrirJanDefinirCompPP();
 		}
 	}
-	
+
 	public class EventListnerEstabelecerRequisitos implements EventListener {
 		@Override
 		public void onEvent(Event arg0) throws Exception {
 			ctrl.abrrrJanEstabelecerRequisitos();
 		}
 	}
+
 	public class EventListnerSelecionarProcessoPadrao implements EventListener {
 		@Override
 		public void onEvent(Event arg0) throws Exception {
 			ctrl.abrirJanSelecionaProcessoPadrao();
 		}
 	}
-	
-	
 
 }

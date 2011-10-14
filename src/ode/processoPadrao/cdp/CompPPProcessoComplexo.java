@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 
 import ode.conhecimento.processo.cdp.KProcesso;
 
+
 @Entity
 public class CompPPProcessoComplexo extends CompPP {
 	private static final long serialVersionUID = 3645553289873117858L;

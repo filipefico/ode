@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class CompPP extends ObjetoPersistente {
@@ -17,9 +18,10 @@ public class CompPP extends ObjetoPersistente {
 	/** Indica se a definição do processo foi encerrada */
 	private boolean definicaoConcluida;
 
-	/** Requisito */
 	private String requisitoCompPP;
-	/** Componente base */
+	
+	
+
 	private CompPP compPPBase;
 
 	private InterfaceCompPP interfaceCompPP;
@@ -75,6 +77,9 @@ public class CompPP extends ObjetoPersistente {
 
 	public void setRequisitoCompPP(String requisitoCompPP) {
 		this.requisitoCompPP = requisitoCompPP;
+	}
+	public String getRequisitoCompPP() {
+		return requisitoCompPP;
 	}
 
 	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)

@@ -6,71 +6,87 @@ import javax.persistence.ManyToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
-
-
 @Entity
 public class InterfaceCompPP extends ObjetoPersistente {
 
-
 	private static final long serialVersionUID = -1819692208262943582L;
-		String nome;
-	    String descricao;
-	    String objetivo;
-	    CompPP compPP;
+	String nome;
+	String descricao;
+	String objetivo;
+	CompPP compPP;
 
-	    public InterfaceCompPP(String nome, String objetivo, String descricao, CompPP compPP) {
-	        this.nome = nome;
-	        this.objetivo = objetivo;
-	        this.descricao = descricao;
-	        this.compPP = compPP;
-	    }
+	EstruturaCompPP estruturaCompPP;
+		
 
-	    public InterfaceCompPP() {
-	    }
+	public InterfaceCompPP(String nome, String objetivo, String descricao,
+			CompPP compPP) {
+		this.nome = nome;
+		this.objetivo = objetivo;
+		this.descricao = descricao;
+		this.compPP = compPP;
+		this.estruturaCompPP = new EstruturaCompPP();
+		this.estruturaCompPP.setInterafeCompPP(this);
+	}
 
-	    @ManyToOne (cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
-	    public CompPP getCompPP() {
-	        return compPP;
-	    }
+	public InterfaceCompPP() {
+	}
 
-	    public void setCompPP(CompPP compPP) {
-	        this.compPP = compPP;
-	    }
+	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
+	public CompPP getCompPP() {
+		return compPP;
+	}
 
-	    /** Obtém o a descricao da interface
-	     *  
-	     */
-	    @Column(nullable=false, length = 500)
-	    public String getDescricao() {
-	        return descricao;
-	    }
+	public void setCompPP(CompPP compPP) {
+		this.compPP = compPP;
+	}
 
-	    public void setDescricao(String descricao) {
-	        this.descricao = descricao;
-	    }
+	/**
+	 * Obtém o a descricao da interface
+	 * 
+	 */
+	@Column(nullable = false, length = 500)
+	public String getDescricao() {
+		return descricao;
+	}
 
-	    /** Obtém o nome da interface
-	     *  
-	     */
-	    @Column(nullable=false, length = 80)
-	    public String getNome() {
-	        return nome;
-	    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-	    public void setNome(String nome) {
-	        this.nome = nome;
-	    }
+	/**
+	 * Obtém o nome da interface
+	 * 
+	 */
+	@Column(nullable = false, length = 80)
+	public String getNome() {
+		return nome;
+	}
 
-	    /** Obtém o objetivo da interface
-	     * 
-	     */
-	    @Column(nullable=false, length = 500)
-	    public String getObjetivo() {
-	        return objetivo;
-	    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-	    public void setObjetivo(String objetivo) {
-	        this.objetivo = objetivo;
-	    }
+	/**
+	 * Obtém o objetivo da interface
+	 * 
+	 */
+	@Column(nullable = false, length = 500)
+	public String getObjetivo() {
+		return objetivo;
+	}
+
+	public void setObjetivo(String objetivo) {
+		this.objetivo = objetivo;
+	}
 	
+	public EstruturaCompPP getEstruturaCompPP() {
+		return estruturaCompPP;
+	}
+
+	public void setEstruturaCompPP(EstruturaCompPP estruturaCompPP) {
+		this.estruturaCompPP = estruturaCompPP;
+	}
+
+
+
 }

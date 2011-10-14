@@ -6,7 +6,6 @@ import javax.persistence.ManyToOne;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KTipoInteracao;
 
-
 @Entity
 public class InteracaoSubprocessos extends ObjetoPersistente{
 	/**

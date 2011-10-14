@@ -20,7 +20,7 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	private static final long serialVersionUID = -2967662654799321521L;
 
 	private CompPP compPPSelecionado;
-	
+
 	@Override
 	public void iniciar() {
 		mostrarJanelaPrincipal();
@@ -29,7 +29,7 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	JanDefinirProcessoPadrao janDefinirProcessoPadrao;
 
 	private void mostrarJanelaPrincipal() {
-		//essa janela faz chamadas para abrir as outras janelas.
+		// essa janela faz chamadas para abrir as outras janelas.
 		janDefinirProcessoPadrao = new JanDefinirProcessoPadrao(this,
 				factoryJanelaSimples());
 	}
@@ -56,47 +56,65 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	@Autowired
 	private AplDefinirProcessoPadrao aplDefinirProcessoPadrao;
-	
+
+	public void salvarCompPP(CompPP compPP) {
+		aplDefinirProcessoPadrao.salvarCompPP(compPP);
+	}	
+
 	public void salvarCompPP(String nome, String descricao, String objetivo,
 			String tipo, Object objTipo) {
-		
+
 		if (tipo.compareTo("Processo Complexo") == 0) {
-			aplDefinirProcessoPadrao.salvarProcessoComplexo(nome, descricao, objetivo);
+			aplDefinirProcessoPadrao.salvarProcessoComplexo(nome, descricao,
+					objetivo);
 		} else if (tipo.compareTo("Processo Simples") == 0) {
-			aplDefinirProcessoPadrao.salvarProcessoSimples(nome, descricao, objetivo, objTipo);
-		} else if (tipo.compareTo("Macroatividade") == 0){// macroatividade
-			aplDefinirProcessoPadrao.salvarMacroatividade(nome, descricao, objetivo, objTipo);
-		}else{
-			new RuntimeException("A string de comparação do tipo esta incorreta: "+tipo);
+			aplDefinirProcessoPadrao.salvarProcessoSimples(nome, descricao,
+					objetivo, objTipo);
+		} else if (tipo.compareTo("Macroatividade") == 0) {// macroatividade
+			aplDefinirProcessoPadrao.salvarMacroatividade(nome, descricao,
+					objetivo, objTipo);
+		} else {
+			new RuntimeException(
+					"A string de comparação do tipo esta incorreta: " + tipo);
 		}
 	}
 
 	@Autowired
 	CompPPDAO compPPDAO;
+
 	public Collection<CompPP> getAllCompPP() {
-		return  compPPDAO.recuperarTodos();
+		return compPPDAO.recuperarTodos();
 	}
-	
-	
-	private JanEstabelecerRequisitosCompPP JanEstabelecerRequisitosCompPP;
-	
+
+	private JanEstabelecerRequisitosCompPP janEstabelecerRequisitosCompPP;
+
 	public void abrrrJanEstabelecerRequisitos() {
-		JanEstabelecerRequisitosCompPP = new JanEstabelecerRequisitosCompPP(this, factoryJanelaSimples());
+		janEstabelecerRequisitosCompPP = new JanEstabelecerRequisitosCompPP(
+				this, factoryJanelaSimples());
 	}
 
 	private JanSelecionaProcessoPadrao janSelecionaProcessoPadrao;
+
 	public void abrirJanSelecionaProcessoPadrao() {
-		janSelecionaProcessoPadrao = new JanSelecionaProcessoPadrao(this, factoryJanelaSimples());		
+		janSelecionaProcessoPadrao = new JanSelecionaProcessoPadrao(this,
+				factoryJanelaSimples());
 	}
-	
-	
+
 	public void setCompPPSelecionado(CompPP selecionado) {
 		compPPSelecionado = selecionado;
-		janDefinirProcessoPadrao.setComppSelecionado(selecionado);
-		
+		janDefinirProcessoPadrao.setCompPPSelecionado();
+
 	}
-	public CompPP getcompPPSelecionado(){
+
+	public CompPP getcompPPSelecionado() {
 		return compPPSelecionado;
+	}
+
+	private JanDefinirInterfaceCompPP janDefinirInterfaceCompPP;
+
+	public void abrirJanDefinirInterfaceCompPP() {
+		janDefinirInterfaceCompPP = new JanDefinirInterfaceCompPP(this,
+				factoryJanelaSimples());
 	}
 
 }
