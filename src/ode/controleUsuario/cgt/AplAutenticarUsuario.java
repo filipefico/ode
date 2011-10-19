@@ -26,6 +26,20 @@ import ode.conhecimento.processo.ciu.CtrlKProcessoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKTipoSoftwareCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKMetodoAnaliticoCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKNecessidadeInformacaoCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKObjetivoEstrategicoCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKObjetivoMedicaoCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKObjetivoSoftwareCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKPeriodicidadeCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKProcedimentoAnaliseMedicaoCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKProcedimentoMedicaoCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKTipoEntidadeMensuravelCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKUnidadeMedidaCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
 import ode.controleProjeto.ciu.CtrlProjetoCRUD;
 import ode.controleProjeto.ciu.CtrlSelecionarProjeto;
 import ode.controleUsuario.cdp.Funcionalidade;
@@ -172,6 +186,30 @@ public class AplAutenticarUsuario {
 				.addSubfuncionalidade(criar("Domínios de Conhecimento").setCtrl(CtrlKDominioConhecimentoCRUD.class))
 				.addSubfuncionalidade(criar("Competências").setCtrl(CtrlKCompetenciaCRUD.class))
 			)
+			.addSubfuncionalidade(criar("Medição")
+					.addSubfuncionalidade(criar("Objetivos")
+							.addSubfuncionalidade(criar("Objetivo Estrategico").setCtrl(CtrlKObjetivoEstrategicoCRUD.class))
+							.addSubfuncionalidade(criar("Objetivo de Software").setCtrl(CtrlKObjetivoSoftwareCRUD.class))
+							.addSubfuncionalidade(criar("Objetivo de Medicao").setCtrl(CtrlKObjetivoMedicaoCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Necessidade de Informacao").setCtrl(CtrlKNecessidadeInformacaoCRUD.class))
+					.addSubfuncionalidade(criar("Medida")
+							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
+							.addSubfuncionalidade(criar("Tipo de Entidade Mensurável").setCtrl(CtrlKTipoEntidadeMensuravelCRUD.class))
+							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
+							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Escala")
+							.addSubfuncionalidade(criar("Escala").setCtrl(CtrlKEscalaCRUD.class))
+							.addSubfuncionalidade(criar("Valor de Escala").setCtrl(CtrlKValorEscalaCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Procedimentos")
+							.addSubfuncionalidade(criar("Procedimento de Medicao").setCtrl(CtrlKProcedimentoMedicaoCRUD.class))
+							.addSubfuncionalidade(criar("Procedimento de Analise de Medicao").setCtrl(CtrlKProcedimentoAnaliseMedicaoCRUD.class))
+							.addSubfuncionalidade(criar("Metodo Analitico").setCtrl(CtrlKMetodoAnaliticoCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Periodicidade").setCtrl(CtrlKPeriodicidadeCRUD.class))
+				)
 		);
 		funcionalidades.add(criar("Processo Padrão")
 			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
