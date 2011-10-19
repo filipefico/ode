@@ -140,6 +140,22 @@ public class NucleoMensagens {
 	 * Chave da mensagem "Usuário não logado"
 	 */
 	public static final String MSG_USUARIO_NAO_LOGADO = "msg.usuario.nao.logado";
+	
+
+	public static final String MSG_OBJETIVO_EXCLUSAO_ERRO = "msg.objetivo.exclusao.erro";
+
+	
+	public static final String MSG_AVISO_MEDICAO_SOFTWARE = "msg.aviso.medicao.software";
+
+	
+	public static final String MSG_AVISO_SOFTWARE = "msg.aviso.software";
+
+	public static final String MSG_AVISO_NECESSIDADE_INFORMACAO = "msg.aviso.necessidade.informacao";
+	public static final String MSG_NECESSIDADE_INFORMACAO_EXCLUSAO_ERRO = "msg.necessidade.informacao.exclusao.erro";
+
+	public static final String MSG_EMPTY_NECESSIDADE_INFORMACAO = "msg.empty.necessidade.informacao";
+	
+	public static final String MSG_SOMENTE_ADMINISTRADOR = "msg.somente.administrador";
 
 	//////////////////////////////////////////////////////////////////////
 	////// TERMOS
@@ -604,5 +620,38 @@ public class NucleoMensagens {
 	 * Chave do termo "Definir Processo"
 	 */
 	public static final String TERMO_DEFINIR_PROCESSO = "termo.definir.processo";
+	
+	public static final String MSG_OBJETIVO_ESTRATEGICO_EMPTY_ERRO = "msg.objetivo.estrategico.empty.erro";
+
+	public static final String MSG_OBJETIVO_SOFTWARE_EMPTY_ERRO = "msg.objetivo.software.empty.erro";
+
+	public static final String TERMO_VALORES_DE_ESCALA = "termo.valores.de.escala";
+
+	public static final String TERMO_PROPRIEDADE_MEDIDA = "termo.propriedade.medida";
+
+	public static final String TERMO_MNEMONICO = "termo.mnemonico";
+
+	public static final String TERMO_UNIDADE_MEDIDA = "termo.unidade.medida";
+
+	public static final String TERMO_NECESSIDADE_INFORMACAO = "termo.necessidade.informacao";
+
+	public static final String TERMO_MEDIDA = "termo.medida";
+		
+
+	public static final String TERMO_OBJETIVOS_ESTRATEGICOS = "termo.objetivos.estrategicos";
+	
+	public static final String TERMO_OBJETIVO_ESTRATEGICO = "termo.objetivo.estrategico";
+	
+
+	public static final String TERMO_OBJETIVOS_SOFTWARE = "termo.objetivos.software";
+	
+	public static final String TERMO_OBJETIVO_SOFTWARE = "termo.objetivo.software";
+
+	public static final String TERMO_OBJETIVOS_MEDICAO = "termo.objetivos.medicao";
+	
+	public static final String TERMO_OBJETIVO_MEDICAO = "termo.objetivo.medicao";
+
+	public static final String TERMO_ALTERAR = "termo.alterar";
+
 	
 }
