@@ -1,9 +1,17 @@
 package ode.conhecimentoMedicao.cci;
 
+import java.lang.management.GarbageCollectorMXBean;
+import java.util.Collection;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Vlayout;
 
+import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KMedida;
 import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
@@ -19,6 +27,7 @@ import ode.conhecimentoMedicao.cih.PainelCRUDKMedida;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
+import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode._infraestruturaCRUD.ciu.PainelCRUD;
 
 @Controller(CtrlKMedidaCRUD.NOME)
@@ -28,7 +37,7 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 	
 	private final String tituloJanelaDados = "Medida";
 	private final String tituloJanelaPrincipal = "Medida";
-	
+	private CtrlKDefinicaoOperacionalMedida ctrlV;
 	@Autowired
 	AplCadastrarKMedida apl;
 	
@@ -50,7 +59,9 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 	public CtrlKMedidaCRUD(){
 		larguraJanPrincipal = "800px";
 	}
-	
+	public CtrlKDefinicaoOperacionalMedida getCtrlKDefinicaoOperacional(){
+		return ctrlV;
+	}
 	@Override
 	public String definirTituloJanelaDados() {
 		return tituloJanelaDados;
@@ -73,8 +84,7 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 
 	@Override
 	public FormularioDadosCRUD<KMedida> definirFormularioCadastro() {
-		FormDadosKMedida form = new FormDadosKMedida();
-		return form;
+		return new FormDadosKMedida();
 	}
 
 	@Override
@@ -100,6 +110,37 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 
 	public AplCRUD<KNecessidadeInformacao> getAplNecessidadeInformacao() {
 		return aplKNecessidadeInformacao;
+	}
+	@Override
+	public void iniciar() {
+		ctrlV = (CtrlKDefinicaoOperacionalMedida) SpringUtil.getApplicationContext().getBean(CtrlKDefinicaoOperacionalMedida.class);
+		super.iniciar();
+	};
+	
+	public Collection<KDefinicaoOperacionalMedida> getListagemKDefinicaoOperacional(){
+		return ctrlV.getListagemKDefinicaoOperacional();
+	}
+	
+	@Override
+	public void mostrarFormulario(
+			ode._infraestruturaCRUD.ciu.CtrlCRUD.ModoExibicao modoExibicao) {
+		super.mostrarFormulario(modoExibicao);
+		janDados.addEventListener("onClose", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				onJanClose();
+				
+			}
+		});
+	}
+	
+	public void onJanClose(){
+		try{
+			ctrlV.getFormDados().getParent().detach();
+		}catch(NullPointerException e){
+			//Tá de boa... O formDados nao foi instanciado ainda. por isso nao consegue fechar
+		}
 	}
 
 }

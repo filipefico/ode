@@ -2,7 +2,10 @@ package ode.conhecimentoMedicao.cci;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 
+import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKEscala;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
@@ -10,6 +13,7 @@ import ode.conhecimentoMedicao.cgt.AplCadastrarKValorEscala;
 import ode.conhecimentoMedicao.cih.FormDadosKEscala;
 import ode.conhecimentoMedicao.cih.PainelCRUDKEscala;
 import ode._infraestruturaBase.ciu.CtrlBase;
+import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -70,5 +74,31 @@ public class CtrlKEscalaCRUD extends CtrlCRUD<KEscala> {
 		return ctrlKValorEscalaCRUD;
 	}
 	
+	@Override
+	public void acaoSalvar(){
+		formularioDados.atualizarObjeto();
+		KEscala objetoCadastro = formularioDados
+				.getObjetoCadastroDados();
+		if (!objetoCadastro.isPersistente()) {
+			super.acaoSalvar();
+			return;
+		}
+		if(apl.existeMedidaRelacionada(objetoCadastro)){
+			new SimNaoAlterarHelper<CtrlKEscalaCRUD>(this, NucleoMensagens.getMensagem(NucleoMensagens.TERMO_ESCALA), NucleoMensagens.getMensagem(NucleoMensagens.TERMO_MEDIDA), new EventListener() {
+		
+				@Override
+				public void onEvent(Event arg0) throws Exception {
+					callbackAcaoSalvar();
+					
+				}
+			});
+		}else{
+			super.acaoSalvar();
+		}
+	}
+
+	public void callbackAcaoSalvar() {
+		super.acaoSalvar();
+	}
 	
 }

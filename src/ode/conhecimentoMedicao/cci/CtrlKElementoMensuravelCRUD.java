@@ -2,13 +2,17 @@ package ode.conhecimentoMedicao.cci;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
+import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKElementoMensuravel;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKObjetivoEstrategico;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cih.FormDadosKElementoMensuravel;
 import ode.conhecimentoMedicao.cih.PainelCRUDKElementoMensuravel;
+import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -62,4 +66,31 @@ public class CtrlKElementoMensuravelCRUD extends CtrlCRUD<KElementoMensuravel>{
 		return aplCadastrarKTipoEntidadeMensuravel;
 	}
 
+	@Override
+	public void acaoSalvar(){
+		formularioDados.atualizarObjeto();
+		KElementoMensuravel objetoCadastro = formularioDados
+				.getObjetoCadastroDados();
+		if (!objetoCadastro.isPersistente()) {
+			super.acaoSalvar();
+			return;
+		}
+		if(apl.relacionamentoComMedida(objetoCadastro)){
+			new SimNaoAlterarHelper<CtrlKElementoMensuravelCRUD>(this, NucleoMensagens.getMensagem(NucleoMensagens.TERMO_ELEMENTO_MENSURAVEL), NucleoMensagens.getMensagem(NucleoMensagens.TERMO_MEDIDA), new EventListener() {
+		
+				@Override
+				public void onEvent(Event arg0) throws Exception {
+					callbackAcaoSalvar();
+					
+				}
+			});
+		}else{
+			super.acaoSalvar();
+		}
+	}
+
+	public void callbackAcaoSalvar() {
+		super.acaoSalvar();
+	}
+	
 }
