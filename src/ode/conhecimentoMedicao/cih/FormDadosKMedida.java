@@ -9,13 +9,16 @@ import java.util.Set;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Caption;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Listitem;
 
+import ode.conhecimentoMedicao.cci.CtrlKDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cdp.KMedida;
@@ -28,6 +31,7 @@ import ode.conhecimentoMedicao.cdp.TipoEscala;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.GridDados;
+import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode._infraestruturaCRUD.ciu.NucleoListbox;
 import ode._infraestruturaCRUD.ciu.NucleoMultipleListBox;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -140,7 +144,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		
 		lbUnidadeMedida.setObjetos((Collection<KUnidadeMedida>) ctrl
 				.getAplKUnidadeMedida().recuperarTodos());
-		lbUnidadeMedida.selecionarPrimeiroElemento();
 		lbUnidadeMedida.setCheckmark(true);
 		gridDadosCadastro.adicionarLinha(NucleoMensagens
 				.getMensagem(NucleoMensagens.TERMO_UNIDADE_MEDIDA),
@@ -256,6 +259,19 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		
 		listaTabs.add(correlatasTab);
 		
+		/////////////////////////
+		///Definicao Operacional Medida
+		////////////////////////
+		
+		NucleoTab defOperMed = new NucleoTab();
+		
+		defOperMed.setNomeTab("Definição Operacional");
+		
+		((CtrlKMedidaCRUD)this.getControlador()).getCtrlKDefinicaoOperacional().definirAba(defOperMed);
+		((CtrlKMedidaCRUD)this.getControlador()).getCtrlKDefinicaoOperacional().iniciar();
+		
+		listaTabs.add(defOperMed);
+		
 		return listaTabs;
 	}
 
@@ -274,6 +290,7 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		lbDerivada.setObjetosSelecionados(objeto.getDerivadaDe());
 		lbCorrelata.setObjetosSelecionados(objeto.getMedidasCorrelatas());
 		lbNecessidadeInformacao.setObjetosSelecionados(objeto.getNecessidadesInformacao());
+		((CtrlKMedidaCRUD)this.getControlador()).getCtrlKDefinicaoOperacional().atualizarPesquisa(objeto);
 	}
 
 	@Override
@@ -286,22 +303,26 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		objeto.setEscala(lbEscala.getObjetoSelecionado());
 		objeto.setTiposEntidadeMensuraveis(lbTipoMensuravel.getObjetosSelecionados());
 		objeto.setPropriedadeMedida(lbElementoMensuravel.getObjetoSelecionado());
-		switch(lbNaturezaMedida.getObjetoSelecionado()){
-		case BASE:
-			objeto.setDerivadaDe(new HashSet<KMedida>());
-			break;
-		case DERIVADA:
-			objeto.setDerivadaDe(lbDerivada.getObjetosSelecionados());
-			break;
+		if(lbNaturezaMedida.getObjetoSelecionado()==NaturezaMedida.BASE){
+			lbDerivada.clearSelection();
 		}
+		objeto.setDerivadaDe(lbDerivada.getObjetosSelecionados());
 		objeto.setMedidasCorrelatas(lbCorrelata.getObjetosSelecionados());
 		objeto.setNecessidadesInformacao(lbNecessidadeInformacao.getObjetosSelecionados());
+		objeto.setDefinicoesMedida(((CtrlKMedidaCRUD)this.getControlador()).getListagemKDefinicaoOperacional());
 	}
 
 	@Override
 	protected void configurarConstraints() {
 		tbNome.setConstraint("no empty");
 		tbDescricao.setConstraint("no empty");
+	}
+	
+	@Override
+	protected void configurarComponentesExtensao(){
+		this.setWidth("900px");
+		((JanelaSimples)this.getParent()).setWidth("auto");
+		((JanelaSimples)this.getParent()).setHeight("auto");
 	}
 
 }

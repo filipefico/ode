@@ -9,6 +9,8 @@ import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cdp.TipoEscala;
 import ode.conhecimentoMedicao.cgd.KEscalaDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
+import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
+import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 
 @Service
@@ -24,6 +26,17 @@ public class AplCadastrarKEscala extends AplCRUD<KEscala>{
 	
 	public Collection<KEscala> recuperarPorTipo(TipoEscala tipo){
 		return dao.recuperarPorTipo(tipo);
+	}
+
+	public boolean existeMedidaRelacionada(KEscala objeto) {
+		return dao.getMedidasRelacionadas(objeto).isEmpty();
+	}
+	
+	@Override
+	protected void antesExcluir(KEscala objeto) throws NucleoRegraNegocioExcecao{
+		if(existeMedidaRelacionada(objeto)){
+			throw new NucleoRegraNegocioExcecao(NucleoMensagens.getMensagem(NucleoMensagens.MSG_MEDIDAS_RELACIONADAS_EXCLUSAO_ERRO));
+		}
 	}
 
 }

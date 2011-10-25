@@ -1,5 +1,6 @@
 package ode.conhecimentoMedicao.cdp;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public class KMedida extends Conhecimento{
 	private NaturezaMedida naturezaMedida;
 	private Set<KMedida> medidasCorrelatas;
 	private Set<KNecessidadeInformacao> necessidadesInformacao;
+	private Collection<KDefinicaoOperacionalMedida> definicoesMedida;
 	
 	public String getMnemonico() {
 		return mnemonico;
@@ -90,6 +92,14 @@ public class KMedida extends Conhecimento{
 	}
 	public void setNecessidadesInformacao(Set<KNecessidadeInformacao> necessidadesInformacao) {
 		this.necessidadesInformacao = necessidadesInformacao;
+	}
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	public Collection<KDefinicaoOperacionalMedida> getDefinicoesMedida() {
+		return definicoesMedida;
+	}
+	public void setDefinicoesMedida(Collection<KDefinicaoOperacionalMedida> definicoesMedida) {
+		this.definicoesMedida = definicoesMedida;
 	}
 	
 }

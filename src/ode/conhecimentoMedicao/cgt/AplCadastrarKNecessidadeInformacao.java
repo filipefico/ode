@@ -29,7 +29,7 @@ public class AplCadastrarKNecessidadeInformacao extends
 		if (estaRelacionadoComMedida(objeto)) {
 			throw new NucleoRegraNegocioExcecao(
 					NucleoMensagens
-							.getMensagem(NucleoMensagens.MSG_NECESSIDADE_INFORMACAO_EXCLUSAO_ERRO),
+							.getMensagem(NucleoMensagens.MSG_MEDIDAS_RELACIONADAS_EXCLUSAO_ERRO),
 					null);
 		}
 	}
@@ -43,8 +43,13 @@ public class AplCadastrarKNecessidadeInformacao extends
 		if (objeto.getObjetivosMedicao().isEmpty()) {
 			throw new NucleoRegraNegocioExcecao(
 					NucleoMensagens
-							.getMensagem(NucleoMensagens.MSG_EMPTY_NECESSIDADE_INFORMACAO),
+							.getMensagem(NucleoMensagens.MSG_EMPTY_MEDICAO_INFORMACAO),
 					null);
+		}
+		if(objeto.getProcessos().isEmpty()){
+			throw new NucleoRegraNegocioExcecao(
+					NucleoMensagens
+							.getMensagem(NucleoMensagens.MSG_EMPTY_PROCESSO_INFORMACAO));
 		}
 	}
 

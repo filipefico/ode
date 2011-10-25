@@ -151,11 +151,27 @@ public class NucleoMensagens {
 	public static final String MSG_AVISO_SOFTWARE = "msg.aviso.software";
 
 	public static final String MSG_AVISO_NECESSIDADE_INFORMACAO = "msg.aviso.necessidade.informacao";
-	public static final String MSG_NECESSIDADE_INFORMACAO_EXCLUSAO_ERRO = "msg.necessidade.informacao.exclusao.erro";
+	public static final String MSG_MEDIDAS_RELACIONADAS_EXCLUSAO_ERRO = "msg.medidas.relacionadas.exclusao.erro";
 
-	public static final String MSG_EMPTY_NECESSIDADE_INFORMACAO = "msg.empty.necessidade.informacao";
+	public static final String MSG_EMPTY_MEDICAO_INFORMACAO = "msg.empty.medicao.informacao";
+
+	public static final String MSG_EMPTY_PROCESSO_INFORMACAO = "msg.empty.processo.informacao";
 	
 	public static final String MSG_SOMENTE_ADMINISTRADOR = "msg.somente.administrador";
+	
+	public static final String MSG_TIPOENTIDADE_EMPTY_ERRO = "msg.tipoentidade.empty.erro";
+
+	public static final String MSG_ESCALAS_RELACIONADAS_EXCLUSAO_ERRO = "msg.escala.relacionadas.exclusao.erro";
+
+	public static final String MSG_EMPTY_ESCALA_ERRO = "msg.empty.escala.erro";
+	
+	public static final String MSG_EMPTY_UNIDADE_ERRO = "msg.empty.unidade.erro";
+	
+	public static final String MSG_EMPTY_PROP_MED_ERRO = "msg.empty.prop.med.erro";
+	
+	public static final String MSG_EMPTY_NECES_INFO_ERRO = "msg.empty.neces.info.erro";
+	
+	public static final String MSG_EMPTY_DERIVADA_ERRO = "msg.empty.derivada.erro";
 
 	//////////////////////////////////////////////////////////////////////
 	////// TERMOS
@@ -652,6 +668,18 @@ public class NucleoMensagens {
 	public static final String TERMO_OBJETIVO_MEDICAO = "termo.objetivo.medicao";
 
 	public static final String TERMO_ALTERAR = "termo.alterar";
+
+	public static final String TERMO_ELEMENTO_MENSURAVEL = "termo.elemento.mensuravel";
+
+	public static final String TERMO_ESCALA = "termo.escala";
+
+	public static final String TERMO_VALOR_ESCALA = "termo.valor.escala";
+
+	public static final String TERMO_APLICACAO_DEFINICAO_OPERACIONAL = "termo.aplicacao.definicao.operacional";
+
+	public static final String TERMO_DATA = "termo.data";
+
+	public static final String TERMO_INTERVALO = "termo.intervalo";
 
 	
 }
