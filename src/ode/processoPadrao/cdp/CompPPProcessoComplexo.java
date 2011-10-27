@@ -26,7 +26,8 @@ public class CompPPProcessoComplexo extends CompPP {
 
 	
 	// Obtém os Processos especificos deste.
-	@ManyToMany(targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
+	//@ManyToMany(targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST},targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
 	public Set<CompPPProcessoSimples> getProcessosSimples() {
 		return processosSimples;
 	}

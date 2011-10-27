@@ -25,7 +25,7 @@
 
 	<!-- Habilita o uso do JPA, informando o arquivo persistence.xml que contem 
 		a persistence unit -->
-	<bean class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean"
+	<bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		id="entityManagerFactory">
 		<property name="persistenceUnitName" value="MyPersistenceUnit" />
 	</bean>

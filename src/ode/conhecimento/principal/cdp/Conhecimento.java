@@ -11,7 +11,7 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Conhecimento extends ObjetoPersistente {
 
 	private static final long serialVersionUID = -2477658761966661172L;

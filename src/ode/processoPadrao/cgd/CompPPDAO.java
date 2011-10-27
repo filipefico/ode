@@ -6,6 +6,6 @@ import ode.processoPadrao.cdp.CompPP;
 
 public interface CompPPDAO extends DAOBase<CompPP> {
 	    
-	 //   public CompPP obterPorNome(String parNome);
+	 
 	
 }

@@ -1,32 +1,28 @@
 package ode.processoPadrao.cdp;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.conhecimento.processo.cdp.KAtividade;
+import ode.conhecimento.processo.cdp.KProcesso;
 
 @Entity
 public class ElementoCompPP extends ObjetoPersistente {
 	private static final long serialVersionUID = -8768539818906938847L;
 
-	EstruturaCompPP estruturaCompPP;
 	boolean obrigatorio;
-	Conhecimento elemento; // pode ser um KArtefato ou um KProcesso
+	private Conhecimento elementoConhecimento; // pode ser um KArtefato ou um
+	// KProcesso
+	//private KAtividade elementoKAtividade;
+	//private KProcesso elemenKProcesso;
 
 	public ElementoCompPP() {
 		obrigatorio = false;
 	}
-
-	@OneToOne
-	public EstruturaCompPP getEstruturaCompPP() {
-		return estruturaCompPP;
-	}
-
-	public void setEstruturaCompPP(EstruturaCompPP estruturaCompPP) {
-		this.estruturaCompPP = estruturaCompPP;
-	}
-
+ 
 	public boolean isObrigatorio() {
 		return obrigatorio;
 	}
@@ -35,12 +31,30 @@ public class ElementoCompPP extends ObjetoPersistente {
 		this.obrigatorio = obrigatorio;
 	}
 
-	@OneToOne
-	public Conhecimento getElemento() {
-		return elemento;
+	@ManyToOne(fetch=FetchType.EAGER)
+	public Conhecimento getElementoConhecimento() {
+		return elementoConhecimento;
 	}
 
-	public void setElemento(Conhecimento elemento) {
-		this.elemento = elemento;
+	public void setElementoConhecimento(Conhecimento elemento) {
+		this.elementoConhecimento=elemento;
 	}
+/*
+	@ManyToOne(fetch = FetchType.EAGER)
+	public KAtividade getElementoKAtividade() {
+		return elementoKAtividade;
+	}
+
+	public void setElementoKAtividade(KAtividade elementoKAtividade) {
+		this.elementoKAtividade = elementoKAtividade;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	public KProcesso getElemenKProcesso() {
+		return elemenKProcesso;
+	}
+
+	public void setElemenKProcesso(KProcesso elemenKProcesso) {
+		this.elemenKProcesso = elemenKProcesso;
+	}*/
 }
