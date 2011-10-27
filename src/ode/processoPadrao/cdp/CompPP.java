@@ -5,13 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public class CompPP extends ObjetoPersistente {
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
+public abstract class CompPP extends ObjetoPersistente {
 
 	private static final long serialVersionUID = -6201008355921694079L;
 
@@ -28,6 +29,7 @@ public class CompPP extends ObjetoPersistente {
 
 	public CompPP() {
 		interfaceCompPP = new InterfaceCompPP();
+		interfaceCompPP.setCompPP(this);
 	}
 
 	
@@ -59,7 +61,7 @@ public class CompPP extends ObjetoPersistente {
 		this.interfaceCompPP.setDescricao(parDescricao);
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = InterfaceCompPP.class)
+	@OneToOne(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST},targetEntity = InterfaceCompPP.class)
 	public InterfaceCompPP getInterfaceCompPP() {
 		return interfaceCompPP;
 	}
@@ -82,7 +84,8 @@ public class CompPP extends ObjetoPersistente {
 		return requisitoCompPP;
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
+	//@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
+	@ManyToOne(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST},targetEntity = CompPP.class)
 	public CompPP getCompPPBase() {
 		return compPPBase;
 	}

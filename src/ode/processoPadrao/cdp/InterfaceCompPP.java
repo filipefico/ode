@@ -2,7 +2,12 @@ package ode.processoPadrao.cdp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.jruby.RubyBoolean.True;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
@@ -25,13 +30,14 @@ public class InterfaceCompPP extends ObjetoPersistente {
 		this.descricao = descricao;
 		this.compPP = compPP;
 		this.estruturaCompPP = new EstruturaCompPP();
-		this.estruturaCompPP.setInterafeCompPP(this);
 	}
 
 	public InterfaceCompPP() {
+		estruturaCompPP = new EstruturaCompPP();
 	}
 
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
+	//@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
+	@OneToOne(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST})
 	public CompPP getCompPP() {
 		return compPP;
 	}
@@ -79,6 +85,7 @@ public class InterfaceCompPP extends ObjetoPersistente {
 		this.objetivo = objetivo;
 	}
 	
+	@OneToOne(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST}, targetEntity=EstruturaCompPP.class, fetch=FetchType.EAGER, optional=true)
 	public EstruturaCompPP getEstruturaCompPP() {
 		return estruturaCompPP;
 	}

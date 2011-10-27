@@ -37,8 +37,8 @@ public class CompPPProcessoSimples extends CompPP{
     public void setProcessosComplexos(Set<CompPPProcessoComplexo> parProcessosComplexos) {
         this.processosComplexos = parProcessosComplexos;
     }
-	@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = KProcesso.class)
-	@JoinColumn(nullable = false)
+	
+    @ManyToOne(cascade = {javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST})
 	public KProcesso getTipo() {
 		return tipo;
 	}

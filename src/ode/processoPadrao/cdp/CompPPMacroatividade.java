@@ -9,17 +9,32 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import ode.conhecimento.processo.cdp.KAtividade;
+import ode.conhecimento.processo.cdp.KProcesso;
+
 @Entity
 public class CompPPMacroatividade extends CompPP{
 
 		private static final long serialVersionUID = 1258234501707911433L;
 		private AtividadeProcessoPadrao atividade;
-	    private Set<CompPPProcessoSimples> compPPProcessoSimples;
 	    private Set<DependenciaMacroAtividades> preDependenciaMacroAtividade;
 	    private DependenciaMacroAtividades baseDependenciaMacroAtividade;
+	    private KAtividade tipo;
 
-	    public CompPPMacroatividade() {
-	    	this.compPPProcessoSimples = new HashSet<CompPPProcessoSimples>();
+	    @ManyToOne(cascade = {javax.persistence.CascadeType.PERSIST,javax.persistence.CascadeType.MERGE},fetch=FetchType.EAGER)
+	    public KAtividade getTipo() {
+			return tipo;
+		}
+
+
+
+		public void setTipo(KAtividade tipo) {
+			this.tipo = tipo;
+		}
+
+
+
+		public CompPPMacroatividade() {
 	    	this.preDependenciaMacroAtividade = new HashSet<DependenciaMacroAtividades>();
 	    }
 	   
@@ -35,23 +50,6 @@ public class CompPPMacroatividade extends CompPP{
 	    }
 
 
-	    @ManyToMany( targetEntity = CompPPProcessoSimples.class,fetch=FetchType.EAGER)
-	    public Set<CompPPProcessoSimples> getCompPPProcessoSimples() {
-	        return compPPProcessoSimples;
-	    }
-
-	    public void setCompPPProcessoSimples(Set<CompPPProcessoSimples> compPPProcessoSimples) {
-	        this.compPPProcessoSimples = compPPProcessoSimples;
-	    }
-
-	    public void addCompPPProcessoSimples(CompPPProcessoSimples compPPProcessoSimples) {
-	        if (this.compPPProcessoSimples == null) {
-	            this.compPPProcessoSimples = new HashSet<CompPPProcessoSimples>();
-	        }
-	        this.compPPProcessoSimples.add(compPPProcessoSimples);
-	    }
-
-    
 	    
 	    /** Obtém as pré-Atividades da atividade
 	    */ 

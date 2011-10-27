@@ -63,7 +63,6 @@ public class JanEstabelecerRequisitosCompPP {
 		compPP.setRequisitoCompPP(textBoxRequisito.getText());
 
 		ctrl.salvarCompPP(compPP);
-		
 	}
 
 	private void configuraTabPanelRequisitos(Tabpanel tabPanelRequisitos) {

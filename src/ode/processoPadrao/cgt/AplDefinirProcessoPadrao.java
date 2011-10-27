@@ -1,17 +1,22 @@
 package ode.processoPadrao.cgt;
 
+import java.util.Collection;
+import java.util.Set;
+
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
+import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.conhecimento.principal.cgd.ConhecimentoDAO;
+import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KProcesso;
+import ode.conhecimento.processo.cgd.KAtividadeDAO;
 import ode.conhecimento.processo.cgd.KProcessoDAO;
 import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
 import ode.processoPadrao.cgd.CompPPDAO;
-import ode.processoPadrao.cgd.CompPPProcessoComplexoDAO;
-import ode.processoPadrao.cgd.CompPPProcessoSimplesDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +24,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplDefinirProcessoPadrao extends AplCRUD<CompPP>{
-	@Autowired
-	private CompPPProcessoComplexoDAO compPPProcessoComplexoDAO;
+public class AplDefinirProcessoPadrao {
 
+	@Autowired
+	private CompPPDAO compPPDAO;
+	@Autowired
+	private KProcessoDAO kProcessoDAO;
+	@Autowired
+	private KAtividadeDAO kAtividadeDAO;
+	
 	public void salvarProcessoComplexo(String nome, String descricao,
 			String objetivo) {
 		CompPPProcessoComplexo compPPcomplexo = new CompPPProcessoComplexo();
@@ -30,47 +40,70 @@ public class AplDefinirProcessoPadrao extends AplCRUD<CompPP>{
 		compPPcomplexo.setDescricao(descricao);
 		compPPcomplexo.setObjetivo(objetivo);
 
-		compPPProcessoComplexoDAO.salvar(compPPcomplexo);
+		compPPDAO.salvar(compPPcomplexo);
 	}
 
-	@Autowired
-	private CompPPDAO compPPDAO;
+
+
 	public void salvarCompPP(CompPP compPP) {
 		compPPDAO.salvar(compPP);
 	}
+	
+	public void atualizarCompPP(CompPP compPP) {
+		compPPDAO.atualizar(compPP);
+	}
 
-
-	@Autowired
-	private CompPPProcessoSimplesDAO compPPProcessoSimplesDAO;
-
-	@Autowired
-	KProcessoDAO kProcessoDAO;
 
 	public void salvarProcessoSimples(String nome, String descricao,
 			String objetivo, Object objTipo) {
 		CompPPProcessoSimples compPPsimples = new CompPPProcessoSimples();
+		
 		compPPsimples.setNome(nome);
 		compPPsimples.setDescricao(descricao);
 		compPPsimples.setObjetivo(objetivo);
 		compPPsimples.setTipo(kProcessoDAO.recuperarPorId(((KProcesso) objTipo)
 				.getId()));
-		compPPProcessoSimplesDAO.salvar(compPPsimples);
+		
+		compPPDAO.salvar(compPPsimples);
 
 	}
 
 	public void salvarMacroatividade(String nome, String descricao,
 			String objetivo, Object objTipo) {
 		CompPPMacroatividade compPPMacroatividade = new CompPPMacroatividade();
+		
 		compPPMacroatividade.setNome(nome);
 		compPPMacroatividade.setDescricao(descricao);
 		compPPMacroatividade.setObjetivo(objetivo);
+		compPPMacroatividade.setTipo(kAtividadeDAO.recuperarPorId(((KAtividade) objTipo)
+				.getId()));
+									
+		
+		compPPDAO.salvar(compPPMacroatividade);
 
 	}
+	
+	public Collection<KProcesso> getAllKProcesso() {
+		return kProcessoDAO.recuperarTodos();
+	}
 
-	@Override
-	public DAOBase<CompPP> getNucleoDaoBase() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Collection<KAtividade> getAllKAtividade() {
+		return kAtividadeDAO.recuperarTodos();
+	}
+
+
+
+	public Collection<CompPP> recuperarTodosCompPP() {
+		return compPPDAO.recuperarTodos();
+	}
+
+
+	@Autowired
+	ConhecimentoDAO conhecimentoDAO;
+
+	public Set<Conhecimento> getconhecimento() {
+		return (Set<Conhecimento>) conhecimentoDAO.recuperarTodos();
 	}
 
 }

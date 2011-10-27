@@ -1,14 +1,18 @@
 package ode.processoPadrao.ciu;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
+import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KProcesso;
-import ode.conhecimento.processo.cgd.KAtividadeDAO;
-import ode.conhecimento.processo.cgd.KProcessoDAO;
 import ode.processoPadrao.cdp.CompPP;
-import ode.processoPadrao.cgd.CompPPDAO;
+import ode.processoPadrao.cdp.ElementoCompPP;
+import ode.processoPadrao.cdp.EstruturaCompPP;
 import ode.processoPadrao.cgt.AplDefinirProcessoPadrao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,26 +44,26 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		janDefinirCompPP = new JanDefinirCompPP(this, factoryJanelaSimples());
 	}
 
-	@Autowired
-	KProcessoDAO kprocessoDAO;
 
-	public Collection<KProcesso> getAllKProcesso() {
-		return kprocessoDAO.recuperarTodos();
-	}
 
-	@Autowired
-	KAtividadeDAO katividadeDAO;
-
-	public Collection<KAtividade> getAllKAtividade() {
-		return katividadeDAO.recuperarTodos();
-	}
-
+	
 	@Autowired
 	private AplDefinirProcessoPadrao aplDefinirProcessoPadrao;
 
+	public Collection<KProcesso> getAllKProcesso() {
+			return aplDefinirProcessoPadrao.getAllKProcesso();
+	}
+
+	
+	public Collection<KAtividade> getAllKAtividade() {
+		return aplDefinirProcessoPadrao.getAllKAtividade();
+	}
+
+	
 	public void salvarCompPP(CompPP compPP) {
 		aplDefinirProcessoPadrao.salvarCompPP(compPP);
-	}	
+	}
+	
 
 	public void salvarCompPP(String nome, String descricao, String objetivo,
 			String tipo, Object objTipo) {
@@ -79,11 +83,9 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		}
 	}
 
-	@Autowired
-	CompPPDAO compPPDAO;
 
 	public Collection<CompPP> getAllCompPP() {
-		return compPPDAO.recuperarTodos();
+		return aplDefinirProcessoPadrao.recuperarTodosCompPP();
 	}
 
 	private JanEstabelecerRequisitosCompPP janEstabelecerRequisitosCompPP;
@@ -117,4 +119,40 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 				factoryJanelaSimples());
 	}
 
+	public void atualizarEstruturaCompPP(Set<Conhecimento> selecionados,
+			Set<Conhecimento> selecionadosObrigatorios) {
+		CompPP compPP = this.getcompPPSelecionado();
+		
+		Set<ElementoCompPP> elementos = new HashSet<ElementoCompPP>();
+		
+		//troca a lista antiga pela nova lista configurada pelo usuario
+		EstruturaCompPP estruturaCompPP = compPP.getInterfaceCompPP().getEstruturaCompPP();
+		estruturaCompPP.setElementosCompPP(elementos);
+				
+		
+		//adiciona elementos que não sao marcados como obrigatorios
+		for (Conhecimento conhecimento : selecionados) {
+			ElementoCompPP elemento = new ElementoCompPP();
+			elemento.setElementoConhecimento(conhecimento);
+			elemento.setObrigatorio(false);
+			elementos.add(elemento);
+		}
+		
+		//adiciona elementos marcados como obrigatorios
+		for (Conhecimento conhecimento : selecionadosObrigatorios) {
+			ElementoCompPP elemento = new ElementoCompPP();
+			elemento.setElementoConhecimento(conhecimento);
+			elemento.setObrigatorio(true);
+			elementos.add(elemento);
+		}
+		
+		//salva o compPP selecionado que acabou de ser alterado.
+		aplDefinirProcessoPadrao.atualizarCompPP(compPP);
+	}
+
+
+	public Set<Conhecimento> getconhecimento() {
+		return aplDefinirProcessoPadrao.getconhecimento();
+		
+	}
 }

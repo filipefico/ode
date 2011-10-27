@@ -1,6 +1,9 @@
 package ode.processoPadrao.ciu;
 
+import java.util.Set;
+
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -54,7 +57,7 @@ public class JanDefinirProcessoPadrao {
 		if (ctrl.getcompPPSelecionado() == null) {
 			treecell.setLabel("Nenhum CompPP selecionado.");
 		} else {
-			treecell.setLabel(ctrl.getcompPPSelecionado().getNome());
+			treecell.setLabel(ctrl.getcompPPSelecionado().getNome()+" : "+ctrl.getcompPPSelecionado().getClass().getSimpleName());
 			tree.setTooltiptext(ctrl.getcompPPSelecionado().getClass().getSimpleName());
 		}
 				
@@ -109,6 +112,14 @@ public class JanDefinirProcessoPadrao {
 				new EventListnerEstabelecerRequisitos());
 		newItemBasicoMenu(menupopup, "Abrir Processo Padrão",
 				new EventListnerSelecionarProcessoPadrao());
+		newItemBasicoMenu(menupopup, "item teste",
+				new EventListener(){
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						Set<Conhecimento> conhecimento =  ctrl.getconhecimento();
+						Object o = conhecimento;
+					}});
+		
 	}
 
 	private void newItemBasicoMenu(Menupopup menupopup, String label,
