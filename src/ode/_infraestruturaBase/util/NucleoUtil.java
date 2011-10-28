@@ -8,6 +8,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ode.controleUsuario.cgt.AplCadastrarUsuario;
+
+import org.zkoss.zkplus.spring.SpringUtil;
+
 public class NucleoUtil {
 
 	public static final String SALT = "97hg4wg";
@@ -87,5 +91,25 @@ public class NucleoUtil {
 			e.printStackTrace();
 		}
 		return output;
+	}
+	
+	public static void carregarDadosIniciaisODE() {
+		//AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
+		AplCadastrarUsuario apl = (AplCadastrarUsuario) SpringUtil
+				.getBean(AplCadastrarUsuario.class.getSimpleName());
+
+		if(apl.recuperarTodos().size()==0){
+			DadosBanco db = new DadosBanco();
+			db.aplicar();
+		}		
+		
+		/*AplCadastrarUsuario apl = (AplCadastrarUsuario)SpringUtil.getBean(AplCadastrarUsuario.class.getSimpleName());				
+		if (apl.recuperarTodos().size() == 0) {
+			// não existe nenhum usuario no banco
+			//portanto seta os dados iniciais.
+			DadosBanco db = new DadosBanco();
+			db.aplicar();
+		}*/
+		
 	}
 }

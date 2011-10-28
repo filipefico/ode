@@ -20,6 +20,9 @@ public class AuthInit implements Initiator {
 	public void doInit(Page page, Map args) throws Exception {
 		//se o usuario nao está na sessao, deve-se verificar os cookies  
 		if (NucleoContexto.recuperarUsuarioLogado() == null) {
+			
+			NucleoUtil.carregarDadosIniciaisODE();
+			
 			boolean autenticado = false;
 			Execution exec = Executions.getCurrent();
 			Cookie[] cookies = ((HttpServletRequest) exec.getNativeRequest()).getCookies();
@@ -48,6 +51,8 @@ public class AuthInit implements Initiator {
 				((HttpServletResponse) exec.getNativeResponse()).sendRedirect("login.zul");
 				exec.setVoided(true);
 			}
+			
+			
 		}
 		
 	}

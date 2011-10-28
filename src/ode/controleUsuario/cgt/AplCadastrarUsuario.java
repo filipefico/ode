@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Alexandre G. N. Coelho
  */
-@Service
+@Service("AplCadastrarUsuario")
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplCadastrarUsuario extends AplCRUD<Usuario> {
 
