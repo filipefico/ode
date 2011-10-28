@@ -17,9 +17,9 @@ public class Conhecimento extends ObjetoPersistente {
 	private static final long serialVersionUID = -2477658761966661172L;
 
 	/** Nome do conhecimento. */
-	private String nome;
+	private String nome="";
 	/** Descricao do conhecimento. */
-	private String descricao;
+	private String descricao="";
 
 	/** Construtor. */
 	public Conhecimento() {

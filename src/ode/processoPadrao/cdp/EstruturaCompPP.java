@@ -20,7 +20,7 @@ public class EstruturaCompPP extends ObjetoPersistente {
 		elementosCompPP = new HashSet<ElementoCompPP>();
 	}
 	
-	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
+	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE},fetch=FetchType.EAGER)
 	public Set<ElementoCompPP> getElementosCompPP() {
 		return elementosCompPP;
 	}
