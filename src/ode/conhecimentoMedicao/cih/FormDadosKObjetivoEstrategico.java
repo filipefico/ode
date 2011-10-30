@@ -56,7 +56,7 @@ public class FormDadosKObjetivoEstrategico extends FormularioDadosCRUD<KObjetivo
 	
 	@Override
 	protected void montarTabs() {
-		tabs.setVisible(false);
+		tabbox.getTabs().setVisible(false);
 		super.montarTabs();
 	};
 

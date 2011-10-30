@@ -4,6 +4,7 @@ import java.util.List;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._infraestruturaBase.ciu.NucleoTab;
+import ode._infraestruturaBase.ciu.NucleoTabbox;
 import ode._infraestruturaBase.excecao.CtrlExcecoes;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoMensagens;
@@ -12,11 +13,6 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Tab;
-import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
-import org.zkoss.zul.Tabpanels;
-import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.impl.XulElement;
@@ -41,13 +37,7 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	protected Button buttonSalvar = new Button();
 	
 	/** Grupo de abas. */
-	protected Tabbox tabbox = new Tabbox();
-
-	/** União de abas. */
-	protected Tabs tabs = new Tabs();
-
-	/** Grupo de paineis */
-	protected Tabpanels tabpanels = new Tabpanels();
+	protected NucleoTabbox tabbox = new NucleoTabbox();
 
 	List<NucleoTab> listaTab;
 
@@ -98,27 +88,8 @@ public abstract class FormularioDadosCRUD<T extends ObjetoPersistente> extends V
 	}
 
 	protected void montarTabs() {
-
 		tabbox.setParent(this);
-		tabs.setParent(tabbox);
-		tabpanels.setParent(tabbox);
-
-		// //////////////////////////////////
-		// Adiciona os componentes específicos
-		// /////////////////////////////////
-
-		for (NucleoTab nucleoTab : listaTab) {
-			// Cria tab
-			Tab tab = new Tab(nucleoTab.getNomeTab());
-			tab.setParent(tabs);
-
-			// Cria painel com conteúdo
-			Tabpanel tabpanel = new Tabpanel();
-			tabpanel.setParent(tabpanels);
-			XulElement conteudo = nucleoTab.getConteudoTab();
-			conteudo.setParent(tabpanel);
-		}
-
+		tabbox.setTabs(listaTab);
 	}
 
 	protected void configurarBarraFerramentas() {
