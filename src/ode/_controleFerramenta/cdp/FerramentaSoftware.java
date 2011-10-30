@@ -1,28 +1,51 @@
 package ode._controleFerramenta.cdp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Transient;
+import javax.persistence.ManyToOne;
 
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KFerramentaSoftware;
 
 @Entity
-public class FerramentaSoftware extends Recurso {
+public class FerramentaSoftware extends ObjetoPersistente {
 
 	private static final long serialVersionUID = 1L;
 	
+	private String nome;
+    private boolean ativo;
 	private String versao;
-	
 	private String caminho;
-	
-	private EscopoFerramentaSoftware escopo;
-	
-	private OrigemFerramentaSoftware origem;
+	private boolean disponivelApenasParaProjetos;
+	private boolean interna;
+	private KFerramentaSoftware kFerramentaSoftware;
 
+	public FerramentaSoftware() {
+        setAtivo(true);
+    }
+	
+	public String toString(){
+        return nome;
+    }
+    
+    @Column(length = 80)
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String parNome) {
+        nome = parNome;
+    }
+    
+    public boolean isAtivo() {
+        return ativo;
+    }
+    public void setAtivo(boolean parAtivo) {
+        ativo = parAtivo;
+    }
+	
 	public String getVersao() {
 		return versao;
 	}
-
 	public void setVersao(String versao) {
 		this.versao = versao;
 	}
@@ -30,32 +53,29 @@ public class FerramentaSoftware extends Recurso {
 	public String getCaminho() {
 		return caminho;
 	}
-
 	public void setCaminho(String caminho) {
 		this.caminho = caminho;
 	}
-
-	@Enumerated
-	public EscopoFerramentaSoftware getEscopo() {
-		return escopo;
+	
+	public boolean isDisponivelApenasParaProjetos() {
+		return disponivelApenasParaProjetos;
+	}
+	public void setDisponivelApenasParaProjetos(boolean disponivelApenasParaProjetos) {
+		this.disponivelApenasParaProjetos = disponivelApenasParaProjetos;
 	}
 
-	public void setEscopo(EscopoFerramentaSoftware escopo) {
-		this.escopo = escopo;
+	public boolean isInterna() {
+		return interna;
 	}
-
-	@Enumerated
-	public OrigemFerramentaSoftware getOrigem() {
-		return origem;
+	public void setInterna(boolean interna) {
+		this.interna = interna;
 	}
-
-	public void setOrigem(OrigemFerramentaSoftware origem) {
-		this.origem = origem;
-	}
-
-	@Transient
-	public KFerramentaSoftware getKFerramentaSoftware() {
-		return (KFerramentaSoftware)getKRecurso();
-	}
-
+	
+    @ManyToOne
+    public KFerramentaSoftware getKFerramentaSoftware() {
+    	return this.kFerramentaSoftware;
+    }
+    public void setKFerramentaSoftware(KFerramentaSoftware kFerramentaSoftware) {
+    	this.kFerramentaSoftware = kFerramentaSoftware;
+    }
 }
