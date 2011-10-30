@@ -1,25 +1,18 @@
 package ode._infraestruturaBase.ciu;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import javassist.bytecode.Descriptor.Iterator;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
-import ode._infraestruturaCRUD.ciu.NucleoColecao;
+import ode._infraestruturaBase.ciu.NucleoColecao;
 
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
-import org.zkoss.zul.Listitem;
-
-import com.lowagie.text.ListItem;
 
 public class NucleoCombobox<T extends ObjetoPersistente> extends Combobox implements NucleoColecao<T>{
 
-	
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void setObjetoSelecionado(T objeto) {
 		this.setSelectedItem(((Comboitem)this.getItem(objeto)));
@@ -50,17 +43,13 @@ public class NucleoCombobox<T extends ObjetoPersistente> extends Combobox implem
 
 	@Override
 	public void setObjetos(Iterable<T> conjunto) {
-		java.util.Iterator<T> i = conjunto.iterator();
-		while (i.hasNext()){
-			addObjeto(i.next());
-		}
+		this.getItems().clear();
+		addObjetos(conjunto);
 	}
 
 	@Override
 	public void setObjetos(T[] conjunto) {
-		for(int i=0;i<conjunto.length;i++){
-			addObjeto(conjunto[i]);
-		}
+		setObjetos(Arrays.asList(conjunto));		
 	}
 
 	@Override
@@ -74,6 +63,19 @@ public class NucleoCombobox<T extends ObjetoPersistente> extends Combobox implem
 		Comboitem novo = new Comboitem(" -- ");
 		novo.setValue(null);
 		this.appendChild(novo);
+	}
+
+	@Override
+	public void addObjetos(Iterable<T> conjunto) {
+		java.util.Iterator<T> i = conjunto.iterator();
+		while (i.hasNext()){
+			addObjeto(i.next());
+		}
+	}
+	
+	@Override
+	public void addObjetos(T[] conjunto) {
+		addObjetos(Arrays.asList(conjunto));
 	}
 
 }

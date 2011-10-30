@@ -2,19 +2,38 @@ package ode._infraestruturaCRUD.ciu;
 
 import java.util.*;
 
+import ode._infraestruturaBase.ciu.NucleoColecao;
+
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 
 @SuppressWarnings("unchecked")
 public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 
 	private static final long serialVersionUID = 1L;
+	
+	private Listhead listhead;
+	private Listheader listheader;
+
+	public void setHeader(String str) {
+		if (listhead == null) {
+			listhead = new Listhead();
+			listhead.setParent(this);
+		}
+		if (listheader == null) {
+			listheader = new Listheader();
+			listheader.setParent(listhead);
+		}
+		listheader.setLabel(str);
+	}
 
 	@Override
 	public void setObjetoSelecionado(T objeto) {
 		List<Listitem> listItems = this.getItems();
 		for (Listitem item : listItems) {
-			if (item.getValue().equals(objeto)) {
+			if (objeto == null && item.getValue() == null || item.getValue() != null && item.getValue().equals(objeto)) {
 				this.selectItem(item);
 				return;
 			}
@@ -59,14 +78,23 @@ public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 		Listitem listitem = new Listitem(objeto.toString(), objeto);
 		this.appendChild(listitem);
 	}
-
+	
 	@Override
-	public void setObjetos(Iterable<T> conjunto) {
+	public void addObjetos(Iterable<T> conjunto) {
 		for (T objeto : conjunto) {
 			addObjeto(objeto);
 		}
-		if (this.getItemCount()>0 && this.isMultiple() == false)
-			selecionarPrimeiroElemento();
+	}
+	
+	@Override
+	public void addObjetos(T[] conjunto) {
+		addObjetos(Arrays.asList(conjunto));
+	}
+
+	@Override
+	public void setObjetos(Iterable<T> conjunto) {
+		this.getItems().clear();
+		addObjetos(conjunto);
 	}
 	
 	@Override
@@ -77,6 +105,11 @@ public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 	@Override
 	public void selecionarPrimeiroElemento() {
 		this.setSelectedIndex(0);
+	}
+
+	public void setPrimeiroItem(String str) {
+		Listitem listitem = new Listitem(str, null);
+		this.appendChild(listitem);	
 	}
 
 }
