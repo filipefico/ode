@@ -4,24 +4,16 @@ package ode._infraestruturaBase.ciu;
 import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 public abstract class CtrlBase extends Window {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	///caminho de todas as janelas simples utilizadas no sistema	
-	public static final String CAMINHO_JANELA_SIMPLES = "/paginas/principal/janelaSimples.zul";
-
 	public JanelaSimples factoryJanelaSimples() {
-
-		return (JanelaSimples) Executions.createComponents(CAMINHO_JANELA_SIMPLES, null, null);
+		return new JanelaSimples();
 	}
 
 	public void confirmaSimNao(String mensagemConfirmacao,EventListener eventListenerConfirma)
