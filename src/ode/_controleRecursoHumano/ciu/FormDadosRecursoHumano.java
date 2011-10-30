@@ -1,8 +1,10 @@
 package ode._controleRecursoHumano.ciu;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -12,57 +14,49 @@ import ode._infraestruturaCRUD.ciu.GridDados;
 import ode._infraestruturaCRUD.ciu.NucleoListbox;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Intbox;
-import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Textbox;
 
 public class FormDadosRecursoHumano extends FormularioDadosCRUD<RecursoHumano> {
 
 	private static final long serialVersionUID = 1L;
 
-	private Textbox tbNome = new Textbox();
-	private Intbox tbCargaHoraria = new Intbox();
-	private Textbox tbTelefone = new Textbox();
-	private Textbox tbEmail = new Textbox();
-	private Checkbox cbAtivo = new Checkbox();
-	private NucleoListbox<KRecursoHumano> listboxCargo = new NucleoListbox<KRecursoHumano>();
-	private NucleoListbox<KRecursoHumano> listboxPapeis = new NucleoListbox<KRecursoHumano>();
-	private KRecursoHumano cargoSelecionado;
+	protected Textbox tbNome = new Textbox();
+	protected Intbox tbCargaHoraria = new Intbox();
+	protected Textbox tbTelefone = new Textbox();
+	protected Textbox tbEmail = new Textbox();
+	protected Checkbox cbAtivo = new Checkbox();
+	protected NucleoListbox<KRecursoHumano> listboxCargo = new NucleoListbox<KRecursoHumano>();
 
-	private List<KRecursoHumano> listaKRH;
-
+	protected Collection<KRecursoHumano> listaKRH;
+	
 	@Override
 	protected List<NucleoTab> definirTabs() {
 		List<NucleoTab> listaTabs = new ArrayList<NucleoTab>();
 		listaTabs.add(definirTabDadosCadastro());
-		listaTabs.add(definirTabCompetencias());
 		return listaTabs;
 	}
-
-	private NucleoTab definirTabDadosCadastro() {
-		NucleoTab tabDadosCadastro = new NucleoTab();
-		tabDadosCadastro.setNomeTab(NucleoMensagens
-				.getMensagem(NucleoMensagens.TERMO_DADOS_CADASTRO));
+	
+	protected NucleoTab definirTabDadosCadastro() {
+		
+		
+		NucleoTab tabDadosCadastro = new NucleoTab(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DADOS_CADASTRO));
 
 		// Atribui o conteúdo à tab
 		GridDados gridDadosCadastro = new GridDados();
+		
 		tbNome.setWidth("240px");
 		tbNome.setMaxlength(80);
-		gridDadosCadastro
-				.adicionarLinhaObrigatoria(
-						NucleoMensagens.getMensagem(NucleoMensagens.TERMO_NOME),
-						tbNome);
+		gridDadosCadastro.adicionarLinhaObrigatoria(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_NOME), tbNome);
 
 		cbAtivo.setChecked(true);
 		gridDadosCadastro.adicionarLinhaObrigatoria("Ativo", cbAtivo);
 
 		tbCargaHoraria.setWidth("25px");
 		tbCargaHoraria.setMaxlength(3);
-		gridDadosCadastro.adicionarLinhaObrigatoria("Carga Horária",
-				tbCargaHoraria);
+		gridDadosCadastro.adicionarLinhaObrigatoria("Carga Horária", tbCargaHoraria);
 		
 		tbEmail.setWidth("240px");
 		gridDadosCadastro.adicionarLinhaObrigatoria("E-mail", tbEmail);
@@ -73,55 +67,31 @@ public class FormDadosRecursoHumano extends FormularioDadosCRUD<RecursoHumano> {
 		listboxCargo.setWidth("240px");
 		listboxCargo.setRows(1);
 		listboxCargo.setMold("select");
-		listaKRH = new ArrayList<KRecursoHumano>(((CtrlRecursoHumanoCRUD)this.getControlador()).listarKRecursosHumanos());
-
-		listboxCargo.setObjetos(listaKRH);
-		listboxCargo.setSelectedIndex(0);
-		cargoSelecionado = listboxCargo.getObjetoSelecionado();
-		listboxCargo.addEventListener("onSelect", new EventListenerCargo());
-		gridDadosCadastro.adicionarLinhaObrigatoria("Cargo", listboxCargo);
-
-		listboxPapeis.setWidth("240px");
-		listboxPapeis.setCheckmark(true);
-		listboxPapeis.setMultiple(true);
-
-		for (KRecursoHumano objeto : listaKRH) {
-			Listitem li = new Listitem(objeto.getNome(), objeto);
-			listboxPapeis.appendChild(li);
-		}
-		listboxPapeis.getItemAtIndex(0).setDisabled(true);
+		listboxCargo.setPrimeiroItem("< selecione o Cargo >");
 		
-		gridDadosCadastro.adicionarLinha("Papéis", listboxPapeis);
+		gridDadosCadastro.adicionarLinhaObrigatoria("Cargo", listboxCargo);
+		
+		try {
+			listaKRH = ((CtrlRecursoHumanoCRUD) getControlador()).listarKRecursosHumanos();
+			listboxCargo.setObjetos(listaKRH);
+		}
+		catch(Exception e) {
+			
+		}
 
 		tabDadosCadastro.setConteudoTab(gridDadosCadastro);
 		return tabDadosCadastro;
 	}
 
-	private NucleoTab definirTabCompetencias() {
-		NucleoTab tabCompetencias = new NucleoTab();
-		tabCompetencias.setNomeTab("Competências");
-
-		GridDados gridCompetencias = new GridDados();
-		tabCompetencias.setConteudoTab(gridCompetencias);
-		return tabCompetencias;
-	}
-
-	private class EventListenerCargo implements EventListener {
-
-		public void onEvent(Event event) {
-			listboxPapeis.getItem(cargoSelecionado).setDisabled(false);
-			cargoSelecionado = listboxCargo.getObjetoSelecionado();
-			listboxPapeis.getItem(cargoSelecionado).setDisabled(true);
-		}
-	}
 
 	@Override
 	protected void preencherDadosObjeto(RecursoHumano objeto) {
 		objeto.setNome(tbNome.getValue());
 		objeto.setCargaHoraria(tbCargaHoraria.getValue());
 		objeto.setAtivo(cbAtivo.isChecked());
+		objeto.setTelefone(tbTelefone.getValue());
+		objeto.setEmail(tbEmail.getValue());
 		objeto.setCargo(listboxCargo.getObjetoSelecionado());
-		objeto.setPapeis(listboxPapeis.getObjetosSelecionados());
 	}
 
 	@Override
@@ -130,18 +100,24 @@ public class FormDadosRecursoHumano extends FormularioDadosCRUD<RecursoHumano> {
 		tbNome.setValue(objeto.getNome());
 		tbCargaHoraria.setValue(objeto.getCargaHoraria());
 		cbAtivo.setChecked(objeto.isAtivo());
+		tbEmail.setValue(objeto.getEmail());
+		tbTelefone.setValue(objeto.getTelefone());
 		listboxCargo.setObjetoSelecionado(objeto.getCargo());
-		listboxPapeis.setObjetosSelecionados(objeto.getPapeis());
-		cargoSelecionado = listboxCargo.getObjetoSelecionado();
-		listboxPapeis.getItemAtIndex(0).setDisabled(false);
-		listboxPapeis.getItem(cargoSelecionado).setDisabled(true);
 	}
 
 	@Override
 	protected void configurarConstraints() {
 		tbNome.setConstraint("no empty: Favor informar o Nome!");
-		tbCargaHoraria
-				.setConstraint("no empty: Favor informar a Carga Horária!");
+		tbCargaHoraria.setConstraint("no empty: Favor informar a Carga Horária!");
+		tbTelefone.setConstraint("no empty: Favor informar o Telefone!");
+		tbEmail.setConstraint("no empty: Favor informar o E-mail!");
+	}
+	
+	@Override
+	protected boolean isValido(){
+		if(listboxCargo.getObjetoSelecionado()==null)
+			throw new WrongValueException(listboxCargo, "Favor informar o Cargo!");
+		return super.isValido();
 	}
 
 }
