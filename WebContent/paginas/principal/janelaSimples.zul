@@ -1,2 +1,0 @@
-<?init class="ode._infraestruturaBase.util.AuthInit"?>
-<window use="ode._infraestruturaCRUD.ciu.JanelaSimples" width="550px"/>

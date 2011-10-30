@@ -1,5 +1,7 @@
 package ode._infraestruturaCRUD.ciu;
 
+import ode._infraestruturaBase.util.NucleoContexto;
+
 import org.zkoss.zul.Window;
 
 public class JanelaSimples extends Window{
@@ -8,10 +10,10 @@ public class JanelaSimples extends Window{
 	/** Tamanho da window. */
 	protected String WIDTH_WINDOW = "450px";
 
-	
-	
 	public JanelaSimples(){
-		 configurarPropriedadesPadrao();
+		super();
+		configurarPropriedadesPadrao();
+		this.setParent(NucleoContexto.recuperarJanelaPrincipal());
 	}
 
 	
@@ -27,7 +29,6 @@ public class JanelaSimples extends Window{
 		this.setZIndex(10);
 		this.setSizable(true);
 		this.setMaximizable(true);
-		
 	}
 
 	
