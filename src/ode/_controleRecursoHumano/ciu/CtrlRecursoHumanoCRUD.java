@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
+import ode._controleRecursoHumano.ciu.FormDadosRecursoHumano;
+import ode._controleRecursoHumano.ciu.PainelCRUDRecursoHumano;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -24,7 +26,7 @@ public class CtrlRecursoHumanoCRUD extends CtrlCRUD<RecursoHumano> {
 	
 	@Autowired
 	private AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano;
-
+	
 	@Override
 	public String definirTituloJanelaDados() {
 		return "Recurso Humano";
@@ -55,17 +57,8 @@ public class CtrlRecursoHumanoCRUD extends CtrlCRUD<RecursoHumano> {
 		return new RecursoHumano();
 	}
 
-	public AplCadastrarKRecursoHumano getAplCadastrarKRecursoHumano() {
-		return aplCadastrarKRecursoHumano;
-	}
-
-	public void setAplCadastrarKRecursoHumano(
-			AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano) {
-		this.aplCadastrarKRecursoHumano = aplCadastrarKRecursoHumano;
-	}
-	
 	public Collection<KRecursoHumano> listarKRecursosHumanos() {
-		return getAplCadastrarKRecursoHumano().recuperarTodos();
+		return aplCadastrarKRecursoHumano.recuperarTodos();
 	}
 
 }

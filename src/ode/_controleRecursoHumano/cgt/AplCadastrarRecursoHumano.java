@@ -7,7 +7,6 @@ import ode._controleRecursoHumano.cgd.RecursoHumanoDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
-import ode.controleUsuario.cgt.AplCadastrarUsuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("AplCadastrarRecursoHumano")
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadastrarRecursoHumano extends
-		AplCRUD<RecursoHumano> {
+public class AplCadastrarRecursoHumano extends AplCRUD<RecursoHumano> {
 
 	@Autowired
 	private RecursoHumanoDAO recursoHumanoDAO;
