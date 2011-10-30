@@ -54,18 +54,9 @@ public class CtrlFerramentaSoftwareCRUD extends CtrlCRUD<FerramentaSoftware> {
 	public FerramentaSoftware factoryObjetoDados() {
 		return new FerramentaSoftware();
 	}
-
-	public AplCadastrarKFerramentaSoftware getAplCadastrarKFerramentaSoftware() {
-		return aplCadastrarKFerramentaSoftware;
-	}
-
-	public void setAplCadastrarKFerramentaSoftware (
-			AplCadastrarKFerramentaSoftware aplCadastrarKRecursoHardware) {
-		this.aplCadastrarKFerramentaSoftware = aplCadastrarKRecursoHardware;
-	}
 	
 	public Collection<KFerramentaSoftware> listarKFerramentasSoftware() {
-		return getAplCadastrarKFerramentaSoftware().recuperarTodos();
+		return aplCadastrarKFerramentaSoftware.recuperarTodos();
 	}
 
 }

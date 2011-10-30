@@ -3,16 +3,14 @@ package ode._controleFerramenta.ciu;
 import java.util.ArrayList;
 import java.util.List;
 
-import ode._controleFerramenta.cdp.EscopoFerramentaSoftware;
+import ode._controleFerramenta.ciu.CtrlFerramentaSoftwareCRUD;
 import ode._controleFerramenta.cdp.FerramentaSoftware;
-import ode._controleFerramenta.cdp.OrigemFerramentaSoftware;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.GridDados;
 import ode._infraestruturaCRUD.ciu.NucleoListbox;
-import ode._infraestruturaCRUD.ciu.NucleoRadiogroup;
 import ode.conhecimento.processo.cdp.KFerramentaSoftware;
 
 import org.zkoss.zul.Checkbox;
@@ -25,8 +23,14 @@ public class FormDadosFerramentaSoftware extends FormularioDadosCRUD<FerramentaS
 	private Textbox tbNome = new Textbox();
 	private Checkbox cbAtivo = new Checkbox();
 	private NucleoListbox<KFerramentaSoftware> listKRecurso = new NucleoListbox<KFerramentaSoftware>();
-	private NucleoRadiogroup<EscopoFerramentaSoftware> listEscopo = new NucleoRadiogroup<EscopoFerramentaSoftware>();
-	private NucleoRadiogroup<OrigemFerramentaSoftware> listOrigem = new NucleoRadiogroup<OrigemFerramentaSoftware>();
+	private Checkbox cbInterna = new Checkbox();
+	private Checkbox cbDisponivelApenasParaProjetos = new Checkbox();
+	private Textbox tbCaminho = new Textbox();
+	
+	@Override
+	public CtrlFerramentaSoftwareCRUD getControlador() {
+		return (CtrlFerramentaSoftwareCRUD)super.getControlador();
+	}
 
 	@Override
 	protected List<NucleoTab> definirTabs() {
@@ -48,20 +52,21 @@ public class FormDadosFerramentaSoftware extends FormularioDadosCRUD<FerramentaS
 		cbAtivo.setChecked(true);
 		gridDadosCadastro.adicionarLinha("Ativo", cbAtivo);
 
-		List<KFerramentaSoftware> listaKFS = new ArrayList<KFerramentaSoftware>(((CtrlFerramentaSoftwareCRUD)this.getControlador()).listarKFerramentasSoftware());
+		List<KFerramentaSoftware> listaKFS = new ArrayList<KFerramentaSoftware>(getControlador().listarKFerramentasSoftware());
 		listKRecurso.setWidth("240px");
 		listKRecurso.setRows(1);
 		listKRecurso.setMold("select");
 		listKRecurso.setObjetos(listaKFS);
+		listKRecurso.selecionarPrimeiroElemento();
 		gridDadosCadastro.adicionarLinha("Tipo", listKRecurso);
 		
-		listEscopo.setWidth("240px");
-		listEscopo.setObjetos(EscopoFerramentaSoftware.values());
-		gridDadosCadastro.adicionarLinha("Escopo", listEscopo);
+		gridDadosCadastro.adicionarLinha("Interna", cbInterna);
 		
-		listOrigem.setWidth("240px");
-		listOrigem.setObjetos(OrigemFerramentaSoftware.values());
-		gridDadosCadastro.adicionarLinha("Origem", listOrigem);
+		gridDadosCadastro.adicionarLinha("Disponível apenas para projetos abertos", cbDisponivelApenasParaProjetos);
+		
+		tbCaminho.setWidth("240px");
+		tbCaminho.setMaxlength(255);
+		gridDadosCadastro.adicionarLinhaObrigatoria("Caminho", tbCaminho);
 		
 		tabDadosCadastro.setConteudoTab(gridDadosCadastro);
 		return tabDadosCadastro;
@@ -71,9 +76,10 @@ public class FormDadosFerramentaSoftware extends FormularioDadosCRUD<FerramentaS
 	protected void preencherDadosObjeto(FerramentaSoftware objeto) {
 		objeto.setNome(tbNome.getValue());
 		objeto.setAtivo(cbAtivo.isChecked());
-		objeto.setKRecurso(listKRecurso.getObjetoSelecionado());
-		objeto.setEscopo(listEscopo.getObjetoSelecionado());
-		objeto.setOrigem(listOrigem.getObjetoSelecionado());
+		objeto.setKFerramentaSoftware(listKRecurso.getObjetoSelecionado());
+		objeto.setDisponivelApenasParaProjetos(cbDisponivelApenasParaProjetos.isChecked());
+		objeto.setInterna(cbInterna.isChecked());
+		objeto.setCaminho(tbCaminho.getValue());
 	}
 
 	@Override
@@ -81,23 +87,21 @@ public class FormDadosFerramentaSoftware extends FormularioDadosCRUD<FerramentaS
 		tbNome.setValue(objeto.getNome());
 		cbAtivo.setChecked(objeto.isAtivo());
 		listKRecurso.setObjetoSelecionado(objeto.getKFerramentaSoftware());
-		listOrigem.setObjetoSelecionado(objeto.getOrigem());
-		listEscopo.setObjetoSelecionado(objeto.getEscopo());
+		cbInterna.setChecked(objeto.isInterna());
+		cbDisponivelApenasParaProjetos.setChecked(objeto.isDisponivelApenasParaProjetos());
+		tbCaminho.setValue(objeto.getCaminho());
 	}
 
 	@Override
 	protected void configurarConstraints() {
 		tbNome.setConstraint("no empty: Favor informar o Nome!");
+		tbCaminho.setConstraint("no empty: Favor informar o Caminho!");
 	}
 	
 	@Override
 	protected boolean isValido() {
 		if (listKRecurso.getObjetoSelecionado() == null)
 			disparaErro(listKRecurso, "É necessário informar o Tipo!");
-		if (listEscopo.getObjetoSelecionado() == null)
-			disparaErro(listEscopo, "É necessário informar o Escopo!");
-		if (listOrigem.getObjetoSelecionado() == null)
-			disparaErro(listOrigem, "É necessário informar a Origem!");
 		return super.isValido();
 	}
 
