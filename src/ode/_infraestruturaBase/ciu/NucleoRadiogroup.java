@@ -1,6 +1,8 @@
-package ode._infraestruturaCRUD.ciu;
+package ode._infraestruturaBase.ciu;
 
 import java.util.*;
+
+import ode._infraestruturaBase.ciu.NucleoColecao;
 
 import org.zkoss.zul.Radiogroup;
 import org.zkoss.zul.Radio;
@@ -19,7 +21,7 @@ public class NucleoRadiogroup<T> extends Radiogroup implements NucleoColecao<T> 
 	public void setObjetoSelecionado(T objeto) {
 		List<Radio> listItems = this.getItems();
 		for (Radio item : listItems) {
-			if (item.getAttribute(ATTR).equals(objeto)) {
+			if (objeto == null && item.getAttribute(ATTR) == null || item.getAttribute(ATTR) != null && item.getAttribute(ATTR).equals(objeto)) {
 				this.setSelectedItem(item);
 				return;
 			}
@@ -48,10 +50,21 @@ public class NucleoRadiogroup<T> extends Radiogroup implements NucleoColecao<T> 
 	}
 
 	@Override
-	public void setObjetos(Iterable<T> conjunto) {
+	public void addObjetos(Iterable<T> conjunto) {
 		for (T objeto : conjunto) {
 			addObjeto(objeto);
 		}
+	}
+	
+	@Override
+	public void addObjetos(T[] conjunto) {
+		addObjetos(Arrays.asList(conjunto));
+	}
+
+	@Override
+	public void setObjetos(Iterable<T> conjunto) {
+		this.getItems().clear();
+		addObjetos(conjunto);
 	}
 	
 	@Override
