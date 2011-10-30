@@ -2,10 +2,14 @@ package ode._infraestruturaBase.util;
 
 import java.util.Locale;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleUsuario.cdp.Usuario;
 import ode.principal.ciu.WindowPrincipal;
 
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
 
 /**
@@ -94,6 +98,10 @@ public class NucleoContexto {
 
 	public static void atribuirProjeto(Projeto projeto) {
 		Sessions.getCurrent().setAttribute(PROJETO, projeto);
+		HttpServletResponse response = (HttpServletResponse) Executions.getCurrent().getNativeResponse();
+		Cookie cookie = new Cookie("projeto", projeto.getId().toString());
+		cookie.setMaxAge(9999999);
+		response.addCookie(cookie);
 	}
 
 	public static WindowPrincipal recuperarJanelaPrincipal() {
