@@ -7,13 +7,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import ode._controleFerramenta.ciu.CtrlFerramentaSoftwareCRUD;
-import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
+import ode._controleRecursoHumano.ciu.CtrlDefinirEquipe;
+//import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaBase.util.NucleoUtil;
+//import ode.alocacaoRecursoHumano.ciu.CtrlAlocacaoRecursoHumano;
+import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
 import ode.conhecimento.organizacao.ciu.CtrlKCompetenciaCRUD;
-import ode.conhecimento.organizacao.ciu.CtrlKDominioConhecimentoCRUD;
 import ode.conhecimento.processo.ciu.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKArtefatoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKAtividadeCRUD;
@@ -26,6 +28,8 @@ import ode.conhecimento.processo.ciu.CtrlKProcessoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKTipoSoftwareCRUD;
+import ode.controleProjeto.cdp.Projeto;
+import ode.controleProjeto.cgd.ProjetoDAO;
 import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
@@ -60,14 +64,116 @@ public class AplAutenticarUsuario {
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
+	@Autowired
+	private ProjetoDAO projetoDAO;
 
-	public UsuarioDAO getUsuarioDAO() {
-		return usuarioDAO;
-	}
+	/*
+	 * (non-Javadoc)
+	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#obterFuncionalidades()
+	 */
 
-	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
-		this.usuarioDAO = usuarioDAO;
+	public List<Funcionalidade> obterFuncionalidades() {
+		
+		/*
+		 * Seguir o padrão para cadastrar as funcionalidades:
+		 *
+		 * Itens para a raiz do menu entram em funcionalidades.add()
+		 * Itens em nível hierárquico inferior entram em .addSubfuncionalidade() do item pai
+		 * 
+		 * Criar cada funcionalidade com o método criar(String nomeFuncionalidade)
+		 * 
+		 *  Atribuir a classe controladora que contém o método iniciar() através de setCtrl()
+		 *  Atribuir as eventuais permissões além do Perfil de Acesso Administrador através de permitir()
+		 */
+
+		List<Funcionalidade> funcionalidades = new ArrayList<Funcionalidade>();
+		
+		funcionalidades.add(criar("Projeto").permitir(PerfilAcesso.Desenvolvedor)
+			.addSubfuncionalidade(criar("Selecionar Projeto").setCtrl(CtrlSelecionarProjeto.class).permitir(PerfilAcesso.Desenvolvedor))
+			.addSubfuncionalidade(criar("Cadastrar Projeto").setCtrl(CtrlProjetoCRUD.class))
+			.addSubfuncionalidade(criar("Definir Equipe").setCtrl(CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
+		);
+		
+		funcionalidades.add(criar("Administração")
+			.addSubfuncionalidade(criar("Usuários").setCtrl(CtrlUsuarioCRUD.class))
+		);
+		
+		funcionalidades.add(criar("Recursos")
+			//.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlRecursoHumanoCRUD.class))
+			.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlAtuacaoRHCRUD.class))
+			.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlFerramentaSoftwareCRUD.class))
+		);
+			
+		funcionalidades.add(criar("Conhecimento")
+			.addSubfuncionalidade(criar("Recursos")
+				.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlKRecursoHumanoCRUD.class))
+				.addSubfuncionalidade(criar("Recursos de Hardware").setCtrl(CtrlKRecursoHardwareCRUD.class))
+				.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlKFerramentaSoftwareCRUD.class))
+			)
+			.addSubfuncionalidade(criar("Processos")
+				.addSubfuncionalidade(criar("Paradigmas").setCtrl(CtrlKParadigmaCRUD.class))
+				.addSubfuncionalidade(criar("Tipos de Software").setCtrl(CtrlKTipoSoftwareCRUD.class))
+				.addSubfuncionalidade(criar("Tipos de Artefato").setCtrl(CrtlTipoKArtefatoCRUD.class))
+				.addSubfuncionalidade(criar("Artefatos").setCtrl(CtrlKArtefatoCRUD.class))
+				.addSubfuncionalidade(criar("Domínios de Aplicação").setCtrl(CtrlKDominioAplicacaoCRUD.class))
+				.addSubfuncionalidade(criar("Categorias de Processo").setCtrl(CtrlKCategoriaProcessoCRUD.class))
+				.addSubfuncionalidade(criar("Processos").setCtrl(CtrlKProcessoCRUD.class))
+				.addSubfuncionalidade(criar("Atividades").setCtrl(CtrlKAtividadeCRUD.class))
+				.addSubfuncionalidade(criar("Procedimentos").setCtrl(CtrlKProcedimentoCRUD.class))
+			)
+			.addSubfuncionalidade(criar("Organização")
+				.addSubfuncionalidade(criar("Competências").setCtrl(CtrlKCompetenciaCRUD.class))
+			)
+			.addSubfuncionalidade(criar("Medição")
+					.addSubfuncionalidade(criar("Objetivos")
+							.addSubfuncionalidade(criar("Objetivo Estrategico").setCtrl(CtrlKObjetivoEstrategicoCRUD.class))
+							.addSubfuncionalidade(criar("Objetivo de Software").setCtrl(CtrlKObjetivoSoftwareCRUD.class))
+							.addSubfuncionalidade(criar("Objetivo de Medicao").setCtrl(CtrlKObjetivoMedicaoCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Necessidade de Informacao").setCtrl(CtrlKNecessidadeInformacaoCRUD.class))
+					.addSubfuncionalidade(criar("Medida")
+							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
+							.addSubfuncionalidade(criar("Tipo de Entidade Mensurável").setCtrl(CtrlKTipoEntidadeMensuravelCRUD.class))
+							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
+							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Escala")
+							.addSubfuncionalidade(criar("Escala").setCtrl(CtrlKEscalaCRUD.class))
+							.addSubfuncionalidade(criar("Valor de Escala").setCtrl(CtrlKValorEscalaCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Procedimentos")
+							.addSubfuncionalidade(criar("Procedimento de Medicao").setCtrl(CtrlKProcedimentoMedicaoCRUD.class))
+							.addSubfuncionalidade(criar("Procedimento de Analise de Medicao").setCtrl(CtrlKProcedimentoAnaliseMedicaoCRUD.class))
+							.addSubfuncionalidade(criar("Metodo Analitico").setCtrl(CtrlKMetodoAnaliticoCRUD.class))
+							)
+					.addSubfuncionalidade(criar("Periodicidade").setCtrl(CtrlKPeriodicidadeCRUD.class))
+				)
+		);
+		funcionalidades.add(criar("Processo Padrão")
+			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
+		);
+		
+		/*
+		funcionalidades.add(criar("Ferramentas")
+			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecursoHumano.class).setDisponivelApenasParaProjetosAbertos(true))
+		);
+		*/
+		
+		return funcionalidades;
+
 	}
+	
+	/*
+	 * Função auxiliar para o método obterFuncionalidades
+	 */
+
+	private Funcionalidade criar(String s) {
+		Funcionalidade f = new Funcionalidade(s);
+		f.permitir(PerfilAcesso.Administrador);
+		return f;
+	}
+	
 	
 	/*
 	 * (non-Javadoc)
@@ -102,11 +208,28 @@ public class AplAutenticarUsuario {
 	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#recuperarLoginCookie(java.lang.String, java.lang.String)
 	 */
 	
-	public boolean recuperarLoginCookie(String nomeUsuario, String tokenCookie) {
+	public boolean recuperarLoginCookies(Cookie[] cookies) {
+		String nomeUsuario = null;
+		String token = null;
+		String projetoId = null;
+		for (Cookie cookie : cookies) {
+			if ("nomeUsuario".equals(cookie.getName()))
+				nomeUsuario = cookie.getValue();
+			else if ("token".equals(cookie.getName()))
+				token = cookie.getValue();
+			else if("projeto".equals(cookie.getName()))
+				projetoId = cookie.getValue();
+		}
+		
 		Usuario usuario = usuarioDAO.recuperarPorNomeUsuario(nomeUsuario);
 		//caso o cookie seja válido, registra a sessão do usuário
-		if(usuario!=null && tokenCookie.equals(NucleoUtil.encrypt(usuario.getSenha()))) {
+		if(usuario!=null && token.equals(NucleoUtil.encrypt(usuario.getSenha()))) {
 			NucleoContexto.atribuirUsuarioLogado(usuario);
+			if(projetoId != null) {
+				Projeto projeto = projetoDAO.recuperarPorId(Long.parseLong(projetoId));
+				if (projeto != null)
+					NucleoContexto.atribuirProjeto(projeto);	
+			}
 			return true;
 		}
 		//caso contrário, exclui o cookie do navegador
@@ -125,112 +248,12 @@ public class AplAutenticarUsuario {
 		c1.setMaxAge(0);
 		response.addCookie(c1);
 		Cookie c2 = new Cookie("token", "");
-		c1.setMaxAge(0);
+		c2.setMaxAge(0);
 		response.addCookie(c2);
+		Cookie c3 = new Cookie("projeto", "");
+		c3.setMaxAge(0);
+		response.addCookie(c3);
 		NucleoContexto.atribuirUsuarioLogado(null);
+		NucleoContexto.atribuirProjeto(null);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see ode.controleUsuario.cgt.AplAutenticarUsuario#obterFuncionalidades()
-	 */
-
-	public List<Funcionalidade> obterFuncionalidades() {
-		
-		/*
-		 * Seguir o padrão para cadastrar as funcionalidades:
-		 *
-		 * Itens para a raiz do menu entram em funcionalidades.add()
-		 * Itens em nível hierárquico inferior entram em .addSubfuncionalidade() do item pai
-		 * 
-		 * Criar cada funcionalidade com o método criar(String nomeFuncionalidade)
-		 * 
-		 *  Atribuir a classe controladora que contém o método iniciar() através de setCtrl()
-		 *  Atribuir as eventuais permissões além do Perfil de Acesso Administrador através de permitir()
-		 */
-
-		List<Funcionalidade> funcionalidades = new ArrayList<Funcionalidade>();
-		
-		funcionalidades.add(criar("Projeto").permitir(PerfilAcesso.Desenvolvedor)
-			.addSubfuncionalidade(criar("Selecionar Projeto").setCtrl(CtrlSelecionarProjeto.class).permitir(PerfilAcesso.Desenvolvedor))
-			.addSubfuncionalidade(criar("Cadastrar Projeto").setCtrl(CtrlProjetoCRUD.class))
-		);
-		
-		funcionalidades.add(criar("Administração")
-			.addSubfuncionalidade(criar("Usuários").setCtrl(CtrlUsuarioCRUD.class))
-		);
-		
-		funcionalidades.add(criar("Recursos")
-			.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlRecursoHumanoCRUD.class))
-			.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlFerramentaSoftwareCRUD.class))
-		);
-			
-		funcionalidades.add(criar("Conhecimento")
-			.addSubfuncionalidade(criar("Recursos")
-				.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlKRecursoHumanoCRUD.class))
-				.addSubfuncionalidade(criar("Recursos de Hardware").setCtrl(CtrlKRecursoHardwareCRUD.class))
-				.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlKFerramentaSoftwareCRUD.class))
-			)
-			.addSubfuncionalidade(criar("Processos")
-				.addSubfuncionalidade(criar("Paradigmas").setCtrl(CtrlKParadigmaCRUD.class))
-				.addSubfuncionalidade(criar("Tipos de Software").setCtrl(CtrlKTipoSoftwareCRUD.class))
-				.addSubfuncionalidade(criar("Tipos de Artefato").setCtrl(CrtlTipoKArtefatoCRUD.class))
-				.addSubfuncionalidade(criar("Artefatos").setCtrl(CtrlKArtefatoCRUD.class))
-				.addSubfuncionalidade(criar("Domínios de Aplicação").setCtrl(CtrlKDominioAplicacaoCRUD.class))
-				.addSubfuncionalidade(criar("Categorias de Processo").setCtrl(CtrlKCategoriaProcessoCRUD.class))
-				.addSubfuncionalidade(criar("Processos").setCtrl(CtrlKProcessoCRUD.class))
-				.addSubfuncionalidade(criar("Atividades").setCtrl(CtrlKAtividadeCRUD.class))
-				.addSubfuncionalidade(criar("Procedimentos").setCtrl(CtrlKProcedimentoCRUD.class))
-			)
-			.addSubfuncionalidade(criar("Organização")
-				.addSubfuncionalidade(criar("Domínios de Conhecimento").setCtrl(CtrlKDominioConhecimentoCRUD.class))
-				.addSubfuncionalidade(criar("Competências").setCtrl(CtrlKCompetenciaCRUD.class))
-			)
-			.addSubfuncionalidade(criar("Medição")
-					.addSubfuncionalidade(criar("Objetivos")
-							.addSubfuncionalidade(criar("Objetivo Estrategico").setCtrl(CtrlKObjetivoEstrategicoCRUD.class))
-							.addSubfuncionalidade(criar("Objetivo de Software").setCtrl(CtrlKObjetivoSoftwareCRUD.class))
-							.addSubfuncionalidade(criar("Objetivo de Medicao").setCtrl(CtrlKObjetivoMedicaoCRUD.class))
-							)
-					.addSubfuncionalidade(criar("Necessidade de Informacao").setCtrl(CtrlKNecessidadeInformacaoCRUD.class))
-					.addSubfuncionalidade(criar("Medida")
-							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
-							.addSubfuncionalidade(criar("Tipo de Entidade Mensurável").setCtrl(CtrlKTipoEntidadeMensuravelCRUD.class))
-							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
-							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
-							)
-					.addSubfuncionalidade(criar("Escala")
-							.addSubfuncionalidade(criar("Escala").setCtrl(CtrlKEscalaCRUD.class))
-							.addSubfuncionalidade(criar("Valor de Escala").setCtrl(CtrlKValorEscalaCRUD.class))
-							)
-					.addSubfuncionalidade(criar("Procedimentos")
-							.addSubfuncionalidade(criar("Procedimento de Medicao").setCtrl(CtrlKProcedimentoMedicaoCRUD.class))
-							.addSubfuncionalidade(criar("Procedimento de Analise de Medicao").setCtrl(CtrlKProcedimentoAnaliseMedicaoCRUD.class))
-							.addSubfuncionalidade(criar("Metodo Analitico").setCtrl(CtrlKMetodoAnaliticoCRUD.class))
-							)
-					.addSubfuncionalidade(criar("Periodicidade").setCtrl(CtrlKPeriodicidadeCRUD.class))
-				)
-		);
-		funcionalidades.add(criar("Processo Padrão")
-			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
-		);
-		
-		funcionalidades.add(criar("Ferramentas")
-			.addSubfuncionalidade(criar("Alocação de Recursos")).setCtrl("")//.setDisponivelApenasParaProjetosAbertos(true)
-		);
-		
-		return funcionalidades;
-
-	}
-	
-	/*
-	 * Função auxiliar para o método obterFuncionalidades
-	 */
-
-	private Funcionalidade criar(String s) {
-		Funcionalidade f = new Funcionalidade(s);
-		f.permitir(PerfilAcesso.Administrador);
-		return f;
-	}
-	
 }
