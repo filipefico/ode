@@ -18,7 +18,7 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements
 		DAOBase<T> {
 
 	@PersistenceContext
-	EntityManager entityManager;
+	protected EntityManager entityManager;
 
 	/*
 	 * (non-Javadoc)
@@ -55,14 +55,12 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements
 	 * 
 	 * @see ode.nucleo.crud.cgd.DAOBase#recuperarTodos()
 	 */
-	@SuppressWarnings("unchecked")
 	public Collection<T> recuperarTodos() {
-		return entityManager.createQuery("from " + getClasseDominio().getSimpleName()).getResultList();			
+		return entityManager.createQuery("from " + getClasseDominio().getSimpleName(), getClasseDominio()).getResultList();			
 	}
 	
-	@SuppressWarnings("unchecked")
 	public Collection<T> recuperarTodosComOrdenacao(String orderBy) {
-		return entityManager.createQuery("from " + getClasseDominio().getSimpleName() + " order by "+ orderBy).getResultList();			
+		return entityManager.createQuery("from " + getClasseDominio().getSimpleName() + " order by "+ orderBy, getClasseDominio()).getResultList();			
 	}
 
 	/*
