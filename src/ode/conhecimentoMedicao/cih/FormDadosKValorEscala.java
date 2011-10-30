@@ -55,7 +55,7 @@ public class FormDadosKValorEscala extends FormularioDadosCRUD<KValorEscala> {
 	
 	@Override
 	protected void montarTabs() {
-		tabs.setVisible(false);
+		tabbox.getTabs().setVisible(false);
 		super.montarTabs();
 	};
 

@@ -111,11 +111,11 @@ public class FormDadosKProcesso extends FormularioDadosCRUD<KProcesso>{
 	}
 	
 	private void desabilitaTab(int i){
-		List<Tab> teste = super.tabs.getChildren();
+		List<Tab> teste = super.tabbox.getTabs().getChildren();
 		teste.get(i).setDisabled(true);
 	}
 	private void habilitaTab(int i){
-		List<Tab> teste = super.tabs.getChildren();
+		List<Tab> teste = super.tabbox.getTabs().getChildren();
 		teste.get(i).setDisabled(false);
 	}
 	
