@@ -99,9 +99,11 @@ public class NucleoContexto {
 	public static void atribuirProjeto(Projeto projeto) {
 		Sessions.getCurrent().setAttribute(PROJETO, projeto);
 		HttpServletResponse response = (HttpServletResponse) Executions.getCurrent().getNativeResponse();
-		Cookie cookie = new Cookie("projeto", projeto.getId().toString());
-		cookie.setMaxAge(9999999);
-		response.addCookie(cookie);
+		if (projeto != null) {
+			Cookie cookie = new Cookie("projeto", projeto.getId().toString());
+			cookie.setMaxAge(9999999);
+			response.addCookie(cookie);
+		}
 	}
 
 	public static WindowPrincipal recuperarJanelaPrincipal() {

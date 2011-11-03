@@ -12,4 +12,6 @@ public interface ParticipacaoEquipeDAO extends DAOBase<ParticipacaoEquipe> {
 
 	public List<RecursoHumano> obterMembrosPorProjeto(Long id);
 
+	public List<RecursoHumano> recuperarRecursosHumanosComParticipacaoPapel(Long idKRH, Long idProjeto);
+
 }

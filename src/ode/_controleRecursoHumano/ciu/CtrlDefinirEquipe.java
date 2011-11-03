@@ -4,7 +4,8 @@ import java.util.Collection;
 import java.util.Set;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
-import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
+import ode._controleRecursoHumano.cgd.ParticipacaoEquipeDAO;
+import ode._controleRecursoHumano.cgd.RecursoHumanoDAO;
 import ode._controleRecursoHumano.cgt.AplDefinirEquipe;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.util.NucleoContexto;
@@ -19,17 +20,20 @@ public class CtrlDefinirEquipe extends CtrlBase {
 
 	private static final long serialVersionUID = 1L;
 	
-	private PainelDefinirEquipe painelDefinirEquipe;
-	
-	private JanelaSimples jan;
-	
 	@Autowired
 	private AplDefinirEquipe aplDefinirEquipe;
 	
 	@Autowired
-	private AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
+	private ParticipacaoEquipeDAO participacaoEquipeDAO;
+	
+	@Autowired
+	private RecursoHumanoDAO recursoHumanoDAO;
 		
 	private Projeto projeto;
+	
+	private PainelDefinirEquipe painelDefinirEquipe;
+	
+	private JanelaSimples jan;
 
 	public void iniciar() {
 		configurarComponentes();
@@ -54,17 +58,17 @@ public class CtrlDefinirEquipe extends CtrlBase {
 		jan.detach();
 		this.detach();
 	}
-
-	public Collection<RecursoHumano> listarRecursosHumanos() {
-		return aplCadastrarRecursoHumano.recuperarTodos();
-	}
-
+	
 	public void definirEquipe(Set<RecursoHumano> recursosSelecionados) {
 		aplDefinirEquipe.definirEquipe(recursosSelecionados, projeto);
 	}
-	
+
+	public Collection<RecursoHumano> listarRecursosHumanos() {
+		return recursoHumanoDAO.recuperarTodos();
+	}
+
 	public Collection<RecursoHumano> listarRecursosHumanosEquipe() {
-		return aplDefinirEquipe.obterMembrosPorProjeto(projeto.getId());
+		return participacaoEquipeDAO.obterMembrosPorProjeto(projeto.getId());
 	}
 
 }

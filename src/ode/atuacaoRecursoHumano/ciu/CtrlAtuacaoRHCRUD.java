@@ -11,11 +11,12 @@ import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.PainelCRUD;
 import ode.atuacaoRecursoHumano.cdp.AtuacaoRH;
 import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
+import ode.atuacaoRecursoHumano.cgd.AtuacaoRHDAO;
 import ode.atuacaoRecursoHumano.cgt.AplCadastrarAtuacaoRH;
 import ode.conhecimento.organizacao.cdp.KCompetencia;
-import ode.conhecimento.organizacao.cgt.AplCadastrarKCompetencia;
+import ode.conhecimento.organizacao.cgd.KCompetenciaDAO;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
-import ode.conhecimento.processo.cgt.AplCadastrarKRecursoHumano;
+import ode.conhecimento.processo.cgd.KRecursoHumanoDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,16 @@ public class CtrlAtuacaoRHCRUD extends CtrlCRUD<RecursoHumano> {
 	
 	@Autowired
 	private AplCadastrarAtuacaoRH aplCadastrarAtuacaoRH;
-	
+		
 	@Autowired
-	private AplCadastrarKCompetencia aplCadastrarKCompetencia;
-	
-	@Autowired
-	private AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano;
+	private AtuacaoRHDAO atuacaoRHDAO;
 
+	@Autowired
+	private KRecursoHumanoDAO kRecursoHumanoDAO;
+
+	@Autowired
+	private KCompetenciaDAO kCompetenciaDAO;
+	
 	@Override
 	public String definirTituloJanelaDados() {
 		return "Recurso Humano";
@@ -63,14 +67,6 @@ public class CtrlAtuacaoRHCRUD extends CtrlCRUD<RecursoHumano> {
 		return new RecursoHumano();
 	}
 
-	public Collection<KRecursoHumano> listarKRecursosHumanos() {
-		return aplCadastrarKRecursoHumano.recuperarTodos();
-	}
-
-	public Collection<KCompetencia> listarKCompetencias() {
-		return aplCadastrarKCompetencia.recuperarTodos();
-	}
-	
 	@Override
 	public void acaoSalvar() {
 		try {
@@ -84,16 +80,24 @@ public class CtrlAtuacaoRHCRUD extends CtrlCRUD<RecursoHumano> {
 
 	}
 
-	public AtuacaoRH getAtuacaoRH(RecursoHumano rh) {
-		return aplCadastrarAtuacaoRH.recuperarAtuacaoRHPorRH(rh);
-	}
-
 	public void salvar(RecursoHumano rh, AtuacaoRH atuacaoRH, Collection<CompetenciaRH> competencias) {
 		aplCadastrarAtuacaoRH.salvar(rh, atuacaoRH, competencias);
 	}
+	
+	public Collection<KRecursoHumano> listarKRecursosHumanos() {
+		return kRecursoHumanoDAO.recuperarTodos();
+	}
+
+	public Collection<KCompetencia> listarKCompetencias() {
+		return kCompetenciaDAO.recuperarTodos();
+	}
+	
+	public AtuacaoRH getAtuacaoRH(RecursoHumano rh) {
+		return atuacaoRHDAO.recuperarAtuacaoRHPorRH(rh.getId());
+	}	
 
 	public Collection<CompetenciaRH> obterCompetenciasRH(AtuacaoRH atuacaoRH) {
-		return aplCadastrarAtuacaoRH.recuperarCompetenciasPorAtuacaoRH(atuacaoRH);
+		return atuacaoRHDAO.recuperarCompetenciasPorAtuacaoRH(atuacaoRH.getId());
 	}
 	
 
