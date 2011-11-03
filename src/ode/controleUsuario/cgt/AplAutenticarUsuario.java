@@ -7,13 +7,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import ode._controleFerramenta.ciu.CtrlFerramentaSoftwareCRUD;
+import ode._controleProcesso.ciu.CtrlDefinicaoProcesso;
 import ode._controleRecursoHumano.ciu.CtrlDefinirEquipe;
-//import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
+import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaBase.util.NucleoUtil;
-//import ode.alocacaoRecursoHumano.ciu.CtrlAlocacaoRecursoHumano;
+import ode.alocacaoRecursoHumano.ciu.CtrlAlocacaoRecursoHumano;
 import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
 import ode.conhecimento.organizacao.ciu.CtrlKCompetenciaCRUD;
 import ode.conhecimento.processo.ciu.CrtlTipoKArtefatoCRUD;
@@ -101,7 +102,9 @@ public class AplAutenticarUsuario {
 		
 		funcionalidades.add(criar("Recursos")
 			//.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlRecursoHumanoCRUD.class))
-			.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlAtuacaoRHCRUD.class))
+			//.addSubfuncionalidade(criar("Recursos Humanos").setCtrl(CtrlAtuacaoRHCRUD.class))
+			.addSubfuncionalidade(criar("Recursos Humanos (Básico)").setCtrl(CtrlRecursoHumanoCRUD.class))
+			.addSubfuncionalidade(criar("Recursos Humanos (Completo)").setCtrl(CtrlAtuacaoRHCRUD.class))
 			.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlFerramentaSoftwareCRUD.class))
 		);
 			
@@ -154,11 +157,10 @@ public class AplAutenticarUsuario {
 			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
 		);
 		
-		/*
 		funcionalidades.add(criar("Ferramentas")
+			.addSubfuncionalidade(criar("Definição de Processos").setCtrl(CtrlDefinicaoProcesso.class).setDisponivelApenasParaProjetosAbertos(true))
 			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecursoHumano.class).setDisponivelApenasParaProjetosAbertos(true))
 		);
-		*/
 		
 		return funcionalidades;
 

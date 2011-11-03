@@ -4,11 +4,11 @@ import ode._infraestruturaBase.util.NucleoContexto;
 
 import org.zkoss.zul.Window;
 
-public class JanelaSimples extends Window{
+public class JanelaSimples extends Window {
 	private static final long serialVersionUID = -5859724805082908994L;
 	
 	/** Tamanho da window. */
-	protected String WIDTH_WINDOW = "450px";
+	protected String WIDTH_WINDOW = "550px";
 
 	public JanelaSimples(){
 		super();

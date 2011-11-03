@@ -73,7 +73,7 @@ public class FormDadosRecursoHumano extends FormularioDadosCRUD<RecursoHumano> {
 		
 		try {
 			listaKRH = ((CtrlRecursoHumanoCRUD) getControlador()).listarKRecursosHumanos();
-			listboxCargo.setObjetos(listaKRH);
+			listboxCargo.addObjetos(listaKRH);
 		}
 		catch(Exception e) {
 			

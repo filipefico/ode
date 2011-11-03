@@ -31,9 +31,48 @@ public class AplDefinirEquipe {
 	
 	@Autowired
 	private RecursoHumanoDAO recursoHumanoDAO;
-	
-	public List<RecursoHumano> obterMembrosPorProjeto(Long id) {
-		return participacaoEquipeDAO.obterMembrosPorProjeto(id);
+		
+	public void definirEquipe(Set<RecursoHumano> recursos, KRecursoHumano krh, Projeto projeto) {
+		Equipe equipe = equipeDAO.obterEquipePorProjeto(projeto.getId());
+		
+		List<ParticipacaoEquipe> lista = participacaoEquipeDAO.obterPorEquipe(equipe.getId());
+
+		for (RecursoHumano rh : recursoHumanoDAO.recuperarTodos()) {
+			ParticipacaoEquipe pe = obterParticipacaoEquipePersistida(rh, lista);
+			//se o recurso foi selecionado
+			if(recursos.contains(rh)) {
+				//se o recurso ainda não está alocado à equipe, aloca
+				if(pe==null) {
+					pe = new ParticipacaoEquipe();
+					pe.setRecursoHumano(rh);
+					pe.setEquipe(equipe);
+					Set<KRecursoHumano> papeis = new HashSet<KRecursoHumano>();
+					papeis.add(krh);
+					pe.setPapeis(papeis);
+					participacaoEquipeDAO.salvar(pe);
+				}
+				//se está, verifica se já está com aquele papel e adiciona caso necessário
+				else {
+					if(!pe.getPapeis().contains(krh)) {
+						pe.getPapeis().add(krh);
+						participacaoEquipeDAO.atualizar(pe);
+					}
+				}				
+			}
+			//se não foi selecionado
+			else {
+				//estava na equipe anteriormente para executar o cargo em questao?
+				if(pe!=null && pe.getPapeis().contains(krh)) {
+					//remove o cargo da lista 
+					pe.getPapeis().remove(krh);
+					//era o unico papel ao qual estava associado naquela equipe? 
+					if(pe.getPapeis().size()==0) {
+						//exclui a participação
+						participacaoEquipeDAO.excluir(pe);
+					}
+				}
+			}
+		}
 	}
 	
 	public void definirEquipe(Set<RecursoHumano> recursosSelecionados, Projeto projeto) {
@@ -50,9 +89,11 @@ public class AplDefinirEquipe {
 		}
 
 		for (RecursoHumano rh : recursoHumanoDAO.recuperarTodos()) {
+			ParticipacaoEquipe pe = obterParticipacaoEquipePersistida(rh, lista); 
+			
 			if(recursosSelecionados.contains(rh)) {
-				if(obterParticipacaoEquipePersistida(rh, lista)==null) {
-					ParticipacaoEquipe pe = new ParticipacaoEquipe();
+				if(pe==null) {
+					pe = new ParticipacaoEquipe();
 					pe.setRecursoHumano(rh);
 					Set<KRecursoHumano> papeis = new HashSet<KRecursoHumano>();
 					papeis.add(rh.getCargo());
@@ -62,7 +103,6 @@ public class AplDefinirEquipe {
 				}
 			}
 			else {
-				ParticipacaoEquipe pe = obterParticipacaoEquipePersistida(rh, lista); 
 				if(pe!=null) {
 					participacaoEquipeDAO.excluir(pe);
 				}
@@ -83,6 +123,5 @@ public class AplDefinirEquipe {
 			}
 		return null;
 	}
-	
 	
 }

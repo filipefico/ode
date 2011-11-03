@@ -22,4 +22,9 @@ public class ParticipacaoEquipeDAOImpl extends
 		return entityManager.createQuery("select pe.recursoHumano from ParticipacaoEquipe pe where pe.equipe.projeto.id = :idProjeto", RecursoHumano.class).setParameter("idProjeto", idProjeto).getResultList();
 	}
 
+	@Override
+	public List<RecursoHumano> recuperarRecursosHumanosComParticipacaoPapel(Long idKRH, Long idProjeto) {
+		return entityManager.createQuery("select pe.recursoHumano from ParticipacaoEquipe pe where pe.equipe.projeto.id = :idProjeto and :idKRH in (select p.id from pe.papeis p)", RecursoHumano.class).setParameter("idProjeto", idProjeto).setParameter("idKRH", idKRH).getResultList();
+	}
+
 }

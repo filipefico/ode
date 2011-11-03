@@ -20,7 +20,6 @@ import ode.conhecimento.processo.cdp.KRecursoHumano;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Div;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listitem;
 
@@ -90,10 +89,6 @@ public class FormDadosAtuacaoRH extends FormDadosRecursoHumano {
 		Collection<KCompetencia> kcompetencias = getControlador().listarKCompetencias();
 		NucleoTab tabCompetencias = new NucleoTab("Competências");
 
-		Div containerCompetencias = new Div();
-	
-		//listboxCompetencias.setCheckmark(true);
-		listboxCompetencias.setMultiple(true);
 		listboxCompetencias.setRows(5);
 		
 		for(KCompetencia kcompetencia : kcompetencias) {
@@ -112,13 +107,13 @@ public class FormDadosAtuacaoRH extends FormDadosRecursoHumano {
 			li.appendChild(lc1);
 			li.appendChild(lc2);
 			
-			listboxCompetencias .appendChild(li);	
+			listboxCompetencias.appendChild(li);	
 			
 		}
 		
-		containerCompetencias.appendChild(listboxCompetencias);
+		//containerCompetencias.appendChild(listboxCompetencias);
 		
-		tabCompetencias.setConteudoTab(containerCompetencias);
+		tabCompetencias.setConteudoTab(listboxCompetencias);
 		
 		return tabCompetencias;
 	}

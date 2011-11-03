@@ -62,17 +62,9 @@ public class AplCadastrarAtuacaoRH extends AplCRUD<RecursoHumano> {
 			recursoHumanoDAO.salvar(rh);
 		}	
 	}
-
-	public AtuacaoRH recuperarAtuacaoRHPorRH(RecursoHumano rh) {
-		return atuacaoRHDAO.recuperarAtuacaoRHPorRH(rh.getId());
-	}
 	
 	@Override
 	public Collection<RecursoHumano> recuperarTodos() {
 		return recursoHumanoDAO.recuperarTodosComOrdenacao("nome");
-	}
-
-	public Collection<CompetenciaRH> recuperarCompetenciasPorAtuacaoRH(AtuacaoRH atuacaoRH) {
-		return atuacaoRHDAO.recuperarCompetenciasPorAtuacaoRH(atuacaoRH.getId());
 	}
 }
