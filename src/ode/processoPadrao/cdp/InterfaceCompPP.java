@@ -15,9 +15,9 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 public class InterfaceCompPP extends ObjetoPersistente {
 
 	private static final long serialVersionUID = -1819692208262943582L;
-	String nome;
-	String descricao;
-	String objetivo;
+	String nome="";
+	String descricao="";
+	String objetivo="";
 	CompPP compPP;
 
 	EstruturaCompPP estruturaCompPP;

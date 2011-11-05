@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -13,32 +12,33 @@ import javax.persistence.OneToMany;
 import ode.conhecimento.processo.cdp.KProcesso;
 
 @Entity
-public class CompPPProcessoSimples extends CompPP{
+public class CompPPProcessoSimples extends CompPP implements Cloneable {
 
 	private static final long serialVersionUID = -1003139827021069271L;
 
 	private Set<CompPPProcessoComplexo> processosComplexos;
-	private Set<CompPPMacroatividade> compPPMacroAtividade; // trocar esse nome
+	private Set<CompPPMacroatividade> macroAtividades; // trocar esse nome
 	private KProcesso tipo;
 	private Set<DependenciaMacroAtividades> dependenciaMacroAtividades;
-	
 
 	public CompPPProcessoSimples() {
 		this.processosComplexos = new HashSet<CompPPProcessoComplexo>();
-		this.compPPMacroAtividade = new HashSet<CompPPMacroatividade>();
+		this.macroAtividades = new HashSet<CompPPMacroatividade>();
 		this.dependenciaMacroAtividades = new HashSet<DependenciaMacroAtividades>();
 	}
-	
+
 	@ManyToMany(targetEntity = CompPPProcessoComplexo.class, fetch = FetchType.EAGER)
-    public Set<CompPPProcessoComplexo> getProcessosComplexos() {
-        return processosComplexos;
-    }
-    
-    public void setProcessosComplexos(Set<CompPPProcessoComplexo> parProcessosComplexos) {
-        this.processosComplexos = parProcessosComplexos;
-    }
-	
-    @ManyToOne(cascade = {javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST})
+	public Set<CompPPProcessoComplexo> getProcessosComplexos() {
+		return processosComplexos;
+	}
+
+	public void setProcessosComplexos(
+			Set<CompPPProcessoComplexo> parProcessosComplexos) {
+		this.processosComplexos = parProcessosComplexos;
+	}
+
+	@ManyToOne(cascade = { javax.persistence.CascadeType.MERGE,
+			javax.persistence.CascadeType.PERSIST })
 	public KProcesso getTipo() {
 		return tipo;
 	}
@@ -48,18 +48,18 @@ public class CompPPProcessoSimples extends CompPP{
 	}
 
 	@ManyToMany(targetEntity = CompPPMacroatividade.class, fetch = FetchType.EAGER)
-	public Set<CompPPMacroatividade> getCompPPMacroAtividade() {
-		return compPPMacroAtividade;
+	public Set<CompPPMacroatividade> getMacroAtividade() {
+		return macroAtividades;
 	}
 
-	public void setCompPPMacroAtividade(
+	public void setMacroAtividade(
 			Set<CompPPMacroatividade> compPPMacroAtividade) {
-		this.compPPMacroAtividade = compPPMacroAtividade;
+		this.macroAtividades = compPPMacroAtividade;
 	}
 
 	public void addCompPPMacroAtividade(
 			CompPPMacroatividade compPPMacroAtividade) {
-		this.compPPMacroAtividade.add(compPPMacroAtividade);
+		this.macroAtividades.add(compPPMacroAtividade);
 	}
 
 	@OneToMany(targetEntity = DependenciaMacroAtividades.class, fetch = FetchType.LAZY)
@@ -70,6 +70,17 @@ public class CompPPProcessoSimples extends CompPP{
 	public void setDependenciaMacroAtividades(
 			Set<DependenciaMacroAtividades> dependenciaMacroAtividades) {
 		this.dependenciaMacroAtividades = dependenciaMacroAtividades;
+	}
+
+	@Override
+	public CompPPProcessoSimples clone() throws CloneNotSupportedException {
+		CompPPProcessoSimples copia = (CompPPProcessoSimples) super.clone();
+		copia.setMacroAtividade(new HashSet<CompPPMacroatividade>());
+
+		for (CompPPMacroatividade ppMacro : this.getMacroAtividade()) {
+			copia.getMacroAtividade().add((CompPPMacroatividade) ppMacro.clone());
+		}
+		return copia;
 	}
 
 }

@@ -14,10 +14,7 @@ public class ElementoCompPP extends ObjetoPersistente {
 	private static final long serialVersionUID = -8768539818906938847L;
 
 	boolean obrigatorio;
-	private Conhecimento elementoConhecimento; // pode ser um KArtefato ou um
-	// KProcesso
-	//private KAtividade elementoKAtividade;
-	//private KProcesso elemenKProcesso;
+	private Conhecimento elementoConhecimento; // pode ser um KArtefato ou um Kprocesso
 
 	public ElementoCompPP() {
 		obrigatorio = false;
@@ -39,22 +36,4 @@ public class ElementoCompPP extends ObjetoPersistente {
 	public void setElementoConhecimento(Conhecimento elemento) {
 		this.elementoConhecimento=elemento;
 	}
-/*
-	@ManyToOne(fetch = FetchType.EAGER)
-	public KAtividade getElementoKAtividade() {
-		return elementoKAtividade;
-	}
-
-	public void setElementoKAtividade(KAtividade elementoKAtividade) {
-		this.elementoKAtividade = elementoKAtividade;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	public KProcesso getElemenKProcesso() {
-		return elemenKProcesso;
-	}
-
-	public void setElemenKProcesso(KProcesso elemenKProcesso) {
-		this.elemenKProcesso = elemenKProcesso;
-	}*/
 }

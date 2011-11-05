@@ -45,10 +45,12 @@ public class JanEstabelecerRequisitosCompPP {
 		configuraTabPanelRequisitos(tabPanelRequisitos);
 
 		Button buttonSalvar = new Button();
+		buttonSalvar.setLabel("salvar");
 		buttonSalvar.addEventListener("onClick", new EventListener() {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				salvarDados();
+				janela.onClose();
 			}
 		});
 		buttonSalvar.setParent(janela);
@@ -62,7 +64,7 @@ public class JanEstabelecerRequisitosCompPP {
 		compPP.setObjetivo(textBoxObjetivos.getText());
 		compPP.setRequisitoCompPP(textBoxRequisito.getText());
 
-		ctrl.salvarCompPP(compPP);
+		ctrl.atualizarCompPP(compPP);
 	}
 
 	private void configuraTabPanelRequisitos(Tabpanel tabPanelRequisitos) {

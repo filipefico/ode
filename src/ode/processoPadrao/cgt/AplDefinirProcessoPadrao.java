@@ -1,6 +1,7 @@
 package ode.processoPadrao.cgt;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import ode._infraestruturaBase.cgd.DAOBase;
@@ -17,12 +18,15 @@ import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
 import ode.processoPadrao.cgd.CompPPDAO;
+import ode.processoPadrao.cgd.CompPPMacroatividadeDAO;
+import ode.processoPadrao.cgd.CompPPProcessoComplexoDAO;
+import ode.processoPadrao.cgd.CompPPProcessoSimplesDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("AplDefinirProcessoPadrao")
 @Transactional(rollbackFor = NucleoExcecao.class)
 public class AplDefinirProcessoPadrao {
 
@@ -99,11 +103,25 @@ public class AplDefinirProcessoPadrao {
 	}
 
 
-	@Autowired
-	ConhecimentoDAO conhecimentoDAO;
 
-	public Set<Conhecimento> getconhecimento() {
-		return (Set<Conhecimento>) conhecimentoDAO.recuperarTodos();
+	@Autowired
+	CompPPProcessoComplexoDAO compPPProcessoComplexoDAO;
+	public Collection<CompPPProcessoComplexo> getAllCompPPProessoComplexo() {
+		return compPPProcessoComplexoDAO.recuperarTodos();
+	}
+
+
+	@Autowired
+	CompPPProcessoSimplesDAO compPPProcessoSimplesDAO;
+	public Collection<CompPPProcessoSimples> getAllCompPPProessoSimples() {
+		return compPPProcessoSimplesDAO.recuperarTodos();
+	}
+
+
+	@Autowired 
+	CompPPMacroatividadeDAO compPPMacroatividadeDAO;
+	public Collection<CompPPMacroatividade> getAllCompPPMacroAtividade() {
+		return compPPMacroatividadeDAO.recuperarTodos();
 	}
 
 }
