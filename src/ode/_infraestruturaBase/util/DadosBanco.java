@@ -1,26 +1,26 @@
 package ode._infraestruturaBase.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.zkoss.zkplus.spring.SpringUtil;
-
 import ode._controleRecursoHumano.cdp.RecursoHumano;
-import ode._controleRecursoHumano.cgd.RecursoHumanoDAO;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
+import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KCategoriaProcesso;
+import ode.conhecimento.processo.cdp.KProcesso;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimento.processo.cdp.KTipoInteracao;
-import ode.conhecimento.processo.cgd.KRecursoHumanoDAO;
-import ode.conhecimento.processo.cgd.KTipoInteracaoDAO;
-import ode.conhecimento.processo.cgd.KTipoInteracaoDAOImpl;
+import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.conhecimento.processo.cgt.AplCadastrarKCategoriaProcesso;
+import ode.conhecimento.processo.cgt.AplCadastrarKProcesso;
 import ode.conhecimento.processo.cgt.AplCadastrarKRecursoHumano;
 import ode.conhecimento.processo.cgt.AplCadastrarKTipoInteracao;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.cdp.Usuario;
-import ode.controleUsuario.cgd.UsuarioDAO;
-import ode.controleUsuario.cgt.AplAutenticarUsuario;
 import ode.controleUsuario.cgt.AplCadastrarUsuario;
+import ode.processoPadrao.cdp.CompPPProcessoComplexo;
+import ode.processoPadrao.cdp.CompPPProcessoSimples;
+import ode.processoPadrao.cgt.AplDefinirProcessoPadrao;
+
+import org.zkoss.zkplus.spring.SpringUtil;
 
 public class DadosBanco {
 	/*
@@ -33,92 +33,158 @@ public class DadosBanco {
 			usuarios();
 			tipoInteracao();
 			categoriaProcesso();
+			
+			definicaodeProcesso();//juliao
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			e.printStackTrace();
 		}
 	}
 
+	private void definicaodeProcesso() throws NucleoRegraNegocioExcecao {
+		//inserir processos
+		KProcesso kprocesso1 = inserirKProcesso("Kprocesso1","esse é o primeiro Kprocesso");
+		KProcesso kprocesso2 = inserirKProcesso("Kprocesso2","segundo kprocesso");
+		KProcesso kprocesso3 = inserirKProcesso("Kprocesso3","Esse portanto é o terceiro");
+		KProcesso kprocesso4 = inserirKProcesso("Kprocesso4","quarto elemento de kprocesso");
+		KProcesso kprocesso5 = inserirKProcesso("Kprocesso5","quinto e ultimo elemento de kprocesso");
+	
+		//inserir atividades	
+		inserirKAtividade("KAtividade1","primeira KAtividade");
+		inserirKAtividade("KAtividade2","Segunda Katividade criada");
+		inserirKAtividade("KAtividade3","Terceira KAtividade tranquilamente criada");
+		inserirKAtividade("KAtividade4","KAtividade numero 4");
+		inserirKAtividade("KAtividade5","quinta e ultima KAtividade automaticamente criada");
+		
+		//inserir um compPPProcessoComplexo
+		inserirCompPPProcessoComplexo("CompPPComplexo1","Primeiro CompPPProcessoComplexo criado");
+
+		//inserir dois compPPProcessoSimples 
+		inserirCompPPProcessoSimples("CompPPSimples1","primiero CompPPProcessoSimples",kprocesso1);
+		inserirCompPPProcessoSimples("CompPPSimples2","segundo CompPPProcessoSimples criado",kprocesso2);
+
+		
+	}
+
+	private void inserirCompPPProcessoSimples(String nome, String descricao,
+			KProcesso kprocesso) {
+		
+		CompPPProcessoSimples compPPSimples = new CompPPProcessoSimples();
+		compPPSimples.setNome(nome);
+		compPPSimples.setDescricao(descricao);
+		compPPSimples.setTipo(kprocesso);
+		
+		AplDefinirProcessoPadrao aplDefinirProcessoPadrao = (AplDefinirProcessoPadrao) SpringUtil
+				.getBean(AplDefinirProcessoPadrao.class.getSimpleName());
+		//aplDefinirProcessoPadrao.salvarCompPP(compPPSimples);
+		aplDefinirProcessoPadrao.atualizarCompPP(compPPSimples);
+		
+	}
+
+	private void inserirCompPPProcessoComplexo(String nome, String descricao) {
+		CompPPProcessoComplexo compComplexo = new CompPPProcessoComplexo();
+		compComplexo.setNome(nome);
+		compComplexo.setDescricao(descricao);
+		
+		
+		AplDefinirProcessoPadrao aplDefinirProcessoPadrao = (AplDefinirProcessoPadrao) SpringUtil
+				.getBean(AplDefinirProcessoPadrao.class.getSimpleName());
+		
+		aplDefinirProcessoPadrao.salvarCompPP(compComplexo);
+	}
+
+	private void inserirKAtividade(String nome, String descricao) throws NucleoRegraNegocioExcecao {
+		KAtividade kAtividade = new KAtividade();
+		kAtividade.setNome(nome);
+		kAtividade.setDescricao(descricao);
+				
+		AplCadastrarKAtividade aplCadastrarKAtividade = (AplCadastrarKAtividade) SpringUtil
+				.getBean(AplCadastrarKAtividade.class.getSimpleName());
+		
+		aplCadastrarKAtividade.salvar(kAtividade);
+		
+	}
+
+	private KProcesso inserirKProcesso(String nome, String descricao) throws NucleoRegraNegocioExcecao {
+		
+		KProcesso kProcesso = new KProcesso();
+		kProcesso.setNome(nome);
+		kProcesso.setDescricao(descricao);
+		
+		AplCadastrarKProcesso aplCadastrarKProcesso = (AplCadastrarKProcesso) SpringUtil
+				.getBean(AplCadastrarKProcesso.class.getSimpleName());
+		
+		aplCadastrarKProcesso.salvar(kProcesso);
+		return kProcesso;
+	}
+
 	private void categoriaProcesso() throws NucleoRegraNegocioExcecao {
-		KCategoriaProcesso kCategoriaProcesso1 = new KCategoriaProcesso();
-		KCategoriaProcesso kCategoriaProcesso2 = new KCategoriaProcesso();
-		KCategoriaProcesso kCategoriaProcesso3 = new KCategoriaProcesso();
-
-		kCategoriaProcesso1.setNome("Fundamental");
-		kCategoriaProcesso1.setDescricao("Categoria Fundamental");
-
-		kCategoriaProcesso2.setNome("Apoio");
-		kCategoriaProcesso2.setDescricao("Categoria de Apoio");
-
-		kCategoriaProcesso3.setNome("Organizacional");
-		kCategoriaProcesso3.setDescricao("Categoria Organizacional");
-
-		AplCadastrarKCategoriaProcesso aplCadastrarKCategoriaProcesso = (AplCadastrarKCategoriaProcesso) SpringUtil
-				.getBean(AplCadastrarKCategoriaProcesso.class.getSimpleName());
-
-		aplCadastrarKCategoriaProcesso.salvar(kCategoriaProcesso1);
-		aplCadastrarKCategoriaProcesso.salvar(kCategoriaProcesso2);
-		aplCadastrarKCategoriaProcesso.salvar(kCategoriaProcesso3);
-
+		inserirKCategoriaProcesso("Fundamental", "Categoria Fundamental");
+		inserirKCategoriaProcesso("Apoio", "Categoria de Apoio");
+		inserirKCategoriaProcesso("Organizacional", "Categoria Organizacional");
 	}
 
 	private void tipoInteracao() throws NucleoRegraNegocioExcecao {
-
-		KTipoInteracao kTipoInteracao1 = new KTipoInteracao();
-		KTipoInteracao kTipoInteracao2 = new KTipoInteracao();
-		KTipoInteracao kTipoInteracao3 = new KTipoInteracao();
-		KTipoInteracao kTipoInteracao4 = new KTipoInteracao();
-		KTipoInteracao kTipoInteracao5 = new KTipoInteracao();
-
-		kTipoInteracao1.setNome("Sequencial");
-		kTipoInteracao1.setDescricao("Tipo de Interacao Sequencial");
-
-		kTipoInteracao2.setNome("Paralelo Independente");
-		kTipoInteracao2.setDescricao("Tipo de Interacao Paralelo Independente");
-
-		kTipoInteracao3.setNome("Paralelo Dependente");
-		kTipoInteracao3.setDescricao("Tipo de Interacao Paralelo Dependente");
-
-		kTipoInteracao4.setNome("Pontual");
-		kTipoInteracao4.setDescricao("Tipo de Interacao Pontual");
-
-		kTipoInteracao5.setNome("Sob-Demanda");
-		kTipoInteracao5.setDescricao("Tipo de Interacao Sob-Demanda");
-
-		AplCadastrarKTipoInteracao aplCadastrarKTipoInteracao = (AplCadastrarKTipoInteracao) SpringUtil
-				.getBean(AplCadastrarKTipoInteracao.class.getSimpleName());
-
-		aplCadastrarKTipoInteracao.salvar(kTipoInteracao1);
-		aplCadastrarKTipoInteracao.salvar(kTipoInteracao2);
-		aplCadastrarKTipoInteracao.salvar(kTipoInteracao3);
-		aplCadastrarKTipoInteracao.salvar(kTipoInteracao4);
-		aplCadastrarKTipoInteracao.salvar(kTipoInteracao5);
+		inserirKTipoInteracao("Sequencial", "Tipo de Interacao Sequencial");
+		inserirKTipoInteracao("Paralelo Independente",
+				"Tipo de Interacao Paralelo Independente");
+		inserirKTipoInteracao("Paralelo Dependente",
+				"Tipo de Interacao Paralelo Dependente");
+		inserirKTipoInteracao("Pontual", "Tipo de Interacao Pontual");
+		inserirKTipoInteracao("Sob-Demanda", "Tipo de Interacao Sob-Demanda");
 	}
 
 	private void usuarios() throws NucleoRegraNegocioExcecao {
 
 		// cria os dados
-		KRecursoHumano krhGP = new KRecursoHumano();
-		krhGP.setNome("Gerente de Projetos");
+		KRecursoHumano kRecursoHumano = new KRecursoHumano();
+		kRecursoHumano.setNome("Gerente de Projetos");
 		AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano = (AplCadastrarKRecursoHumano) SpringUtil
 				.getBean(AplCadastrarKRecursoHumano.class.getSimpleName());
-		aplCadastrarKRecursoHumano.salvar(krhGP);
+		aplCadastrarKRecursoHumano.salvar(kRecursoHumano);
 
-		RecursoHumano rh = new RecursoHumano();
-		rh.setNome("Falbo");
-		rh.setCargo(krhGP);
+		RecursoHumano recursohumano = new RecursoHumano();
+		recursohumano.setNome("Ricardo de Almeida Falbo");
+		recursohumano.setCargo(kRecursoHumano);
 		AplCadastrarRecursoHumano aplCadastrarRecursoHumano = (AplCadastrarRecursoHumano) SpringUtil
 				.getBean(AplCadastrarRecursoHumano.class.getSimpleName());
-		aplCadastrarRecursoHumano.salvar(rh);
+		aplCadastrarRecursoHumano.salvar(recursohumano);
 
-		Usuario u = new Usuario();
-		u.setNomeUsuario("admin");
-		u.setSenha(NucleoUtil.encrypt("senha"));
-		u.setPerfilAcesso(PerfilAcesso.Administrador);
-		u.setRecursoHumano(rh);
+		Usuario usuario = new Usuario();
+		usuario.setNomeUsuario("admin");
+		usuario.setSenha(NucleoUtil.encrypt("senha"));
+		usuario.setPerfilAcesso(PerfilAcesso.Administrador);
+		usuario.setRecursoHumano(recursohumano);
+		
 		AplCadastrarUsuario aplCadastrarUsuario = (AplCadastrarUsuario) SpringUtil
 				.getBean(AplCadastrarUsuario.class.getSimpleName());
-		aplCadastrarUsuario.salvar(u);
+		aplCadastrarUsuario.salvar(usuario);
 	}
 
+	private KCategoriaProcesso inserirKCategoriaProcesso(String nome,
+			String Descricao) throws NucleoRegraNegocioExcecao {
+
+		KCategoriaProcesso kCategoriaProcesso = new KCategoriaProcesso();
+		kCategoriaProcesso.setNome(nome);
+		kCategoriaProcesso.setDescricao(Descricao);
+
+		
+		AplCadastrarKCategoriaProcesso aplCadastrarKCategoriaProcesso = (AplCadastrarKCategoriaProcesso) SpringUtil
+				.getBean(AplCadastrarKCategoriaProcesso.class.getSimpleName());
+		aplCadastrarKCategoriaProcesso.salvar(kCategoriaProcesso);
+		return kCategoriaProcesso;
+	}
+
+	private AplCadastrarKTipoInteracao inserirKTipoInteracao(String nome,
+			String descricao) throws NucleoRegraNegocioExcecao {
+		KTipoInteracao kTipoInteracao = new KTipoInteracao();
+		kTipoInteracao.setNome(nome);
+		kTipoInteracao.setDescricao(descricao);
+
+		AplCadastrarKTipoInteracao aplCadastrarKTipoInteracao = (AplCadastrarKTipoInteracao) SpringUtil
+				.getBean(AplCadastrarKTipoInteracao.class.getSimpleName());
+
+		aplCadastrarKTipoInteracao.salvar(kTipoInteracao);
+		return aplCadastrarKTipoInteracao;
+	}
 }

@@ -1,6 +1,6 @@
 package ode.processoPadrao.ciu;
 
-import java.util.Set;
+import java.util.List;
 
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.conhecimento.principal.cdp.Conhecimento;
@@ -68,6 +68,12 @@ public class JanDefinirProcessoPadrao {
 
 	private Menupopup menuDeContexto() {
 		Menupopup menupopupContexto = new Menupopup();
+		if(ctrl.getcompPPSelecionado() == null){
+			return menupopupContexto;
+		}
+
+		newItemBasicoMenu(menupopupContexto, "Estabelecer Requisitos",
+				new EventListnerEstabelecerRequisitos());
 				
 		newItemBasicoMenu(menupopupContexto, "Definir Interface",
 				new EventListener() {
@@ -76,6 +82,21 @@ public class JanDefinirProcessoPadrao {
 						ctrl.abrirJanDefinirInterfaceCompPP();
 					}
 				});
+		newItemBasicoMenu(menupopupContexto, "Selecionar CompPP base",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						ctrl.abrirJanSelecionarCompPPBase();
+					}
+				});
+		newItemBasicoMenu(menupopupContexto, "Indicar subprocessos a serem considerados",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						ctrl.abrirJanIndicarSubProcessos();
+					}
+				});
+		
 		
 		return menupopupContexto;
 	}
@@ -108,17 +129,8 @@ public class JanDefinirProcessoPadrao {
 
 		newItemBasicoMenu(menupopup, "Definir CompPP",
 				new EventListnerDefinirCompPP());
-		newItemBasicoMenu(menupopup, "Estabelecer Requisitos",
-				new EventListnerEstabelecerRequisitos());
 		newItemBasicoMenu(menupopup, "Abrir Processo Padrão",
 				new EventListnerSelecionarProcessoPadrao());
-		newItemBasicoMenu(menupopup, "item teste",
-				new EventListener(){
-					@Override
-					public void onEvent(Event arg0) throws Exception {
-						Set<Conhecimento> conhecimento =  ctrl.getconhecimento();
-						Object o = conhecimento;
-					}});
 		
 	}
 

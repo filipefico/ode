@@ -11,6 +11,9 @@ import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KProcesso;
 import ode.processoPadrao.cdp.CompPP;
+import ode.processoPadrao.cdp.CompPPMacroatividade;
+import ode.processoPadrao.cdp.CompPPProcessoComplexo;
+import ode.processoPadrao.cdp.CompPPProcessoSimples;
 import ode.processoPadrao.cdp.ElementoCompPP;
 import ode.processoPadrao.cdp.EstruturaCompPP;
 import ode.processoPadrao.cgt.AplDefinirProcessoPadrao;
@@ -44,26 +47,24 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		janDefinirCompPP = new JanDefinirCompPP(this, factoryJanelaSimples());
 	}
 
-
-
-	
 	@Autowired
 	private AplDefinirProcessoPadrao aplDefinirProcessoPadrao;
 
 	public Collection<KProcesso> getAllKProcesso() {
-			return aplDefinirProcessoPadrao.getAllKProcesso();
+		return aplDefinirProcessoPadrao.getAllKProcesso();
 	}
 
-	
 	public Collection<KAtividade> getAllKAtividade() {
 		return aplDefinirProcessoPadrao.getAllKAtividade();
 	}
 
-	
 	public void salvarCompPP(CompPP compPP) {
 		aplDefinirProcessoPadrao.salvarCompPP(compPP);
 	}
-	
+
+	public void atualizarCompPP(CompPP compPP) {
+		aplDefinirProcessoPadrao.atualizarCompPP(compPP);
+	}
 
 	public void salvarCompPP(String nome, String descricao, String objetivo,
 			String tipo, Object objTipo) {
@@ -81,11 +82,6 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 			new RuntimeException(
 					"A string de comparação do tipo esta incorreta: " + tipo);
 		}
-	}
-
-
-	public Collection<CompPP> getAllCompPP() {
-		return aplDefinirProcessoPadrao.recuperarTodosCompPP();
 	}
 
 	private JanEstabelecerRequisitosCompPP janEstabelecerRequisitosCompPP;
@@ -122,37 +118,62 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	public void atualizarEstruturaCompPP(Set<Conhecimento> selecionados,
 			Set<Conhecimento> selecionadosObrigatorios) {
 		CompPP compPP = this.getcompPPSelecionado();
-		
+
 		Set<ElementoCompPP> elementos = new HashSet<ElementoCompPP>();
-		
-		//troca a lista antiga pela nova lista configurada pelo usuario
-		EstruturaCompPP estruturaCompPP = compPP.getInterfaceCompPP().getEstruturaCompPP();
+
+		// troca a lista antiga pela nova lista configurada pelo usuario
+		EstruturaCompPP estruturaCompPP = compPP.getInterfaceCompPP()
+				.getEstruturaCompPP();
 		estruturaCompPP.setElementosCompPP(elementos);
-				
-		
-		//adiciona elementos que não sao marcados como obrigatorios
+
+		// adiciona elementos que não sao marcados como obrigatorios
 		for (Conhecimento conhecimento : selecionados) {
 			ElementoCompPP elemento = new ElementoCompPP();
 			elemento.setElementoConhecimento(conhecimento);
 			elemento.setObrigatorio(false);
 			elementos.add(elemento);
 		}
-		
-		//adiciona elementos marcados como obrigatorios
+
+		// adiciona elementos marcados como obrigatorios
 		for (Conhecimento conhecimento : selecionadosObrigatorios) {
 			ElementoCompPP elemento = new ElementoCompPP();
 			elemento.setElementoConhecimento(conhecimento);
 			elemento.setObrigatorio(true);
 			elementos.add(elemento);
 		}
-		
-		//salva o compPP selecionado que acabou de ser alterado.
+
+		// salva o compPP selecionado que acabou de ser alterado.
 		aplDefinirProcessoPadrao.atualizarCompPP(compPP);
 	}
 
+	private JanSelecionarCompPPBase janSelecionarCompPPBase;
 
-	public Set<Conhecimento> getconhecimento() {
-		return aplDefinirProcessoPadrao.getconhecimento();
-		
+	public void abrirJanSelecionarCompPPBase() {
+		janSelecionarCompPPBase = new JanSelecionarCompPPBase(this,
+				factoryJanelaSimples());
 	}
+
+	JanIndicarSubProcessos janIndicarSubProcessos;
+
+	public void abrirJanIndicarSubProcessos() {
+		janIndicarSubProcessos = new JanIndicarSubProcessos(this,
+				factoryJanelaSimples());
+	}
+
+	public Collection<CompPP> getAllCompPP() {
+		return aplDefinirProcessoPadrao.recuperarTodosCompPP();
+	}
+
+	public Collection<CompPPProcessoComplexo> getAllCompPPProcessoComplexo() {
+		return aplDefinirProcessoPadrao.getAllCompPPProessoComplexo();
+	}
+
+	public Collection<CompPPProcessoSimples> getAllCompPPProcessoSimples() {
+		return aplDefinirProcessoPadrao.getAllCompPPProessoSimples();
+	}
+
+	public Collection<CompPPMacroatividade> getAllCompPPMacroAtividade() {
+		return aplDefinirProcessoPadrao.getAllCompPPMacroAtividade();
+	}
+
 }

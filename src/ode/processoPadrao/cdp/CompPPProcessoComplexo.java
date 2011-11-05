@@ -13,7 +13,7 @@ import ode.conhecimento.processo.cdp.KProcesso;
 
 
 @Entity
-public class CompPPProcessoComplexo extends CompPP {
+public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 	private static final long serialVersionUID = 3645553289873117858L;
 
 	/** Processos Padrão Específicos contidos neste */
@@ -73,5 +73,18 @@ public class CompPPProcessoComplexo extends CompPP {
 		}
 
 		return processos;
+	}
+	
+	@Override
+	public CompPPProcessoComplexo clone() throws CloneNotSupportedException {
+		
+		CompPPProcessoComplexo copia = (CompPPProcessoComplexo) super.clone();
+		copia.setProcessosSimples(new HashSet<CompPPProcessoSimples>());
+		
+		for (CompPPProcessoSimples PPsimples : this.getProcessosSimples()) {
+			copia.getProcessosSimples().add((CompPPProcessoSimples) PPsimples.clone());
+		}
+		
+		return copia;
 	}
 }

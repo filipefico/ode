@@ -71,6 +71,11 @@ public class CompPPMacroatividade extends CompPP{
 				DependenciaMacroAtividades baseDependenciaMacroAtividade) {
 			this.baseDependenciaMacroAtividade = baseDependenciaMacroAtividade;
 		}
+		
+		@Override
+		public CompPPMacroatividade clone() throws CloneNotSupportedException {
+			return (CompPPMacroatividade)super.clone();
+		}
 	    	      
 	     
 }

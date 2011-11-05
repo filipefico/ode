@@ -11,15 +11,15 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public abstract class CompPP extends ObjetoPersistente {
+@Inheritance(strategy= InheritanceType.JOINED)
+public class CompPP extends ObjetoPersistente implements Cloneable{
 
 	private static final long serialVersionUID = -6201008355921694079L;
 
 	/** Indica se a definição do processo foi encerrada */
 	private boolean definicaoConcluida;
 
-	private String requisitoCompPP;
+	private String requisitoCompPP="";
 	
 	
 
@@ -101,5 +101,32 @@ public abstract class CompPP extends ObjetoPersistente {
 	public void setObjetivo(String objetivo){
 		this.interfaceCompPP.setObjetivo(objetivo);
 	}
+	
+	protected <T extends CompPP> T batata (T batatinha){
+		return batatinha;
+	}
+	
+	@Override
+	protected CompPP clone() throws CloneNotSupportedException {
+		CompPP retorno =null;
+		try {
+			
+			retorno = this.getClass().newInstance(); //cria uma instancia da classe que associada.
+			retorno.setCompPPBase(this);
+			retorno.setNome(new String(this.getNome()));
+			retorno.setDescricao(new String(this.getDescricao()));
+			retorno.setObjetivo(new String(this.getObjetivo()));
+			retorno.setRequisitoCompPP(new String(this.getRequisitoCompPP()));
+			retorno.definicaoConcluida=false;
+			
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return retorno;
+	}
+	
+	
 
 }

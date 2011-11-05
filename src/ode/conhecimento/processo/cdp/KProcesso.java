@@ -12,6 +12,10 @@ import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class KProcesso extends Conhecimento{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6125334286173269456L;
 	private String proposito;
 	private String sigla;
 	private boolean ehEngenharia;
