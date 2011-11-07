@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
-
 /**
- * Interface DAOBase. Contém métodos genéricos para serem utilizados por qualquer objeto persistente.
+ * Interface DAOBase. Contém métodos genéricos para serem utilizados por
+ * qualquer objeto persistente.
  * 
  */
 public interface DAOBase<T extends ObjetoPersistente> {
@@ -26,12 +26,14 @@ public interface DAOBase<T extends ObjetoPersistente> {
 	 *            Objeto de domínio.
 	 */
 	public void excluir(T objeto);
-	
+
 	/**
 	 * Atualiza um objeto já existente no banco.
-	 * @param objeto Objeto a ser atualizado.
+	 * 
+	 * @param objeto
+	 *            Objeto a ser atualizado.
 	 */
-	public void atualizar(T objeto);
+	public T atualizar(T objeto);
 
 	/**
 	 * Recupera todos os objetos persistentes da classe de domínio T.
@@ -39,11 +41,12 @@ public interface DAOBase<T extends ObjetoPersistente> {
 	 * @return Coleção de todos os objetos persistentes da classe de domínio T.
 	 */
 	public Collection<T> recuperarTodos();
-	
+
 	public Collection<T> recuperarTodosComOrdenacao(String orderBy);
 
 	/**
-	 * Obtém um objeto persistente da classe de domínio T, de acordo com seu identificador.
+	 * Obtém um objeto persistente da classe de domínio T, de acordo com seu
+	 * identificador.
 	 * 
 	 * @param id
 	 *            Identificador do objeto persistente.
@@ -53,6 +56,7 @@ public interface DAOBase<T extends ObjetoPersistente> {
 
 	/**
 	 * Recupera a classe do objeto T.
+	 * 
 	 * @return Classe do objeto T.
 	 */
 	public Class<T> getClasseDominio();

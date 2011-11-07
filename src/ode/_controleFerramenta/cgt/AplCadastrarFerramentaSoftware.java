@@ -2,15 +2,15 @@ package ode._controleFerramenta.cgt;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import ode._controleFerramenta.cdp.FerramentaSoftware;
 import ode._controleFerramenta.cgd.FerramentaSoftwareDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)

@@ -96,7 +96,7 @@ public class JanIndicarSubProcessos {
 			listcell.setValue(compPP);
 
 			if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
-				// adiciona subElementos normais
+				// cria lista com subElementos normais
 				Set<CompPPProcessoSimples> processosSimples = ((CompPPProcessoComplexo) ctrl
 						.getcompPPSelecionado()).getProcessosSimples();
 
