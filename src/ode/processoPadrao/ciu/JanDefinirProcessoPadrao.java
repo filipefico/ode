@@ -97,6 +97,23 @@ public class JanDefinirProcessoPadrao {
 					}
 				});
 		
+		newItemBasicoMenu(menupopupContexto, "Finalizar Definição",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						ctrl.abrirJanIndicarSubProcessos();
+					}
+				});
+		
+		
+		newItemBasicoMenu(menupopupContexto, "Excluir",
+				new EventListener() {
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						ctrl.excluirCompPPselecionado();
+					}
+				});
+		
 		
 		return menupopupContexto;
 	}
@@ -153,7 +170,7 @@ public class JanDefinirProcessoPadrao {
 	public class EventListnerEstabelecerRequisitos implements EventListener {
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			ctrl.abrrrJanEstabelecerRequisitos();
+			ctrl.abrirJanEstabelecerRequisitos();
 		}
 	}
 

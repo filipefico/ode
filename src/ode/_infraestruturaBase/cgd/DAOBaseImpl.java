@@ -14,8 +14,7 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
  *            Tipo do objeto persistido.
  */
 
-public class DAOBaseImpl<T extends ObjetoPersistente> implements
-		DAOBase<T> {
+public class DAOBaseImpl<T extends ObjetoPersistente> implements DAOBase<T> {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
@@ -35,8 +34,8 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements
 	 * @see
 	 * ode.nucleo.crud.cgd.DAOBase#atualizar(ode.nucleo.cdp.ObjetoPersistente)
 	 */
-	public void atualizar(T objeto) {
-		entityManager.merge(objeto);
+	public T atualizar(T objeto) {
+		return entityManager.merge(objeto);
 	}
 
 	/*
@@ -56,11 +55,15 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements
 	 * @see ode.nucleo.crud.cgd.DAOBase#recuperarTodos()
 	 */
 	public Collection<T> recuperarTodos() {
-		return entityManager.createQuery("from " + getClasseDominio().getSimpleName(), getClasseDominio()).getResultList();			
+		return entityManager.createQuery(
+				"from " + getClasseDominio().getSimpleName(),
+				getClasseDominio()).getResultList();
 	}
-	
+
 	public Collection<T> recuperarTodosComOrdenacao(String orderBy) {
-		return entityManager.createQuery("from " + getClasseDominio().getSimpleName() + " order by "+ orderBy, getClasseDominio()).getResultList();			
+		return entityManager.createQuery(
+				"from " + getClasseDominio().getSimpleName() + " order by "
+						+ orderBy, getClasseDominio()).getResultList();
 	}
 
 	/*
@@ -69,7 +72,7 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements
 	 * @see ode.nucleo.crud.cgd.DAOBase#recuperarPorId(java.lang.Long)
 	 */
 	public T recuperarPorId(Long id) {
-		
+
 		T objeto = null;
 		objeto = (T) entityManager.find(getClasseDominio(), id);
 
@@ -84,7 +87,8 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements
 	@SuppressWarnings("unchecked")
 	public Class<T> getClasseDominio() {
 
-		ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
+		ParameterizedType parameterizedType = (ParameterizedType) getClass()
+				.getGenericSuperclass();
 
 		return (Class<T>) parameterizedType.getActualTypeArguments()[0];
 	}

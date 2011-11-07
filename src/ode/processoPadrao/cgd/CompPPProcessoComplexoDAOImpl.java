@@ -26,8 +26,8 @@ public class CompPPProcessoComplexoDAOImpl extends DAOBaseImpl<CompPPProcessoCom
 	        List locProc = getEntityManager().createQuery("from "+ CompPPProcessoComplexo.class.getName()+ " as proc where proc.nome = '" + parNome + "'").getResultList();
 	        if (locProc.isEmpty())
 	            return null;
-	        return (CompPPProcessoComplexo)locProc.get(0);
-	    }
+	        return (CompPPProcessoComplexo)locProc.get(0);       
+	  }
 	  
 	   /* public void excluir(CompPPProcessoComplexo parProcessoPadraoGeral){
 	       *try{

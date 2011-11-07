@@ -1,9 +1,7 @@
 package ode.processoPadrao.ciu;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
@@ -28,6 +26,18 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	private CompPP compPPSelecionado;
 
+	@Autowired
+	private AplDefinirProcessoPadrao aplDefinirProcessoPadrao;
+
+	public AplDefinirProcessoPadrao getAplDefinirProcessoPadrao() {
+		return aplDefinirProcessoPadrao;
+	}
+
+	public void setAplDefinirProcessoPadrao(
+			AplDefinirProcessoPadrao aplDefinirProcessoPadrao) {
+		this.aplDefinirProcessoPadrao = aplDefinirProcessoPadrao;
+	}
+
 	@Override
 	public void iniciar() {
 		mostrarJanelaPrincipal();
@@ -41,14 +51,15 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 				factoryJanelaSimples());
 	}
 
-	JanDefinirCompPP janDefinirCompPP;
-
-	public void abrirJanDefinirCompPP() {
-		janDefinirCompPP = new JanDefinirCompPP(this, factoryJanelaSimples());
+	public void setCompPPSelecionado(CompPP selecionado) {
+		compPPSelecionado = selecionado;
+		janDefinirProcessoPadrao.setCompPPSelecionado();// atualiza informação
+														// na tela.
 	}
 
-	@Autowired
-	private AplDefinirProcessoPadrao aplDefinirProcessoPadrao;
+	public void abrirJanDefinirCompPP() {
+		new JanDefinirCompPP(this, factoryJanelaSimples());
+	}
 
 	public Collection<KProcesso> getAllKProcesso() {
 		return aplDefinirProcessoPadrao.getAllKProcesso();
@@ -63,7 +74,8 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	}
 
 	public void atualizarCompPP(CompPP compPP) {
-		aplDefinirProcessoPadrao.atualizarCompPP(compPP);
+		this.compPPSelecionado = aplDefinirProcessoPadrao
+				.atualizarCompPP(compPP);
 	}
 
 	public void salvarCompPP(String nome, String descricao, String objetivo,
@@ -84,35 +96,20 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		}
 	}
 
-	private JanEstabelecerRequisitosCompPP janEstabelecerRequisitosCompPP;
-
-	public void abrrrJanEstabelecerRequisitos() {
-		janEstabelecerRequisitosCompPP = new JanEstabelecerRequisitosCompPP(
-				this, factoryJanelaSimples());
+	public void abrirJanEstabelecerRequisitos() {
+		new JanEstabelecerRequisitosCompPP(this, factoryJanelaSimples());
 	}
-
-	private JanSelecionaProcessoPadrao janSelecionaProcessoPadrao;
 
 	public void abrirJanSelecionaProcessoPadrao() {
-		janSelecionaProcessoPadrao = new JanSelecionaProcessoPadrao(this,
-				factoryJanelaSimples());
-	}
-
-	public void setCompPPSelecionado(CompPP selecionado) {
-		compPPSelecionado = selecionado;
-		janDefinirProcessoPadrao.setCompPPSelecionado();
-
+		new JanSelecionaProcessoPadrao(this, factoryJanelaSimples());
 	}
 
 	public CompPP getcompPPSelecionado() {
 		return compPPSelecionado;
 	}
 
-	private JanDefinirInterfaceCompPP janDefinirInterfaceCompPP;
-
 	public void abrirJanDefinirInterfaceCompPP() {
-		janDefinirInterfaceCompPP = new JanDefinirInterfaceCompPP(this,
-				factoryJanelaSimples());
+		new JanDefinirInterfaceCompPP(this, factoryJanelaSimples());
 	}
 
 	public void atualizarEstruturaCompPP(Set<Conhecimento> selecionados,
@@ -143,21 +140,16 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		}
 
 		// salva o compPP selecionado que acabou de ser alterado.
-		aplDefinirProcessoPadrao.atualizarCompPP(compPP);
+		this.compPPSelecionado = aplDefinirProcessoPadrao
+				.atualizarCompPP(compPP);
 	}
-
-	private JanSelecionarCompPPBase janSelecionarCompPPBase;
 
 	public void abrirJanSelecionarCompPPBase() {
-		janSelecionarCompPPBase = new JanSelecionarCompPPBase(this,
-				factoryJanelaSimples());
+		new JanSelecionarCompPPBase(this, factoryJanelaSimples());
 	}
 
-	JanIndicarSubProcessos janIndicarSubProcessos;
-
 	public void abrirJanIndicarSubProcessos() {
-		janIndicarSubProcessos = new JanIndicarSubProcessos(this,
-				factoryJanelaSimples());
+		new JanIndicarSubProcessos(this, factoryJanelaSimples());
 	}
 
 	public Collection<CompPP> getAllCompPP() {
@@ -174,6 +166,11 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	public Collection<CompPPMacroatividade> getAllCompPPMacroAtividade() {
 		return aplDefinirProcessoPadrao.getAllCompPPMacroAtividade();
+	}
+
+	public void excluirCompPPselecionado() {
+		aplDefinirProcessoPadrao.excluirCompPP(this.getcompPPSelecionado());
+		this.setCompPPSelecionado(null);
 	}
 
 }

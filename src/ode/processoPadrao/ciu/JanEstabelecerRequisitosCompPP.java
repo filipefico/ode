@@ -44,6 +44,10 @@ public class JanEstabelecerRequisitosCompPP {
 		configuraTabPanelPropriedades(tabPanelPropriedades);
 		configuraTabPanelRequisitos(tabPanelRequisitos);
 
+		botaoSalvar();
+	}
+
+	protected void botaoSalvar() {
 		Button buttonSalvar = new Button();
 		buttonSalvar.setLabel("salvar");
 		buttonSalvar.addEventListener("onClick", new EventListener() {
