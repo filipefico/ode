@@ -27,7 +27,7 @@ public class ListagemUsuario extends ListagemSimples<Usuario> {
 
 	@Override
 	protected String[] recuperarDadosObjeto(Usuario objeto) {
-		return new String[]{objeto.getRecursoHumano().getNome(),objeto.getNomeUsuario(),objeto.getPerfilAcesso().getNome()};
+		return new String[]{objeto.getRecursoHumano().getNome(),objeto.getNomeUsuario(),objeto.getPerfilAcesso().toString()};
 	}
 
 }

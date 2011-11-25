@@ -14,7 +14,7 @@ import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaBase.util.NucleoUtil;
-import ode.alocacaoRecursoHumano.ciu.CtrlAlocacaoRecursoHumano;
+import ode.alocacaoRecurso.ciu.CtrlAlocacaoRecurso;
 import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
 import ode.conhecimento.organizacao.ciu.CtrlKCompetenciaCRUD;
 import ode.conhecimento.processo.ciu.CrtlTipoKArtefatoCRUD;
@@ -29,8 +29,6 @@ import ode.conhecimento.processo.ciu.CtrlKProcessoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKTipoSoftwareCRUD;
-import ode.controleProjeto.cdp.Projeto;
-import ode.controleProjeto.cgd.ProjetoDAO;
 import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
@@ -45,6 +43,8 @@ import ode.conhecimentoMedicao.cci.CtrlKProcedimentoMedicaoCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKTipoEntidadeMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKUnidadeMedidaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
+import ode.controleProjeto.cdp.Projeto;
+import ode.controleProjeto.cgd.ProjetoDAO;
 import ode.controleProjeto.ciu.CtrlProjetoCRUD;
 import ode.controleProjeto.ciu.CtrlSelecionarProjeto;
 import ode.controleUsuario.cdp.Funcionalidade;
@@ -157,9 +157,11 @@ public class AplAutenticarUsuario {
 			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
 		);
 		
+		funcionalidades.add(criar("Agenda").setCtrl(ode.agenda.ciu.CtrlAgenda.class));
+		
 		funcionalidades.add(criar("Ferramentas")
 			.addSubfuncionalidade(criar("Definição de Processos").setCtrl(CtrlDefinicaoProcesso.class).setDisponivelApenasParaProjetosAbertos(true))
-			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecursoHumano.class).setDisponivelApenasParaProjetosAbertos(true))
+			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecurso.class).setDisponivelApenasParaProjetosAbertos(true))
 		);
 		
 		return funcionalidades;

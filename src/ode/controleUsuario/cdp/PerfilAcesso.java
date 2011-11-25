@@ -7,38 +7,16 @@ package ode.controleUsuario.cdp;
  */
 public enum PerfilAcesso {
 
-	Administrador("Administrador", 1), Desenvolvedor("Desenvolvedor", 2);
+	Administrador("Administrador"),
+	Desenvolvedor("Desenvolvedor");
 
-	private String nome;
-	private int id;
-
-	private PerfilAcesso(String nome, int id) {
-		this.nome = nome;
-		this.setId(id);
+	private String label;
+	
+	private PerfilAcesso(String nome) {
+		this.label = nome;
 	}
 
 	public String toString() {
-		return this.getNome();
+		return this.label;
 	}
-
-	public String getNome() {
-		return this.nome;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public static PerfilAcesso obterPorId(int id) {
-		for (PerfilAcesso perfil : PerfilAcesso.values()) {
-			if (perfil.getId() == id)
-				return perfil;
-		}
-		return null;
-	}
-
 }
