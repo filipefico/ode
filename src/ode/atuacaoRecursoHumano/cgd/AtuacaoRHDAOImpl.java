@@ -2,14 +2,12 @@ package ode.atuacaoRecursoHumano.cgd;
 
 import java.util.Collection;
 
-import javax.persistence.NoResultException;
-
-import org.springframework.stereotype.Repository;
-
-import ode.atuacaoRecursoHumano.cdp.AtuacaoRH;
-import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
+import ode.atuacaoRecursoHumano.cdp.AtuacaoRH;
+import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
+
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class AtuacaoRHDAOImpl extends
@@ -17,14 +15,7 @@ public class AtuacaoRHDAOImpl extends
 
 	@Override
 	public AtuacaoRH recuperarAtuacaoRHPorRH(Long idRH) {
-		AtuacaoRH atuacaoRH;
-		try {
-			atuacaoRH = entityManager.createQuery("from AtuacaoRH a where a.recursoHumano.id = :idRH", AtuacaoRH.class).setParameter("idRH", idRH).getSingleResult();
-		}
-		catch (NoResultException e) {
-			atuacaoRH = null;
-		}
-		return atuacaoRH;
+		return recuperarSinglePorQuery(entityManager.createQuery("from AtuacaoRH a where a.recursoHumano.id = :idRH", AtuacaoRH.class).setParameter("idRH", idRH));
 	}
 
 	@Override
@@ -34,10 +25,9 @@ public class AtuacaoRHDAOImpl extends
 
 	@Override
 	public Collection<RecursoHumano> recuperarAptosPorPapel(Long idKRecursoHumano) {
-		return entityManager.createQuery("select rh from AtuacaoRH a" +
-				" right join a.recursoHumano rh" +
+		return entityManager.createQuery("select rh from RecursoHumano rh" +
 				" where rh.cargo.id = :idKRecursoHumano" +
-				" or a!=null and :idKRecursoHumano in (select p.id from a.papeis p)",
+				" or exists (from AtuacaoRH a where a.recursoHumano = rh and :idKRecursoHumano in (select p.id from a.papeis p))",
 				RecursoHumano.class)
 				.setParameter("idKRecursoHumano", idKRecursoHumano)
 				.getResultList();

@@ -9,4 +9,6 @@ public interface DemandaRHDAO extends DAOBase<DemandaRH> {
 
 	public Collection<KRecursoHumano> recuperarKRecursosHumanosPorProjeto(Long idProjeto);
 
+	public Collection<DemandaRH> recuperarPorAtividade(Long idAtividade);
+
 }

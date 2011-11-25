@@ -3,8 +3,8 @@ package ode._controleProcesso.cdp;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
 
 @Entity
 public class DemandaRH extends ObjetoPersistente {
@@ -23,10 +23,10 @@ public class DemandaRH extends ObjetoPersistente {
 	}
     
     @ManyToOne
-    public KRecursoHumano getKRecursoHumano() {
+    public KRecursoHumano getkRecursoHumano() {
     	return this.kRecursoHumano;
     }
-	public void setKRecursoHumano(KRecursoHumano kRecursoHumano) {
+	public void setkRecursoHumano(KRecursoHumano kRecursoHumano) {
 		this.kRecursoHumano = kRecursoHumano;
 	}
 }
