@@ -1,6 +1,10 @@
 package ode._infraestruturaCRUD.ciu;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import ode._infraestruturaBase.ciu.NucleoColecao;
 
@@ -57,9 +61,8 @@ public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 	public void setObjetosSelecionados(Collection<T> conjunto) {
 		List<Listitem> listItems = this.getItems();
 		for (Listitem item : listItems) {
-			item.setSelected(false);
-			if (conjunto.contains((T) item.getValue()))
-				item.setSelected(true);
+			boolean selecionado = conjunto.contains((T) item.getValue()); 
+			item.setSelected(selecionado);
 		}
 	}
 
@@ -69,6 +72,16 @@ public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 		List<Listitem> listItems = this.getItems();
 		for (Listitem item : listItems)
 			if (item.isSelected())
+				conjunto.add((T) item.getValue());
+		return conjunto;
+	}
+	
+	public Set<T> getObjetosNaoSelecionados() {
+		Set<T> conjunto = new HashSet<T>();
+
+		List<Listitem> listItems = this.getItems();
+		for (Listitem item : listItems)
+			if (!item.isSelected())
 				conjunto.add((T) item.getValue());
 		return conjunto;
 	}
