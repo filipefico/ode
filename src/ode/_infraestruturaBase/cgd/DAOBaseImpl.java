@@ -4,7 +4,9 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
@@ -76,6 +78,17 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements DAOBase<T> {
 		T objeto = null;
 		objeto = (T) entityManager.find(getClasseDominio(), id);
 
+		return objeto;
+	}
+	
+	public T recuperarSinglePorQuery(TypedQuery<T> query) {
+		T objeto;
+		try {
+			objeto = query.getSingleResult();
+		}
+		catch (NoResultException e) {
+			objeto = null;
+		}
 		return objeto;
 	}
 
