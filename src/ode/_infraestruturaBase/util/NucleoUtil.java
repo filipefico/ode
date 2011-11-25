@@ -78,6 +78,12 @@ public class NucleoUtil {
 			return 0;
 		}
 	}
+	
+	public static String formataData(Date data) {
+		if (data==null)
+			return "";
+		return new SimpleDateFormat("dd/MM/yyyy").format(data);
+	}
 
 	
 	public static String encrypt(String str) {
@@ -94,22 +100,14 @@ public class NucleoUtil {
 	}
 	
 	public static void carregarDadosIniciaisODE() {
-		//AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
-		AplCadastrarUsuario apl = (AplCadastrarUsuario) SpringUtil
-				.getBean(AplCadastrarUsuario.class.getSimpleName());
+		AplCadastrarUsuario apl = (AplCadastrarUsuario) SpringUtil.getBean(AplCadastrarUsuario.class.getSimpleName());
 
 		if(apl.recuperarTodos().size()==0){
-			DadosBanco db = new DadosBanco();
-			db.aplicar();
-		}		
-		
-		/*AplCadastrarUsuario apl = (AplCadastrarUsuario)SpringUtil.getBean(AplCadastrarUsuario.class.getSimpleName());				
-		if (apl.recuperarTodos().size() == 0) {
 			// não existe nenhum usuario no banco
 			//portanto seta os dados iniciais.
 			DadosBanco db = new DadosBanco();
 			db.aplicar();
-		}*/
+		}		
 		
 	}
 }
