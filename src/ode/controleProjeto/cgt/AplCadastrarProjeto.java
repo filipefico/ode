@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import ode._controleRecursoHumano.cdp.Equipe;
+import ode._controleRecursoHumano.cgd.EquipeDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -23,6 +25,9 @@ public class AplCadastrarProjeto extends
 
 	@Autowired
 	private ProjetoDAO nucleoOrganizacaoDAO;
+	
+	@Autowired
+	private EquipeDAO equipeDAO;
 
 	@Override
 	protected void antesIncluirNovo(Projeto objeto)
@@ -49,6 +54,13 @@ public class AplCadastrarProjeto extends
 						null);
 			}
 		}
+	}
+	
+	@Override
+	protected void depoisIncluirNovo(Projeto objeto) {
+		Equipe equipe = new Equipe();
+		equipe.setProjeto(objeto);
+		equipeDAO.salvar(equipe);
 	}
 
 	public Collection<Projeto> recuperarTodos() {

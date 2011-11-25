@@ -5,9 +5,9 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import ode._controleProcesso.cdp.Atividade;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KRecurso;
 
@@ -18,6 +18,7 @@ public class DefinicaoAtividade extends ObjetoPersistente {
 
 	private Atividade atividade;
 	private Set<KRecurso> kRecursos;
+	private Set<Atividade> subAtividades;
 
 	@OneToOne
 	public Atividade getAtividade() {
@@ -33,6 +34,14 @@ public class DefinicaoAtividade extends ObjetoPersistente {
 	}
 	public void setkRecursos(Set<KRecurso> kRecursos) {
 		this.kRecursos = kRecursos;
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	public Set<Atividade> getSubAtividades(){
+		return this.subAtividades;
+	}
+	public void setSubAtividades(Set<Atividade> atividades) {
+		this.subAtividades = atividades;
 	}
 		
 }

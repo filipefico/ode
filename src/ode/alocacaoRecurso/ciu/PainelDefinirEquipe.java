@@ -1,4 +1,4 @@
-package ode.alocacaoRecursoHumano.ciu;
+package ode.alocacaoRecurso.ciu;
 
 import java.util.Collection;
 
@@ -18,7 +18,7 @@ public class PainelDefinirEquipe extends Hbox {
 	
 	private static final long serialVersionUID = 1L;
 		
-	public PainelDefinirEquipe(final CtrlAlocacaoRecursoHumano ctrl) {
+	public PainelDefinirEquipe(final CtrlAlocacaoRecurso ctrl) {
 		
 		Collection<KRecursoHumano> listaKRH = ctrl.listarKRecursosHumanosPorProjeto();
 		
@@ -33,17 +33,17 @@ public class PainelDefinirEquipe extends Hbox {
 			for(final KRecursoHumano krh : listaKRH) {
 				NucleoTab tab = new NucleoTab(krh.getNome());
 				
-				Collection<RecursoHumano> rhs = ctrl.listarRecursosHumanosPorPapel(krh);
+				Collection<RecursoHumano> rhs = ctrl.atuacaoRHDAO.recuperarAptosPorPapel(krh.getId());
 				if(rhs.size()>0) {
 					final NucleoListbox<RecursoHumano> listbox = new NucleoListbox<RecursoHumano>();
 					
-					listbox.setObjetos(ctrl.listarRecursosHumanosPorPapel(krh));
-					listbox.setObjetosSelecionados(ctrl.listarParticipacoesRecursosHumanosPorPapel(krh));
+					listbox.setObjetos(rhs);
 					listbox.setWidth("250px");
 					listbox.setVflex("min");
 					listbox.setRows(5);
 					listbox.setCheckmark(true);
 					listbox.setMultiple(true);
+					listbox.setObjetosSelecionados(ctrl.listarParticipacoesRecursosHumanosPorPapel(krh));
 		
 					tab.addElemento(listbox);
 					Button buttonOK = new Button("Definir");
