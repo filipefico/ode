@@ -2,7 +2,6 @@ package ode._infraestruturaCRUD.ciu;
 
 import java.util.Set;
 
-
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._infraestruturaBase.excecao.CtrlExcecoes;
 import ode._infraestruturaBase.util.NucleoMensagens;
@@ -16,9 +15,6 @@ import org.zkoss.zul.Vlayout;
 
 public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8896639132796378556L;
 
 	protected Toolbar toolbar;
@@ -101,7 +97,7 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 	}
 
-	protected void definirComponentes() {
+	public void definirComponentes() {
 
 		
 		toolbar = definirBarraFerramentas();
@@ -184,6 +180,10 @@ public abstract class PainelCRUD<T extends ObjetoPersistente> extends Vlayout {
 
 	public void setControlador(CtrlCRUD<T> controlador) {
 		this.controlador = controlador;
+	}
+
+	public Toolbar getToolbar() {
+		return this.toolbar;
 	}
 
 }
