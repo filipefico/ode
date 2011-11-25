@@ -6,8 +6,10 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Div;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Panel;
 import org.zkoss.zul.Panelchildren;
@@ -32,12 +34,26 @@ public class PainelDefinirEquipe extends Panel {
 		listBox.setCheckmark(true);
 		listBox.setMultiple(true);
 		listBox.setParent(panelchildren);
-		listBox.setObjetos(ctrlDefinirEquipe.listarRecursosHumanos());
+		
+		for (RecursoHumano rh : ctrlDefinirEquipe.listarRecursosHumanos()) {
+			Listitem li = new Listitem();
+			li.setValue(rh);
+
+			Listcell listCell = new Listcell(rh.getNome());
+			li.appendChild(listCell);
+			Listcell listCell2 = new Listcell(rh.getCargo().getNome());
+			li.appendChild(listCell2);
+
+			listBox.appendChild(li);
+		}
+
 		listBox.setObjetosSelecionados(ctrlDefinirEquipe.listarRecursosHumanosEquipe());
 		Listhead listHead = new Listhead();
 		listHead.setParent(listBox);
-		Listheader listHeader = new Listheader("Recurso Humano");
-		listHeader.setParent(listHead);
+		Listheader listHeaderRH = new Listheader("Recurso Humano");
+		listHeaderRH.setParent(listHead);
+		Listheader listHeaderCargo = new Listheader("Cargo");
+		listHeaderCargo.setParent(listHead);
 
 		// Botões OK e Cancelar
 		Div div = new Div();

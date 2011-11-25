@@ -78,15 +78,7 @@ public class AplDefinirEquipe {
 	public void definirEquipe(Set<RecursoHumano> recursosSelecionados, Projeto projeto) {
 		Equipe equipe = equipeDAO.obterEquipePorProjeto(projeto.getId());
 		
-		List<ParticipacaoEquipe> lista = null;
-		
-		if(equipe == null) {
-			equipe = new Equipe();
-			equipe.setProjeto(projeto);
-			equipeDAO.salvar(equipe);
-		} else {
-			lista = participacaoEquipeDAO.obterPorEquipe(equipe.getId());
-		}
+		List<ParticipacaoEquipe> lista = participacaoEquipeDAO.obterPorEquipe(equipe.getId());
 
 		for (RecursoHumano rh : recursoHumanoDAO.recuperarTodos()) {
 			ParticipacaoEquipe pe = obterParticipacaoEquipePersistida(rh, lista); 
@@ -109,9 +101,6 @@ public class AplDefinirEquipe {
 			}
 			
 		}
-		
-		if(equipe != null && recursosSelecionados.size()==0)
-			equipeDAO.excluir(equipe);
 	}
 	
 	private ParticipacaoEquipe obterParticipacaoEquipePersistida(RecursoHumano rh, Collection<ParticipacaoEquipe> lista) {
