@@ -2,8 +2,9 @@ package ode.controleUsuario.cdp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
@@ -26,7 +27,7 @@ public class Usuario extends ObjetoPersistente {
 
 	private RecursoHumano recursoHumano;
 
-	private int perfilAcessoId;
+	private PerfilAcesso perfilAcesso;
 
 	@Column(length = 50)
 	public String getNomeUsuario() {
@@ -55,21 +56,13 @@ public class Usuario extends ObjetoPersistente {
 		this.recursoHumano = recursoHumano;
 	}
 	
-	public int getPerfilAcessoId() {
-		return perfilAcessoId;
-	}
-
-	public void setPerfilAcessoId(int perfilAcessoId) {
-		this.perfilAcessoId = perfilAcessoId;
-	}
-	
-	@Transient
+	@Enumerated(EnumType.STRING)
 	public PerfilAcesso getPerfilAcesso() {
-		return PerfilAcesso.obterPorId(this.perfilAcessoId);
+		return perfilAcesso;
 	}
 
 	public void setPerfilAcesso(PerfilAcesso perfilAcesso) {
-		this.perfilAcessoId = perfilAcesso.getId();
+		this.perfilAcesso = perfilAcesso;
 	}
 
 }

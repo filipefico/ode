@@ -8,6 +8,7 @@ import java.util.Map;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaBase.util.NucleoMensagens;
+import ode.agenda.ciu.CtrlAgenda;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.cgt.AplAutenticarUsuario;
@@ -77,6 +78,8 @@ public class WindowPrincipal extends Window {
 	private void MontarPagina(){
 		this.adicionarCabecalhoPrincipal();
 		this.adicionarFuncionalidadesDisponiveisUsuario();
+		
+		abrirJanela(CtrlAgenda.class.getCanonicalName());
 	}
 
 
