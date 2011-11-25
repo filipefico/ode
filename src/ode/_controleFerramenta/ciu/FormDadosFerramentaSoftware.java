@@ -3,7 +3,6 @@ package ode._controleFerramenta.ciu;
 import java.util.ArrayList;
 import java.util.List;
 
-import ode._controleFerramenta.ciu.CtrlFerramentaSoftwareCRUD;
 import ode._controleFerramenta.cdp.FerramentaSoftware;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -76,7 +75,7 @@ public class FormDadosFerramentaSoftware extends FormularioDadosCRUD<FerramentaS
 	protected void preencherDadosObjeto(FerramentaSoftware objeto) {
 		objeto.setNome(tbNome.getValue());
 		objeto.setAtivo(cbAtivo.isChecked());
-		objeto.setKFerramentaSoftware(listKRecurso.getObjetoSelecionado());
+		objeto.setkFerramentaSoftware(listKRecurso.getObjetoSelecionado());
 		objeto.setDisponivelApenasParaProjetos(cbDisponivelApenasParaProjetos.isChecked());
 		objeto.setInterna(cbInterna.isChecked());
 		objeto.setCaminho(tbCaminho.getValue());
@@ -86,7 +85,7 @@ public class FormDadosFerramentaSoftware extends FormularioDadosCRUD<FerramentaS
 	protected void preencherDadosTela(FerramentaSoftware objeto) throws NucleoRegraNegocioExcecao {
 		tbNome.setValue(objeto.getNome());
 		cbAtivo.setChecked(objeto.isAtivo());
-		listKRecurso.setObjetoSelecionado(objeto.getKFerramentaSoftware());
+		listKRecurso.setObjetoSelecionado(objeto.getkFerramentaSoftware());
 		cbInterna.setChecked(objeto.isInterna());
 		cbDisponivelApenasParaProjetos.setChecked(objeto.isDisponivelApenasParaProjetos());
 		tbCaminho.setValue(objeto.getCaminho());

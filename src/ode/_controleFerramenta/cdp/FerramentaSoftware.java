@@ -72,10 +72,10 @@ public class FerramentaSoftware extends ObjetoPersistente {
 	}
 	
     @ManyToOne
-    public KFerramentaSoftware getKFerramentaSoftware() {
+    public KFerramentaSoftware getkFerramentaSoftware() {
     	return this.kFerramentaSoftware;
     }
-    public void setKFerramentaSoftware(KFerramentaSoftware kFerramentaSoftware) {
+    public void setkFerramentaSoftware(KFerramentaSoftware kFerramentaSoftware) {
     	this.kFerramentaSoftware = kFerramentaSoftware;
     }
 }
