@@ -3,9 +3,9 @@ package ode._infraestruturaBase.ciu;
 import java.io.Serializable;
 import java.util.List;
 
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabpanel;
-import org.zkoss.zul.impl.XulElement;
 
 public class NucleoTab implements Serializable {
 
@@ -23,15 +23,15 @@ public class NucleoTab implements Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<XulElement> getConteudo() {
-		return (List<XulElement>)this.tabpanel.getChildren();
+	public List<Component> getConteudo() {
+		return (List<Component>)this.tabpanel.getChildren();
 	}
 	
-	public void addElemento(XulElement elemento) {
-		elemento.setParent(this.tabpanel);
+	public void addElemento(Component elemento) {
+		this.tabpanel.appendChild(elemento);
 	}
 
-	public void setConteudoTab(XulElement elemento) {
+	public void setConteudoTab(Component elemento) {
 		this.tabpanel.getChildren().clear();
 		addElemento(elemento);
 	}
