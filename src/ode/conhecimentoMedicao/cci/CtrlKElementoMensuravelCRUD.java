@@ -6,10 +6,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
-import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKElementoMensuravel;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKObjetivoEstrategico;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cih.FormDadosKElementoMensuravel;
 import ode.conhecimentoMedicao.cih.PainelCRUDKElementoMensuravel;
 import ode._infraestruturaBase.util.NucleoMensagens;
@@ -26,8 +23,6 @@ public class CtrlKElementoMensuravelCRUD extends CtrlCRUD<KElementoMensuravel>{
 	@Autowired
 	AplCadastrarKElementoMensuravel apl;
 	
-	@Autowired
-	AplCadastrarKTipoEntidadeMensuravel aplCadastrarKTipoEntidadeMensuravel;
 	
 	private String tituloJanelaDados = "Elemento Mensuravel";
 	private String tituloJanelaPrincipal = "Elemento Mensuravel";
@@ -60,10 +55,6 @@ public class CtrlKElementoMensuravelCRUD extends CtrlCRUD<KElementoMensuravel>{
 	@Override
 	public KElementoMensuravel factoryObjetoDados() {
 		return new KElementoMensuravel();
-	}
-
-	public AplCadastrarKTipoEntidadeMensuravel getAplKTipoEntidadeMensuravel() {
-		return aplCadastrarKTipoEntidadeMensuravel;
 	}
 
 	@Override

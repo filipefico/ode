@@ -18,17 +18,11 @@ import org.zkoss.zul.Vbox;
 import ode.conhecimento.processo.cdp.KProcesso;
 import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKNecessidadeInformacaoCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
 import ode.conhecimentoMedicao.cdp.KEscala;
-import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
-import ode.conhecimentoMedicao.cdp.KObjetivoMedicao;
-import ode.conhecimentoMedicao.cdp.KTipoEntidadeMensuravel;
+import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
 import ode.conhecimentoMedicao.cdp.KValorEscala;
 import ode.conhecimentoMedicao.cdp.TipoEscala;
-import ode.conhecimentoMedicao.cdp.TipoObjetivoMedicao;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKObjetivoMedicao;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKValorEscala;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.ciu.NucleoTab;
@@ -46,19 +40,21 @@ public class FormDadosKEscala extends FormularioDadosCRUD<KEscala>{
 	private NucleoMultipleListBox<KValorEscala> ckVal = new NucleoMultipleListBox<KValorEscala>();
 	private NucleoListbox<TipoEscala> tipo = new NucleoListbox<TipoEscala>();
 	private GridDados gridDadosCadastro = new GridDados();
-	private CtrlKValorEscalaCRUD ctrlV;
+	private CtrlKEscalaCRUD ctrlE;
 	private EventListener onclick = new EventListener() {
 		
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			ctrlV = new CtrlKValorEscalaCRUD();
-			ctrlV = (CtrlKValorEscalaCRUD) SpringUtil.getApplicationContext().getBean(ctrlV.getClass());
+			CtrlKValorEscalaCRUD ctrlV;
+			ctrlV = (CtrlKValorEscalaCRUD) SpringUtil.getApplicationContext().getBean(ctrlE.getCtrlValorEscala().getClass());
 			ctrlV.iniciar();
+			ctrlV.setControladorEscala(ctrlE);
 		}
 	};
 	
 	
 	protected List<NucleoTab> definirTabs() {
+		ctrlE = (CtrlKEscalaCRUD) this.getControlador();
 		// Cria a nova lista
 		List<NucleoTab> listaTabs = new ArrayList<NucleoTab>();
 
@@ -146,6 +142,14 @@ public class FormDadosKEscala extends FormularioDadosCRUD<KEscala>{
 	protected void configurarConstraints() {
 		tbNome.setConstraint("no empty");		
 		tbDescricao.setConstraint("no empty");
+	}
+	
+
+	public void atualizarValorEscala() {
+		CtrlKEscalaCRUD ctrl = (CtrlKEscalaCRUD) this.getControlador();
+		AplCadastrarKValorEscala apl =  ctrl.getAplCadastrarKValorEscala();
+		Collection<KValorEscala> valores = apl.recuperarTodos();
+		ckVal.setObjetos(valores);
 	}
 
 }

@@ -8,6 +8,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import ode.conhecimentoMedicao.cdp.KUnidadeMedida;
 import ode.conhecimentoMedicao.cdp.KValorEscala;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKValorEscala;
+import ode.conhecimentoMedicao.cih.FormDadosKEscala;
 import ode.conhecimentoMedicao.cih.FormDadosKValorEscala;
 import ode.conhecimentoMedicao.cih.PainelCRUDKValorEscala;
 import ode._infraestruturaBase.util.NucleoMensagens;
@@ -27,6 +28,7 @@ public class CtrlKValorEscalaCRUD extends CtrlCRUD<KValorEscala>{
 	
 	private String tituloJanelaDados = "Cadastrar Valor de Escala";
 	private String tituloJanelaPrincipal = "Cadastrar Valor de Escala";
+	private CtrlKEscalaCRUD ctrlE;
 	
 	@Override
 	public String definirTituloJanelaDados() {
@@ -83,6 +85,16 @@ public class CtrlKValorEscalaCRUD extends CtrlCRUD<KValorEscala>{
 
 	public void callbackAcaoSalvar() {
 		super.acaoSalvar();
+	}
+	
+	@Override
+	public void atualizarPesquisa() {
+		super.atualizarPesquisa();
+		if(ctrlE!=null){this.ctrlE.atualizarFormulario();}
+	}
+	
+	public void setControladorEscala(CtrlKEscalaCRUD ctrl){
+		ctrlE = ctrl;
 	}
 
 }

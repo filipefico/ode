@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
-import ode.conhecimentoMedicao.cdp.KTipoEntidadeMensuravel;
+import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cgd.KElementoMensuravelDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -25,7 +25,7 @@ public class AplCadastrarKElementoMensuravel extends AplCRUD<KElementoMensuravel
 	}
 	
 	public boolean relacionamentoComMedida(KElementoMensuravel objeto){
-		return dao.getRelacionamentoMedida(objeto).isEmpty();
+		return !dao.getRelacionamentoMedida(objeto).isEmpty();
 	}
 
 	@Override

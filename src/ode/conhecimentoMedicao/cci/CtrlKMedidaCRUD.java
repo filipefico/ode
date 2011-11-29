@@ -14,16 +14,14 @@ import org.zkoss.zul.Vlayout;
 import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KMedida;
-import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
-import ode.conhecimentoMedicao.cdp.KTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKElementoMensuravel;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKEscala;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKMedida;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKNecessidadeInformacao;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKUnidadeMedida;
 import ode.conhecimentoMedicao.cih.FormDadosKMedida;
 import ode.conhecimentoMedicao.cih.PainelCRUDKMedida;
+import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cgt.AplCadastrarKNecessidadeInformacao;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -43,9 +41,6 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 	
 	@Autowired
 	AplCadastrarKUnidadeMedida aplKUnidadeMedida;
-	
-	@Autowired
-	AplCadastrarKTipoEntidadeMensuravel aplKTipoEntidadeMensuravel;
 	
 	@Autowired
 	AplCadastrarKElementoMensuravel aplKElementoMensuravel;
@@ -94,10 +89,6 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 
 	public AplCadastrarKUnidadeMedida getAplKUnidadeMedida() {
 		return aplKUnidadeMedida;
-	}
-
-	public AplCadastrarKTipoEntidadeMensuravel getAplKTipoEntidadeMensuravel() {
-		return aplKTipoEntidadeMensuravel;
 	}
 	
 	public AplCadastrarKElementoMensuravel getAplKElementoMensuravel(){

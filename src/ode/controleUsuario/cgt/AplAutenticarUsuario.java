@@ -33,14 +33,9 @@ import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKMetodoAnaliticoCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKNecessidadeInformacaoCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKObjetivoEstrategicoCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKObjetivoMedicaoCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKObjetivoSoftwareCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKPeriodicidadeCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKProcedimentoAnaliseMedicaoCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKProcedimentoMedicaoCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKTipoEntidadeMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKUnidadeMedidaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
 import ode.controleProjeto.cdp.Projeto;
@@ -52,6 +47,12 @@ import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.cdp.Usuario;
 import ode.controleUsuario.cgd.UsuarioDAO;
 import ode.controleUsuario.ciu.CtrlUsuarioCRUD;
+import ode.medicao.EntidadeMensuravel.cci.CtrlEntidadeMensuravel;
+import ode.medicao.planejamentoMedicao.cci.CtrlKNecessidadeInformacaoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlKObjetivoEstrategicoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlKObjetivoMedicaoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlKObjetivoSoftwareCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
 import ode.processoPadrao.ciu.CtrlDefinirProcessoPadrao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,7 +138,6 @@ public class AplAutenticarUsuario {
 					.addSubfuncionalidade(criar("Necessidade de Informacao").setCtrl(CtrlKNecessidadeInformacaoCRUD.class))
 					.addSubfuncionalidade(criar("Medida")
 							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
-							.addSubfuncionalidade(criar("Tipo de Entidade Mensurável").setCtrl(CtrlKTipoEntidadeMensuravelCRUD.class))
 							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
 							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
 							)
@@ -153,6 +153,16 @@ public class AplAutenticarUsuario {
 					.addSubfuncionalidade(criar("Periodicidade").setCtrl(CtrlKPeriodicidadeCRUD.class))
 				)
 		);
+		
+		funcionalidades.add(criar("Medição")
+				.addSubfuncionalidade(criar("Entidade Mensuráveis").setCtrl(CtrlEntidadeMensuravel.class)
+					)
+				.addSubfuncionalidade(criar("Planejamento")
+					.addSubfuncionalidade(criar("Elaborar Plano de Medição da Organização").setCtrl(CtrlPlanoMedicaoOrganizacao.class)
+					)
+				)
+		);
+		
 		funcionalidades.add(criar("Processo Padrão")
 			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
 		);

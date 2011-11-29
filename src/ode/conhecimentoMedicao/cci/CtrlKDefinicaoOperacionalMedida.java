@@ -14,6 +14,7 @@ import org.zkoss.zul.impl.XulElement;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaBase.excecao.CtrlExcecoes;
+import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -31,36 +32,41 @@ import ode.conhecimentoMedicao.cgt.AplCadastrarKProcedimentoMedicao;
 import ode.conhecimentoMedicao.cih.FormDadosKDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cih.ListagemKDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cih.PainelCRUDKDefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cgt.AplCadastrarKObjetivoMedicao;
 
 @Controller(CtrlKDefinicaoOperacionalMedida.NOME)
-public class CtrlKDefinicaoOperacionalMedida extends CtrlCRUD<KDefinicaoOperacionalMedida>{
+public class CtrlKDefinicaoOperacionalMedida extends
+		CtrlCRUD<KDefinicaoOperacionalMedida> {
 
 	public static final String NOME = "CtrlKDefinicaoOperacionalMedida";
-	
+
 	protected NucleoTab aba;
 	protected CtrlKMedidaCRUD ctrlKMedida;
-	
+
 	@Autowired
 	AplCadastrarKDefinicaoOperacionalMedida apl;
-	
+
 	@Autowired
 	AplCadastrarKProcedimentoMedicao aplKProcedimentoMedicao;
-	
+
 	@Autowired
 	AplCadastrarKRecursoHumano aplKRecursoHumano;
-	
+
 	@Autowired
 	AplCadastrarKAtividade aplKAtividade;
-	
+
 	@Autowired
 	AplCadastrarKPeriodicidade aplKPeriodicidade;
-	
+
 	@Autowired
 	AplCadastrarKProcedimentoAnaliseMedicao aplKProcedimentoAnaliseMedicao;
-	
+
+	@Autowired
+	AplCadastrarKObjetivoMedicao aplKObjetivoMedicao;
+
 	public final String tituloJanelaDados = "Definição Operacional de Medida";
-	
-	public ListagemKDefinicaoOperacionalMedida getListagemSimples(){
+
+	public ListagemKDefinicaoOperacionalMedida getListagemSimples() {
 		return new ListagemKDefinicaoOperacionalMedida();
 	}
 
@@ -72,26 +78,27 @@ public class CtrlKDefinicaoOperacionalMedida extends CtrlCRUD<KDefinicaoOperacio
 
 		atualizarPesquisa();
 	};
-	
-	public void definirAba(NucleoTab tab){
+
+	public void definirAba(NucleoTab tab) {
 		aba = tab;
 	}
-	
+
 	@Override
 	public void atualizarPesquisa() {
-		if(painelCRUD.getListagem().getObjetos() != null){
+		if (painelCRUD.getListagem().getObjetos() != null) {
 			painelCRUD.getListagem().preencherLista();
-		}else{
-			painelCRUD.getListagem().setObjetos(new ArrayList<KDefinicaoOperacionalMedida>());
+		} else {
+			painelCRUD.getListagem().setObjetos(
+					new ArrayList<KDefinicaoOperacionalMedida>());
 		}
 	}
-	
-	public void atualizarPesquisa(KMedida med){
-		Collection<KDefinicaoOperacionalMedida> objetos =((AplCadastrarKDefinicaoOperacionalMedida)getAplCRUD()).recuperarRelacionadosMedida(med);		
+
+	public void atualizarPesquisa(KMedida med) {
+		Collection<KDefinicaoOperacionalMedida> objetos = ((AplCadastrarKDefinicaoOperacionalMedida) getAplCRUD())
+				.recuperarRelacionadosMedida(med);
 		painelCRUD.getListagem().atualizar(objetos);
-		atualizarPesquisa();
 	}
-	
+
 	@Override
 	public String definirTituloJanelaDados() {
 		return tituloJanelaDados;
@@ -121,8 +128,8 @@ public class CtrlKDefinicaoOperacionalMedida extends CtrlCRUD<KDefinicaoOperacio
 	public KDefinicaoOperacionalMedida factoryObjetoDados() {
 		return new KDefinicaoOperacionalMedida();
 	}
-	
-	public AplCadastrarKProcedimentoMedicao getAplKProcedimentoMedicao(){
+
+	public AplCadastrarKProcedimentoMedicao getAplKProcedimentoMedicao() {
 		return aplKProcedimentoMedicao;
 	}
 
@@ -141,14 +148,16 @@ public class CtrlKDefinicaoOperacionalMedida extends CtrlCRUD<KDefinicaoOperacio
 	public AplCadastrarKProcedimentoAnaliseMedicao getAplKProcedimentoAnaliseMedicao() {
 		return aplKProcedimentoAnaliseMedicao;
 	}
-	
+
 	@Override
 	public void acaoSalvar() {
 		try {
 			// passo os dados do formulario para o objeto antes de pega-lo
 			formularioDados.atualizarObjeto();
-			KDefinicaoOperacionalMedida objetoCadastro = formularioDados.getObjetoCadastroDados();
-			Collection<KDefinicaoOperacionalMedida> listaTemp = painelCRUD.getListagem().getObjetos();
+			KDefinicaoOperacionalMedida objetoCadastro = formularioDados
+					.getObjetoCadastroDados();
+			Collection<KDefinicaoOperacionalMedida> listaTemp = painelCRUD
+					.getListagem().getObjetos();
 			listaTemp.add(objetoCadastro);
 			painelCRUD.getListagem().setObjetos(listaTemp);
 			atualizarPesquisa();
@@ -158,22 +167,16 @@ public class CtrlKDefinicaoOperacionalMedida extends CtrlCRUD<KDefinicaoOperacio
 			CtrlExcecoes.tratarExcecao(e);
 		}
 	}
-	
+
 	@Override
 	protected void excluir(Set<Listitem> objetosSelecionados) {
-		Collection<KDefinicaoOperacionalMedida> listtemp = painelCRUD.getListagem().getObjetos();
+		Collection<KDefinicaoOperacionalMedida> listtemp = painelCRUD
+				.getListagem().getObjetos();
 		KDefinicaoOperacionalMedida defItem;
-			for(Listitem item : objetosSelecionados){
-				defItem = (KDefinicaoOperacionalMedida)item.getValue();
-				if(defItem.isPersistente()){
-					try{
-						getAplCRUD().excluir(defItem);
-					}catch (Exception e) {
-						System.out.println("Deu zica");
-					}
-				}
-				listtemp.remove(defItem);
-			}
+		for (Listitem item : objetosSelecionados) {
+			defItem = (KDefinicaoOperacionalMedida) item.getValue();
+			listtemp.remove(defItem);
+		}
 		painelCRUD.getListagem().setObjetos(listtemp);
 		atualizarPesquisa();
 	}
@@ -184,5 +187,9 @@ public class CtrlKDefinicaoOperacionalMedida extends CtrlCRUD<KDefinicaoOperacio
 
 	public Collection<KDefinicaoOperacionalMedida> getListagemKDefinicaoOperacional() {
 		return painelCRUD.getListagem().getObjetos();
+	}
+
+	public AplCadastrarKObjetivoMedicao getAplMedicao() {
+		return aplKObjetivoMedicao;
 	}
 }
