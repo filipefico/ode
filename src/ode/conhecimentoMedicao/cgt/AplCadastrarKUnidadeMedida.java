@@ -3,7 +3,6 @@ package ode.conhecimentoMedicao.cgt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
 import ode.conhecimentoMedicao.cdp.KUnidadeMedida;
 import ode.conhecimentoMedicao.cgd.KUnidadeMedidaDAO;
 import ode._infraestruturaBase.cgd.DAOBase;

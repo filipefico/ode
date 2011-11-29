@@ -26,7 +26,7 @@ import ode.conhecimentoMedicao.cci.CtrlKDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cci.CtrlKProcedimentoMedicaoCRUD;
 import ode.conhecimentoMedicao.cdp.AplicacaoDefinicaoOperacional;
 import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
-import ode.conhecimentoMedicao.cdp.KObjetivoMedicao;
+import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
 import ode.conhecimentoMedicao.cdp.KPeriodicidade;
 import ode.conhecimentoMedicao.cdp.KProcedimentoAnaliseMedicao;
 import ode.conhecimentoMedicao.cdp.KProcedimentoMedicao;
@@ -86,9 +86,9 @@ public class FormDadosKDefinicaoOperacionalMedida extends FormularioDadosCRUD<KD
 		lbAplicacao.setObjetos(AplicacaoDefinicaoOperacional.values());
 		lbAplicacao.selecionarPrimeiroElemento();
 		lbAplicacao.setCheckmark(true);
-		gridDadosCadastro.adicionarLinha(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_APLICACAO_DEFINICAO_OPERACIONAL), lbAplicacao);
+		gridDadosCadastro.adicionarLinhaObrigatoria(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_APLICACAO_DEFINICAO_OPERACIONAL), lbAplicacao);
 		
-		gridDadosCadastro.adicionarLinha(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DATA),dbData);
+		gridDadosCadastro.adicionarLinhaObrigatoria(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_DATA),dbData);
 		
 		tbIntervalo.setWidth("385px");
 		gridDadosCadastro.adicionarLinha(NucleoMensagens.getMensagem(NucleoMensagens.TERMO_INTERVALO), tbIntervalo);
@@ -100,15 +100,17 @@ public class FormDadosKDefinicaoOperacionalMedida extends FormularioDadosCRUD<KD
 		//////////////////////////////////////////
 		///Objetivos
 		//////////////////////////////////////////
-		/*NucleoTab objetivosTab = new NucleoTab();
+		NucleoTab objetivosTab = new NucleoTab();
 		
 		objetivosTab.setNomeTab("Objetivos");
 		
-		Collection<KObjetivoMedicao> objs = this.getControlador().getAplMedicao;
+		Collection<KObjetivoMedicao> objs = ((CtrlKDefinicaoOperacionalMedida)this.getControlador()).getAplMedicao().recuperarTodos();
 		
 		lbObjetivos.setObjetos(objs);
 		
-		tabs.add(objetivosTab);*/
+		objetivosTab.setConteudoTab(lbObjetivos);
+		
+		tabs.add(objetivosTab);
 		//////////////////////////////////////////
 		Collection<KRecursoHumano> humanos = ((CtrlKDefinicaoOperacionalMedida)this.getControlador()).getAplKRecursoHumano().recuperarTodos();
 		Collection<KAtividade> atividades = ((CtrlKDefinicaoOperacionalMedida)this.getControlador()).getAplKAtividade().recuperarTodos();
@@ -123,19 +125,19 @@ public class FormDadosKDefinicaoOperacionalMedida extends FormularioDadosCRUD<KD
 		GridDados execucaoGridDados = new GridDados();
 		
 		cbProcMed.setObjetos(((CtrlKDefinicaoOperacionalMedida)this.getControlador()).getAplKProcedimentoMedicao().recuperarTodos());
-		cbProcMed.selecionarPrimeiroElemento();
+		if(cbProcMed.getItemCount()>0){cbProcMed.selecionarPrimeiroElemento();}
 		cbProcMed.adicionaCampoNulo();
 		execucaoGridDados.adicionarLinha("Procedimento", cbProcMed);
 		cbRespMed.setObjetos(humanos);
-		cbRespMed.selecionarPrimeiroElemento();
+		if(cbRespMed.getItemCount()>0){cbRespMed.selecionarPrimeiroElemento();}
 		cbRespMed.adicionaCampoNulo();
 		execucaoGridDados.adicionarLinha("Responsável", cbRespMed);
 		cbMomentMed.setObjetos(atividades);
-		cbMomentMed.selecionarPrimeiroElemento();
+		if(cbMomentMed.getItemCount()>0){cbMomentMed.selecionarPrimeiroElemento();}
 		cbMomentMed.adicionaCampoNulo();
 		execucaoGridDados.adicionarLinha("Momento", cbMomentMed);
 		cbPeriodMed.setObjetos(periodicidades);
-		cbPeriodMed.selecionarPrimeiroElemento();
+		if(cbPeriodMed.getItemCount()>0){cbPeriodMed.selecionarPrimeiroElemento();}
 		cbPeriodMed.adicionaCampoNulo();
 		execucaoGridDados.adicionarLinha("Período", cbPeriodMed);
 		
@@ -153,16 +155,16 @@ public class FormDadosKDefinicaoOperacionalMedida extends FormularioDadosCRUD<KD
 		GridDados analiseGridDados = new GridDados();
 		
 		cbProcAnali.setObjetos(((CtrlKDefinicaoOperacionalMedida)this.getControlador()).getAplKProcedimentoAnaliseMedicao().recuperarTodos());
-		cbProcAnali.selecionarPrimeiroElemento();
+		if(cbProcAnali.getItemCount()>0){cbProcAnali.selecionarPrimeiroElemento();}
 		analiseGridDados.adicionarLinha("Procedimento", cbProcAnali);
 		cbRespAnali.setObjetos(humanos);
-		cbRespAnali.selecionarPrimeiroElemento();
+		if(cbRespAnali.getItemCount()>0){cbRespAnali.selecionarPrimeiroElemento();}
 		analiseGridDados.adicionarLinha("Responsável", cbRespAnali);
 		cbMomentAnali.setObjetos(atividades);
-		cbMomentAnali.selecionarPrimeiroElemento();
+		if(cbMomentAnali.getItemCount()>0){cbMomentAnali.selecionarPrimeiroElemento();}
 		analiseGridDados.adicionarLinha("Momento", cbMomentAnali);
 		cbPeriodAnali.setObjetos(periodicidades);
-		cbPeriodAnali.selecionarPrimeiroElemento();
+		if(cbPeriodAnali.getItemCount()>0){cbPeriodAnali.selecionarPrimeiroElemento();}
 		analiseGridDados.adicionarLinha("Período", cbPeriodAnali);
 		
 		analiseTab.setConteudoTab(analiseGridDados);
@@ -192,6 +194,8 @@ public class FormDadosKDefinicaoOperacionalMedida extends FormularioDadosCRUD<KD
 		cbRespAnali.setObjetoSelecionado(objeto.getResponsavelAnaliseMedicao());
 		cbMomentAnali.setObjetoSelecionado(objeto.getMomentoAnaliseMedicao());
 		cbPeriodAnali.setObjetoSelecionado(objeto.getPeriodicidadeAnaliseMedicao());
+		
+		lbObjetivos.setObjetosSelecionados(objeto.getObjetivosMedicao());
 	}
 
 	@Override
@@ -212,14 +216,14 @@ public class FormDadosKDefinicaoOperacionalMedida extends FormularioDadosCRUD<KD
 		objeto.setResponsavelAnaliseMedicao(cbRespAnali.getObjetoSelecionado());
 		objeto.setMomentoAnaliseMedicao(cbMomentAnali.getObjetoSelecionado());
 		objeto.setPeriodicidadeAnaliseMedicao(cbPeriodAnali.getObjetoSelecionado());
+		
+		objeto.setObjetivosMedicao(lbObjetivos.getObjetosSelecionados());
 	}
 	
 	@Override
 	protected void configurarConstraints() {
 		tbNome.setConstraint("no empty");
-		tbDescricao.setConstraint("no empty");
 		tbIntervalo.setConstraint("no empty");
-		tbFormula.setConstraint("no empty");
 	}
 
 }

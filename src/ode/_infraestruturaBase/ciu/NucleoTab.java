@@ -6,6 +6,7 @@ import java.util.List;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabpanel;
+import org.zkoss.zul.impl.XulElement;
 
 public class NucleoTab implements Serializable {
 
@@ -29,6 +30,10 @@ public class NucleoTab implements Serializable {
 	
 	public void addElemento(Component elemento) {
 		this.tabpanel.appendChild(elemento);
+	}
+	
+	public XulElement getConteudoTab(){
+		return (XulElement) this.tabpanel.getChildren().get(0);
 	}
 
 	public void setConteudoTab(Component elemento) {

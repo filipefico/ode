@@ -8,11 +8,11 @@ import org.zkoss.zk.ui.event.EventListener;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKEscala;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKValorEscala;
 import ode.conhecimentoMedicao.cih.FormDadosKEscala;
 import ode.conhecimentoMedicao.cih.PainelCRUDKEscala;
 import ode._infraestruturaBase.ciu.CtrlBase;
+import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
@@ -99,6 +99,10 @@ public class CtrlKEscalaCRUD extends CtrlCRUD<KEscala> {
 
 	public void callbackAcaoSalvar() {
 		super.acaoSalvar();
+	}
+
+	public void atualizarFormulario() {
+		((FormDadosKEscala)formularioDados).atualizarValorEscala();
 	}
 	
 }

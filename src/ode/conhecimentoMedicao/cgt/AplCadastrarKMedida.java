@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KMedida;
+import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
 import ode.conhecimentoMedicao.cdp.NaturezaMedida;
 import ode.conhecimentoMedicao.cgd.KDefinicaoOperacionalMedidaDAO;
 import ode.conhecimentoMedicao.cgd.KMedidaDAO;
@@ -29,6 +30,10 @@ public class AplCadastrarKMedida extends AplCRUD<KMedida>{
 		return dao;
 	}
 	
+	public Collection<KMedida> recuperarPorObjetivo(KObjetivoMedicao obj){
+		return dao.recuperarPorObjetivo(obj);
+	}
+	
 	@Override
 	protected void antesSalvar(KMedida objeto) throws NucleoRegraNegocioExcecao {
 		if(objeto.getEscala()==null){
@@ -45,18 +50,6 @@ public class AplCadastrarKMedida extends AplCRUD<KMedida>{
 		}
 		if((objeto.getNaturezaMedida()==NaturezaMedida.DERIVADA)&&(objeto.getDerivadaDe().isEmpty())){
 			throw new NucleoRegraNegocioExcecao(NucleoMensagens.getMensagem(NucleoMensagens.MSG_EMPTY_DERIVADA_ERRO));
-		}
-		
-		for(KDefinicaoOperacionalMedida kdef:objeto.getDefinicoesMedida()){
-			aplKdef.salvar(kdef);
-		}
-	}
-
-	@Override
-	protected void depoisExcluir(KMedida objeto)
-			throws NucleoRegraNegocioExcecao {
-		for(KDefinicaoOperacionalMedida def:objeto.getDefinicoesMedida()){
-			aplKdef.excluir(def);
 		}
 	}
 	

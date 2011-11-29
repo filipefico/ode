@@ -5,29 +5,22 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Caption;
 import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
-import org.zkoss.zul.Listitem;
-
-import ode.conhecimentoMedicao.cci.CtrlKDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
-import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
+import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cdp.KMedida;
-import ode.conhecimentoMedicao.cdp.KMetodoAnalitico;
-import ode.conhecimentoMedicao.cdp.KNecessidadeInformacao;
-import ode.conhecimentoMedicao.cdp.KTipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cdp.KUnidadeMedida;
 import ode.conhecimentoMedicao.cdp.NaturezaMedida;
+import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cdp.TipoEscala;
+import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.GridDados;
@@ -44,7 +37,7 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 	private Textbox tbMnemonico = new Textbox();
 	private NucleoListbox<KUnidadeMedida> lbUnidadeMedida = new NucleoListbox<KUnidadeMedida>();
 	private NucleoListbox<NaturezaMedida> lbNaturezaMedida = new NucleoListbox<NaturezaMedida>();
-	private NucleoMultipleListBox<KTipoEntidadeMensuravel> lbTipoMensuravel = new NucleoMultipleListBox<KTipoEntidadeMensuravel>();
+	private NucleoMultipleListBox<TipoEntidadeMensuravel> lbTipoMensuravel = new NucleoMultipleListBox<TipoEntidadeMensuravel>();
 	private NucleoMultipleListBox<KNecessidadeInformacao> lbNecessidadeInformacao = new NucleoMultipleListBox<KNecessidadeInformacao>();
 	private NucleoListbox<KElementoMensuravel> lbElementoMensuravel = new NucleoListbox<KElementoMensuravel>();
 	private NucleoListbox<TipoEscala> lbTipoEscala = new NucleoListbox<TipoEscala>();
@@ -58,8 +51,8 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			KTipoEntidadeMensuravel tipo = lbTipoMensuravel.getObjetoSelecionado();
-			Collection<KElementoMensuravel> eleMens = ctrl.getAplKTipoEntidadeMensuravel().recuperarPorTipo(tipo);
+			TipoEntidadeMensuravel tipo = lbTipoMensuravel.getObjetoSelecionado();
+			Collection<KElementoMensuravel> eleMens = ctrl.getAplKElementoMensuravel().recuperarTodos();
 			lbElementoMensuravel.detach();
 			lbElementoMensuravel = new NucleoMultipleListBox<KElementoMensuravel>();
 			gbElementoMensuravel.appendChild(lbElementoMensuravel);
@@ -175,9 +168,9 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		
 		gbTipoEntidade.appendChild(new Caption("Tipo Entidade Mensuravel"));
 		
-		lbTipoMensuravel.setObjetos(ctrl.getAplKTipoEntidadeMensuravel().recuperarTodos());
+		lbTipoMensuravel.setObjetos(Arrays.asList(TipoEntidadeMensuravel.values()));
 		lbTipoMensuravel.addEventListener("onSelect", onSelectetTipoMensuravel);
-		lbTipoMensuravel.selecionarPrimeiroElemento();
+		if(lbTipoMensuravel.getItemCount()>0){lbTipoMensuravel.selecionarPrimeiroElemento();}
 		gbTipoEntidade.appendChild(lbTipoMensuravel);
 		
 		gbElementoMensuravel = new Groupbox();
@@ -309,7 +302,7 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		objeto.setDerivadaDe(lbDerivada.getObjetosSelecionados());
 		objeto.setMedidasCorrelatas(lbCorrelata.getObjetosSelecionados());
 		objeto.setNecessidadesInformacao(lbNecessidadeInformacao.getObjetosSelecionados());
-		objeto.setDefinicoesMedida(((CtrlKMedidaCRUD)this.getControlador()).getListagemKDefinicaoOperacional());
+		objeto.setDefinicoesMedida(new HashSet<KDefinicaoOperacionalMedida>(((CtrlKMedidaCRUD)this.getControlador()).getListagemKDefinicaoOperacional()));
 	}
 
 	@Override

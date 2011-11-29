@@ -1,12 +1,13 @@
 package ode.conhecimentoMedicao.cgd;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.stereotype.Repository;
 
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KMedida;
-import ode.conhecimentoMedicao.cdp.KTipoEntidadeMensuravel;
+import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 
 @Repository

@@ -1,15 +1,18 @@
 package ode.conhecimentoMedicao.cih;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Textbox;
 
 import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
-import ode.conhecimentoMedicao.cdp.KTipoEntidadeMensuravel;
-import ode.conhecimentoMedicao.cgt.AplCadastrarKTipoEntidadeMensuravel;
+import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
+import ode.medicao.EntidadeMensuravel.cdp.EntidadeMensuravel;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.GridDados;
@@ -21,7 +24,16 @@ public class FormDadosKElementoMensuravel extends FormularioDadosCRUD<KElementoM
 	
 	private Textbox tbNome = new Textbox();
 	private Textbox tbDescricao = new Textbox();
-	private NucleoMultipleListBox<KTipoEntidadeMensuravel> ck = new NucleoMultipleListBox<KTipoEntidadeMensuravel>();
+	private NucleoMultipleListBox<TipoEntidadeMensuravel> ck = new NucleoMultipleListBox<TipoEntidadeMensuravel>();
+	private NucleoMultipleListBox<EntidadeMensuravel> ckentidades = new NucleoMultipleListBox<EntidadeMensuravel>();
+	
+	
+	private class SelectionChanged implements EventListener{
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			//ckentidades.setObjetos()
+		}
+	}
 	
 	@Override
 	protected List<NucleoTab> definirTabs() {
@@ -53,24 +65,34 @@ public class FormDadosKElementoMensuravel extends FormularioDadosCRUD<KElementoM
 				tabDadosCadastro.setConteudoTab(gridDadosCadastro);
 				
 				// ////////////////////////////
-				// Dados Cadastro - Objetivos Estrategicos Relacionados
+				// Dados Cadastro - Tipo de entidade Mensuravel
 				// ////////////////////////////
 				NucleoTab tabDadosObjetivos = new NucleoTab();
 				
-				tabDadosObjetivos.setNomeTab("Aba temporaria...");
+				tabDadosObjetivos.setNomeTab("Tipo de Entidade Mensurável");
 				
-				
-				CtrlKElementoMensuravelCRUD ctrl = (CtrlKElementoMensuravelCRUD) this.getControlador();
-				AplCadastrarKTipoEntidadeMensuravel apl =  ctrl.getAplKTipoEntidadeMensuravel();
-				Collection<KTipoEntidadeMensuravel> tipos = apl.recuperarTodos();
+				Collection<TipoEntidadeMensuravel> tipos = Arrays.asList(TipoEntidadeMensuravel.values());
 				
 				ck.setObjetos(tipos);
 				
+				ck.addEventListener("onChange", new SelectionChanged());
+				
 				tabDadosObjetivos.setConteudoTab(ck);
 				////////////////
+				// ////////////////////////////
+				// Dados Cadastro - Entidade Mensuravel
+				// ////////////////////////////
+				/*NucleoTab tabDadosEntidades = new NucleoTab();
+				
+				tabDadosObjetivos.setNomeTab("Entidade Mensurável");
+				
+				tabDadosEntidades.setConteudoTab(ckentidades);*/
+				////////////////
+				
 				
 				listaTabs.add(tabDadosCadastro);
 				listaTabs.add(tabDadosObjetivos);
+				//listaTabs.add(tabDadosEntidades);
 
 				return listaTabs;
 	}

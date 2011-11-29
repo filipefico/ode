@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.zkoss.zul.Textbox;
 
-import ode.conhecimentoMedicao.cdp.KObjetivoEstrategico;
+import ode.medicao.planejamentoMedicao.cdp.KObjetivoEstrategico;
 import ode.conhecimentoMedicao.cdp.KValorEscala;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -76,5 +76,5 @@ public class FormDadosKValorEscala extends FormularioDadosCRUD<KValorEscala> {
 		tbNome.setConstraint("no empty");		
 		tbDescricao.setConstraint("no empty");
 	}
-
+	
 }

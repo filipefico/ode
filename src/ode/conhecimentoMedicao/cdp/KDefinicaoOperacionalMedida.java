@@ -18,6 +18,7 @@ import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimentoMedicao.cdp.KPeriodicidade;
 import ode.conhecimentoMedicao.cdp.KProcedimentoAnaliseMedicao;
 import ode.conhecimentoMedicao.cdp.KProcedimentoMedicao;
+import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
 
 @Entity
 public class KDefinicaoOperacionalMedida extends Conhecimento{

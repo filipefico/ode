@@ -11,5 +11,4 @@ import ode.conhecimentoMedicao.cdp.KMedida;
 @Repository
 public class KDefinicaoOperacionalMedidaDAOImpl extends DAOBaseImpl<KDefinicaoOperacionalMedida> implements KDefinicaoOperacionalMedidaDAO{
 
-
 }

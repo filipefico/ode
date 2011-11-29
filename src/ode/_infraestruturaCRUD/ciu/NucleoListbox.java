@@ -1,5 +1,6 @@
 package ode._infraestruturaCRUD.ciu;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -125,4 +126,18 @@ public class NucleoListbox<T> extends Listbox implements NucleoColecao<T> {
 		this.appendChild(listitem);	
 	}
 
+	public T removerObjeto(T objeto){
+		Listitem item = this.getItem(objeto);
+		if(item!=null)this.removeChild(item);
+		return (T) item.getValue();
+	}
+
+	public Collection<T> getObjetos() {
+		Collection<T> colecao = new ArrayList<T>();
+		for(Listitem iten:(Collection<Listitem>)this.getItems()){
+			colecao.add((T)iten.getValue());;
+		}
+		return colecao;
+	}
+	
 }

@@ -23,7 +23,7 @@ public class AplCadastrarKValorEscala extends AplCRUD<KValorEscala>{
 	}
 
 	public boolean temRelacaoComEscala(KValorEscala objeto) {
-		return dao.getRelacaoComEscala(objeto).isEmpty();
+		return !dao.getRelacaoComEscala(objeto).isEmpty();
 	}
 	
 	@Override
