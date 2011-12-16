@@ -16,32 +16,19 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 
-public class JanDefinirCompPP {
+public class JanDefinirCompPP extends JanCore {
 
-	private CtrlDefinirProcessoPadrao ctrl;
+	private static final long serialVersionUID = 4849915971877921572L;
 	private JanelaSimples janela;
 
-	public JanDefinirCompPP(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
-			JanelaSimples JanelaSimples) {
+	public JanDefinirCompPP(CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
-		ctrl = ctrlDefinirProcessoPadrao;
-		janela = JanelaSimples;
+		super(ctrlDefinirProcessoPadrao);
+		janela = this;
 
-		configuracaoBasica();
 		configuraElementosJanela();
 		preencherCombobox();// insere os elementos nos combobox's
 		janela.mostrar();
-	}
-
-	private void configuracaoBasica() {
-		janela.setTitle("Definir CompPP");
-		janela.setWidth("450px");
-		janela.setBorder("normal");
-		janela.setClosable(true);
-		janela.setPosition("&quot;center;&quot;;");
-		janela.setSizable(true);
-		janela.setMaximizable(true);
 	}
 
 	private Vbox vbox = new Vbox();
@@ -66,6 +53,8 @@ public class JanDefinirCompPP {
 	private Button buttonCancelar = new Button();
 
 	private void configuraElementosJanela() {
+		janela.setTitle("Definir CompPP");
+
 		labelNome.setValue("Nome");
 		labelDescricao.setValue("Descrição");
 		labelObjetivo.setValue("Objetivo");

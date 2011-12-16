@@ -48,11 +48,11 @@ public class CompPPProcessoSimples extends CompPP implements Cloneable {
 	}
 
 	@ManyToMany(targetEntity = CompPPMacroatividade.class, fetch = FetchType.EAGER)
-	public Set<CompPPMacroatividade> getMacroAtividade() {
+	public Set<CompPPMacroatividade> getMacroAtividades() {
 		return macroAtividades;
 	}
 
-	public void setMacroAtividade(
+	public void setMacroAtividades(
 			Set<CompPPMacroatividade> compPPMacroAtividade) {
 		this.macroAtividades = compPPMacroAtividade;
 	}
@@ -75,10 +75,11 @@ public class CompPPProcessoSimples extends CompPP implements Cloneable {
 	@Override
 	public CompPPProcessoSimples clone() throws CloneNotSupportedException {
 		CompPPProcessoSimples copia = (CompPPProcessoSimples) super.clone();
-		copia.setMacroAtividade(new HashSet<CompPPMacroatividade>());
+		copia.setMacroAtividades(new HashSet<CompPPMacroatividade>());
 
-		for (CompPPMacroatividade ppMacro : this.getMacroAtividade()) {
-			copia.getMacroAtividade().add((CompPPMacroatividade) ppMacro.clone());
+		for (CompPPMacroatividade ppMacro : this.getMacroAtividades()) {
+			copia.getMacroAtividades().add(
+					(CompPPMacroatividade) ppMacro.clone());
 		}
 		return copia;
 	}

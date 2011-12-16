@@ -11,7 +11,6 @@ import javax.persistence.ManyToMany;
 
 import ode.conhecimento.processo.cdp.KProcesso;
 
-
 @Entity
 public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 	private static final long serialVersionUID = 3645553289873117858L;
@@ -19,15 +18,15 @@ public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 	/** Processos Padrão Específicos contidos neste */
 	private Set<CompPPProcessoSimples> processosSimples;
 
-	
 	public CompPPProcessoComplexo() {
 		this.processosSimples = new HashSet<CompPPProcessoSimples>();
 	}
 
-	
 	// Obtém os Processos especificos deste.
-	//@ManyToMany(targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
-	@ManyToMany(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST},targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
+	// @ManyToMany(targetEntity = CompPPProcessoSimples.class, fetch =
+	// FetchType.EAGER)
+	@ManyToMany(cascade = { javax.persistence.CascadeType.MERGE,
+			javax.persistence.CascadeType.PERSIST }, targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
 	public Set<CompPPProcessoSimples> getProcessosSimples() {
 		return processosSimples;
 	}
@@ -74,17 +73,18 @@ public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 
 		return processos;
 	}
-	
+
 	@Override
 	public CompPPProcessoComplexo clone() throws CloneNotSupportedException {
-		
+
 		CompPPProcessoComplexo copia = (CompPPProcessoComplexo) super.clone();
 		copia.setProcessosSimples(new HashSet<CompPPProcessoSimples>());
-		
+
 		for (CompPPProcessoSimples PPsimples : this.getProcessosSimples()) {
-			copia.getProcessosSimples().add((CompPPProcessoSimples) PPsimples.clone());
+			copia.getProcessosSimples().add(
+					(CompPPProcessoSimples) PPsimples.clone());
 		}
-		
+
 		return copia;
 	}
 }

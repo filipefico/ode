@@ -16,16 +16,16 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Vbox;
 
-public class JanSelecionaProcessoPadrao {
-	private CtrlDefinirProcessoPadrao ctrl;
+public class JanSelecionaProcessoPadrao extends JanCore {
+
+	private static final long serialVersionUID = -3690385242625438493L;
 	private JanelaSimples janela;
 	private Listbox listaProcessoPadrao;
 
 	public JanSelecionaProcessoPadrao(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
-			JanelaSimples JanelaSimples) {
-		ctrl = ctrlDefinirProcessoPadrao;
-		janela = JanelaSimples;
+			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+		super(ctrlDefinirProcessoPadrao);
+		janela = this;
 		listaProcessoPadrao = new Listbox();
 		try {
 			janela.doModal();
@@ -33,12 +33,13 @@ public class JanSelecionaProcessoPadrao {
 			e.printStackTrace();
 		}
 
-		configuracaoBasica();
 		configuraElementosJanela();
 		janela.mostrar();
 	}
 
 	private void configuraElementosJanela() {
+		janela.setTitle("Lista de Processos Padrão");
+
 		Vbox vbox = new Vbox();
 		Label labelDefinicao = new Label();
 
@@ -67,21 +68,11 @@ public class JanSelecionaProcessoPadrao {
 
 		Button buttonSelecionar = new Button();
 		buttonSelecionar.setLabel("Selecionar");
-		
+
 		buttonSelecionar.setParent(janela);
-		
+
 		buttonSelecionar.addEventListener("onClick",
 				new EventListnerSelecionar());
-	}
-
-	private void configuracaoBasica() {
-		janela.setTitle("Lista de Processos Padrão");
-		janela.setWidth("450px");
-		janela.setBorder("normal");
-		janela.setClosable(true);
-		janela.setPosition("&quot;center;&quot;;");
-		janela.setSizable(true);
-		janela.setMaximizable(true);
 	}
 
 	class EventListnerSelecionar implements EventListener {
@@ -93,8 +84,9 @@ public class JanSelecionaProcessoPadrao {
 				CompPP compPPSelecionado = (CompPP) ((Listcell) listaProcessoPadrao
 						.getSelectedItem().getChildren().get(0)).getValue();
 				ctrl.setCompPPSelecionado(compPPSelecionado);
-				janela.onClose();//fecha a janela
-				
+				janela.onClose();// fecha a janela
+				ctrl.resetJanelaPrincipal();
+
 			}
 		}
 

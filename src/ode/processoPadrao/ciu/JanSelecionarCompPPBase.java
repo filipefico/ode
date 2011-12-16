@@ -2,7 +2,6 @@ package ode.processoPadrao.ciu;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.processoPadrao.cdp.CompPP;
@@ -10,7 +9,6 @@ import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
 
-import org.zkoss.zhtml.Object;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
@@ -20,37 +18,24 @@ import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 
-public class JanSelecionarCompPPBase {
-	CtrlDefinirProcessoPadrao ctrl;
+public class JanSelecionarCompPPBase extends JanCore {
 	JanelaSimples janela;
 	private Listbox listaProcessoPadrao;
 
 	public JanSelecionarCompPPBase(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
-			JanelaSimples janelaSimples) {
+			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
-		ctrl = ctrlDefinirProcessoPadrao;
-		janela = janelaSimples;
+		super(ctrlDefinirProcessoPadrao);
+		janela = this;
 		listaProcessoPadrao = new Listbox();
 
-		configuracaoBasica();
 		configuraElementosJanela();
-		// listaProcessoPadrao();
 		janela.mostrar();
 	}
 
-	private void configuracaoBasica() {
-		janela.setTitle("Selecionar CompPP Base");
-		janela.setWidth("450px");
-		janela.setHeight("600px");
-		janela.setBorder("normal");
-		janela.setClosable(true);
-		janela.setPosition("&quot;center;&quot;;");
-		janela.setSizable(true);
-		janela.setMaximizable(true);
-	}
-
 	private void configuraElementosJanela() {
+		janela.setTitle("Selecionar CompPP Base");
+
 		listaProcessoPadrao.setCheckmark(true);
 		Listitem itemLista;
 
@@ -92,9 +77,10 @@ public class JanSelecionarCompPPBase {
 									case Messagebox.OK:
 										try {
 											alterarEstruturaCompPP();
-											//ctrl.salvarCompPP(ctrl.getcompPPSelecionado());
-											ctrl.atualizarCompPP(ctrl.getcompPPSelecionado());
-											
+											// ctrl.salvarCompPP(ctrl.getcompPPSelecionado());
+											ctrl.atualizarCompPP(ctrl
+													.getcompPPSelecionado());
+
 										} catch (CloneNotSupportedException e) {
 											e.printStackTrace();
 										}
@@ -148,56 +134,42 @@ public class JanSelecionarCompPPBase {
 	}
 
 	void alterarEstruturaCompPP() throws CloneNotSupportedException {
-		
+
 		if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
-			
+
 			CompPPProcessoComplexo compPPBase = (CompPPProcessoComplexo) ((Listcell) listaProcessoPadrao
 					.getSelectedItem().getChildren().get(0)).getValue();
-			
-			CompPPProcessoComplexo copia =  (CompPPProcessoComplexo) compPPBase.clone();
-			((CompPPProcessoComplexo) ctrl.getcompPPSelecionado()).setProcessosSimples(copia.getProcessosSimples());
+
+			CompPPProcessoComplexo copia = (CompPPProcessoComplexo) compPPBase
+					.clone();
+			((CompPPProcessoComplexo) ctrl.getcompPPSelecionado())
+					.setProcessosSimples(copia.getProcessosSimples());
 			copia = null;
-		
-		}else if(ctrl.getcompPPSelecionado() instanceof CompPPProcessoSimples) {
-			
+
+		} else if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoSimples) {
+
 			CompPPProcessoSimples compPPBase = (CompPPProcessoSimples) ((Listcell) listaProcessoPadrao
 					.getSelectedItem().getChildren().get(0)).getValue();
-			
-			CompPPProcessoSimples copia = (CompPPProcessoSimples) compPPBase.clone();
-			((CompPPProcessoSimples) ctrl.getcompPPSelecionado()).setMacroAtividade(copia.getMacroAtividade());
-			copia=null;
-			
-		
-		}else { /*macroatividade*/
-			
+
+			CompPPProcessoSimples copia = (CompPPProcessoSimples) compPPBase
+					.clone();
+			((CompPPProcessoSimples) ctrl.getcompPPSelecionado())
+					.setMacroAtividades(copia.getMacroAtividades());
+			copia = null;
+
+		} else { /* macroatividade */
+
 			CompPPMacroatividade compPPBase = (CompPPMacroatividade) ((Listcell) listaProcessoPadrao
 					.getSelectedItem().getChildren().get(0)).getValue();
-			
-			CompPPMacroatividade copia = (CompPPMacroatividade) compPPBase.clone();
-			((CompPPMacroatividade) ctrl.getcompPPSelecionado()).setAtividade(copia.getAtividade());
-			copia=null;
-			
+
+			CompPPMacroatividade copia = (CompPPMacroatividade) compPPBase
+					.clone();
+			((CompPPMacroatividade) ctrl.getcompPPSelecionado())
+					.setAtividadeProcessoPadrao(copia
+							.getAtividadeProcessoPadrao());
+			copia = null;
+
 		}
 
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -18,6 +18,7 @@ public interface DAOBase<T extends ObjetoPersistente> {
 	 *            Objeto de domínio.
 	 */
 	public void salvar(T objeto);
+	
 
 	/**
 	 * Exclui um objeto de domínio da mídia persistente.

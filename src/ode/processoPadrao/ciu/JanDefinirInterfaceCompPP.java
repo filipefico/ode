@@ -23,34 +23,26 @@ import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 
-public class JanDefinirInterfaceCompPP {
-	private CtrlDefinirProcessoPadrao ctrl;
+public class JanDefinirInterfaceCompPP extends JanCore {
+	private static final long serialVersionUID = 3035850190447854404L;
 	private JanelaSimples janela;
 	private Listbox listbox;
 
 	public JanDefinirInterfaceCompPP(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
-			JanelaSimples JanelaSimples) {
+			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
-		ctrl = ctrlDefinirProcessoPadrao;
-		janela = JanelaSimples;
+		super(ctrlDefinirProcessoPadrao);
+		janela = this;
 
 		configuracaoBasica();
 		configuraElementosJanela();
 		janela.mostrar();
 	}
 
-	private void configuracaoBasica() {
-		janela.setTitle("Definir CompPP");
-		janela.setWidth("600px");
-		janela.setBorder("normal");
-		janela.setClosable(true);
-		janela.setPosition("&quot;center;&quot;;");
-		janela.setSizable(true);
-		janela.setMaximizable(true);
-	}
-
 	private void configuraElementosJanela() {
+
+		janela.setTitle("Definir CompPP");
+
 		listbox = new Listbox();
 		Button buttonOK = new Button();
 
