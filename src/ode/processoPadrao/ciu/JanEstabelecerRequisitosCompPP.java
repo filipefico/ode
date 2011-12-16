@@ -15,27 +15,27 @@ import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 
-public class JanEstabelecerRequisitosCompPP {
-	private CtrlDefinirProcessoPadrao ctrl;
+public class JanEstabelecerRequisitosCompPP extends JanCore {
+
+	private static final long serialVersionUID = -3624797736187568796L;
 	private JanelaSimples janela;
-	
+
 	private Textbox textBoxNome;
 	private Textbox textBoxDescricao;
 	private Textbox textBoxObjetivos;
 	private Textbox textBoxRequisito;
 
 	public JanEstabelecerRequisitosCompPP(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
-			JanelaSimples JanelaSimples) {
-		ctrl = ctrlDefinirProcessoPadrao;
-		janela = JanelaSimples;
+			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+		super(ctrlDefinirProcessoPadrao);
+		janela = this;
 
-		configuracaoBasica();
 		configuraElementosJanela();
 		janela.mostrar();
 	}
 
 	private void configuraElementosJanela() {
+		janela.setTitle("Estabelecer Requisitos de CompPP");
 
 		Tabpanel tabPanelPropriedades = new Tabpanel();
 		Tabpanel tabPanelRequisitos = new Tabpanel();
@@ -59,10 +59,10 @@ public class JanEstabelecerRequisitosCompPP {
 		});
 		buttonSalvar.setParent(janela);
 	}
-	
+
 	private void salvarDados() {
 		CompPP compPP = ctrl.getcompPPSelecionado();
-		
+
 		compPP.setNome(textBoxNome.getText());
 		compPP.setDescricao(textBoxDescricao.getText());
 		compPP.setObjetivo(textBoxObjetivos.getText());
@@ -149,13 +149,4 @@ public class JanEstabelecerRequisitosCompPP {
 
 	}
 
-	private void configuracaoBasica() {
-		janela.setTitle("Estabelecer Requisitos de CompPP");
-		janela.setWidth("600px");
-		janela.setBorder("normal");
-		janela.setClosable(true);
-		janela.setPosition("&quot;center;&quot;;");
-		janela.setSizable(true);
-		janela.setMaximizable(true);
-	}
 }

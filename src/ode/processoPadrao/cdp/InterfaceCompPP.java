@@ -3,11 +3,7 @@ package ode.processoPadrao.cdp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.jruby.RubyBoolean.True;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
@@ -15,13 +11,12 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 public class InterfaceCompPP extends ObjetoPersistente {
 
 	private static final long serialVersionUID = -1819692208262943582L;
-	String nome="";
-	String descricao="";
-	String objetivo="";
+	String nome = "";
+	String descricao = "";
+	String objetivo = "";
 	CompPP compPP;
 
 	EstruturaCompPP estruturaCompPP;
-		
 
 	public InterfaceCompPP(String nome, String objetivo, String descricao,
 			CompPP compPP) {
@@ -36,8 +31,10 @@ public class InterfaceCompPP extends ObjetoPersistente {
 		estruturaCompPP = new EstruturaCompPP();
 	}
 
-	//@ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
-	@OneToOne(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST})
+	// @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity =
+	// CompPP.class)
+	@OneToOne(cascade = { javax.persistence.CascadeType.MERGE,
+			javax.persistence.CascadeType.PERSIST })
 	public CompPP getCompPP() {
 		return compPP;
 	}
@@ -84,8 +81,9 @@ public class InterfaceCompPP extends ObjetoPersistente {
 	public void setObjetivo(String objetivo) {
 		this.objetivo = objetivo;
 	}
-	
-	@OneToOne(cascade = {javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST}, targetEntity=EstruturaCompPP.class, fetch=FetchType.EAGER, optional=true)
+
+	@OneToOne(cascade = { javax.persistence.CascadeType.MERGE,
+			javax.persistence.CascadeType.PERSIST }, targetEntity = EstruturaCompPP.class, fetch = FetchType.EAGER, optional = true)
 	public EstruturaCompPP getEstruturaCompPP() {
 		return estruturaCompPP;
 	}
@@ -93,7 +91,5 @@ public class InterfaceCompPP extends ObjetoPersistente {
 	public void setEstruturaCompPP(EstruturaCompPP estruturaCompPP) {
 		this.estruturaCompPP = estruturaCompPP;
 	}
-
-
 
 }

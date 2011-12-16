@@ -15,20 +15,19 @@ public class EstruturaCompPP extends ObjetoPersistente {
 	private static final long serialVersionUID = -168687019713089202L;
 
 	private Set<ElementoCompPP> elementosCompPP;
-	
+
 	public EstruturaCompPP() {
 		elementosCompPP = new HashSet<ElementoCompPP>();
 	}
-	
-	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE},fetch=FetchType.EAGER)
+
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	public Set<ElementoCompPP> getElementosCompPP() {
 		return elementosCompPP;
 	}
 
-
 	public void setElementosCompPP(Set<ElementoCompPP> elementosCompPP) {
 		this.elementosCompPP = elementosCompPP;
 	}
-	
 
 }

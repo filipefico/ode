@@ -29,6 +29,10 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements DAOBase<T> {
 	public void salvar(T objeto) {
 		entityManager.persist(objeto);
 	}
+	
+	/*
+	 * Esse metodo primeiro executa um merge e em caso de erro salva.
+	 */
 
 	/*
 	 * (non-Javadoc)

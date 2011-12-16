@@ -11,6 +11,7 @@ import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
+import ode.processoPadrao.cgd.AtividadeProcessoPadraoDAO;
 import ode.processoPadrao.cgd.CompPPDAO;
 import ode.processoPadrao.cgd.CompPPMacroatividadeDAO;
 import ode.processoPadrao.cgd.CompPPProcessoComplexoDAO;
@@ -30,6 +31,9 @@ public class AplDefinirProcessoPadrao {
 	private KProcessoDAO kProcessoDAO;
 	@Autowired
 	private KAtividadeDAO kAtividadeDAO;
+
+	@Autowired
+	private AtividadeProcessoPadraoDAO atividadeProcessoPadraoDAO;
 
 	public void salvarProcessoComplexo(String nome, String descricao,
 			String objetivo) {

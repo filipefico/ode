@@ -43,22 +43,26 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		mostrarJanelaPrincipal();
 	}
 
-	JanDefinirProcessoPadrao janDefinirProcessoPadrao;
+	JanPrincipal janDefinirProcessoPadrao;
 
 	private void mostrarJanelaPrincipal() {
 		// essa janela faz chamadas para abrir as outras janelas.
-		janDefinirProcessoPadrao = new JanDefinirProcessoPadrao(this,
-				factoryJanelaSimples());
+		janDefinirProcessoPadrao = new JanPrincipal(this);
+	}
+
+	public void resetJanelaPrincipal() {
+		janDefinirProcessoPadrao.onClose();
+		mostrarJanelaPrincipal();
 	}
 
 	public void setCompPPSelecionado(CompPP selecionado) {
 		compPPSelecionado = selecionado;
-		janDefinirProcessoPadrao.setCompPPSelecionado();// atualiza informação
-														// na tela.
+		janDefinirProcessoPadrao.criaArvoreCompPP();// atualiza informação
+													// na tela.
 	}
 
 	public void abrirJanDefinirCompPP() {
-		new JanDefinirCompPP(this, factoryJanelaSimples());
+		new JanDefinirCompPP(this);
 	}
 
 	public Collection<KProcesso> getAllKProcesso() {
@@ -97,11 +101,11 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	}
 
 	public void abrirJanEstabelecerRequisitos() {
-		new JanEstabelecerRequisitosCompPP(this, factoryJanelaSimples());
+		new JanEstabelecerRequisitosCompPP(this);
 	}
 
 	public void abrirJanSelecionaProcessoPadrao() {
-		new JanSelecionaProcessoPadrao(this, factoryJanelaSimples());
+		new JanSelecionaProcessoPadrao(this);
 	}
 
 	public CompPP getcompPPSelecionado() {
@@ -109,7 +113,7 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	}
 
 	public void abrirJanDefinirInterfaceCompPP() {
-		new JanDefinirInterfaceCompPP(this, factoryJanelaSimples());
+		new JanDefinirInterfaceCompPP(this);
 	}
 
 	public void atualizarEstruturaCompPP(Set<Conhecimento> selecionados,
@@ -145,11 +149,20 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	}
 
 	public void abrirJanSelecionarCompPPBase() {
-		new JanSelecionarCompPPBase(this, factoryJanelaSimples());
+		new JanSelecionarCompPPBase(this);
 	}
 
 	public void abrirJanIndicarSubProcessos() {
-		new JanIndicarSubProcessos(this, factoryJanelaSimples());
+		new JanIndicarSubProcessos(this);
+	}
+
+	public void abrirJanIndicarSubAtividades() {
+		new JanIndicarSubAtividades(this);
+	}
+
+	public void abrirJanIndicarPreAtividades() {
+		new JanIndicarPreAtividades(this);
+
 	}
 
 	public Collection<CompPP> getAllCompPP() {
@@ -173,4 +186,10 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		this.setCompPPSelecionado(null);
 	}
 
+	public void finalizarDefinicao() {
+		this.getcompPPSelecionado().setEhDefinido(true);
+		this.atualizarCompPP(this.getcompPPSelecionado());
+		janDefinirProcessoPadrao.onClose();
+		this.mostrarJanelaPrincipal();
+	}
 }

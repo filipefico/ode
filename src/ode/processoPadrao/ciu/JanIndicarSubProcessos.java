@@ -1,59 +1,44 @@
 package ode.processoPadrao.ciu;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import ode._infraestruturaCRUD.ciu.JanelaSimples;
+import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.processoPadrao.cdp.CompPP;
+import ode.processoPadrao.cdp.CompPPMacroatividade;
+import ode.processoPadrao.cdp.CompPPProcessoComplexo;
+import ode.processoPadrao.cdp.CompPPProcessoSimples;
+import ode.processoPadrao.cdp.ElementoCompPP;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listitem;
 
-import com.lowagie.text.ListItem;
-
-import ode._infraestruturaCRUD.ciu.JanelaSimples;
-import ode.conhecimento.principal.cdp.Conhecimento;
-import ode.processoPadrao.cdp.CompPP;
-import ode.processoPadrao.cdp.CompPPProcessoComplexo;
-import ode.processoPadrao.cdp.CompPPProcessoSimples;
-import ode.processoPadrao.cdp.ElementoCompPP;
-
-public class JanIndicarSubProcessos {
-	CtrlDefinirProcessoPadrao ctrl;
+public class JanIndicarSubProcessos extends JanCore {
 	JanelaSimples janela;
 	Listbox listaSubProc;
 
 	public JanIndicarSubProcessos(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao,
-			JanelaSimples janelaSimples) {
+			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
-		ctrl = ctrlDefinirProcessoPadrao;
-		janela = janelaSimples;
+		super(ctrlDefinirProcessoPadrao);
+		janela = this;
 
 		listaSubProc = new Listbox();
 
-		configuracaoBasica();
 		conteudo();
 		janela.mostrar();
 
 	}
 
-	private void configuracaoBasica() {
-		janela.setTitle("Indicar subprocessos a serem considerados.");
-		janela.setWidth("450px");
-		janela.setHeight("600px");
-		janela.setBorder("normal");
-		janela.setClosable(true);
-		janela.setPosition("&quot;center;&quot;;");
-		janela.setSizable(true);
-		janela.setMaximizable(true);
-	}
-
 	private void conteudo() {
+		janela.setTitle("Indicar subprocessos a serem considerados.");
+
 		listaSubProc.setCheckmark(true);
 		listaSubProc.setMultiple(true);
 		listaSubProc.setParent(janela);
@@ -83,41 +68,72 @@ public class JanIndicarSubProcessos {
 	}
 
 	private void preencheLista() {
-		Listitem itemLista = null;
-		Set<Listitem> itemAMarcar = new HashSet<Listitem>();
+		Listitem itemListaSubProc = null;
+		Set<Listitem> listItensAMarcar = new HashSet<Listitem>();
 
 		for (CompPP compPP : obtemSubElementos()) {
-			itemLista = new Listitem();
+			itemListaSubProc = new Listitem();
 			Listcell listcell = new Listcell();
-			itemLista.setParent(listaSubProc);
-			itemLista.appendChild(listcell);
+			itemListaSubProc.setParent(listaSubProc);
+			itemListaSubProc.appendChild(listcell);
 
 			listcell.setLabel(compPP.getNome());
 			listcell.setValue(compPP);
 
 			if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
-				// cria lista com subElementos normais
-				Set<CompPPProcessoSimples> processosSimples = ((CompPPProcessoComplexo) ctrl
-						.getcompPPSelecionado()).getProcessosSimples();
-
-				// adiciona subElementos do CompPP Base
-				if (ctrl.getcompPPSelecionado().getCompPPBase() != null) {
-					processosSimples
-							.addAll(((CompPPProcessoComplexo) ((CompPPProcessoComplexo) ctrl
-									.getcompPPSelecionado()).getCompPPBase())
-									.getProcessosSimples());
-
-				}
-				
-				//adiciona os itens na lista
-				if (processosSimples.contains(compPP)) {
-					itemAMarcar.add(itemLista);
-				}
+				preencheSeCompPPComplexo(itemListaSubProc, listItensAMarcar,
+						compPP);
 			}
 
-			//seleciona na lista
-			listaSubProc.setSelectedItems(itemAMarcar); // marca os itens que já
-														// estao selecionados
+			if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoSimples) {
+				preencheSeCompPPSimples(itemListaSubProc, listItensAMarcar,
+						compPP);
+			}
+
+			// seleciona na lista
+			listaSubProc.setSelectedItems(listItensAMarcar); // marca os itens
+																// que já
+			// estao selecionados
+		}
+	}
+
+	protected void preencheSeCompPPComplexo(Listitem itemLista,
+			Set<Listitem> itemAMarcar, CompPP compPP) {
+		// cria lista com subElementos normais
+		Set<CompPPProcessoSimples> processosSimples = ((CompPPProcessoComplexo) ctrl
+				.getcompPPSelecionado()).getProcessosSimples();
+
+		// adiciona subElementos do CompPP Base
+		if (ctrl.getcompPPSelecionado().getCompPPBase() != null) {
+			processosSimples
+					.addAll(((CompPPProcessoComplexo) ((CompPPProcessoComplexo) ctrl
+							.getcompPPSelecionado()).getCompPPBase())
+							.getProcessosSimples());
+
+		}
+
+		// adiciona os itens na lista
+		if (processosSimples.contains(compPP)) {
+			itemAMarcar.add(itemLista);
+		}
+	}
+
+	protected void preencheSeCompPPSimples(Listitem itemLista,
+			Set<Listitem> itemAMarcar, CompPP compPP) {
+		// cria lista com subElementos normais
+		Set<CompPPMacroatividade> macroAtividades = ((CompPPProcessoSimples) ctrl
+				.getcompPPSelecionado()).getMacroAtividades();
+
+		// adiciona subElementos do CompPP Base
+		if (ctrl.getcompPPSelecionado().getCompPPBase() != null) {
+			macroAtividades
+					.addAll(((CompPPProcessoSimples) ((CompPPProcessoSimples) ctrl
+							.getcompPPSelecionado()).getCompPPBase())
+							.getMacroAtividades());
+		}
+		// adiciona os itens na lista
+		if (macroAtividades.contains(compPP)) {
+			itemAMarcar.add(itemLista);
 		}
 	}
 
@@ -144,7 +160,9 @@ public class JanIndicarSubProcessos {
 		// preenche a lista conhecimento.
 		for (ElementoCompPP el : ctrl.getcompPPSelecionado()
 				.getInterfaceCompPP().getEstruturaCompPP().getElementosCompPP()) {
+
 			conhecimento.add(el.getElementoConhecimento());
+
 		}
 
 		// esse if é somente para CompPPProcessoComplexo
@@ -152,12 +170,29 @@ public class JanIndicarSubProcessos {
 			Collection<CompPPProcessoSimples> allSubElementos = ctrl
 					.getAllCompPPProcessoSimples();
 			for (CompPPProcessoSimples cPPsimples : allSubElementos) {
+
 				if (conhecimento.contains(cPPsimples.getTipo())) {
 					subElementosFiltrados.add(cPPsimples);
 				}
+
 			}
 
 		}
+
+		// esse if é somente para CompPPProcessoSimples
+		if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoSimples) {
+			Collection<CompPPMacroatividade> allSubElementos = ctrl
+					.getAllCompPPMacroAtividade();
+			for (CompPPMacroatividade cPPMacroAtv : allSubElementos) {
+
+				if (conhecimento.contains(cPPMacroAtv.getTipo())) {
+					subElementosFiltrados.add(cPPMacroAtv);
+				}
+
+			}
+
+		}
+
 		return subElementosFiltrados;
 	}
 
