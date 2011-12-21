@@ -10,13 +10,17 @@ import java.util.Set;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._infraestruturaBase.ciu.NucleoCombobox;
 import ode._infraestruturaCRUD.ciu.NucleoMultipleListBox;
-import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KMedida;
-import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
+import ode.conhecimentoMedicao.cgd.KMedidaDAO;
+import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoMedicao;
+import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicao;
 import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
 
 import org.apache.commons.collections.list.TreeList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.SelectEvent;
@@ -28,13 +32,19 @@ import org.zkoss.zul.Treecols;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.Treerow;
 
+@Component
 public class ComponenteMedidasPlano extends Tree {
 
 	private Treechildren arvore;
 	private Collection<Treeitem> selecionaveis = new ArrayList<Treeitem>();
-
+	private CtrlPlanoMedicao ctrl;
+	
 	public ComponenteMedidasPlano() {
 		montar();
+	}
+	
+	public void setControlador(CtrlPlanoMedicao ctrl){
+		this.ctrl = ctrl;
 	}
 
 	protected void montar(){
@@ -65,7 +75,7 @@ public class ComponenteMedidasPlano extends Tree {
 	}
 
 	protected Treechildren adicionarLinha(Treechildren pai,
-			KNecessidadeInformacao obj) {
+			NecessidadeInformacao obj) {
 		Treeitem item = new Treeitem();
 		item.setCheckable(false);
 		pai.appendChild(item);
@@ -96,23 +106,23 @@ public class ComponenteMedidasPlano extends Tree {
 		Treecell definicao = new Treecell();
 		linha.appendChild(definicao);
 
-		NucleoCombobox<KDefinicaoOperacionalMedida> lbdom = new NucleoCombobox<KDefinicaoOperacionalMedida>();
+		NucleoCombobox<DefinicaoOperacionalMedida> lbdom = new NucleoCombobox<DefinicaoOperacionalMedida>();
 		lbdom.setObjetos(medida.getDefinicoesMedida());
 		lbdom.setVisible(false);
 		definicao.appendChild(lbdom);
 
 	}
 
-	public void atualizar(Collection<KNecessidadeInformacao> lista) {
+	public void atualizar(Collection<NecessidadeInformacao> lista) {
 		selecionaveis.clear();
 		this.clear();
 		Set<KMedida> medidas;
-		Set<KNecessidadeInformacao> mergered = new HashSet<KNecessidadeInformacao>(
+		Set<NecessidadeInformacao> mergered = new HashSet<NecessidadeInformacao>(
 				lista);
-		for (KNecessidadeInformacao obj : mergered) {
+		for (NecessidadeInformacao obj : mergered) {
 			Treechildren objtivoPai = adicionarLinha(arvore, obj);
 			medidas = new HashSet<KMedida>();
-			for (KMedida med : obj.getMedidas()) {
+			for (KMedida med : ctrl.recuperaMedidas()) {
 				adicionarSubLinha(objtivoPai, med);
 			}
 		}

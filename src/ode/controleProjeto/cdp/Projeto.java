@@ -30,5 +30,9 @@ public class Projeto extends ObjetoPersistente {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	public String toString(){
+		return this.nome;
+	}
 
 }

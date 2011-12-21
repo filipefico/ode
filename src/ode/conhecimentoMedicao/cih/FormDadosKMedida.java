@@ -12,7 +12,6 @@ import org.zkoss.zul.Groupbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
-import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cdp.KMedida;
@@ -20,7 +19,8 @@ import ode.conhecimentoMedicao.cdp.KUnidadeMedida;
 import ode.conhecimentoMedicao.cdp.NaturezaMedida;
 import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cdp.TipoEscala;
-import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.GridDados;
@@ -38,7 +38,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 	private NucleoListbox<KUnidadeMedida> lbUnidadeMedida = new NucleoListbox<KUnidadeMedida>();
 	private NucleoListbox<NaturezaMedida> lbNaturezaMedida = new NucleoListbox<NaturezaMedida>();
 	private NucleoMultipleListBox<TipoEntidadeMensuravel> lbTipoMensuravel = new NucleoMultipleListBox<TipoEntidadeMensuravel>();
-	private NucleoMultipleListBox<KNecessidadeInformacao> lbNecessidadeInformacao = new NucleoMultipleListBox<KNecessidadeInformacao>();
 	private NucleoListbox<KElementoMensuravel> lbElementoMensuravel = new NucleoListbox<KElementoMensuravel>();
 	private NucleoListbox<TipoEscala> lbTipoEscala = new NucleoListbox<TipoEscala>();
 	private NucleoListbox<KEscala> lbEscala = new NucleoListbox<KEscala>();
@@ -144,19 +143,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		
 		listaTabs.add(tabDadosCadastro);
 		
-		
-		//////////////////
-		//Necessidade de informacao
-		/////////////////
-		NucleoTab necessidadeInformacaoTab = new NucleoTab();
-		
-		necessidadeInformacaoTab.setNomeTab("Necessidade de Informacao");
-		
-		lbNecessidadeInformacao.setObjetos((Collection<KNecessidadeInformacao>)ctrl.getAplNecessidadeInformacao().recuperarTodos());
-		
-		necessidadeInformacaoTab.setConteudoTab(lbNecessidadeInformacao);
-		
-		listaTabs.add(necessidadeInformacaoTab);
 		//////////////////
 		//Tipo e entidade mensuravel
 		/////////////////
@@ -282,7 +268,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		lbElementoMensuravel.setObjetoSelecionado(objeto.getPropriedadeMedida());
 		lbDerivada.setObjetosSelecionados(objeto.getDerivadaDe());
 		lbCorrelata.setObjetosSelecionados(objeto.getMedidasCorrelatas());
-		lbNecessidadeInformacao.setObjetosSelecionados(objeto.getNecessidadesInformacao());
 		((CtrlKMedidaCRUD)this.getControlador()).getCtrlKDefinicaoOperacional().atualizarPesquisa(objeto);
 	}
 
@@ -301,8 +286,7 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		}
 		objeto.setDerivadaDe(lbDerivada.getObjetosSelecionados());
 		objeto.setMedidasCorrelatas(lbCorrelata.getObjetosSelecionados());
-		objeto.setNecessidadesInformacao(lbNecessidadeInformacao.getObjetosSelecionados());
-		objeto.setDefinicoesMedida(new HashSet<KDefinicaoOperacionalMedida>(((CtrlKMedidaCRUD)this.getControlador()).getListagemKDefinicaoOperacional()));
+		objeto.setDefinicoesMedida(new HashSet<DefinicaoOperacionalMedida>(((CtrlKMedidaCRUD)this.getControlador()).getListagemKDefinicaoOperacional()));
 	}
 
 	@Override

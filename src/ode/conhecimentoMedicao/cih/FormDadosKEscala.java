@@ -20,7 +20,7 @@ import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
 import ode.conhecimentoMedicao.cdp.KEscala;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoMedicao;
 import ode.conhecimentoMedicao.cdp.KValorEscala;
 import ode.conhecimentoMedicao.cdp.TipoEscala;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKValorEscala;

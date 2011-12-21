@@ -5,11 +5,10 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KMedida;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoMedicao;
+import ode.medicao.planejamentoMedicao.cgt.AplCadastrarDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.NaturezaMedida;
-import ode.conhecimentoMedicao.cgd.KDefinicaoOperacionalMedidaDAO;
 import ode.conhecimentoMedicao.cgd.KMedidaDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -23,15 +22,11 @@ public class AplCadastrarKMedida extends AplCRUD<KMedida>{
 	KMedidaDAO dao;
 	
 	@Autowired
-	AplCadastrarKDefinicaoOperacionalMedida aplKdef;
+	AplCadastrarDefinicaoOperacionalMedida aplKdef;
 	
 	@Override
 	public DAOBase<KMedida> getNucleoDaoBase() {
 		return dao;
-	}
-	
-	public Collection<KMedida> recuperarPorObjetivo(KObjetivoMedicao obj){
-		return dao.recuperarPorObjetivo(obj);
 	}
 	
 	@Override
@@ -44,9 +39,6 @@ public class AplCadastrarKMedida extends AplCRUD<KMedida>{
 		}
 		if(objeto.getPropriedadeMedida()==null){
 			throw new NucleoRegraNegocioExcecao(NucleoMensagens.getMensagem(NucleoMensagens.MSG_EMPTY_PROP_MED_ERRO));
-		}
-		if(objeto.getNecessidadesInformacao().isEmpty()){
-			throw new NucleoRegraNegocioExcecao(NucleoMensagens.getMensagem(NucleoMensagens.MSG_EMPTY_NECES_INFO_ERRO));
 		}
 		if((objeto.getNaturezaMedida()==NaturezaMedida.DERIVADA)&&(objeto.getDerivadaDe().isEmpty())){
 			throw new NucleoRegraNegocioExcecao(NucleoMensagens.getMensagem(NucleoMensagens.MSG_EMPTY_DERIVADA_ERRO));

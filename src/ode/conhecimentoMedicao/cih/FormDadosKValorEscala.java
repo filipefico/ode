@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.zkoss.zul.Textbox;
 
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoEstrategico;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoEstrategico;
 import ode.conhecimentoMedicao.cdp.KValorEscala;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;

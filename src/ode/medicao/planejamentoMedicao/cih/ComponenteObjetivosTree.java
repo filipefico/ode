@@ -8,10 +8,10 @@ import java.util.Set;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.conhecimento.processo.cdp.KProcesso;
-import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoEstrategico;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoMedicao;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoSoftware;
+import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoEstrategico;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoMedicao;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoSoftware;
 
 import org.python.tests.ExceptionTest.Thrower;
 import org.zkoss.zk.ui.event.Event;
@@ -74,16 +74,16 @@ public class ComponenteObjetivosTree extends Tree{
 		item.addEventListener("onOpen", new MarkUnmarkEvent());
 		item.addEventListener("onClick", new SpreadEvent());
 		
-		if(obj instanceof KObjetivoEstrategico){
+		if(obj instanceof ObjetivoEstrategico){
 			estList.add(item);
 			item.setOpen(false);
-		}else if(obj instanceof KObjetivoSoftware){
+		}else if(obj instanceof ObjetivoSoftware){
 			sftList.add(item);
 			item.setOpen(false);
-		}else if(obj instanceof KObjetivoMedicao){
+		}else if(obj instanceof ObjetivoMedicao){
 			medList.add(item);
 			item.setOpen(false);
-		}else if(obj instanceof KNecessidadeInformacao){
+		}else if(obj instanceof NecessidadeInformacao){
 			necInfList.add(item);
 			item.setOpen(false);
 		}else{
@@ -117,17 +117,17 @@ public class ComponenteObjetivosTree extends Tree{
 		public void onEvent(Event arg0) throws Exception {
 			ObjetoPersistente obj= (ObjetoPersistente) ((Treeitem)arg0.getTarget()).getValue();
 			
-			if(obj instanceof KObjetivoEstrategico){
+			if(obj instanceof ObjetivoEstrategico){
 				spread(estList, obj,((Treeitem)arg0.getTarget()).isSelected() );
-			}else if(obj instanceof KObjetivoSoftware){
+			}else if(obj instanceof ObjetivoSoftware){
 				spread(sftList, obj,((Treeitem)arg0.getTarget()).isSelected() );
-			}else if(obj instanceof KObjetivoMedicao){
+			}else if(obj instanceof ObjetivoMedicao){
 				spread(medList, obj,((Treeitem)arg0.getTarget()).isSelected() );
-			}else if(obj instanceof KNecessidadeInformacao){
+			}else if(obj instanceof NecessidadeInformacao){
 				spread(necInfList, obj,((Treeitem)arg0.getTarget()).isSelected() );
-				HashSet<KNecessidadeInformacao> itensRetorno = new HashSet<KNecessidadeInformacao>();
+				HashSet<NecessidadeInformacao> itensRetorno = new HashSet<NecessidadeInformacao>();
 				for(Treeitem tree:necInfList){
-					if(tree.isSelected()) itensRetorno.add((KNecessidadeInformacao)tree.getValue());
+					if(tree.isSelected()) itensRetorno.add((NecessidadeInformacao)tree.getValue());
 				}
 				ev.onEvent(new Event("trocouNecessidade", arg0.getTarget(), itensRetorno));
 			}else{
@@ -154,20 +154,20 @@ public class ComponenteObjetivosTree extends Tree{
 		
 	}
 	
-	public void iniciar(Collection<KObjetivoEstrategico> objetivos){
+	public void iniciar(Collection<ObjetivoEstrategico> objetivos){
 		this.clear();
 		estList = new ArrayList<Treeitem>();
 		sftList = new ArrayList<Treeitem>();
 		medList = new ArrayList<Treeitem>();
 		necInfList = new ArrayList<Treeitem>();
 		procList = new ArrayList<Treeitem>();
-		for(KObjetivoEstrategico est:objetivos){
+		for(ObjetivoEstrategico est:objetivos){
 			Treechildren estChildren = adicionarLinha(arvore, est);
-			for(KObjetivoSoftware sft:est.getObjetivoSoftware()){
+			for(ObjetivoSoftware sft:est.getObjetivoSoftware()){
 				Treechildren sftChildren = adicionarLinha(estChildren, sft);
-				for(KObjetivoMedicao med:sft.getObjetivoMedicao()){
+				for(ObjetivoMedicao med:sft.getObjetivoMedicao()){
 					Treechildren medChildren = adicionarLinha(sftChildren, med);
-					for(KNecessidadeInformacao necInf:med.getNecessidadeInformacao()){
+					for(NecessidadeInformacao necInf:med.getNecessidadeInformacao()){
 						Treechildren necInfChildren = adicionarLinha(medChildren, necInf);
 						for(KProcesso proc:necInf.getProcessos()){
 							adicionarLinha(necInfChildren, proc);
@@ -178,34 +178,34 @@ public class ComponenteObjetivosTree extends Tree{
 		}
 	}
 
-	public Set<KObjetivoEstrategico> getEstrategicosSelecionados() {
-		Set<KObjetivoEstrategico> objsSelect = new HashSet<KObjetivoEstrategico>();
+	public Set<ObjetivoEstrategico> getEstrategicosSelecionados() {
+		Set<ObjetivoEstrategico> objsSelect = new HashSet<ObjetivoEstrategico>();
 		for(Treeitem item:estList){
-			if(item.isSelected())objsSelect.add((KObjetivoEstrategico)item.getValue());
+			if(item.isSelected())objsSelect.add((ObjetivoEstrategico)item.getValue());
 		}
 		return objsSelect;
 	}
 
-	public Collection<KObjetivoSoftware> getSoftwareSelecionados() {
-		Set<KObjetivoSoftware> objsSelect = new HashSet<KObjetivoSoftware>();
+	public Collection<ObjetivoSoftware> getSoftwareSelecionados() {
+		Set<ObjetivoSoftware> objsSelect = new HashSet<ObjetivoSoftware>();
 		for(Treeitem item:sftList){
-			if(item.isSelected())objsSelect.add((KObjetivoSoftware)item.getValue());
+			if(item.isSelected())objsSelect.add((ObjetivoSoftware)item.getValue());
 		}
 		return objsSelect;
 	}
 
-	public Collection<KObjetivoMedicao> getMedicaoSelecionados() {
-		Set<KObjetivoMedicao> objsSelect = new HashSet<KObjetivoMedicao>();
+	public Collection<ObjetivoMedicao> getMedicaoSelecionados() {
+		Set<ObjetivoMedicao> objsSelect = new HashSet<ObjetivoMedicao>();
 		for(Treeitem item:medList){
-			if(item.isSelected())objsSelect.add((KObjetivoMedicao)item.getValue());
+			if(item.isSelected())objsSelect.add((ObjetivoMedicao)item.getValue());
 		}
 		return objsSelect;
 	}
 
-	public Collection<KNecessidadeInformacao> getNecessidadesSelecionadas() {
-		Set<KNecessidadeInformacao> objsSelect = new HashSet<KNecessidadeInformacao>();
+	public Collection<NecessidadeInformacao> getNecessidadesSelecionadas() {
+		Set<NecessidadeInformacao> objsSelect = new HashSet<NecessidadeInformacao>();
 		for(Treeitem item:necInfList){
-			if(item.isSelected())objsSelect.add((KNecessidadeInformacao)item.getValue());
+			if(item.isSelected())objsSelect.add((NecessidadeInformacao)item.getValue());
 		}
 		return objsSelect;
 	}
@@ -216,6 +216,42 @@ public class ComponenteObjetivosTree extends Tree{
 			if(item.isSelected())objsSelect.add((KProcesso)item.getValue());
 		}
 		return objsSelect;
+	}
+
+	public void populaArvore(Collection<ObjetivoEstrategico> objsEstrategico,
+			Collection<ObjetivoSoftware> objsSoftware,
+			Collection<ObjetivoMedicao> objsMedicao,
+			Collection<NecessidadeInformacao> necessidades,
+			Collection<KProcesso> processos) {
+		for(Treeitem itemE:estList){
+			if(objsEstrategico.contains(itemE.getValue())){
+				itemE.setOpen(true);
+				itemE.setSelected(true);
+				for(Treeitem itemS:sftList){
+					if(objsSoftware.contains(itemS.getValue())){
+						itemE.setOpen(true);
+						itemE.setSelected(true);
+						for(Treeitem itemM:medList){
+							if(objsSoftware.contains(itemM.getValue())){
+								itemM.setOpen(true);
+								itemM.setSelected(true);
+								for(Treeitem itemN:necInfList){
+									if(necessidades.contains(itemN.getValue())){
+										itemN.setOpen(true);
+										itemN.setSelected(true);
+										for(Treeitem itemP:procList){
+											if(processos.contains(itemP.getValue())){
+												itemP.setSelected(true);
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 }
