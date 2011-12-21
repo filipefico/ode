@@ -13,6 +13,7 @@ public class ProcessoProjetoEspecificoMensuravel extends EntidadeMensuravel<KPro
 	private final TipoEntidadeMensuravel tipo = TipoEntidadeMensuravel.PROCESSOESPECIFICOPROJETO;
 	
 	private ProcessoPadraoMensuravel processoPadraoMensuravel;
+
 	
 	@Override
 	public TipoEntidadeMensuravel recuperaTipo() {
@@ -27,5 +28,17 @@ public class ProcessoProjetoEspecificoMensuravel extends EntidadeMensuravel<KPro
 	public void setProcessoPadraoMensuravel(ProcessoPadraoMensuravel processoPadraoMensuravel) {
 		this.processoPadraoMensuravel = processoPadraoMensuravel;
 	}
+
+	@Override
+	public KProcesso getEntidade() {
+		return entidade;
+	}
+
+	@Override
+	public void setEntidade(KProcesso entidade) {
+		this.entidade = entidade;
+	}
+
+	
 
 }

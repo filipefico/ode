@@ -11,7 +11,6 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Vlayout;
 
-import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KMedida;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKElementoMensuravel;
@@ -20,8 +19,10 @@ import ode.conhecimentoMedicao.cgt.AplCadastrarKMedida;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKUnidadeMedida;
 import ode.conhecimentoMedicao.cih.FormDadosKMedida;
 import ode.conhecimentoMedicao.cih.PainelCRUDKMedida;
-import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
-import ode.medicao.planejamentoMedicao.cgt.AplCadastrarKNecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cci.CtrlDefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cgt.AplCadastrarNecessidadeInformacao;
 import ode._infraestruturaCRUD.ciu.CtrlCRUD;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
@@ -35,7 +36,7 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 	
 	private final String tituloJanelaDados = "Medida";
 	private final String tituloJanelaPrincipal = "Medida";
-	private CtrlKDefinicaoOperacionalMedida ctrlV;
+	private CtrlDefinicaoOperacionalMedida ctrlV;
 	@Autowired
 	AplCadastrarKMedida apl;
 	
@@ -49,12 +50,12 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 	AplCadastrarKEscala aplKEscala;
 	
 	@Autowired
-	AplCadastrarKNecessidadeInformacao aplKNecessidadeInformacao;
+	AplCadastrarNecessidadeInformacao aplKNecessidadeInformacao;
 	
 	public CtrlKMedidaCRUD(){
 		larguraJanPrincipal = "800px";
 	}
-	public CtrlKDefinicaoOperacionalMedida getCtrlKDefinicaoOperacional(){
+	public CtrlDefinicaoOperacionalMedida getCtrlKDefinicaoOperacional(){
 		return ctrlV;
 	}
 	@Override
@@ -99,16 +100,16 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 		return aplKEscala;
 	}
 
-	public AplCRUD<KNecessidadeInformacao> getAplNecessidadeInformacao() {
+	public AplCRUD<NecessidadeInformacao> getAplNecessidadeInformacao() {
 		return aplKNecessidadeInformacao;
 	}
 	@Override
 	public void iniciar() {
-		ctrlV = (CtrlKDefinicaoOperacionalMedida) SpringUtil.getApplicationContext().getBean(CtrlKDefinicaoOperacionalMedida.class);
+		ctrlV = (CtrlDefinicaoOperacionalMedida) SpringUtil.getApplicationContext().getBean(CtrlDefinicaoOperacionalMedida.class);
 		super.iniciar();
 	};
 	
-	public Collection<KDefinicaoOperacionalMedida> getListagemKDefinicaoOperacional(){
+	public Collection<DefinicaoOperacionalMedida> getListagemKDefinicaoOperacional(){
 		return ctrlV.getListagemKDefinicaoOperacional();
 	}
 	

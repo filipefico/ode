@@ -3,17 +3,24 @@ package ode.medicao.EntidadeMensuravel.cdp;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class EntidadeMensuravel<T extends ObjetoPersistente> extends ObjetoPersistente{
 
-	private T entidade;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4096346535615754341L;
+
 	public abstract TipoEntidadeMensuravel recuperaTipo();
+	protected T entidade;
 	
 	public String toString(){
 		return getEntidade().toString();
@@ -23,12 +30,8 @@ public abstract class EntidadeMensuravel<T extends ObjetoPersistente> extends Ob
 		return this.toString()==o.toString();
 	}
 	
-	public T getEntidade(){
-		return this.entidade;
-	}
+	public abstract T getEntidade();
 	
-	public void setEntidade(T entidade){
-		this.entidade = entidade;
-	}
+	public abstract void setEntidade(T entidade);
 	
 }

@@ -15,4 +15,17 @@ public class RecursoHumanoMensuravel extends EntidadeMensuravel<KRecursoHumano>{
 		return tipo;
 	}
 
+	@Override
+	public KRecursoHumano getEntidade() {
+		return entidade;
+	}
+
+	@Override
+	public void setEntidade(KRecursoHumano entidade) {
+		this.entidade = entidade;
+	}
+
+	
+	
+
 }

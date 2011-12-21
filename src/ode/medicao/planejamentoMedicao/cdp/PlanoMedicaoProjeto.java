@@ -27,4 +27,8 @@ public class PlanoMedicaoProjeto extends PlanoMedicao{
 	public void setPlanoBase(PlanoMedicaoOrganizacao planoBase) {
 		this.planoBase = planoBase;
 	}
+	
+	public String toString(){
+		return "Plano de Medição do "+projeto+" - Versão "+getVersao();
+	}
 }

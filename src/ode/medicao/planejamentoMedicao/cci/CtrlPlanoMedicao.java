@@ -2,36 +2,53 @@ package ode.medicao.planejamentoMedicao.cci;
 
 import java.util.Collection;
 
+import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.conhecimento.processo.cgt.AplCadastrarKRecursoHumano;
-import ode.medicao.planejamentoMedicao.cdp.KObjetivoEstrategico;
+import ode.conhecimentoMedicao.cdp.KMedida;
+import ode.conhecimentoMedicao.cgd.KMedidaDAO;
+import ode.controleProjeto.cdp.Projeto;
+import ode.medicao.planejamentoMedicao.cdp.ObjetivoEstrategico;
 import ode.medicao.planejamentoMedicao.cdp.PlanoMedicao;
 import ode.medicao.planejamentoMedicao.cdp.PlanoMedicaoOrganizacao;
-import ode.medicao.planejamentoMedicao.cgt.AplCadastrarKObjetivoEstrategico;
+import ode.medicao.planejamentoMedicao.cgt.AplCadastrarObjetivoEstrategico;
 import ode.medicao.planejamentoMedicao.cgt.AplElaborarPlanoMedicaoOrganizacao;
+import ode.medicao.planejamentoMedicao.cgt.AplElaborarPlanoMedicaoProjeto;
+import ode.medicao.planejamentoMedicao.cih.PainelPrincipalPlanoMedicao;
 import ode.medicao.planejamentoMedicao.cih.PainelPrincipalPlanoMedicaoOganizacao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public abstract class CtrlPlanoMedicao extends CtrlBase{
-public static final String NOME = "CtrlPlanoMedicaoOrganizacao";
+	
+	protected String title;
 	
 	@Autowired
 	AplElaborarPlanoMedicaoOrganizacao aplPlanoMedicaoOrganizacao;
 	
 	@Autowired
-	AplCadastrarKRecursoHumano aplKRecursoHumano;
+	AplElaborarPlanoMedicaoProjeto aplPlanoMedicaoProjeto;
 	
 	@Autowired
-	AplCadastrarKObjetivoEstrategico aplKObjetivoEstrategico;
+	AplCadastrarRecursoHumano aplRecursoHumano;
+	
+	@Autowired
+	AplCadastrarObjetivoEstrategico aplKObjetivoEstrategico;
+	
+	@Autowired
+	KMedidaDAO medidaDAO;
+	
+	
 	
 	protected JanelaSimples janelaPrincipal;
-	protected PlanoMedicaoOrganizacao objetoAtual;
-	protected PainelPrincipalPlanoMedicaoOganizacao painel;
+	protected PlanoMedicao objetoAtual;
+	protected PainelPrincipalPlanoMedicao painel;
 	
-	public AplCadastrarKRecursoHumano getAplRecursoHumano(){
-		return aplKRecursoHumano;
+	public AplCadastrarRecursoHumano getAplRecursoHumano(){
+		return aplRecursoHumano;
 	}
 	
 	@Override
@@ -47,7 +64,8 @@ public static final String NOME = "CtrlPlanoMedicaoOrganizacao";
 	protected void abrePainelPrincipal() {
 		janelaPrincipal = factoryJanelaSimples();
 		painel.setParent(janelaPrincipal);
-		definirTituloJanelaPrincipal();
+		janelaPrincipal.setTitle("Plano de Medição");
+		//definirTituloJanelaPrincipal();
 		painel.montar();
 		janelaPrincipal.mostrar();
 	}
@@ -57,29 +75,23 @@ public static final String NOME = "CtrlPlanoMedicaoOrganizacao";
 		if(objetoAtual.isPersistente()){
 			janelaPrincipal.setTitle(objetoAtual.toString());
 		}else{
-			janelaPrincipal.setTitle("Novo Plano de Medição da Organização");
+			janelaPrincipal.setTitle(this.title);
 		}
 	}
 	
-	protected PainelPrincipalPlanoMedicaoOganizacao getPainelPrincipal() {
-		PainelPrincipalPlanoMedicaoOganizacao pppmo = new PainelPrincipalPlanoMedicaoOganizacao();
-		pppmo.setControlador(this);
-		return pppmo;
-	}
-	
-	public PlanoMedicaoOrganizacao getPlanoMedicaoOrganizacao(){
-		return new PlanoMedicaoOrganizacao();
-	}
+	protected abstract PainelPrincipalPlanoMedicao getPainelPrincipal() ;
 	
 	protected void definirObjetoAtual(){
-		objetoAtual = new PlanoMedicaoOrganizacao(); 
+		objetoAtual = novoPlanoMedicao(); 
 	}
 
-	public Collection<KObjetivoEstrategico> getObjetivosEstrategicos() {
+	public Collection<ObjetivoEstrategico> getObjetivosEstrategicos() {
 		return aplKObjetivoEstrategico.recuperarTodos();
 	}
 	
 	public abstract PlanoMedicao novoPlanoMedicao();
 	
-	
+	public Collection<KMedida> recuperaMedidas(){
+		return medidaDAO.recuperarTodos();
+	}
 }

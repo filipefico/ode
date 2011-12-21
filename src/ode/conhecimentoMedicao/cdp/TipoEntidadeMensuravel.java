@@ -1,5 +1,6 @@
 package ode.conhecimentoMedicao.cdp;
 
+
 public enum TipoEntidadeMensuravel{
 	PROJETO{
 		public String toString(){

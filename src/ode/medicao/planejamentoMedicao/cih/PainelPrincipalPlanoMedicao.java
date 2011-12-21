@@ -3,24 +3,32 @@ package ode.medicao.planejamentoMedicao.cih;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.ciu.NucleoCombobox;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaBase.util.NucleoMensagens;
 import ode._infraestruturaCRUD.ciu.GridDados;
+import ode.alocacaoRecurso.ciu.CtrlEsforcoDespendidoCRUD;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
-import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
+import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
+import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
+import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
 import ode.medicao.planejamentoMedicao.cdp.PlanoMedicao;
+import ode.medicao.planejamentoMedicao.cci.CtrlNecessidadeInformacaoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlObjetivoEstrategicoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlObjetivoMedicaoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlObjetivoSoftwareCRUD;
 import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicao;
-import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
+import ode.medicao.planejamentoMedicao.cci.CtrlValorReferencia;
 
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Decimalbox;
-import org.zkoss.zul.Intbox;
 import org.zkoss.zul.Menu;
 import org.zkoss.zul.Menubar;
 import org.zkoss.zul.Menuitem;
@@ -39,7 +47,7 @@ import org.zkoss.zul.impl.XulElement;
 @org.springframework.stereotype.Component
 public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 
-	private CtrlPlanoMedicao ctrl;
+	protected CtrlPlanoMedicao ctrl;
 	private Toolbar toolbarSuperior;
 	private Toolbar toolbarInferior;
 	private Menubar menubar;
@@ -53,6 +61,9 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 	protected abstract void salvar();
 	protected abstract void abrir();
 	protected abstract void deletar();
+	public abstract void preencherDados(PlanoMedicao objeto) ;
+	public abstract void preencherObjetos(PlanoMedicao objeto) ;
+	
 	
 	
 	private class EventListenerNovo implements EventListener{
@@ -83,14 +94,41 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 		}
 	}
 	
-	private class EventListenerObjetivo implements EventListener{
+	private class EventListenerObjetivoE implements EventListener{
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			
+			dispararBean(new CtrlObjetivoEstrategicoCRUD());
+		}
+	}
+	private class EventListenerObjetivoS implements EventListener{
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			dispararBean(new CtrlObjetivoSoftwareCRUD());
+		}
+	}
+	private class EventListenerObjetivoM implements EventListener{
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			dispararBean(new CtrlObjetivoMedicaoCRUD());
 		}
 	}
 	
+	private class EventListenerNecessidades implements EventListener{
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			dispararBean(new CtrlNecessidadeInformacaoCRUD());
+		}
+	}
+	
+	private CtrlBase dispararBean(CtrlBase base){
+		CtrlBase ctrlBase;
+		ctrlBase = (CtrlBase) SpringUtil.getApplicationContext().getBean(base.getClass());
+		ctrlBase.iniciar();
+		return ctrlBase;
+	}
+	
 	public void montar() {
+		medPlan.setControlador(ctrl);
 		adicionarBarraSuperior();
 		tabbox.setParent(this);
 		tabs.setParent(tabbox);
@@ -134,14 +172,15 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 		menubar.appendChild(menuObjetivos);
 		menuObjetivos.appendChild(popupObjetivos);
 		
-		setMenuItem(popupObjetivos, "Estrategicos", new EventListenerObjetivo());
-		setMenuItem(popupObjetivos, "Software", new EventListenerObjetivo());
-		setMenuItem(popupObjetivos, "Medição", new EventListenerObjetivo());
+		setMenuItem(popupObjetivos, "Estrategicos", new EventListenerObjetivoE());
+		setMenuItem(popupObjetivos, "Software", new EventListenerObjetivoS());
+		setMenuItem(popupObjetivos, "Medição", new EventListenerObjetivoM());
+		setMenuItem(popupObjetivos, "Necessidade de Informação", new EventListenerNecessidades());
 		
 		menubar.setParent(this);
 	}
 	
-	private void adicionarBarraInferior() {
+	protected void adicionarBarraInferior() {
 		toolbarInferior = new Toolbar();
 		
 		toolbarInferior.setStyle("border:0px;background:white;");
@@ -161,7 +200,7 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 
 	protected void adicionarAbas() {
 		
-		listaTabs = configurarAbas();
+		listaTabs = configurarAbas(new ArrayList<NucleoTab>());
 		
 		for (NucleoTab nucleoTab : listaTabs) {
 			// Cria tab
@@ -184,8 +223,8 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 	}
 
 	//////////////////////////////////////////////
-	protected Decimalbox ibVersao = new Decimalbox();
-	protected NucleoCombobox<KRecursoHumano> cbResponsavel = new NucleoCombobox<KRecursoHumano>();
+	protected Textbox ibVersao = new Textbox();
+	protected NucleoCombobox<RecursoHumano> cbResponsavel = new NucleoCombobox<RecursoHumano>();
 	protected Datebox dbData = new Datebox();
 	protected Textbox tbDescricao = new Textbox();
 	//////
@@ -195,8 +234,8 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 	protected ComponenteMedidasPlano medPlan = new ComponenteMedidasPlano();
 	/////////////////////////////////////////////
 	
-	protected List<NucleoTab> configurarAbas() {
-		List<NucleoTab> abas = new ArrayList<NucleoTab>();
+	protected List<NucleoTab> configurarAbas(List<NucleoTab> listaabas) {
+		List<NucleoTab> abas = listaabas;
 		
 		////////////////////////////
 		//Controle
@@ -210,12 +249,14 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 		
 		gridControle.adicionarLinhaObrigatoria("Versão", ibVersao);
 		
-		cbResponsavel.setObjetos(((CtrlPlanoMedicaoOrganizacao)this.getControlador()).getAplRecursoHumano().recuperarTodos());
+		cbResponsavel.setObjetos(((CtrlPlanoMedicao)this.getControlador()).getAplRecursoHumano().recuperarTodos());
 		cbResponsavel.selecionarPrimeiroElemento();
 		gridControle.adicionarLinhaObrigatoria("Responsável", cbResponsavel);
 		
 		gridControle.adicionarLinhaObrigatoria("Data", dbData);
 		
+		tbDescricao.setWidth("100%");
+		tbDescricao.setRows(3);
 		gridControle.adicionarLinha("Descrição", tbDescricao);
 		
 		tabControle.setConteudoTab(gridControle);
@@ -234,11 +275,11 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 		
 		compObj = new ComponenteObjetivosTree();
 		
-		compObj.iniciar(((CtrlPlanoMedicaoOrganizacao)ctrl).getObjetivosEstrategicos());
+		compObj.iniciar(((CtrlPlanoMedicao)ctrl).getObjetivosEstrategicos());
 		compObj.setEventoMedicao(new EventListener() {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				medPlan.atualizar((HashSet<KNecessidadeInformacao>)arg0.getData());
+				medPlan.atualizar((HashSet<NecessidadeInformacao>)arg0.getData());
 			}
 		});
 		

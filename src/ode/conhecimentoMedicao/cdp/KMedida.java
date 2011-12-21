@@ -16,7 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import ode.conhecimento.principal.cdp.Conhecimento;
-import ode.medicao.planejamentoMedicao.cdp.KNecessidadeInformacao;
+import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
 
 @Entity
 public class KMedida extends Conhecimento{
@@ -32,9 +33,9 @@ public class KMedida extends Conhecimento{
 	private KUnidadeMedida unidadeMedida;
 	private KEscala escala;
 	private NaturezaMedida naturezaMedida;
+	private Set<NecessidadeInformacao> necessidade;
 	private Set<KMedida> medidasCorrelatas;
-	private Set<KNecessidadeInformacao> necessidadesInformacao;
-	private Set<KDefinicaoOperacionalMedida> definicoesMedida;
+	private Set<DefinicaoOperacionalMedida> definicoesMedida;
 	
 	public String getMnemonico() {
 		return mnemonico;
@@ -89,8 +90,7 @@ public class KMedida extends Conhecimento{
 		this.naturezaMedida = naturezaMedida;
 	}
 	
-	@ElementCollection(targetClass=TipoEntidadeMensuravel.class)
-	@Enumerated(EnumType.ORDINAL)
+	@ElementCollection(targetClass=TipoEntidadeMensuravel.class,fetch=FetchType.EAGER)
 	public Set<TipoEntidadeMensuravel> getTiposEntidadeMensuraveis() {
 		return TiposEntidadeMensuraveis;
 	}
@@ -98,21 +98,21 @@ public class KMedida extends Conhecimento{
 		TiposEntidadeMensuraveis = tiposEntidadeMensuraveis;
 	}
 	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="KMedida_KNecessidadeInformacao")
-	public Set<KNecessidadeInformacao> getNecessidadesInformacao() {
-		return necessidadesInformacao;
-	}
-	public void setNecessidadesInformacao(Set<KNecessidadeInformacao> necessidadesInformacao) {
-		this.necessidadesInformacao = necessidadesInformacao;
-	}
-	
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL, orphanRemoval=true)
-	public Set<KDefinicaoOperacionalMedida> getDefinicoesMedida() {
+	public Set<DefinicaoOperacionalMedida> getDefinicoesMedida() {
 		return definicoesMedida;
 	}
-	public void setDefinicoesMedida(Set<KDefinicaoOperacionalMedida> definicoesMedida) {
+	public void setDefinicoesMedida(Set<DefinicaoOperacionalMedida> definicoesMedida) {
 		this.definicoesMedida = definicoesMedida;
+	}
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="necessidade_medida")
+	public Set<NecessidadeInformacao> getNecessidade() {
+		return necessidade;
+	}
+	public void setNecessidade(Set<NecessidadeInformacao> necessidade) {
+		this.necessidade = necessidade;
 	}
 	
 	

@@ -1,85 +1,95 @@
 package ode.medicao.planejamentoMedicao.cdp;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KProcesso;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 
-
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class PlanoMedicao extends ObjetoPersistente{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7735685755805004193L;
 	private Date data;
 	private String descricao;
 	private float versao;
-	private KRecursoHumano responsavel;
+	private RecursoHumano responsavel;
 	
-	private Collection<KObjetivoEstrategico> objsEstrategico;
-	private Collection<KObjetivoSoftware> objsSoftware;
-	private Collection<KObjetivoMedicao> objsMedicao;
+	private Set<ObjetivoEstrategico> objsEstrategico;
+	private Set<ObjetivoSoftware> objsSoftware;
+	private Set<ObjetivoMedicao> objsMedicao;
 	
-	private Collection<KNecessidadeInformacao> necessidades;
-	private Collection<KProcesso> processos;
+	private Set<NecessidadeInformacao> necessidades;
+	private Set<KProcesso> processos;
 	
-	private Collection<MedidaPlanoMedicao> mpm;
+	private Set<MedidaPlanoMedicao> mpm;
 
 	@ManyToMany(fetch=FetchType.EAGER)
-	public Collection<KObjetivoEstrategico> getObjsEstrategico() {
+	public Set<ObjetivoEstrategico> getObjsEstrategico() {
 		return objsEstrategico;
 	}
 
-	public void setObjsEstrategico(Collection<KObjetivoEstrategico> objsEstrategico) {
+	public void setObjsEstrategico(Set<ObjetivoEstrategico> objsEstrategico) {
 		this.objsEstrategico = objsEstrategico;
 	}
 
 	@ManyToMany(fetch=FetchType.EAGER)
-	public Collection<KObjetivoSoftware> getObjsSoftware() {
+	public Set<ObjetivoSoftware> getObjsSoftware() {
 		return objsSoftware;
 	}
 
-	public void setObjsSoftware(Collection<KObjetivoSoftware> objsSoftware) {
+	public void setObjsSoftware(Set<ObjetivoSoftware> objsSoftware) {
 		this.objsSoftware = objsSoftware;
 	}
 
 	@ManyToMany(fetch=FetchType.EAGER)
-	public Collection<KObjetivoMedicao> getObjsMedicao() {
+	public Set<ObjetivoMedicao> getObjsMedicao() {
 		return objsMedicao;
 	}
 
-	public void setObjsMedicao(Collection<KObjetivoMedicao> objsMedicao) {
+	public void setObjsMedicao(Set<ObjetivoMedicao> objsMedicao) {
 		this.objsMedicao = objsMedicao;
 	}
 
 	@ManyToMany(fetch=FetchType.EAGER)
-	public Collection<KNecessidadeInformacao> getNecessidades() {
+	public Set<NecessidadeInformacao> getNecessidades() {
 		return necessidades;
 	}
 
-	public void setNecessidades(Collection<KNecessidadeInformacao> necessidades) {
+	public void setNecessidades(Set<NecessidadeInformacao> necessidades) {
 		this.necessidades = necessidades;
 	}
 
 	@ManyToMany(fetch=FetchType.EAGER)
-	public Collection<KProcesso> getProcessos() {
+	public Set<KProcesso> getProcessos() {
 		return processos;
 	}
 
-	public void setProcessos(Collection<KProcesso> processos) {
+	public void setProcessos(Set<KProcesso> processos) {
 		this.processos = processos;
 	}
 
-	@ManyToMany(fetch=FetchType.EAGER)
-	public Collection<MedidaPlanoMedicao> getMpm() {
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	public Set<MedidaPlanoMedicao> getMpm() {
 		return mpm;
 	}
 
-	public void setMpm(Collection<MedidaPlanoMedicao> mpm) {
+	public void setMpm(Set<MedidaPlanoMedicao> mpm) {
 		this.mpm = mpm;
 	}
 
@@ -107,13 +117,19 @@ public abstract class PlanoMedicao extends ObjetoPersistente{
 		this.versao = versao;
 	}
 
-	public KRecursoHumano getResponsavel() {
+	public RecursoHumano getResponsavel() {
 		return responsavel;
 	}
 
-	public void setResponsavel(KRecursoHumano responsavel) {
+	public void setResponsavel(RecursoHumano responsavel) {
 		this.responsavel = responsavel;
 	}
 	
+	public void adicionaMpm(MedidaPlanoMedicao medidaPlanoMedicao) {
+		if(this.mpm==null){
+			this.mpm = new HashSet<MedidaPlanoMedicao>();
+		}
+		this.mpm.add(medidaPlanoMedicao);
+	}
 	
 }

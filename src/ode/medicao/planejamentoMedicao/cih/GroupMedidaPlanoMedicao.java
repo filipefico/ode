@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ode._infraestruturaBase.ciu.NucleoCombobox;
-import ode.conhecimentoMedicao.cdp.KDefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Caption;
@@ -13,7 +13,7 @@ import org.zkoss.zul.Groupbox;
 public class GroupMedidaPlanoMedicao extends Groupbox {
 	private Caption cap;
 	private Collection<Component> lista = new ArrayList<Component>();
-	private NucleoCombobox<KDefinicaoOperacionalMedida> especial;
+	private NucleoCombobox<DefinicaoOperacionalMedida> especial;
 
 	public GroupMedidaPlanoMedicao(String str) {
 		cap = new Caption(str);
@@ -26,11 +26,11 @@ public class GroupMedidaPlanoMedicao extends Groupbox {
 	}
 
 	public void adicionaFilhoDefinicao(Component comp) {
-		especial = (NucleoCombobox<KDefinicaoOperacionalMedida>) comp;
+		especial = (NucleoCombobox<DefinicaoOperacionalMedida>) comp;
 		adicionaFilhoEspecifico(comp);
 	}
 
-	public NucleoCombobox<KDefinicaoOperacionalMedida> getDefinicao() {
+	public NucleoCombobox<DefinicaoOperacionalMedida> getDefinicao() {
 		return especial;
 	}
 

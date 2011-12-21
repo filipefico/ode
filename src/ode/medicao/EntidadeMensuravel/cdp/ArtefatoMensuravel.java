@@ -10,9 +10,22 @@ public class ArtefatoMensuravel extends EntidadeMensuravel<KArtefato>{
 
 	private final TipoEntidadeMensuravel tipo = TipoEntidadeMensuravel.ARTEFATO;
 	
+	
 	@Override
 	public TipoEntidadeMensuravel recuperaTipo() {
 		return tipo;
+	}
+
+
+	@Override
+	public KArtefato getEntidade() {
+		return entidade;
+	}
+
+
+	@Override
+	public void setEntidade(KArtefato entidade) {
+		this.entidade = entidade;
 	}
 
 }

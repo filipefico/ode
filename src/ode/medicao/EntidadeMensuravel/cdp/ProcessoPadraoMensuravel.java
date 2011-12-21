@@ -2,6 +2,7 @@ package ode.medicao.EntidadeMensuravel.cdp;
 
 import javax.persistence.Entity;
 
+import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KProcesso;
 import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 
@@ -15,4 +16,14 @@ public class ProcessoPadraoMensuravel extends EntidadeMensuravel<KProcesso>{
 		return tipo;
 	}
 
+	@Override
+	public KProcesso getEntidade() {
+		return entidade;
+	}
+
+	@Override
+	public void setEntidade(KProcesso entidade) {
+		this.entidade = entidade;
+	}
+	
 }

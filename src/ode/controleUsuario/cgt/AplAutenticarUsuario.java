@@ -48,11 +48,18 @@ import ode.controleUsuario.cdp.Usuario;
 import ode.controleUsuario.cgd.UsuarioDAO;
 import ode.controleUsuario.ciu.CtrlUsuarioCRUD;
 import ode.medicao.EntidadeMensuravel.cci.CtrlEntidadeMensuravel;
-import ode.medicao.planejamentoMedicao.cci.CtrlKNecessidadeInformacaoCRUD;
-import ode.medicao.planejamentoMedicao.cci.CtrlKObjetivoEstrategicoCRUD;
-import ode.medicao.planejamentoMedicao.cci.CtrlKObjetivoMedicaoCRUD;
-import ode.medicao.planejamentoMedicao.cci.CtrlKObjetivoSoftwareCRUD;
+import ode.medicao.analiseMedicao.ciu.CtrlAcaoCorretiva;
+import ode.medicao.analiseMedicao.ciu.CtrlAnaliseMedicao;
+import ode.medicao.analiseMedicao.ciu.CtrlMonitoramentoObjetivo;
+import ode.medicao.execucaoMedicao.ciu.CtrlMedicao;
+import ode.medicao.planejamentoMedicao.cci.CtrlNecessidadeInformacaoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlObjetivoEstrategicoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlObjetivoMedicaoCRUD;
+import ode.medicao.planejamentoMedicao.cci.CtrlObjetivoSoftwareCRUD;
 import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
+import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoProjeto;
+import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaOrganizacao;
+import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaProjeto;
 import ode.processoPadrao.ciu.CtrlDefinirProcessoPadrao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,16 +137,10 @@ public class AplAutenticarUsuario {
 				.addSubfuncionalidade(criar("Competências").setCtrl(CtrlKCompetenciaCRUD.class))
 			)
 			.addSubfuncionalidade(criar("Medição")
-					.addSubfuncionalidade(criar("Objetivos")
-							.addSubfuncionalidade(criar("Objetivo Estrategico").setCtrl(CtrlKObjetivoEstrategicoCRUD.class))
-							.addSubfuncionalidade(criar("Objetivo de Software").setCtrl(CtrlKObjetivoSoftwareCRUD.class))
-							.addSubfuncionalidade(criar("Objetivo de Medicao").setCtrl(CtrlKObjetivoMedicaoCRUD.class))
-							)
-					.addSubfuncionalidade(criar("Necessidade de Informacao").setCtrl(CtrlKNecessidadeInformacaoCRUD.class))
 					.addSubfuncionalidade(criar("Medida")
-							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
-							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
 							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
+							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
+							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
 							)
 					.addSubfuncionalidade(criar("Escala")
 							.addSubfuncionalidade(criar("Escala").setCtrl(CtrlKEscalaCRUD.class))
@@ -158,9 +159,19 @@ public class AplAutenticarUsuario {
 				.addSubfuncionalidade(criar("Entidade Mensuráveis").setCtrl(CtrlEntidadeMensuravel.class)
 					)
 				.addSubfuncionalidade(criar("Planejamento")
-					.addSubfuncionalidade(criar("Elaborar Plano de Medição da Organização").setCtrl(CtrlPlanoMedicaoOrganizacao.class)
-					)
+					.addSubfuncionalidade(criar("Elaborar Plano de Medição da Organização").setCtrl(CtrlPlanoMedicaoOrganizacao.class))
+					.addSubfuncionalidade(criar("Elaborar Plano de Medição do Projeto").setCtrl(CtrlPlanoMedicaoProjeto.class))
+					.addSubfuncionalidade(criar("Estabelecer Valores de Referência para Organização").setCtrl(CtrlValorReferenciaOrganizacao.class))
+					.addSubfuncionalidade(criar("Estabelecer Valores de Referência para Projeto").setCtrl(CtrlValorReferenciaProjeto.class))
 				)
+				.addSubfuncionalidade(criar("Execução")
+						.addSubfuncionalidade(criar("Coletar Dados").setCtrl(CtrlMedicao.class))
+				)
+				.addSubfuncionalidade(criar("Analise")
+						.addSubfuncionalidade(criar("Analisar Medição").setCtrl(CtrlAnaliseMedicao.class))
+						.addSubfuncionalidade(criar("Monitorar Objetivos").setCtrl(CtrlMonitoramentoObjetivo.class))
+						.addSubfuncionalidade(criar("Registrar Ações Corretivas").setCtrl(CtrlAcaoCorretiva.class))
+						)
 		);
 		
 		funcionalidades.add(criar("Processo Padrão")
