@@ -6,8 +6,16 @@ import java.util.Set;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.conhecimento.processo.cdp.KArtefato;
 import ode.conhecimento.processo.cdp.KAtividade;
+import ode.conhecimento.processo.cdp.KFerramentaSoftware;
+import ode.conhecimento.processo.cdp.KMetodo;
+import ode.conhecimento.processo.cdp.KNorma;
 import ode.conhecimento.processo.cdp.KProcesso;
+import ode.conhecimento.processo.cdp.KRecursoHardware;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
+import ode.conhecimento.processo.cdp.KRoteiro;
+import ode.conhecimento.processo.cdp.KTecnica;
 import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
@@ -48,6 +56,12 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	private void mostrarJanelaPrincipal() {
 		// essa janela faz chamadas para abrir as outras janelas.
 		janDefinirProcessoPadrao = new JanPrincipal(this);
+
+		HashSet<Conhecimento> c = new HashSet<Conhecimento>();
+		for (KArtefato k : this.getAllKArtefato()) {
+			c.add(k);
+		}
+
 	}
 
 	public void resetJanelaPrincipal() {
@@ -57,29 +71,23 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	public void setCompPPSelecionado(CompPP selecionado) {
 		compPPSelecionado = selecionado;
-		janDefinirProcessoPadrao.criaArvoreCompPP();// atualiza informação
-													// na tela.
+		janDefinirProcessoPadrao.conteudo();// atualiza informação
+											// na tela.
 	}
 
 	public void abrirJanDefinirCompPP() {
 		new JanDefinirCompPP(this);
 	}
 
-	public Collection<KProcesso> getAllKProcesso() {
-		return aplDefinirProcessoPadrao.getAllKProcesso();
-	}
-
-	public Collection<KAtividade> getAllKAtividade() {
-		return aplDefinirProcessoPadrao.getAllKAtividade();
-	}
-
 	public void salvarCompPP(CompPP compPP) {
 		aplDefinirProcessoPadrao.salvarCompPP(compPP);
+		janDefinirProcessoPadrao.conteudo();
 	}
 
 	public void atualizarCompPP(CompPP compPP) {
 		this.compPPSelecionado = aplDefinirProcessoPadrao
 				.atualizarCompPP(compPP);
+		janDefinirProcessoPadrao.conteudo();
 	}
 
 	public void salvarCompPP(String nome, String descricao, String objetivo,
@@ -98,6 +106,7 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 			new RuntimeException(
 					"A string de comparação do tipo esta incorreta: " + tipo);
 		}
+		janDefinirProcessoPadrao.conteudo();
 	}
 
 	public void abrirJanEstabelecerRequisitos() {
@@ -186,10 +195,56 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		this.setCompPPSelecionado(null);
 	}
 
+	public void excluirCompPP(CompPP compPP) {
+		aplDefinirProcessoPadrao.excluirCompPP(compPP);
+	}
+
 	public void finalizarDefinicao() {
 		this.getcompPPSelecionado().setEhDefinido(true);
 		this.atualizarCompPP(this.getcompPPSelecionado());
 		janDefinirProcessoPadrao.onClose();
 		this.mostrarJanelaPrincipal();
+		janDefinirProcessoPadrao.conteudo();
 	}
+
+	public Collection<KProcesso> getAllKProcesso() {
+		return aplDefinirProcessoPadrao.getAllKProcesso();
+	}
+
+	public Collection<KAtividade> getAllKAtividade() {
+		return aplDefinirProcessoPadrao.getAllKAtividade();
+	}
+
+	public Collection<KArtefato> getAllKArtefato() {
+		return aplDefinirProcessoPadrao.getAllKArtefato();
+	}
+
+	public Collection<KRecursoHumano> getAllKRecursoHumano() {
+		return aplDefinirProcessoPadrao.getAllKRecursoHumano();
+	}
+
+	public Collection<KRecursoHardware> getAllKRecursoHardware() {
+		return aplDefinirProcessoPadrao.getAllKRecursoHardware();
+	}
+
+	public Collection<KFerramentaSoftware> getAllKRecursoSoftware() {
+		return aplDefinirProcessoPadrao.getAllKRecursoSoftware();
+	}
+
+	public Collection<KMetodo> getAllKProcedimentoMetodos() {
+		return aplDefinirProcessoPadrao.getAllKProcedimentoMetodos();
+	}
+
+	public Collection<KNorma> getAllKProcedimentoNormas() {
+		return aplDefinirProcessoPadrao.getAllKProcedimentoNormas();
+	}
+
+	public Collection<KRoteiro> getAllKProcedimentoRoteiros() {
+		return aplDefinirProcessoPadrao.getAllKProcedimentoRoteiros();
+	}
+
+	public Collection<KTecnica> getAllKProcedimentoTecnicas() {
+		return aplDefinirProcessoPadrao.getAllKProcedimentoTecnicas();
+	}
+
 }

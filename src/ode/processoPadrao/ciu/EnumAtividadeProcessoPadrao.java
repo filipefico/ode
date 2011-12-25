@@ -1,0 +1,5 @@
+package ode.processoPadrao.ciu;
+
+public enum EnumAtividadeProcessoPadrao {
+	REQUER_HARDWARE, REQUER_SOFTWARE, INSUMO, PRODUTO, REALIZADA_POR, ADOTA_METODOS, ADOTA_NORMAS, ADOTA_ROTEIROS, ADOTA_TECNICAS
+}
