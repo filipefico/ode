@@ -48,85 +48,11 @@ public class DadosBanco {
 			inicializarDefinicaoProcesso();// juliao
 			inicializarFerramentasSoftware();
 
-			definicaodeProcesso();// juliao
-
 		} catch (NucleoRegraNegocioExcecao e) {
 			e.printStackTrace();
 		}
 	}
 
-	/*
-	 * <<<<<<< .mine }
-	 * 
-	 * private void inserirCompPPProcessoSimples(String nome, String descricao,
-	 * KProcesso kprocesso) {
-	 * 
-	 * CompPPProcessoSimples compPPSimples = new CompPPProcessoSimples();
-	 * compPPSimples.setNome(nome); compPPSimples.setDescricao(descricao);
-	 * compPPSimples.setTipo(kprocesso);
-	 * 
-	 * AplDefinirProcessoPadrao aplDefinirProcessoPadrao =
-	 * (AplDefinirProcessoPadrao) SpringUtil
-	 * .getBean(AplDefinirProcessoPadrao.class.getSimpleName()); //
-	 * aplDefinirProcessoPadrao.salvarCompPP(compPPSimples);
-	 * aplDefinirProcessoPadrao.atualizarCompPP(compPPSimples);
-	 * 
-	 * }
-	 * 
-	 * private void inserirCompPPProcessoComplexo(String nome, String descricao)
-	 * { CompPPProcessoComplexo compComplexo = new CompPPProcessoComplexo();
-	 * compComplexo.setNome(nome); compComplexo.setDescricao(descricao);
-	 * 
-	 * AplDefinirProcessoPadrao aplDefinirProcessoPadrao =
-	 * (AplDefinirProcessoPadrao) SpringUtil
-	 * .getBean(AplDefinirProcessoPadrao.class.getSimpleName());
-	 * 
-	 * aplDefinirProcessoPadrao.salvarCompPP(compComplexo); }
-	 * 
-	 * private KAtividade inserirKAtividade(String nome, String descricao)
-	 * throws NucleoRegraNegocioExcecao { KAtividade kAtividade = new
-	 * KAtividade(); kAtividade.setNome(nome);
-	 * kAtividade.setDescricao(descricao);
-	 * 
-	 * AplCadastrarKAtividade aplCadastrarKAtividade = (AplCadastrarKAtividade)
-	 * SpringUtil .getBean(AplCadastrarKAtividade.class.getSimpleName());
-	 * 
-	 * return aplCadastrarKAtividade.salvar(kAtividade); }
-	 * 
-	 * private KProcesso inserirKProcesso(String nome, String descricao) throws
-	 * NucleoRegraNegocioExcecao {
-	 * 
-	 * KProcesso kProcesso = new KProcesso(); kProcesso.setNome(nome);
-	 * kProcesso.setDescricao(descricao);
-	 * 
-	 * AplCadastrarKProcesso aplCadastrarKProcesso = (AplCadastrarKProcesso)
-	 * SpringUtil .getBean(AplCadastrarKProcesso.class.getSimpleName());
-	 * 
-	 * aplCadastrarKProcesso.salvar(kProcesso); return kProcesso; }
-	 * 
-	 * private void categoriaProcesso() throws NucleoRegraNegocioExcecao {
-	 * inserirKCategoriaProcesso("Fundamental", "Categoria Fundamental");
-	 * inserirKCategoriaProcesso("Apoio", "Categoria de Apoio");
-	 * inserirKCategoriaProcesso("Organizacional", "Categoria Organizacional");
-	 * }
-	 * 
-	 * private void tipoInteracao() throws NucleoRegraNegocioExcecao {
-	 * inserirKTipoInteracao("Sequencial", "Tipo de Interacao Sequencial");
-	 * inserirKTipoInteracao("Paralelo Independente",
-	 * "Tipo de Interacao Paralelo Independente");
-	 * inserirKTipoInteracao("Paralelo Dependente",
-	 * "Tipo de Interacao Paralelo Dependente");
-	 * inserirKTipoInteracao("Pontual", "Tipo de Interacao Pontual");
-	 * inserirKTipoInteracao("Sob-Demanda", "Tipo de Interacao Sob-Demanda"); }
-	 * 
-	 * private void usuarios() throws NucleoRegraNegocioExcecao {
-	 * 
-	 * ======= }
-	 * 
-	 * private void inicializarUsuarios() throws NucleoRegraNegocioExcecao {
-	 * 
-	 * >>>>>>> .r182
-	 */
 	private void inicializarUsuarios() throws NucleoRegraNegocioExcecao {
 		// cria os dados
 		KRecursoHumano kRecursoHumano = new KRecursoHumano();
@@ -182,24 +108,27 @@ public class DadosBanco {
 	private void inicializarDefinicaoProcesso()
 			throws NucleoRegraNegocioExcecao {
 		// inserir processos
-		KProcesso kprocesso1 = inserirKProcesso("Kprocesso1",
+		KProcesso kProcesso1 = inserirKProcesso("Kprocesso1",
 				"esse é o primeiro Kprocesso");
-		KProcesso kprocesso2 = inserirKProcesso("Kprocesso2",
+		KProcesso kProcesso2 = inserirKProcesso("Kprocesso2",
 				"segundo kprocesso");
-		KProcesso kprocesso3 = inserirKProcesso("Kprocesso3",
+		KProcesso kProcesso3 = inserirKProcesso("Kprocesso3",
 				"Esse portanto é o terceiro");
-		KProcesso kprocesso4 = inserirKProcesso("Kprocesso4",
+		KProcesso kProcesso4 = inserirKProcesso("Kprocesso4",
 				"quarto elemento de kprocesso");
-		KProcesso kprocesso5 = inserirKProcesso("Kprocesso5",
+		KProcesso kProcesso5 = inserirKProcesso("Kprocesso5",
 				"quinto e ultimo elemento de kprocesso");
 
 		// inserir atividades
-		inserirKAtividade("KAtividade1", "primeira KAtividade");
-		inserirKAtividade("KAtividade2", "Segunda Katividade criada");
-		inserirKAtividade("KAtividade3",
+		KAtividade kAtividade1 = inserirKAtividade("KAtividade1",
+				"primeira KAtividade");
+		KAtividade kAtividade2 = inserirKAtividade("KAtividade2",
+				"Segunda Katividade criada");
+		KAtividade kAtividade3 = inserirKAtividade("KAtividade3",
 				"Terceira KAtividade tranquilamente criada");
-		inserirKAtividade("KAtividade4", "KAtividade numero 4");
-		inserirKAtividade("KAtividade5",
+		KAtividade kAtividade4 = inserirKAtividade("KAtividade4",
+				"KAtividade numero 4");
+		KAtividade kAtividade5 = inserirKAtividade("KAtividade5",
 				"quinta e ultima KAtividade automaticamente criada");
 
 		// inserir um compPPProcessoComplexo
@@ -208,9 +137,15 @@ public class DadosBanco {
 
 		// inserir dois compPPProcessoSimples
 		inserirCompPPProcessoSimples("CompPPSimples1",
-				"primiero CompPPProcessoSimples", kprocesso1);
+				"primiero CompPPProcessoSimples", kProcesso1);
 		inserirCompPPProcessoSimples("CompPPSimples2",
-				"segundo CompPPProcessoSimples criado", kprocesso2);
+				"segundo CompPPProcessoSimples criado", kProcesso2);
+
+		// inserir dois compPPMacroAtividade
+		inserirCompPPMacroAtividade("CompPPMacroAtv1",
+				"Primeiro compPPMacroAtividade", kAtividade1);
+		inserirCompPPMacroAtividade("CompPPMacroAtv2",
+				"segundo compPPMacroAtividade criado", kAtividade2);
 
 	}
 
@@ -310,19 +245,6 @@ public class DadosBanco {
 		aplDefinirProcessoPadrao.salvarCompPP(compComplexo);
 	}
 
-	/*
-	 * private void inserirKAtividade(String nome, String descricao) throws
-	 * NucleoRegraNegocioExcecao { KAtividade kAtividade = new KAtividade();
-	 * kAtividade.setNome(nome); kAtividade.setDescricao(descricao);
-	 * 
-	 * AplCadastrarKAtividade aplCadastrarKAtividade = (AplCadastrarKAtividade)
-	 * SpringUtil .getBean(AplCadastrarKAtividade.class.getSimpleName());
-	 * 
-	 * aplCadastrarKAtividade.salvar(kAtividade);
-	 * 
-	 * }
-	 */
-
 	private KAtividade inserirKAtividade(String nome, String descricao)
 			throws NucleoRegraNegocioExcecao {
 		KAtividade kAtividade = new KAtividade();
@@ -347,49 +269,6 @@ public class DadosBanco {
 
 		aplCadastrarKProcesso.salvar(kProcesso);
 		return kProcesso;
-	}
-
-	private void definicaodeProcesso() throws NucleoRegraNegocioExcecao {
-		// inserir processos
-		KProcesso kProcesso1 = inserirKProcesso("Kprocesso1",
-				"esse é o primeiro Kprocesso");
-		KProcesso kProcesso2 = inserirKProcesso("Kprocesso2",
-				"segundo kprocesso");
-		KProcesso kProcesso3 = inserirKProcesso("Kprocesso3",
-				"Esse portanto é o terceiro");
-		KProcesso kProcesso4 = inserirKProcesso("Kprocesso4",
-				"quarto elemento de kprocesso");
-		KProcesso kProcesso5 = inserirKProcesso("Kprocesso5",
-				"quinto e ultimo elemento de kprocesso");
-
-		// inserir atividades
-		KAtividade kAtividade1 = inserirKAtividade("KAtividade1",
-				"primeira KAtividade");
-		KAtividade kAtividade2 = inserirKAtividade("KAtividade2",
-				"Segunda Katividade criada");
-		KAtividade kAtividade3 = inserirKAtividade("KAtividade3",
-				"Terceira KAtividade tranquilamente criada");
-		KAtividade kAtividade4 = inserirKAtividade("KAtividade4",
-				"KAtividade numero 4");
-		KAtividade kAtividade5 = inserirKAtividade("KAtividade5",
-				"quinta e ultima KAtividade automaticamente criada");
-
-		// inserir um compPPProcessoComplexo
-		inserirCompPPProcessoComplexo("CompPPComplexo1",
-				"Primeiro CompPPProcessoComplexo criado");
-
-		// inserir dois compPPProcessoSimples
-		inserirCompPPProcessoSimples("CompPPSimples1",
-				"primiero CompPPProcessoSimples", kProcesso1);
-		inserirCompPPProcessoSimples("CompPPSimples2",
-				"segundo CompPPProcessoSimples criado", kProcesso2);
-
-		// inserir dois compPPMacroAtividade
-		inserirCompPPMacroAtividade("CompPPMacroAtv1",
-				"Primeiro compPPMacroAtividade", kAtividade1);
-		inserirCompPPMacroAtividade("CompPPMacroAtv2",
-				"segundo compPPMacroAtividade criado", kAtividade2);
-
 	}
 
 	private void inserirCompPPMacroAtividade(String nome, String descricao,

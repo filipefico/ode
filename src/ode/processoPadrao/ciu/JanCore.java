@@ -5,9 +5,9 @@ import ode._infraestruturaCRUD.ciu.JanelaSimples;
 public class JanCore extends JanelaSimples {
 	protected CtrlDefinirProcessoPadrao ctrl;
 
-	public JanCore(CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+	public JanCore(CtrlDefinirProcessoPadrao ctrl) {
 		super();
-		ctrl = ctrlDefinirProcessoPadrao;
+		this.ctrl = ctrl;
 		configuracaoBasica();
 	}
 

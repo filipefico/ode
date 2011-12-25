@@ -26,9 +26,9 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 
 	private boolean ehMarco;
 
-	private Set<KRecursoHumano> kRecursoHumano;
-	private Set<KArtefato> kInsumos;
-	private Set<KArtefato> kProdutos;
+	private Set<KRecursoHumano> recursoHumano;
+	private Set<KArtefato> insumos;
+	private Set<KArtefato> produtos;
 	private Set<AtividadeProcessoPadrao> subAtividades;
 	private Set<AtividadeProcessoPadrao> preAtividades;
 
@@ -38,9 +38,9 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	private Set<KProcedimento> procedimentoAdotado;
 
 	public AtividadeProcessoPadrao() {
-		this.setKRecursoHumano(new HashSet<KRecursoHumano>());
-		this.setKInsumos(new HashSet<KArtefato>());
-		this.setKProdutos(new HashSet<KArtefato>());
+		this.setRecursoHumano(new HashSet<KRecursoHumano>());
+		this.setInsumos(new HashSet<KArtefato>());
+		this.setProdutos(new HashSet<KArtefato>());
 		this.setSubAtividades(new HashSet<AtividadeProcessoPadrao>());
 		this.setPreAtividades(new HashSet<AtividadeProcessoPadrao>());
 	}
@@ -49,36 +49,36 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	 * Ontém os KRecursoHumano cascade = "none"
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	public Set<KRecursoHumano> getKRecursoHumano() {
-		return kRecursoHumano;
+	public Set<KRecursoHumano> getRecursoHumano() {
+		return recursoHumano;
 	}
 
-	public void setKRecursoHumano(Set<KRecursoHumano> parKRecursoHumano) {
-		this.kRecursoHumano = parKRecursoHumano;
+	public void setRecursoHumano(Set<KRecursoHumano> parKRecursoHumano) {
+		this.recursoHumano = parKRecursoHumano;
 	}
 
 	/**
 	 * Ontém os KArtefatos cosumidos
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	public Set<KArtefato> getKInsumos() {
-		return kInsumos;
+	public Set<KArtefato> getInsumos() {
+		return insumos;
 	}
 
-	public void setKInsumos(Set<KArtefato> parKInsumos) {
-		this.kInsumos = parKInsumos;
+	public void setInsumos(Set<KArtefato> parKInsumos) {
+		this.insumos = parKInsumos;
 	}
 
 	/**
 	 * Ontém os KArtefatos produzidos
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
-	public Set<KArtefato> getKProdutos() {
-		return kProdutos;
+	public Set<KArtefato> getProdutos() {
+		return produtos;
 	}
 
-	public void setKProdutos(Set<KArtefato> parKProdutos) {
-		this.kProdutos = parKProdutos;
+	public void setProdutos(Set<KArtefato> parKProdutos) {
+		this.produtos = parKProdutos;
 	}
 
 	/**
@@ -145,11 +145,11 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	}
 
 	public boolean ehKInsumo(KArtefato parKAterfato) {
-		return this.kInsumos.contains(parKAterfato);
+		return this.insumos.contains(parKAterfato);
 	}
 
 	public boolean ehKProduto(KArtefato parKAterfato) {
-		return this.kProdutos.contains(parKAterfato);
+		return this.produtos.contains(parKAterfato);
 	}
 
 	public String toString() {

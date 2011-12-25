@@ -55,14 +55,12 @@ public class JanIndicarSubProcessos extends JanCore {
 		buttonSalvar.addEventListener("onClick", new EventListener() {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				salvarDados();
-				janela.onClose();
-			}
-
-			private void salvarDados() {
 				if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
 					salvarDadosCompPPProcessoComplexo();
+				} else {
+					salvarDadosCompPPProcessoSimples();
 				}
+				janela.onClose();
 			}
 		});
 	}
@@ -149,6 +147,21 @@ public class JanIndicarSubProcessos extends JanCore {
 
 		((CompPPProcessoComplexo) ctrl.getcompPPSelecionado())
 				.setProcessosSimples(subProcessos);
+
+		ctrl.atualizarCompPP(ctrl.getcompPPSelecionado());
+	}
+
+	private void salvarDadosCompPPProcessoSimples() {
+		Set<CompPPMacroatividade> macroAtvs = new HashSet<CompPPMacroatividade>();
+
+		for (Listitem listitem : (Set<Listitem>) listaSubProc
+				.getSelectedItems()) {
+			Listcell listcell = (Listcell) listitem.getChildren().get(0);
+			macroAtvs.add((CompPPMacroatividade) listcell.getValue());
+		}
+
+		((CompPPProcessoSimples) ctrl.getcompPPSelecionado())
+				.setMacroAtividades(macroAtvs);
 
 		ctrl.atualizarCompPP(ctrl.getcompPPSelecionado());
 	}
