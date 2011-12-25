@@ -1,5 +1,6 @@
 package ode._controleRecursoHumano.cdp;
 
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,6 +21,9 @@ public class ParticipacaoEquipe extends ObjetoPersistente{
 	private Equipe equipe;
 	private RecursoHumano recursoHumano;
 	private Set<KRecursoHumano> papeis;
+	private Date dtInicio;
+	private Date dtFim;
+	
 	
 	@ManyToOne
 	public Equipe getEquipe() {
@@ -44,6 +48,20 @@ public class ParticipacaoEquipe extends ObjetoPersistente{
 	}
 	public void setPapeis(Set<KRecursoHumano> papeis) {
 		this.papeis = papeis;
+	}
+	
+	public Date getDtInicio() {
+		return dtInicio;
+	}
+	public void setDtInicio(Date dtInicio) {
+		this.dtInicio = dtInicio;
+	}
+	
+	public Date getDtFim() {
+		return dtFim;
+	}
+	public void setDtFim(Date dtFim) {
+		this.dtFim = dtFim;
 	}
 	
 	

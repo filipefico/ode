@@ -1,13 +1,13 @@
-package ode.planejamentoCompetencias.cdp;
+package ode.planejamentoCompetencia.cdp;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
-import ode.conhecimento.organizacao.cdp.KCompetencia;
-import ode.conhecimento.organizacao.cdp.NivelKCompetencia;
 import ode._controleProcesso.cdp.DemandaRH;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.organizacao.cdp.KCompetencia;
+import ode.conhecimento.organizacao.cdp.NivelKCompetencia;
 
 @Entity
 public class DemandaCompetencia extends ObjetoPersistente {

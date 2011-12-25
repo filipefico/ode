@@ -40,18 +40,19 @@ public class PainelAlocacoesAtividades extends Hlayout {
 
 	public PainelAlocacoesAtividades(CtrlAgenda ctrl) {
 		this.ctrl = ctrl;
-		
+		this.setHflex("min");
 		this.setSclass("z-valign-top");
 			
-		Collection<Projeto> listaProjetos = ctrl.alocacaoRHDAO.recuperarProjetosPorRH(ctrl.getRecursoHumano().getId());
+		Collection<Projeto> listaProjetos = ctrl.obterProjetosRecursoLogado();
 		
 		if(listaProjetos.size()>0) {
 			
 			Tree arvore = new Tree();
-			arvore.setParent(this);
+			inserirNodesRaiz(arvore, listaProjetos);
 			
-			arvore.setWidth("302px");
+			arvore.setParent(this);
 			arvore.setHflex("min");
+			arvore.setWidth("352px");
 			arvore.setHeight("298px");
 			arvore.setZclass("z-dottree");
 			arvore.addEventListener("onSelect", new ArvoreEventListener());
@@ -60,21 +61,18 @@ public class PainelAlocacoesAtividades extends Hlayout {
 			treecols.setSizable(true);
 			Treecol tc1 = new Treecol("Atividade");
 			tc1.setParent(treecols);
-			tc1.setHflex("min");
+			tc1.setWidth("215px");
 			Treecol tc2 = new Treecol("Cargo");
 			tc2.setParent(treecols);
-			tc2.setHflex("min");
-			
-			inserirNodesRaiz(arvore, listaProjetos);
-			
-			boxDireita = new Vlayout();
-			boxDireita.setWidth("400px");
-			boxDireita.setHeight("300px");
-			boxDireita.setParent(this);
-			
+			tc2.setWidth("135px");
+
 		} else {
+			Vlayout container = new Vlayout();
+			container.setParent(this);
+			container.setStyle("padding: 3px 15px");
+			
 			Label label = new Label("Este recurso não está alocado a nenhuma atividade.");
-			label.setParent(this);
+			label.setParent(container);
 		}
 		
 	}
@@ -154,7 +152,7 @@ public class PainelAlocacoesAtividades extends Hlayout {
 			SelectEvent event = (SelectEvent) e;
 			Treeitem ti = (Treeitem) event.getReference();
 			
-			boxDireita.getChildren().clear();
+			//boxDireita.getChildren().clear();
 			
 			if(ti.getValue() instanceof AlocacaoRH) {
 				preencherAlocacaoRH((AlocacaoRH) ti.getValue());
@@ -162,7 +160,16 @@ public class PainelAlocacoesAtividades extends Hlayout {
 		}
 	}
 	
-	private void preencherAlocacaoRH(AlocacaoRH alocacaoRH) {
+	private void preencherAlocacaoRH(AlocacaoRH alocacaoRH) {	
+		this.getParent().invalidate();
+		if(boxDireita !=null)
+			boxDireita.setParent(null);
+		boxDireita = new Vlayout();
+		boxDireita.setWidth("400px");
+		boxDireita.setHeight("300px");
+		boxDireita.setParent(this);
+		
+		
 		NucleoTabbox tabbox  = new NucleoTabbox();
 		tabbox.setParent(boxDireita);
 		NucleoTab tabEsforco = new NucleoTab("Esforço Despendido");

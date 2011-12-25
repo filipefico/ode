@@ -10,7 +10,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Vlayout;
 
 public class JanAnularCancelamentoAlocacaoRH extends JanelaSimples {
 
@@ -22,8 +22,9 @@ public class JanAnularCancelamentoAlocacaoRH extends JanelaSimples {
 		this.setTitle("Anular Cancelamento de Alocação");
 		this.setHflex("min");
 		
-		Vbox vbox = new Vbox();
+		Vlayout vbox = new Vlayout();
 		vbox.setParent(this);
+		vbox.setStyle("padding: 3px 15px");
 		
 		String motivo = cancelamentoAlocacaoRH.getMotivo();
 		Label label;
@@ -39,13 +40,14 @@ public class JanAnularCancelamentoAlocacaoRH extends JanelaSimples {
 		label2.setParent(vbox);
 		
 		Hbox hbox = new Hbox();
+		hbox.setHflex("1");
+		hbox.setPack("center");
 		hbox.setParent(vbox);
-		hbox.setAlign("center");
 		
 		Button botaoOK = new Button("Sim");
 		botaoOK.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event e) throws Exception {
-				ctrl.anularCancelamentoAlocacaoRH(cancelamentoAlocacaoRH.getAlocacaoRH());
+				ctrl.anularCancelamentoAlocacaoRH();
 				onClose();
 			}
 		});
@@ -53,6 +55,7 @@ public class JanAnularCancelamentoAlocacaoRH extends JanelaSimples {
 		botaoOK.setParent(hbox);
 		
 		Button botaoCancelar = new Button("Não");
+		botaoCancelar.setZclass("z-messagebox-btn");
 		botaoCancelar.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event e) throws Exception {
 				onClose();

@@ -6,14 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
-import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
-import ode.atuacaoRecursoHumano.cdp.AtuacaoRH;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.ciu.FormDadosRecursoHumano;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.GridDados;
 import ode._infraestruturaCRUD.ciu.NucleoListbox;
+import ode.atuacaoRecursoHumano.cdp.AtuacaoRH;
+import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
 import ode.conhecimento.organizacao.cdp.KCompetencia;
 import ode.conhecimento.organizacao.cdp.NivelKCompetencia;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
@@ -51,7 +50,7 @@ public class FormDadosAtuacaoRH extends FormDadosRecursoHumano {
 		NucleoTab tabDadosCadastro = super.definirTabDadosCadastro();
 
 		listaKRH = ((CtrlAtuacaoRHCRUD) getControlador()).listarKRecursosHumanos();
-		listboxCargo.setObjetos(listaKRH);
+		listboxCargo.addObjetos(listaKRH);
 
 		listboxCargo.addEventListener("onSelect", new EventListener() {
 			public void onEvent(Event event) {
@@ -144,10 +143,10 @@ public class FormDadosAtuacaoRH extends FormDadosRecursoHumano {
 			listboxPapeis.setObjetosSelecionados(atuacaoRH.getPapeis());
 			
 			for(CompetenciaRH compRH : getControlador().obterCompetenciasRH(atuacaoRH)) {
-				Listitem li = listboxCompetencias.getItem(compRH.getKCompetencia());
+				Listitem li = listboxCompetencias.getItem(compRH.getkCompetencia());
 				Listcell lc2 = (Listcell) li.getChildren().get(1);
 				NucleoListbox<NivelKCompetencia> lb = (NucleoListbox<NivelKCompetencia>) lc2.getChildren().get(0);
-				lb.setObjetoSelecionado(compRH.getNivelCompetencia());
+				lb.setObjetoSelecionado(compRH.getNivel());
 			}
 		}
 	}
@@ -172,8 +171,8 @@ public class FormDadosAtuacaoRH extends FormDadosRecursoHumano {
 			if(lb.getSelectedIndex()>0) {
 				//se o rh possui aquela competencia
 				CompetenciaRH competencia = new CompetenciaRH();
-				competencia.setNivelCompetencia(lb.getObjetoSelecionado());
-				competencia.setKCompetencia((KCompetencia)li.getValue());
+				competencia.setNivel(lb.getObjetoSelecionado());
+				competencia.setkCompetencia((KCompetencia)li.getValue());
 				competencias.add(competencia);
 			}
 		}

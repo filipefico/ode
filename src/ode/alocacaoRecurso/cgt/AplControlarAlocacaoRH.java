@@ -48,7 +48,8 @@ public class AplControlarAlocacaoRH {
 	
 	public void avaliarParticipacaodeRH(AlocacaoRH alocacaoRH, EstadoAlocacaoRH estado) {
 		alocacaoRH.setEstado(estado);
-		alocacaoRH.setDtFimEfetivo(new Date());
+		if(estado.equals(EstadoAlocacaoRH.Encerrada))
+			alocacaoRH.setDtFimEfetivo(new Date());
 		alocacaoRHDAO.atualizar(alocacaoRH);
 	}
 }

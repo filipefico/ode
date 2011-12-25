@@ -13,7 +13,7 @@ public class JanAgenda  extends JanelaSimples {
 		this.setHflex("min");
 		
 		PainelAlocacoesAtividades painel = new PainelAlocacoesAtividades(ctrl);
-		painel.setParent(this);
+		painel.setParent(this);		
 	}
 	
 }

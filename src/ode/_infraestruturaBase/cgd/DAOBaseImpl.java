@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
@@ -18,7 +19,7 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 
 public class DAOBaseImpl<T extends ObjetoPersistente> implements DAOBase<T> {
 
-	@PersistenceContext
+	@PersistenceContext(type=PersistenceContextType.EXTENDED)
 	protected EntityManager entityManager;
 
 	/*

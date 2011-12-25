@@ -8,10 +8,10 @@ import ode._infraestruturaBase.cgd.DAOBase;
 
 public interface ParticipacaoEquipeDAO extends DAOBase<ParticipacaoEquipe> {
 
-	public List<ParticipacaoEquipe> obterPorEquipe(Long id);
+	public List<ParticipacaoEquipe> obterHistoricoPorProjeto(Long id);
 
 	public List<RecursoHumano> obterMembrosPorProjeto(Long id);
 
-	public List<RecursoHumano> recuperarRecursosHumanosComParticipacaoPapel(Long idKRH, Long idProjeto);
+	public List<ParticipacaoEquipe> obterPorEquipeAtual(Long id);
 
 }

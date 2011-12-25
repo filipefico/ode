@@ -6,12 +6,12 @@ import java.util.Locale;
 import java.util.Map;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
+import ode._infraestruturaBase.util.FuncionalidadesMenu;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaBase.util.NucleoMensagens;
 import ode.agenda.ciu.CtrlAgenda;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
-import ode.controleUsuario.cgt.AplAutenticarUsuario;
 
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -79,7 +79,7 @@ public class WindowPrincipal extends Window {
 		this.adicionarCabecalhoPrincipal();
 		this.adicionarFuncionalidadesDisponiveisUsuario();
 		
-		abrirJanela(CtrlAgenda.class.getCanonicalName());
+		abrirJanela(CtrlAgenda.class.getCanonicalName(),"iniciarAutomaticamente");
 	}
 
 
@@ -222,8 +222,7 @@ public class WindowPrincipal extends Window {
 		Collection<Funcionalidade> funcionalidades;
 		
 		if(funcionalidadePai == null) {
-			AplAutenticarUsuario apl = (AplAutenticarUsuario)SpringUtil.getBean(AplAutenticarUsuario.class.getSimpleName());
-			funcionalidades = apl.obterFuncionalidades();
+			funcionalidades = FuncionalidadesMenu.obterFuncionalidades();
 		} else {
 			Menupopup menupopup = new Menupopup();
 			menupopup.setParent(pai);
@@ -265,13 +264,25 @@ public class WindowPrincipal extends Window {
 	 * @param srcCtrl Src do controlador da aplicação.
 	 */
 	public void abrirJanela(String srcCtrl){
+		abrirJanela(srcCtrl,null);
+	}
+	
+	public void abrirJanela(String srcCtrl, String metodo) {
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("use", srcCtrl);
 		CtrlBase ctrl = (CtrlBase) Executions.createComponents(
 				"/paginas/principal/ctrl.zul",
 				this, map);
 		ctrl = (CtrlBase) SpringUtil.getApplicationContext().getBean(ctrl.getClass());
-		ctrl.iniciar();
+		if (metodo == null) {
+			ctrl.iniciar();
+		} else {
+			try {
+				ctrl.getClass().getMethod(metodo).invoke(ctrl, null);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/** 

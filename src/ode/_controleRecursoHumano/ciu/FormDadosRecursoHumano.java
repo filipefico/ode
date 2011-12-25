@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
@@ -56,7 +55,7 @@ public class FormDadosRecursoHumano extends FormularioDadosCRUD<RecursoHumano> {
 
 		tbCargaHoraria.setWidth("25px");
 		tbCargaHoraria.setMaxlength(3);
-		gridDadosCadastro.adicionarLinhaObrigatoria("Carga Horária", tbCargaHoraria);
+		gridDadosCadastro.adicionarLinhaObrigatoria("Carga Horária Semanal", tbCargaHoraria);
 		
 		tbEmail.setWidth("240px");
 		gridDadosCadastro.adicionarLinhaObrigatoria("E-mail", tbEmail);
