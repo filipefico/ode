@@ -97,7 +97,7 @@ public class CtrlAtuacaoRHCRUD extends CtrlCRUD<RecursoHumano> {
 	}	
 
 	public Collection<CompetenciaRH> obterCompetenciasRH(AtuacaoRH atuacaoRH) {
-		return atuacaoRHDAO.recuperarCompetenciasPorAtuacaoRH(atuacaoRH.getId());
+		return atuacaoRHDAO.recuperarCompetenciasPorRH(atuacaoRH.getRecursoHumano().getId());
 	}
 	
 

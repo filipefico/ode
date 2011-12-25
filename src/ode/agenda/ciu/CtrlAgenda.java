@@ -1,10 +1,13 @@
 package ode.agenda.ciu;
 
+import java.util.Collection;
+
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode.alocacaoRecurso.cgd.AlocacaoFerramentaSoftwareDAO;
 import ode.alocacaoRecurso.cgd.AlocacaoRHDAO;
+import ode.controleProjeto.cdp.Projeto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,12 @@ public class CtrlAgenda extends CtrlBase {
 	@Autowired
 	public AlocacaoFerramentaSoftwareDAO alocacaoFerramentaSoftwareDAO;
 	
+	public void iniciarAutomaticamente() {
+		if (obterProjetosRecursoLogado().size() > 0) {
+			iniciar();
+		}
+	}
+	
 	@Override
 	public void iniciar() {
 		jan = new JanAgenda(this);
@@ -30,6 +39,10 @@ public class CtrlAgenda extends CtrlBase {
 
 	public RecursoHumano getRecursoHumano() {
 		return NucleoContexto.recuperarUsuarioLogado().getRecursoHumano();
+	}
+
+	public Collection<Projeto> obterProjetosRecursoLogado() {
+		return alocacaoRHDAO.recuperarProjetosPorRH(getRecursoHumano().getId());
 	}
 
 }

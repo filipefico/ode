@@ -1,6 +1,7 @@
 package ode.atuacaoRecursoHumano.cgd;
 
 import java.util.Collection;
+import java.util.List;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
@@ -19,8 +20,8 @@ public class AtuacaoRHDAOImpl extends
 	}
 
 	@Override
-	public Collection<CompetenciaRH> recuperarCompetenciasPorAtuacaoRH(Long idAtuacaoRH) {
-		return entityManager.createQuery("from CompetenciaRH c where c.atuacaoRH.id = :idAtuacaoRH", CompetenciaRH.class).setParameter("idAtuacaoRH", idAtuacaoRH).getResultList();
+	public Collection<CompetenciaRH> recuperarCompetenciasPorRH(Long idRH) {
+		return entityManager.createQuery("from CompetenciaRH c where c.atuacaoRH.recursoHumano.id = :idRH", CompetenciaRH.class).setParameter("idRH", idRH).getResultList();
 	}
 
 	@Override
@@ -32,6 +33,13 @@ public class AtuacaoRHDAOImpl extends
 				.setParameter("idKRecursoHumano", idKRecursoHumano)
 				.getResultList();
 	}
-
+	
+	@Override
+	public List<RecursoHumano> recuperarComParticipacaoPapel(Long idKRH, Long idProjeto) {
+		return entityManager.createQuery("select pe.recursoHumano from ParticipacaoEquipe pe" +
+				" where pe.equipe.projeto.id = :idProjeto" +
+				" and pe.dtFim is null" +
+				" and :idKRH in (select p.id from pe.papeis p)", RecursoHumano.class).setParameter("idProjeto", idProjeto).setParameter("idKRH", idKRH).getResultList();
+	}
 	
 }

@@ -14,7 +14,6 @@ import ode._controleProcesso.cgd.DemandaRHDAO;
 import ode._controleProcesso.cgd.ProcessoProjetoEspecificoDAO;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgd.ParticipacaoEquipeDAO;
-import ode._controleRecursoHumano.cgt.AplDefinirEquipe;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode.alocacaoRecurso.cdp.AlocacaoFerramentaSoftware;
@@ -29,6 +28,7 @@ import ode.atuacaoRecursoHumano.cgd.AtuacaoRHDAO;
 import ode.conhecimento.processo.cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.controleProjeto.cdp.Projeto;
+import ode.planejamentoCompetencia.cgd.DemandaCompetenciaDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,15 +50,15 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 		
 	@Autowired
 	private AplControlarAlocacaoRH aplControlarAlocacaoRH;
-		
-	@Autowired
-	private AplDefinirEquipe aplDefinirEquipe;
 	
 	@Autowired
 	public AtuacaoRHDAO atuacaoRHDAO;
 	
 	@Autowired
 	public DemandaRHDAO demandaRHDAO;
+	
+	@Autowired
+	public DemandaCompetenciaDAO demandaCompetenciaDAO;
 	
 	@Autowired
 	public ParticipacaoEquipeDAO participacaoEquipeDAO;
@@ -83,7 +83,7 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 
 	@Autowired
 	public FerramentaSoftwareDAO ferramentaSoftwareDAO;
-
+	
 	private AlocacaoRH alocacaoSelecionada;
 	
 	public void setAlocacaoSelecionada(AlocacaoRH alocacaoRH) {
@@ -106,10 +106,6 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 		return projeto;
 	}
 	
-	public void definirEquipe(Set<RecursoHumano> objetosSelecionados, KRecursoHumano krh) {
-		aplDefinirEquipe.definirEquipe(objetosSelecionados, krh, projeto);
-	}
-	
 	public boolean existeEquipeDefinida() {
 		for(KRecursoHumano krh : listarKRecursosHumanosPorProjeto())
 			if(listarParticipacoesRecursosHumanosPorPapel(krh).size()>0)
@@ -122,7 +118,7 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 	}
 
 	public Collection<RecursoHumano> listarParticipacoesRecursosHumanosPorPapel(KRecursoHumano krh) {
-		return participacaoEquipeDAO.recuperarRecursosHumanosComParticipacaoPapel(krh.getId(), projeto.getId());
+		return atuacaoRHDAO.recuperarComParticipacaoPapel(krh.getId(), projeto.getId());
 	}
 
 	public Collection<AlocacaoRH> listarAlocacoesRHPorDemandaRH(DemandaRH demandaRH) {
@@ -137,14 +133,14 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 		aplAlocarRecurso.alocarRecursosHumanos(demandaRH, objetosSelecionados, objetosNaoSelecionados);
 	}
 
-	public void cancelarAlocacaoRH(AlocacaoRH alocacaoRH, String motivo) {
-		aplControlarAlocacaoRH.cancelarAlocacaoRH(alocacaoRH, motivo);
-		jan.getPainelAlocarRH().preencherBoxAlocacaoRH();
+	public void cancelarAlocacaoRH(String motivo) {
+		aplControlarAlocacaoRH.cancelarAlocacaoRH(alocacaoSelecionada, motivo);
+		jan.preencherBoxAlocacaoRH();
 	}
 
-	public void anularCancelamentoAlocacaoRH(AlocacaoRH alocacaoRH) {
-		aplControlarAlocacaoRH.anularCancelamentoAlocacaoRH(alocacaoRH);
-		jan.getPainelAlocarRH().preencherBoxAlocacaoRH();
+	public void anularCancelamentoAlocacaoRH() {
+		aplControlarAlocacaoRH.anularCancelamentoAlocacaoRH(alocacaoSelecionada);
+		jan.preencherBoxAlocacaoRH();
 	}
 
 	public void editarAlocacao(Integer dedicacao, Date dtInicioPrevista, Date dtFimPrevista) {
@@ -166,7 +162,7 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 		aplAlocarRecurso.alocarFerramentasSoftware(atividade, objetosSelecionados, objetosNaoSelecionados);
 	}
 
-	public void preencherPainelAlocarRecursos(final PainelAlocarRecursos painel) {
+	public void preencherPainelAlocarRecursos() {
 		if(ehPossivelAlocarAutomaticamente()) {		
 			try {
 				confirmaSimNao("Um ou mais recursos requeridos podem ser atendidos por apenas um recurso.\r\n"
@@ -177,7 +173,7 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 						if (((Integer) event.getData()).intValue() == Messagebox.YES) {
 							aplAlocarRecurso.alocarAutomaticamente(projeto);
 						}
-						painel.preencherArvore();
+						jan.preencherArvore();
 					}
 				});
 			} catch (InterruptedException e) {
@@ -185,7 +181,7 @@ public class CtrlAlocacaoRecurso extends CtrlBase {
 			}
 		}
 		else
-			painel.preencherArvore();
+			jan.preencherArvore();
 	}
 
 	public boolean ehPossivelAlocarAutomaticamente() {

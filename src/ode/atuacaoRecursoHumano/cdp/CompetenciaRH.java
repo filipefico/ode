@@ -14,7 +14,7 @@ public class CompetenciaRH extends ObjetoPersistente {
 	private static final long serialVersionUID = 1L;
 	
 	private KCompetencia kCompetencia;
-	private NivelKCompetencia nivelCompetencia;
+	private NivelKCompetencia nivel;
 	private AtuacaoRH atuacaoRH;	
 
 	@ManyToOne
@@ -26,18 +26,18 @@ public class CompetenciaRH extends ObjetoPersistente {
 	}
 
 	@ManyToOne
-	public KCompetencia getKCompetencia() {
+	public KCompetencia getkCompetencia() {
 		return kCompetencia;
 	}
-	public void setKCompetencia(KCompetencia competencia) {
+	public void setkCompetencia(KCompetencia competencia) {
 		this.kCompetencia = competencia;
 	}
 
 	@Enumerated
-	public NivelKCompetencia getNivelCompetencia() {
-		return nivelCompetencia;
+	public NivelKCompetencia getNivel() {
+		return nivel;
 	}
-	public void setNivelCompetencia(NivelKCompetencia nivelCompetencia) {
-		this.nivelCompetencia = nivelCompetencia;
+	public void setNivel(NivelKCompetencia nivelCompetencia) {
+		this.nivel = nivelCompetencia;
 	}
 }

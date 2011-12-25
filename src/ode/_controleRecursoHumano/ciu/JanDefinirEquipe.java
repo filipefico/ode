@@ -1,7 +1,11 @@
 package ode._controleRecursoHumano.ciu;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
+import ode._infraestruturaBase.ciu.NucleoTab;
+import ode._infraestruturaBase.ciu.NucleoTabbox;
+import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode._infraestruturaCRUD.ciu.NucleoListbox;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
@@ -11,11 +15,9 @@ import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Panel;
-import org.zkoss.zul.Panelchildren;
 import org.zkoss.zul.Separator;
 
-public class PainelDefinirEquipe extends Panel {
+public class JanDefinirEquipe extends JanelaSimples {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,17 +25,31 @@ public class PainelDefinirEquipe extends Panel {
 	
 	private NucleoListbox<RecursoHumano> listBox = new NucleoListbox<RecursoHumano>();
 
-	public PainelDefinirEquipe(CtrlDefinirEquipe ctrlSelecionarProjeto){
+	public JanDefinirEquipe(CtrlDefinirEquipe ctrl){
 		super();
-		this.ctrlDefinirEquipe = ctrlSelecionarProjeto;
+		this.ctrlDefinirEquipe = ctrl;
+		
+		this.setTitle("Definir Equipe - " + ctrl.getProjeto().getNome());
+		this.setWidth("400px");
+		
+		NucleoTabbox tabbox = new NucleoTabbox();
+		tabbox.setParent(this);
+		NucleoTab tabEquipe = new NucleoTab("Equipe");
+		tabbox.addTab(tabEquipe);
+		NucleoTab tabHistorico = new NucleoTab("Histórico");
+		tabbox.addTab(tabHistorico);
+		
 
+		preencherTabEquipe(tabEquipe);
+		preencherTabHistorico(tabHistorico);
+	}
+
+	private void preencherTabEquipe(NucleoTab tabEquipe) {
 		// Cria lista de recursos humanos
-		Panelchildren panelchildren = new Panelchildren();
-		panelchildren.setParent(this);
 		listBox.setHeight("300px");
 		listBox.setCheckmark(true);
 		listBox.setMultiple(true);
-		listBox.setParent(panelchildren);
+		tabEquipe.addElemento(listBox);
 		
 		for (RecursoHumano rh : ctrlDefinirEquipe.listarRecursosHumanos()) {
 			Listitem li = new Listitem();
@@ -57,7 +73,7 @@ public class PainelDefinirEquipe extends Panel {
 
 		// Botões OK e Cancelar
 		Div div = new Div();
-		div.setParent(panelchildren);
+		tabEquipe.addElemento(div);
 		div.setStyle("float: right;");
 		Separator separator = new Separator();
 		separator.setParent(div);
@@ -81,5 +97,13 @@ public class PainelDefinirEquipe extends Panel {
 		});
 		botaoCancelar.setWidth("100px");
 		botaoCancelar.setParent(div);
+	}
+	
+	private void preencherTabHistorico(NucleoTab tabHistorico) {
+		ListagemHistoricoEquipe listagem = new ListagemHistoricoEquipe();
+		
+		listagem.atualizar(ctrlDefinirEquipe.listarHistoricoEquipe());
+		listagem.configurarComponentes();
+		tabHistorico.addElemento(listagem);
 	}
 }

@@ -11,7 +11,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Vbox;
+import org.zkoss.zul.Vlayout;
 
 public class JanAvaliarAlocacaoRH extends JanelaSimples {
 
@@ -25,8 +25,9 @@ public class JanAvaliarAlocacaoRH extends JanelaSimples {
 		this.setTitle("Avaliar Participacao de Recurso Humano");
 		this.setHflex("min");
 		
-		Vbox vbox = new Vbox();
+		Vlayout vbox = new Vlayout();
 		vbox.setParent(this);
+		vbox.setStyle("padding: 3px 15px");
 		
 		Label labelMotivo = new Label("Selecione o novo estado da alocação:");
 		labelMotivo.setParent(vbox);
@@ -38,9 +39,12 @@ public class JanAvaliarAlocacaoRH extends JanelaSimples {
 		listEstados.setWidth("300px");
 		
 		Hbox hbox = new Hbox();
+		hbox.setHflex("1");
+		hbox.setPack("center");
 		hbox.setParent(vbox);
 		
 		Button botaoOK = new Button("OK");
+		botaoOK.setZclass("z-messagebox-btn");
 		botaoOK.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event e) throws Exception {
 				if(listEstados.getObjetoSelecionado()==null) {
@@ -54,6 +58,7 @@ public class JanAvaliarAlocacaoRH extends JanelaSimples {
 		botaoOK.setParent(hbox);
 		
 		Button botaoCancelar = new Button("Cancelar");
+		botaoCancelar.setZclass("z-messagebox-btn");
 		botaoCancelar.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event e) throws Exception {
 				onClose();

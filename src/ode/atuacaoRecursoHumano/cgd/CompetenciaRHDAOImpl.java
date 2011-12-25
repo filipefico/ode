@@ -2,10 +2,10 @@ package ode.atuacaoRecursoHumano.cgd;
 
 import java.util.Collection;
 
-import org.springframework.stereotype.Repository;
-
-import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
+import ode.atuacaoRecursoHumano.cdp.CompetenciaRH;
+
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class CompetenciaRHDAOImpl extends
@@ -15,4 +15,5 @@ public class CompetenciaRHDAOImpl extends
 	public Collection<CompetenciaRH> obterPorRH(Long idRH) {
 		return entityManager.createQuery("from CompetenciaRH c where c.atuacaoRH.recursoHumano.id = :idRH", CompetenciaRH.class).setParameter("idRH", idRH).getResultList();
 	}
+	
 }

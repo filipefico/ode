@@ -10,7 +10,7 @@ import ode._infraestruturaCRUD.ciu.PainelCRUD;
 import ode.alocacaoRecurso.cdp.AlocacaoRH;
 import ode.alocacaoRecurso.cdp.EsforcoDespendido;
 import ode.alocacaoRecurso.cdp.EstadoAlocacaoRH;
-import ode.alocacaoRecurso.cgt.AplCadastrarEsforcoDespendido;
+import ode.alocacaoRecurso.cgt.AplRegistrarEsforcoDespendido;
 import ode.alocacaoRecurso.cgt.AplControlarAlocacaoRH;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CtrlEsforcoDespendidoCRUD extends CtrlCRUD<EsforcoDespendido> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private AplCadastrarEsforcoDespendido aplCadastrarEsforcoDespendido;
+	private AplRegistrarEsforcoDespendido aplRegistrarEsforcoDespendido;
 	
 	@Autowired
 	private AplControlarAlocacaoRH aplControlarAlocacaoRH;
@@ -49,7 +49,7 @@ public class CtrlEsforcoDespendidoCRUD extends CtrlCRUD<EsforcoDespendido> {
 	
 	@Override
 	public void atualizarPesquisa() {
-		Collection<EsforcoDespendido> objetos = aplCadastrarEsforcoDespendido.recuperarPorAlocacaoRH(alocacaoRH.getId());
+		Collection<EsforcoDespendido> objetos = aplRegistrarEsforcoDespendido.recuperarPorAlocacaoRH(alocacaoRH.getId());
 		painelCRUD.getListagem().atualizar(objetos);
 		atualizarToolbar();
 	}
@@ -68,7 +68,7 @@ public class CtrlEsforcoDespendidoCRUD extends CtrlCRUD<EsforcoDespendido> {
 
 	@Override
 	public AplCRUD<EsforcoDespendido> definirAplCRUD() {
-		return this.aplCadastrarEsforcoDespendido;
+		return this.aplRegistrarEsforcoDespendido;
 	}
 
 	@Override

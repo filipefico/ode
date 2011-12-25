@@ -20,7 +20,7 @@ import org.zkoss.zul.Messagebox;
 
 @Service
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadastrarEsforcoDespendido extends AplCRUD<EsforcoDespendido> {
+public class AplRegistrarEsforcoDespendido extends AplCRUD<EsforcoDespendido> {
 
 	@Autowired
 	private EsforcoDespendidoDAO esforcoDespendidoDAO;

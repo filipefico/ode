@@ -1,7 +1,11 @@
 package ode.conhecimento.organizacao.cdp;
 
 public enum NivelKCompetencia {
-	Nenhuma("Nenhuma Competência", 0), Baixo("Nível Baixo", 10), Medio("Nível Médio", 20), Alto("Nível Alto", 30);
+	//manter sempre do maior para o menor para não quebrar a verificação das competencias 
+	Nenhuma("Nenhuma Competência", 0),
+	Baixo("Nível Baixo", 25),
+	Medio("Nível Médio", 50),
+	Alto("Nível Alto", 75);
 
 	private String nome;
 	private int valor;
