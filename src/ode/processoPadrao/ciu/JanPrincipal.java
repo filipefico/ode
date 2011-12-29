@@ -27,11 +27,11 @@ public class JanPrincipal extends JanCore {
 
 		super(ctrlDefinirProcessoPadrao);
 		menu();
-		conteudo();
-		this.mostrar();
+		atualizaConteudo();
+		mostrar();
 	}
 
-	public void conteudo() {
+	public void atualizaConteudo() {
 		this.setTitle("Definir Processo Padrao");
 		criaArvoreCompPP();
 	}
@@ -72,9 +72,10 @@ public class JanPrincipal extends JanCore {
 			geraTreeCompPPSimples(compPPSimples).setParent(tc);
 		}
 
-		Menupopup menuContexto = menuDeContextoCompPP(compPP);
+		MenupopupV menuContexto = menuDeContextoCompPP(compPP);
 		menuContexto.setParent(this);
 		itemCabecalho.setContext(menuContexto);
+		menuContexto.setValue(compPP);
 
 		return itemCabecalho;
 
@@ -90,9 +91,10 @@ public class JanPrincipal extends JanCore {
 		}
 
 		// insere menu de contexto
-		Menupopup menuContexto = menuDeContextoCompPP(compPP);
+		MenupopupV menuContexto = menuDeContextoCompPP(compPP);
 		menuContexto.setParent(this);
 		itemCabecalho.setContext(menuContexto);
+		menuContexto.setValue(compPP);
 
 		return itemCabecalho;
 	}
@@ -106,9 +108,11 @@ public class JanPrincipal extends JanCore {
 				.setParent(tc);
 
 		// insere menu de contexto
-		Menupopup menuContexto = menuDeContextoCompPP(compPP);
+		MenupopupV menuContexto = menuDeContextoCompPP(compPP);
 		menuContexto.setParent(this);
+		menuContexto.getRoot();
 		itemCabecalho.setContext(menuContexto);
+		menuContexto.setValue(compPP);
 
 		return itemCabecalho;
 	}
@@ -151,7 +155,7 @@ public class JanPrincipal extends JanCore {
 		// na arvore.
 
 		/* MENUS de contexto */
-		Menupopup menupopupArtefatos = new Menupopup();
+		MenupopupV menupopupArtefatos = new MenupopupV();
 		newItemBasicoMenu(menupopupArtefatos, "Editar insumos",
 				new EventAtividade(atividade,
 						EnumAtividadeProcessoPadrao.INSUMO));
@@ -162,7 +166,7 @@ public class JanPrincipal extends JanCore {
 		menupopupArtefatos.setParent(this);
 		artefatos.setContext(menupopupArtefatos);
 
-		Menupopup menupopupRecursos = new Menupopup();
+		MenupopupV menupopupRecursos = new MenupopupV();
 		newItemBasicoMenu(menupopupRecursos, "Editar recursos de hardware",
 				new EventAtividade(atividade,
 						EnumAtividadeProcessoPadrao.REQUER_HARDWARE));
@@ -175,14 +179,14 @@ public class JanPrincipal extends JanCore {
 		menupopupRecursos.setParent(this);
 		recursos.setContext(menupopupRecursos);
 
-		Menupopup menupopupRecursosHumanos = new Menupopup();
+		MenupopupV menupopupRecursosHumanos = new MenupopupV();
 		newItemBasicoMenu(menupopupRecursosHumanos, "Editar recursos humanos",
 				new EventAtividade(atividade,
 						EnumAtividadeProcessoPadrao.REALIZADA_POR));
 		menupopupRecursosHumanos.setParent(this);
 		recursosHumanos.setContext(menupopupRecursosHumanos);
 
-		Menupopup menupopupProcedimentos = new Menupopup();
+		MenupopupV menupopupProcedimentos = new MenupopupV();
 		newItemBasicoMenu(menupopupProcedimentos, "Editar metodos",
 				new EventAtividade(atividade,
 						EnumAtividadeProcessoPadrao.ADOTA_METODOS));
@@ -242,6 +246,7 @@ public class JanPrincipal extends JanCore {
 	private Treeitem cabecalhoCompPP(CompPP compPP) {
 		Treeitem ti = new Treeitem();
 		ti.setLabel(compPP.getNome());
+		ti.setValue(compPP);
 
 		ti.setImage("/imagens/grupo.png");
 
@@ -270,8 +275,8 @@ public class JanPrincipal extends JanCore {
 		treechildren.setParent(tree);
 	}
 
-	private Menupopup menuDeContextoCompPP(CompPP compPP) {
-		Menupopup menupopupContexto = new Menupopup();
+	private MenupopupV menuDeContextoCompPP(CompPP compPP) {
+		MenupopupV menupopupContexto = new MenupopupV();
 
 		// insere menus de edição de compPP
 		if (compPP.isEhDefinido() == false) {
@@ -304,31 +309,17 @@ public class JanPrincipal extends JanCore {
 
 	}
 
-	protected void menusDeEdicaoCompPP(Menupopup menupopupContexto,
+	protected void menusDeEdicaoCompPP(MenupopupV menupopupContexto,
 			CompPP compPP) {
 
-		newItemBasicoMenu(menupopupContexto, "Estabelecer Requisitos",
-				new EventListnerEstabelecerRequisitos(
-				/*
-				 * private void inserirKAtividade(String nome, String descricao)
-				 * throws NucleoRegraNegocioExcecao { KAtividade kAtividade =
-				 * new KAtividade(); kAtividade.setNome(nome);
-				 * kAtividade.setDescricao(descricao);
-				 * 
-				 * AplCadastrarKAtividade aplCadastrarKAtividade =
-				 * (AplCadastrarKAtividade) SpringUtil
-				 * .getBean(AplCadastrarKAtividade.class.getSimpleName());
-				 * 
-				 * aplCadastrarKAtividade.salvar(kAtividade);
-				 * 
-				 * }
-				 */));
+		newItemBasicoMenu(menupopupContexto, "Editar Propriedades básicas",
+				new EventListnerPripriedadesBasicas());
 
-		newItemBasicoMenu(menupopupContexto, "Definir Interface",
+		newItemBasicoMenu(menupopupContexto, "Editar estrutura",
 				new EventListener() {
 					@Override
 					public void onEvent(Event arg0) throws Exception {
-						ctrl.abrirJanDefinirInterfaceCompPP();
+						ctrl.abrirJanEditarEstruturaCompPP();
 					}
 				});
 
@@ -374,7 +365,7 @@ public class JanPrincipal extends JanCore {
 	}
 
 	protected void menusDeEdicaoCompPPComplexoESimples(
-			Menupopup menupopupContexto) {
+			MenupopupV menupopupContexto) {
 
 		newItemBasicoMenu(menupopupContexto, "Selecionar CompPP base",
 				new EventListener() {
@@ -393,7 +384,7 @@ public class JanPrincipal extends JanCore {
 
 	}
 
-	protected void menusDeEdicaoMacroAtividade(Menupopup menupopupContexto) {
+	protected void menusDeEdicaoMacroAtividade(MenupopupV menupopupContexto) {
 		newItemBasicoMenu(menupopupContexto, "Definir SubAtividades",
 				new EventListener() {
 					@Override
@@ -414,7 +405,7 @@ public class JanPrincipal extends JanCore {
 	private void menu() {
 		Menubar menubar = new Menubar();
 		Menu menu = new Menu();
-		Menupopup menupopup = new Menupopup();
+		MenupopupV menupopup = new MenupopupV();
 
 		menubar.setParent(this);
 		menu.setParent(menubar);
@@ -429,7 +420,7 @@ public class JanPrincipal extends JanCore {
 
 	}
 
-	private void newItemBasicoMenu(Menupopup menupopup, String label,
+	private void newItemBasicoMenu(MenupopupV menupopup, String label,
 			EventListener eventListner) {
 		Menuitem menuItemDefinirCompPP = new Menuitem();
 		menuItemDefinirCompPP.setParent(menupopup);
@@ -441,14 +432,15 @@ public class JanPrincipal extends JanCore {
 
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			ctrl.abrirJanDefinirCompPP();
+			ctrl.abrirJanDefinirCompPP(true);
 		}
 	}
 
-	public class EventListnerEstabelecerRequisitos implements EventListener {
+	public class EventListnerPripriedadesBasicas implements EventListener {
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			ctrl.abrirJanEstabelecerRequisitos();
+			Object o = arg0.getTarget();
+			ctrl.abrirJanEditarPropriedadesBasicas();
 		}
 	}
 
@@ -457,6 +449,20 @@ public class JanPrincipal extends JanCore {
 		public void onEvent(Event arg0) throws Exception {
 			ctrl.abrirJanSelecionaProcessoPadrao();
 		}
+	}
+
+}
+
+class MenupopupV extends Menupopup {
+	private static final long serialVersionUID = -7771442276943364678L;
+	Object value;
+
+	public Object getValue() {
+		return value;
+	}
+
+	public void setValue(Object value) {
+		this.value = value;
 	}
 
 }

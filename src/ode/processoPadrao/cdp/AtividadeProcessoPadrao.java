@@ -61,6 +61,7 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	 * Ontém os KArtefatos cosumidos
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "AtividadeProcessoPadrao_Insumos")
 	public Set<KArtefato> getInsumos() {
 		return insumos;
 	}
@@ -73,6 +74,7 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	 * Ontém os KArtefatos produzidos
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "AtividadeProcessoPadrao_Produtos")
 	public Set<KArtefato> getProdutos() {
 		return produtos;
 	}

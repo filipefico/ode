@@ -51,11 +51,11 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		mostrarJanelaPrincipal();
 	}
 
-	JanPrincipal janDefinirProcessoPadrao;
+	JanPrincipal janPrincipal;
 
 	private void mostrarJanelaPrincipal() {
 		// essa janela faz chamadas para abrir as outras janelas.
-		janDefinirProcessoPadrao = new JanPrincipal(this);
+		janPrincipal = new JanPrincipal(this);
 
 		HashSet<Conhecimento> c = new HashSet<Conhecimento>();
 		for (KArtefato k : this.getAllKArtefato()) {
@@ -65,52 +65,56 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	}
 
 	public void resetJanelaPrincipal() {
-		janDefinirProcessoPadrao.onClose();
+		janPrincipal.onClose();
 		mostrarJanelaPrincipal();
 	}
 
 	public void setCompPPSelecionado(CompPP selecionado) {
 		compPPSelecionado = selecionado;
-		janDefinirProcessoPadrao.conteudo();// atualiza informação
-											// na tela.
+		janPrincipal.atualizaConteudo();// atualiza informação
+										// na tela.
 	}
 
-	public void abrirJanDefinirCompPP() {
-		new JanDefinirCompPP(this);
+	public void abrirJanDefinirCompPP(boolean setarCompPPEmArvore) {
+		new JanDefinirCompPP(this, setarCompPPEmArvore);
 	}
 
 	public void salvarCompPP(CompPP compPP) {
 		aplDefinirProcessoPadrao.salvarCompPP(compPP);
-		janDefinirProcessoPadrao.conteudo();
+		janPrincipal.atualizaConteudo();
 	}
 
 	public void atualizarCompPP(CompPP compPP) {
 		this.compPPSelecionado = aplDefinirProcessoPadrao
 				.atualizarCompPP(compPP);
-		janDefinirProcessoPadrao.conteudo();
+		janPrincipal.atualizaConteudo();
 	}
 
 	public void salvarCompPP(String nome, String descricao, String objetivo,
-			String tipo, Object objTipo) {
+			Class tipo, String requisitos, Object objTipo,
+			boolean setarCompPPEmArvore) {
 
-		if (tipo.compareTo("Processo Complexo") == 0) {
-			aplDefinirProcessoPadrao.salvarProcessoComplexo(nome, descricao,
-					objetivo);
-		} else if (tipo.compareTo("Processo Simples") == 0) {
-			aplDefinirProcessoPadrao.salvarProcessoSimples(nome, descricao,
-					objetivo, objTipo);
-		} else if (tipo.compareTo("Macroatividade") == 0) {// macroatividade
-			aplDefinirProcessoPadrao.salvarMacroatividade(nome, descricao,
-					objetivo, objTipo);
-		} else {
-			new RuntimeException(
-					"A string de comparação do tipo esta incorreta: " + tipo);
+		CompPP compPPSalvo = null;
+		if (tipo == CompPPProcessoComplexo.class) {
+			compPPSalvo = aplDefinirProcessoPadrao.salvarProcessoComplexo(nome,
+					descricao, objetivo, requisitos);
+		} else if (tipo == CompPPProcessoSimples.class) {
+			compPPSalvo = aplDefinirProcessoPadrao.salvarProcessoSimples(nome,
+					descricao, objetivo, requisitos, objTipo);
+		} else if (tipo == CompPPMacroatividade.class) {
+			compPPSalvo = aplDefinirProcessoPadrao.salvarMacroatividade(nome,
+					descricao, objetivo, requisitos, objTipo);
 		}
-		janDefinirProcessoPadrao.conteudo();
+
+		if (setarCompPPEmArvore) {
+			setCompPPSelecionado(compPPSalvo);
+		}
+
+		janPrincipal.atualizaConteudo();
 	}
 
-	public void abrirJanEstabelecerRequisitos() {
-		new JanEstabelecerRequisitosCompPP(this);
+	public void abrirJanEditarPropriedadesBasicas() {
+		new JanEditarPropriedadesBasicasCompPP(this);
 	}
 
 	public void abrirJanSelecionaProcessoPadrao() {
@@ -121,8 +125,8 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		return compPPSelecionado;
 	}
 
-	public void abrirJanDefinirInterfaceCompPP() {
-		new JanDefinirInterfaceCompPP(this);
+	public void abrirJanEditarEstruturaCompPP() {
+		new JanEditarEstruturaCompPP(this);
 	}
 
 	public void atualizarEstruturaCompPP(Set<Conhecimento> selecionados,
@@ -197,14 +201,16 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	public void excluirCompPP(CompPP compPP) {
 		aplDefinirProcessoPadrao.excluirCompPP(compPP);
+		setCompPPSelecionado(null);
+		janPrincipal.atualizaConteudo();
 	}
 
 	public void finalizarDefinicao() {
 		this.getcompPPSelecionado().setEhDefinido(true);
 		this.atualizarCompPP(this.getcompPPSelecionado());
-		janDefinirProcessoPadrao.onClose();
+		janPrincipal.onClose();
 		this.mostrarJanelaPrincipal();
-		janDefinirProcessoPadrao.conteudo();
+		janPrincipal.atualizaConteudo();
 	}
 
 	public Collection<KProcesso> getAllKProcesso() {

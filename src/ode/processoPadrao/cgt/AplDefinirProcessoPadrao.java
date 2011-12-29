@@ -68,14 +68,16 @@ public class AplDefinirProcessoPadrao {
 	@Autowired
 	private KTecnicaDAO kTecnicaDAO;
 
-	public void salvarProcessoComplexo(String nome, String descricao,
-			String objetivo) {
+	public CompPPProcessoComplexo salvarProcessoComplexo(String nome,
+			String descricao, String objetivo, String requisitos) {
 		CompPPProcessoComplexo compPPcomplexo = new CompPPProcessoComplexo();
 		compPPcomplexo.setNome(nome);
 		compPPcomplexo.setDescricao(descricao);
 		compPPcomplexo.setObjetivo(objetivo);
+		compPPcomplexo.setRequisitoCompPP(requisitos);
 
 		compPPDAO.salvar(compPPcomplexo);
+		return compPPcomplexo;
 	}
 
 	public void salvarCompPP(CompPP compPP) {
@@ -90,36 +92,41 @@ public class AplDefinirProcessoPadrao {
 		compPPDAO.excluir(compPP);
 	}
 
-	public void salvarProcessoSimples(String nome, String descricao,
-			String objetivo, Object objTipo) {
+	public CompPPProcessoSimples salvarProcessoSimples(String nome,
+			String descricao, String objetivo, String requisitos, Object objTipo) {
 		CompPPProcessoSimples compPPsimples = new CompPPProcessoSimples();
 
 		compPPsimples.setNome(nome);
 		compPPsimples.setDescricao(descricao);
 		compPPsimples.setObjetivo(objetivo);
+		compPPsimples.setRequisitoCompPP(requisitos);
+		compPPsimples.setTipo(null);
+		compPPDAO.salvar(compPPsimples);
+
 		compPPsimples.setTipo(kProcessoDAO.recuperarPorId(((KProcesso) objTipo)
 				.getId()));
-
-		compPPDAO.salvar(compPPsimples);
+		return (CompPPProcessoSimples) compPPDAO.atualizar(compPPsimples);
 
 	}
 
-	public void salvarMacroatividade(String nome, String descricao,
-			String objetivo, Object objTipo) {
+	public CompPPMacroatividade salvarMacroatividade(String nome,
+			String descricao, String objetivo, String requisitos, Object objTipo) {
 		CompPPMacroatividade compPPMacroatividade = new CompPPMacroatividade();
 
 		compPPMacroatividade.setNome(nome);
 		compPPMacroatividade.setDescricao(descricao);
 		compPPMacroatividade.setObjetivo(objetivo);
+		compPPMacroatividade.getAtividadeProcessoPadrao().setNome(nome);
+		compPPMacroatividade.setRequisitoCompPP(requisitos);
+
+		compPPDAO.salvar(compPPMacroatividade);
+
 		compPPMacroatividade.setTipo(kAtividadeDAO
 				.recuperarPorId(((KAtividade) objTipo).getId()));
 
 		compPPMacroatividade.getAtividadeProcessoPadrao().setTipo(
 				kAtividadeDAO.recuperarPorId(((KAtividade) objTipo).getId()));
-		compPPMacroatividade.getAtividadeProcessoPadrao().setNome(nome);
-
-		compPPDAO.salvar(compPPMacroatividade);
-
+		return (CompPPMacroatividade) compPPDAO.atualizar(compPPMacroatividade);
 	}
 
 	public Collection<CompPP> recuperarTodosCompPP() {
