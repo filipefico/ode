@@ -23,12 +23,12 @@ import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 
-public class JanDefinirInterfaceCompPP extends JanCore {
+public class JanEditarEstruturaCompPP extends JanCore {
 	private static final long serialVersionUID = 3035850190447854404L;
 	private JanelaSimples janela;
 	private Listbox listbox;
 
-	public JanDefinirInterfaceCompPP(
+	public JanEditarEstruturaCompPP(
 			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
 		super(ctrlDefinirProcessoPadrao);
@@ -41,7 +41,7 @@ public class JanDefinirInterfaceCompPP extends JanCore {
 
 	private void configuraElementosJanela() {
 
-		janela.setTitle("Definir CompPP");
+		janela.setTitle("Editar estrutura");
 
 		listbox = new Listbox();
 		Button buttonOK = new Button();

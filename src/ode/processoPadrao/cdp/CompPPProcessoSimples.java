@@ -38,7 +38,9 @@ public class CompPPProcessoSimples extends CompPP implements Cloneable {
 	}
 
 	@ManyToOne(cascade = { javax.persistence.CascadeType.MERGE,
-			javax.persistence.CascadeType.PERSIST })
+			javax.persistence.CascadeType.PERSIST,
+			javax.persistence.CascadeType.REFRESH,
+			javax.persistence.CascadeType.DETACH })
 	public KProcesso getTipo() {
 		return tipo;
 	}

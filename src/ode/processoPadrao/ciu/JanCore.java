@@ -1,8 +1,17 @@
 package ode.processoPadrao.ciu;
 
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Set;
+
+import org.zkoss.zul.Hbox;
+import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Vbox;
+
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 
-public class JanCore extends JanelaSimples {
+public class JanCore extends JanelaSimples implements Serializable {
+	private static final long serialVersionUID = 3374943399161265500L;
 	protected CtrlDefinirProcessoPadrao ctrl;
 
 	public JanCore(CtrlDefinirProcessoPadrao ctrl) {
@@ -14,7 +23,6 @@ public class JanCore extends JanelaSimples {
 	protected void configuracaoBasica() {
 		this.setTitle("Título provisório");
 		this.setWidth("450px");
-		this.setHeight("600px");
 		this.setBorder("normal");
 		this.setClosable(true);
 		this.setPosition("&quot;center;&quot;;");
