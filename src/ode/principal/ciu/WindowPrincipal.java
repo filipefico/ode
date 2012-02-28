@@ -18,7 +18,6 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Div;
-import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Menu;
 import org.zkoss.zul.Menubar;
@@ -90,44 +89,32 @@ public class WindowPrincipal extends Window {
 
 		Div divCabecalho = new Div();
 		divCabecalho.setParent(this);
-		divCabecalho.setHeight("25px");
-		divCabecalho.setStyle("background-image: url('imagens/wnd-hm.png');background-repeat: repeat-x;");
+		divCabecalho.setStyle("background: #DDDFFF");
 
-		Div divLadoEsquerdo = new Div();
-		divLadoEsquerdo.setParent(divCabecalho);
-		divLadoEsquerdo.setStyle("float:left;");
-
-		Hbox hboxLadoEsquerdo = new Hbox();
-		hboxLadoEsquerdo.setParent(divLadoEsquerdo);
-		hboxLadoEsquerdo.setAlign("middle");
-		hboxLadoEsquerdo.setHeight("25px");
-
+		Div divNomeSistema = new Div();
+		divNomeSistema.setParent(divCabecalho);
+		divNomeSistema.setStyle("display:inline-block; padding: 5px 20px 5px 10px");
+		
 		// Adiciona o nome do sistema
 		Label labelNomeSistema = new Label("ODE - Ontology Development Environment");
-		labelNomeSistema.setParent(hboxLadoEsquerdo);
-		labelNomeSistema.setStyle("font-weight:bold; color: black; margin-left: 5px");
+		labelNomeSistema.setParent(divNomeSistema);
+		labelNomeSistema.setStyle("font-weight:bold;");
 
 		// Adiciona o nome da versão
 		Label labelNomeVersao = new Label(" - Versão 1.0");
-		labelNomeVersao.setParent(hboxLadoEsquerdo);
-		labelNomeVersao.setStyle("color: black;");
+		labelNomeVersao.setParent(divNomeSistema);
 
-		Div divLadoDireito = new Div();
-		divLadoDireito.setParent(divCabecalho);
-		divLadoDireito.setStyle("valign: middle; float:right; margin-right: 5px;");//
-
-		Hbox hboxLadoDireito = new Hbox();
-		hboxLadoDireito.setParent(divLadoDireito);
-		hboxLadoDireito.setAlign("middle");
-		hboxLadoDireito.setHeight("25px");
-
+		Div divIdiomas = new Div();
+		divIdiomas.setParent(divCabecalho);
+		divIdiomas.setStyle("display:inline-block; padding: 5px 20px 5px 10px");
+		
 		// Adiciona label e toolbarbuttons dos idiomas
 		labelIdiomas = new Label();
-		labelIdiomas.setParent(hboxLadoDireito);
+		labelIdiomas.setParent(divIdiomas);
 
 		Toolbarbutton toolbarbuttonPortuguesBR = new Toolbarbutton();
 		toolbarbuttonPortuguesBR.setTooltiptext("Português - Brasil");
-		toolbarbuttonPortuguesBR.setParent(hboxLadoDireito);
+		toolbarbuttonPortuguesBR.setParent(divIdiomas);
 		toolbarbuttonPortuguesBR.setImage("/imagens/idiomaPort.gif");
 		toolbarbuttonPortuguesBR.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event arg0) throws Exception {
@@ -139,9 +126,8 @@ public class WindowPrincipal extends Window {
 
 		Toolbarbutton toolbarbuttonEnglish = new Toolbarbutton();
 		toolbarbuttonEnglish.setTooltiptext("English");
-		toolbarbuttonEnglish.setParent(hboxLadoDireito);
+		toolbarbuttonEnglish.setParent(divIdiomas);
 		toolbarbuttonEnglish.setImage("/imagens/idiomaIng.gif");
-		toolbarbuttonEnglish.setStyle("margin-right: 50px;");
 		toolbarbuttonEnglish.addEventListener("onClick", new EventListener() {
 			public void onEvent(Event arg0) throws Exception {
 				NucleoContexto.atribuirLocale(new Locale("en", "US"));
@@ -149,16 +135,17 @@ public class WindowPrincipal extends Window {
 				Messagebox.show(NucleoMensagens.getMensagem(NucleoMensagens.MSG_IDIOMA_ALTERADO));
 			}
 		});
-
+		
 		// Adiciona nome do projeto
 		labelProjeto = new Label();
-		labelProjeto.setParent(hboxLadoDireito);
-		labelProjeto.setStyle("margin-right: 50px; color: black;");
+		labelProjeto.setParent(divCabecalho);
+		labelProjeto.setStyle("display:inline-block; padding: 5px 20px 5px 10px");
 		labelProjeto.setMaxlength(70);
 
 		// Adiciona nome do usuário		
 		labelUsuario = new Label();
-		labelUsuario.setParent(hboxLadoDireito);
+		labelUsuario.setParent(divCabecalho);
+		labelUsuario.setStyle("display:inline-block; padding: 5px 5px 5px 10px");
 		labelUsuario.setMaxlength(70);
 
 		atualizarBarraInformacoes();
