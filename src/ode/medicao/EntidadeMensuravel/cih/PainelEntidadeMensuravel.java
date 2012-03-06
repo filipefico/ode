@@ -9,14 +9,8 @@ import java.util.List;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._infraestruturaBase.ciu.NucleoTab;
-import ode._infraestruturaBase.ciu.NucleoWindow;
 import ode._infraestruturaCRUD.ciu.NucleoSwitcher;
-import ode.conhecimento.processo.cdp.KArtefato;
-import ode.conhecimento.processo.cdp.KAtividade;
-import ode.conhecimento.processo.cdp.KProcesso;
-import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
-import ode.controleProjeto.cdp.Projeto;
 import ode.medicao.EntidadeMensuravel.cci.CtrlEntidadeMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.ArtefatoMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.AtividadeMensuravel;
@@ -30,7 +24,6 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
-import org.zkoss.zul.Hlayout;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
@@ -39,7 +32,6 @@ import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vlayout;
-import org.zkoss.zul.impl.XulElement;
 
 public class PainelEntidadeMensuravel extends Vlayout{
 
@@ -58,34 +50,36 @@ public class PainelEntidadeMensuravel extends Vlayout{
 
 	
 	
+	//@SuppressWarnings({ "warning", "unchecked" })
 	private <A extends ObjetoPersistente, B extends EntidadeMensuravel<A>> NucleoTab criaAba(String nome, NucleoSwitcher<B> ns, Collection<A> objetos, Collection<B> mens, TipoEntidadeMensuravel tipo) throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
 		NucleoTab tab = new NucleoTab();
 		tab.setNomeTab(nome);
-		ns.montar("Não-Mensuráveis", "Mensuráveis");
+		ns.montar("NÃ£o-MensurÃ¡veis", "MensurÃ¡veis");
 		for(EntidadeMensuravel<A> entidade: mens){
 			objetos.remove(entidade.getEntidade());
 		}
 		Collection<B> grupoEsq = new ArrayList<B>();
-		Constructor<B> construtor = null;
+		Object construtor = null;
+		try{
 		if(!objetos.isEmpty()){
 			switch (tipo) {
 			case ARTEFATO:
-				construtor = (Constructor<B>) ArtefatoMensuravel.class.getConstructor();
+				construtor = ArtefatoMensuravel.class.getConstructor();
 				break;
 			case ATIVIDADE:
-				construtor = (Constructor<B>) AtividadeMensuravel.class.getConstructor();
+				construtor =  AtividadeMensuravel.class.getConstructor();
 				break;
 			case PROCESSOESPECIFICOPROJETO:
-				construtor = (Constructor<B>) ProcessoProjetoEspecificoMensuravel.class.getConstructor();
+				construtor =  ProcessoProjetoEspecificoMensuravel.class.getConstructor();
 				break;
 			case PROCESSOPADRAO:
-				construtor = (Constructor<B>) ProcessoPadraoMensuravel.class.getConstructor();
+				construtor =  ProcessoPadraoMensuravel.class.getConstructor();
 				break;
 			case PROJETO:
-				construtor = (Constructor<B>) ProjetoMensuravel.class.getConstructor();
+				construtor =  ProjetoMensuravel.class.getConstructor();
 				break;
 			case RECURSOHUMANO:
-				construtor = (Constructor<B>) RecursoHumanoMensuravel.class.getConstructor();
+				construtor =  RecursoHumanoMensuravel.class.getConstructor();
 				break;
 
 			default:
@@ -93,9 +87,12 @@ public class PainelEntidadeMensuravel extends Vlayout{
 			}
 			B temp;
 			for(A ent:objetos){
-				grupoEsq.add(temp = construtor.newInstance());
+				grupoEsq.add(temp = (B) ((Constructor<Object>)construtor).newInstance());
 				temp.setEntidade(ent);
 			}
+			
+		}
+		}catch(Exception e){
 			
 		}
 		ns.setLeftItens(grupoEsq);
@@ -114,7 +111,7 @@ public class PainelEntidadeMensuravel extends Vlayout{
 		
 			lista.add(criaAba("Artefato", nsar = new NucleoSwitcher<ArtefatoMensuravel>(), ctrl.recuperarArtefato(), ctrl.recuperarArtefatoMensuravel(), TipoEntidadeMensuravel.ARTEFATO));
 		
-			lista.add(criaAba("Processo Padrão", nspc = new NucleoSwitcher<ProcessoPadraoMensuravel>(), ctrl.recuperarProcesso(), ctrl.recuperarProcessoMensuravel(), TipoEntidadeMensuravel.PROCESSOPADRAO));
+			lista.add(criaAba("Processo Padrï¿½o", nspc = new NucleoSwitcher<ProcessoPadraoMensuravel>(), ctrl.recuperarProcesso(), ctrl.recuperarProcessoMensuravel(), TipoEntidadeMensuravel.PROCESSOPADRAO));
 		
 			lista.add(criaAba("Projeto", nspt = new NucleoSwitcher<ProjetoMensuravel>(), ctrl.recuperarProjeto(), ctrl.recuperarProjetoMensuravel(), TipoEntidadeMensuravel.PROJETO));
 		}catch (Exception e) {
@@ -134,7 +131,7 @@ public class PainelEntidadeMensuravel extends Vlayout{
 			Tab tab = new Tab(nucleoTab.getNomeTab());
 			tab.setParent(tabs);
 
-			// Cria painel com conteúdo
+			// Cria painel com conteudo
 			Tabpanel tabpanel = new Tabpanel();
 			tabpanel.setParent(tabpanels);
 			Component conteudo = nucleoTab.getConteudoTab();
@@ -164,7 +161,7 @@ public class PainelEntidadeMensuravel extends Vlayout{
 			ctrl.atualizarProcesso(nspc.getLeftItens(),nspc.getRightItens());
 			ctrl.atualizarProjeto(nspt.getLeftItens(),nspt.getRightItens());
 			Messagebox mbox = new Messagebox();
-			mbox.show("Configuração salva com sucesso.");
+			mbox.show("ConfiguraÃ§Ã£o salva com sucesso.");
 		}
 	}
 	
