@@ -1,10 +1,15 @@
 package ode._controleRecursoHumano.cdp;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
+import ode.gerenciaConhecimento.cdp.Tema;
 
 @Entity
 public class RecursoHumano extends ObjetoPersistente {
@@ -17,6 +22,7 @@ public class RecursoHumano extends ObjetoPersistente {
 	private String telefone;
 	private String email;
 	private KRecursoHumano cargo;
+	private List<Tema> temasInteresse;
 
 	public RecursoHumano() {
 		setAtivo(true);
@@ -75,4 +81,14 @@ public class RecursoHumano extends ObjetoPersistente {
 	public void setCargo(KRecursoHumano cargo) {
 		this.cargo = cargo;
 	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	public List<Tema> getTemasInteresse() {
+		return temasInteresse;
+	}
+
+	public void setTemasInteresse(List<Tema> temasInteresse) {
+		this.temasInteresse = temasInteresse;
+	}
+	
 }
