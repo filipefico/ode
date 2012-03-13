@@ -3,11 +3,8 @@ package ode.medicao.EntidadeMensuravel.cdp;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
-import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 
 @Entity
