@@ -6,10 +6,12 @@ import java.util.Set;
 import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.conhecimento.processo.cdp.KArtefato;
 import ode.conhecimento.processo.cdp.KFerramentaSoftware;
-import ode.conhecimento.processo.cdp.KProcedimento;
-import ode.conhecimento.processo.cdp.KRecurso;
+import ode.conhecimento.processo.cdp.KMetodo;
+import ode.conhecimento.processo.cdp.KNorma;
 import ode.conhecimento.processo.cdp.KRecursoHardware;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
+import ode.conhecimento.processo.cdp.KRoteiro;
+import ode.conhecimento.processo.cdp.KTecnica;
 import ode.processoPadrao.cdp.AtividadeProcessoPadrao;
 
 import org.zkoss.zk.ui.event.Event;
@@ -102,20 +104,29 @@ public class JanEditarConhecimentosAtividadePP extends JanCore {
 				}
 				break;
 			case REQUER_HARDWARE:
-				if (atv.getRecursoRequerido().contains(c)) {
+				if (atv.getRecursoHardware().contains(c)) {
 					listItemsSelecionados.add(li);
 				}
 				break;
 			case REQUER_SOFTWARE:
-				if (atv.getRecursoRequerido().contains(c)) {
+				if (atv.getRecursoSoftware().contains(c)) {
 					listItemsSelecionados.add(li);
 				}
 				break;
 			case ADOTA_METODOS:
+				if (atv.getProcedimentoMetodo().contains(c)) {
+					listItemsSelecionados.add(li);
+				}
 			case ADOTA_NORMAS:
+				if (atv.getProcedimentoNorma().contains(c)) {
+					listItemsSelecionados.add(li);
+				}
 			case ADOTA_ROTEIROS:
+				if (atv.getProcedimentoRoteiro().contains(c)) {
+					listItemsSelecionados.add(li);
+				}
 			case ADOTA_TECNICAS:
-				if (atv.getProcedimentoAdotado().contains(c)) {
+				if (atv.getProcedimentoTecnica().contains(c)) {
 					listItemsSelecionados.add(li);
 				}
 				break;
@@ -190,8 +201,16 @@ public class JanEditarConhecimentosAtividadePP extends JanCore {
 		public void onEvent(Event arg0) throws Exception {
 			Set<Listitem> listItems = listaK.getSelectedItems();
 			Set<KArtefato> conhecSelecionadosKartefato = new HashSet<KArtefato>();
-			Set<KRecurso> conhecSelecionadosKRecurso = new HashSet<KRecurso>();
-			Set<KProcedimento> conhecSelecionadosKProcedimento = new HashSet<KProcedimento>();
+			// Set<KRecurso> conhecSelecionadosKRecurso = new
+			// HashSet<KRecurso>();
+			Set<KRecursoHardware> conhecSelecionadosKRecursoHardware = new HashSet<KRecursoHardware>();
+			Set<KFerramentaSoftware> conhecSelecionadosKRecursoSoftware = new HashSet<KFerramentaSoftware>();
+
+			Set<KNorma> conhecSelecionadosKNorma = new HashSet<KNorma>();
+			Set<KMetodo> conhecSelecionadosKMetodo = new HashSet<KMetodo>();
+			Set<KRoteiro> conhecSelecionadosKRoteiro = new HashSet<KRoteiro>();
+			Set<KTecnica> conhecSelecionadosKTecnica = new HashSet<KTecnica>();
+
 			Set<KRecursoHumano> conhecSelecionadosKRecursoHumano = new HashSet<KRecursoHumano>();
 
 			switch (EnumAtv) {
@@ -204,28 +223,43 @@ public class JanEditarConhecimentosAtividadePP extends JanCore {
 				break;
 			case REQUER_HARDWARE:
 				for (Listitem li : listItems) {
-					conhecSelecionadosKRecurso
+					conhecSelecionadosKRecursoHardware
 							.add((KRecursoHardware) ((Listcell) li
 									.getChildren().get(0)).getValue());
 				}
 				break;
 			case REQUER_SOFTWARE:
 				for (Listitem li : listItems) {
-					conhecSelecionadosKRecurso
+					conhecSelecionadosKRecursoSoftware
 							.add((KFerramentaSoftware) ((Listcell) li
 									.getChildren().get(0)).getValue());
 				}
 				break;
 			case ADOTA_METODOS:
-			case ADOTA_NORMAS:
-			case ADOTA_ROTEIROS:
-			case ADOTA_TECNICAS:
 				for (Listitem li : listItems) {
-					conhecSelecionadosKProcedimento
-							.add((KProcedimento) ((Listcell) li.getChildren()
-									.get(0)).getValue());
+					conhecSelecionadosKMetodo.add((KMetodo) ((Listcell) li
+							.getChildren().get(0)).getValue());
 				}
 				break;
+			case ADOTA_NORMAS:
+				for (Listitem li : listItems) {
+					conhecSelecionadosKNorma.add((KNorma) ((Listcell) li
+							.getChildren().get(0)).getValue());
+				}
+				break;
+			case ADOTA_ROTEIROS:
+				for (Listitem li : listItems) {
+					conhecSelecionadosKRoteiro.add((KRoteiro) ((Listcell) li
+							.getChildren().get(0)).getValue());
+				}
+				break;
+			case ADOTA_TECNICAS:
+				for (Listitem li : listItems) {
+					conhecSelecionadosKTecnica.add((KTecnica) ((Listcell) li
+							.getChildren().get(0)).getValue());
+				}
+				break;
+
 			case REALIZADA_POR:
 				for (Listitem li : listItems) {
 					conhecSelecionadosKRecursoHumano
@@ -244,16 +278,22 @@ public class JanEditarConhecimentosAtividadePP extends JanCore {
 				atv.setProdutos(conhecSelecionadosKartefato);
 				break;
 			case REQUER_HARDWARE:
-				atv.setRecursoRequerido(conhecSelecionadosKRecurso);
+				atv.setRecursoHardware(conhecSelecionadosKRecursoHardware);
 				break;
 			case REQUER_SOFTWARE:
-				atv.setRecursoRequerido(conhecSelecionadosKRecurso);
+				atv.setRecursoSoftware(conhecSelecionadosKRecursoSoftware);
 				break;
 			case ADOTA_METODOS:
+				atv.setProcedimentoMetodo(conhecSelecionadosKMetodo);
+				break;
 			case ADOTA_NORMAS:
+				atv.setProcedimentoNorma(conhecSelecionadosKNorma);
+				break;
 			case ADOTA_ROTEIROS:
+				atv.setProcedimentoRoteiro(conhecSelecionadosKRoteiro);
+				break;
 			case ADOTA_TECNICAS:
-				atv.setProcedimentoAdotado(conhecSelecionadosKProcedimento);
+				atv.setProcedimentoTecnica(conhecSelecionadosKTecnica);
 				break;
 			case REALIZADA_POR:
 				atv.setRecursoHumano(conhecSelecionadosKRecursoHumano);

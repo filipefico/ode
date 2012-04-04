@@ -10,19 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("AplCadastrarKArtefato")
 @Transactional(rollbackFor = NucleoExcecao.class)
-
-public class AplCadastrarKArtefato extends
-		AplCRUD<KArtefato> {
+public class AplCadastrarKArtefato extends AplCRUD<KArtefato> {
 
 	@Autowired
 	private KArtefatoDAO kArtefatoDAO;
-	
+
 	public KArtefatoDAO getkArtefatoDAO() {
 		return kArtefatoDAO;
 	}
-	
+
 	public void setkArtefatoDAO(KArtefatoDAO kArtefatoDAO) {
 		this.kArtefatoDAO = kArtefatoDAO;
 	}

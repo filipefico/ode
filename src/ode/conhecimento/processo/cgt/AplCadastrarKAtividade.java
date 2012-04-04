@@ -12,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("AplCadastrarKAtividade")
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplCadastrarKAtividade extends
-		AplCRUD<KAtividade> {
+public class AplCadastrarKAtividade extends AplCRUD<KAtividade> {
 
 	@Autowired
 	private KAtividadeDAO kAtividadeDAO;
-	
+
 	public KAtividadeDAO getkAtividadeDAO() {
 		return kAtividadeDAO;
 	}

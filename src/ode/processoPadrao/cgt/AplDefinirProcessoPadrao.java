@@ -1,5 +1,6 @@
 package ode.processoPadrao.cgt;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import ode._infraestruturaBase.excecao.NucleoExcecao;
@@ -27,7 +28,6 @@ import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
-import ode.processoPadrao.cgd.AtividadeProcessoPadraoDAO;
 import ode.processoPadrao.cgd.CompPPDAO;
 import ode.processoPadrao.cgd.CompPPMacroatividadeDAO;
 import ode.processoPadrao.cgd.CompPPProcessoComplexoDAO;
@@ -39,8 +39,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("AplDefinirProcessoPadrao")
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplDefinirProcessoPadrao {
+public class AplDefinirProcessoPadrao{
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1948518281239702220L;
 	@Autowired
 	private CompPPDAO compPPDAO;
 	@Autowired
@@ -55,9 +60,6 @@ public class AplDefinirProcessoPadrao {
 	private KRecursoHardwareDAO kRecursoHardwareDAO;
 	@Autowired
 	private KFerramentaSoftwareDAO kFerramentaSoftwareDAO;
-
-	@Autowired
-	private AtividadeProcessoPadraoDAO atividadeProcessoPadraoDAO;
 
 	@Autowired
 	private KMetodoDAO kMetodoDAO;
@@ -131,6 +133,12 @@ public class AplDefinirProcessoPadrao {
 
 	public Collection<CompPP> recuperarTodosCompPP() {
 		return compPPDAO.recuperarTodos();
+
+	}
+
+	public Collection<CompPP> recuperarTodosCompPPComOrdenacao(String orderBy) {
+		return compPPDAO.recuperarTodosComOrdenacao(orderBy);
+
 	}
 
 	@Autowired
@@ -157,9 +165,25 @@ public class AplDefinirProcessoPadrao {
 	public Collection<KProcesso> getAllKProcesso() {
 		return kProcessoDAO.recuperarTodos();
 	}
+	
+	public Collection<KProcesso> getAllKProcessoComOrdenacao(String orderBy) {
+		return kProcessoDAO.recuperarTodosComOrdenacao(orderBy);
+	}
+
+	public Collection getAllKProcessoNaoEngenharia() {
+		return kProcessoDAO.recuperarTodosNaoEngenharia();
+	}
+
+	public Collection getAllKProcessoEngenharia() {
+		return kProcessoDAO.recuperarTodosEngenharia();
+	}
 
 	public Collection<KAtividade> getAllKAtividade() {
 		return kAtividadeDAO.recuperarTodos();
+	}
+	
+	public Collection<KAtividade> getAllKAtividadeComOrdenacao(String orderBy) {
+		return kAtividadeDAO.recuperarTodosComOrdenacao(orderBy);
 	}
 
 	public Collection<KArtefato> getAllKArtefato() {
@@ -192,6 +216,10 @@ public class AplDefinirProcessoPadrao {
 
 	public Collection<KTecnica> getAllKProcedimentoTecnicas() {
 		return kTecnicaDAO.recuperarTodos();
+	}
+
+	public Collection recuperarTodosCompPPFinalizados(Class compPP) {
+		return compPPDAO.recuperarTodosFinalizados(compPP);
 	}
 
 }

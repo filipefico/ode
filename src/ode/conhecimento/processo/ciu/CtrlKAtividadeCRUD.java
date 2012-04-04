@@ -24,7 +24,6 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 
-
 	@Override
 	public void iniciar() {
 		super.iniciar();
@@ -73,33 +72,38 @@ public class CtrlKAtividadeCRUD extends CtrlCRUD<KAtividade> {
 	public String definirTituloJanelaPrincipal() {
 		return "Atividades";
 	}
-	
+
 	@Autowired
 	KProcessoDAO kprocessoDAO;
-	public Collection<KProcesso> getAllKProcesso(){
+
+	public Collection<KProcesso> getAllKProcesso() {
 		return kprocessoDAO.recuperarTodos();
 	}
-	
+
 	@Autowired
 	KRecursoDAO recursoDAO;
+
 	public Collection<KRecurso> getAllKRecurso() {
 		return recursoDAO.recuperarTodos();
 	}
 
-	@Autowired 
+	@Autowired
 	KArtefatoDAO produtoInsumoDAO;
+
 	public Collection<KArtefato> getAllKArtefato() {
 		return produtoInsumoDAO.recuperarTodos();
 	}
 
 	@Autowired
 	KProcedimentoDAO procedimentoDAO;
+
 	public Collection<KProcedimento> getAllKProcedimento() {
 		return procedimentoDAO.recuperarTodos();
 	}
-	
+
 	@Autowired
 	KAtividadeDAO atividadeDAO;
+
 	public Collection<KAtividade> getAllKAtividade() {
 		return atividadeDAO.recuperarTodos();
 	}

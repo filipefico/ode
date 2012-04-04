@@ -7,12 +7,14 @@ import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode.alocacaoRecurso.ciu.CtrlAlocacaoRecurso;
+import ode.conhecimento.processo.cdp.KArtefato;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KCategoriaProcesso;
 import ode.conhecimento.processo.cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.cdp.KProcesso;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimento.processo.cdp.KTipoInteracao;
+import ode.conhecimento.processo.cgt.AplCadastrarKArtefato;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.conhecimento.processo.cgt.AplCadastrarKCategoriaProcesso;
 import ode.conhecimento.processo.cgt.AplCadastrarKFerramentaSoftware;
@@ -47,10 +49,19 @@ public class DadosBanco {
 			inicializarKCategoriasProcesso();
 			inicializarDefinicaoProcesso();// juliao
 			inicializarFerramentasSoftware();
+			inicializarConhecimento();
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void inicializarConhecimento() throws NucleoRegraNegocioExcecao {
+		inserirKArtfato("Kartefato1","Primeiro KArtefato");
+		inserirKArtfato("Kartefato2","segundo KArtefato");
+		inserirKArtfato("Kartefato3","terceiro KArtefato");
+		inserirKArtfato("Kartefato4","quarto KArtefato");
+		inserirKArtfato("Kartefato5","quinto KArtefato");	
 	}
 
 	private void inicializarUsuarios() throws NucleoRegraNegocioExcecao {
@@ -255,6 +266,18 @@ public class DadosBanco {
 				.getBean(AplCadastrarKAtividade.class.getSimpleName());
 
 		return aplCadastrarKAtividade.salvar(kAtividade);
+	}
+	
+	private KArtefato inserirKArtfato(String nome, String descricao)
+			throws NucleoRegraNegocioExcecao {
+		KArtefato kArtefato = new KArtefato();
+		kArtefato.setNome(nome);
+		kArtefato.setDescricao(descricao);
+
+		AplCadastrarKArtefato aplCadastrarKArtefato = (AplCadastrarKArtefato) SpringUtil
+				.getBean(AplCadastrarKArtefato.class.getSimpleName());
+
+		return aplCadastrarKArtefato.salvar(kArtefato);
 	}
 
 	private KProcesso inserirKProcesso(String nome, String descricao)

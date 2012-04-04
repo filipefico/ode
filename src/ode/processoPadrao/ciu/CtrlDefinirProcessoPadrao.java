@@ -16,21 +16,24 @@ import ode.conhecimento.processo.cdp.KRecursoHardware;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimento.processo.cdp.KRoteiro;
 import ode.conhecimento.processo.cdp.KTecnica;
+import ode.processoPadrao.cdp.AtividadeProcessoPadrao;
 import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
 import ode.processoPadrao.cdp.ElementoCompPP;
 import ode.processoPadrao.cdp.EstruturaCompPP;
+import ode.processoPadrao.cgd.CompPPMacroatividadeDAO;
 import ode.processoPadrao.cgt.AplDefinirProcessoPadrao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.zkoss.zul.Messagebox;
 
-@Controller
+@Controller("CtrlDefinirProcessoPadrao")
 public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
-	private static final long serialVersionUID = -2967662654799321521L;
+	private static final long serialVersionUID = 2692764915837753799L;
 
 	private CompPP compPPSelecionado;
 
@@ -54,13 +57,24 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	JanPrincipal janPrincipal;
 
 	private void mostrarJanelaPrincipal() {
-		// essa janela faz chamadas para abrir as outras janelas.
-		janPrincipal = new JanPrincipal(this);
+		// essa classe abaixo é um teste e poderá ser removida quando as
+		// consultas HQL forem otimizadas.
+		class Teste extends Thread {
+			CtrlDefinirProcessoPadrao ctrl;
 
-		HashSet<Conhecimento> c = new HashSet<Conhecimento>();
-		for (KArtefato k : this.getAllKArtefato()) {
-			c.add(k);
+			public Teste(CtrlDefinirProcessoPadrao ctrl) {
+				this.ctrl = ctrl;
+			}
+
+			public void run() {
+				ctrl.getAllCompPP();
+			}
 		}
+		new Teste(this).start();
+		
+		// essa janela faz chamadas para abrir as outras janelas.
+				janPrincipal = new JanPrincipal(this);
+				
 
 	}
 
@@ -71,8 +85,8 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	public void setCompPPSelecionado(CompPP selecionado) {
 		compPPSelecionado = selecionado;
-		janPrincipal.atualizaConteudo();// atualiza informação
-										// na tela.
+		janPrincipal.conteudo();// atualiza informação
+								// na tela.
 	}
 
 	public void abrirJanDefinirCompPP(boolean setarCompPPEmArvore) {
@@ -81,13 +95,19 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	public void salvarCompPP(CompPP compPP) {
 		aplDefinirProcessoPadrao.salvarCompPP(compPP);
-		janPrincipal.atualizaConteudo();
+		janPrincipal.conteudo();
+	}
+
+	public void salvarListaCompPP(Set compPP) {
+		for (Object obj : compPP) {
+			salvarCompPP((CompPP) obj);
+		}
 	}
 
 	public void atualizarCompPP(CompPP compPP) {
 		this.compPPSelecionado = aplDefinirProcessoPadrao
 				.atualizarCompPP(compPP);
-		janPrincipal.atualizaConteudo();
+		janPrincipal.conteudo();
 	}
 
 	public void salvarCompPP(String nome, String descricao, String objetivo,
@@ -110,11 +130,15 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 			setCompPPSelecionado(compPPSalvo);
 		}
 
-		janPrincipal.atualizaConteudo();
+		janPrincipal.conteudo();
 	}
 
 	public void abrirJanEditarPropriedadesBasicas() {
 		new JanEditarPropriedadesBasicasCompPP(this);
+	}
+
+	public void abrirJanDefinirDependencias() {
+		new JanDefinirDependencias(this);
 	}
 
 	public void abrirJanSelecionaProcessoPadrao() {
@@ -182,6 +206,27 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 		return aplDefinirProcessoPadrao.recuperarTodosCompPP();
 	}
 
+	public Collection<CompPP> getAllCompPPComOrdenacao(String orderBy) {
+		return aplDefinirProcessoPadrao
+				.recuperarTodosCompPPComOrdenacao(orderBy);
+	}
+
+	public Collection getAllCompPPFinalizado(Class compPP) {
+
+		if (compPP.equals(CompPPProcessoComplexo.class)) {
+			return aplDefinirProcessoPadrao
+					.recuperarTodosCompPPFinalizados(compPP);
+
+		} else if (compPP.equals(CompPPProcessoSimples.class)) {
+			return aplDefinirProcessoPadrao
+					.recuperarTodosCompPPFinalizados(compPP);
+
+		} else {// macroAtividade
+			return aplDefinirProcessoPadrao
+					.recuperarTodosCompPPFinalizados(compPP);
+		}
+	}
+
 	public Collection<CompPPProcessoComplexo> getAllCompPPProcessoComplexo() {
 		return aplDefinirProcessoPadrao.getAllCompPPProessoComplexo();
 	}
@@ -200,26 +245,120 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 	}
 
 	public void excluirCompPP(CompPP compPP) {
+		if (compPP instanceof CompPPMacroatividade) {
+			System.out.println(teste((CompPPMacroatividade) compPP));
+		}
 		aplDefinirProcessoPadrao.excluirCompPP(compPP);
 		setCompPPSelecionado(null);
-		janPrincipal.atualizaConteudo();
+		janPrincipal.conteudo();
 	}
 
-	public void finalizarDefinicao() {
-		this.getcompPPSelecionado().setEhDefinido(true);
-		this.atualizarCompPP(this.getcompPPSelecionado());
-		janPrincipal.onClose();
-		this.mostrarJanelaPrincipal();
-		janPrincipal.atualizaConteudo();
+	public void finalizarDefinicao(CompPP compPP) {
+		boolean finalizar = false;
+		if (compPP instanceof CompPPProcessoComplexo)
+			finalizar = finalizarDefinicao((CompPPProcessoComplexo) compPP);
+
+		else if (compPP instanceof CompPPProcessoSimples)
+			finalizar = finalizarDefinicao((CompPPProcessoSimples) compPP);
+
+		else
+			finalizar = finalizarDefinicao((CompPPMacroatividade) compPP);
+
+		if (finalizar) {
+			compPP.setDefinicaoConcluida(true);
+			// persiste alterações
+			this.atualizarCompPP(this.getcompPPSelecionado());
+			//janPrincipal.onClose();// fecha janela
+
+			// this.mostrarJanelaPrincipal();
+			janPrincipal.conteudo();
+		} else {
+			try {
+				Messagebox
+						.show("Alguns subprocessos/subatividades não foram preenchidos. Finalização foi cancelada.");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public boolean finalizarDefinicao(CompPPProcessoComplexo compPP) {
+		Set<Conhecimento> listaTiposInterface = new HashSet<Conhecimento>();
+
+		for (ElementoCompPP el : compPP.getInterfaceCompPP()
+				.getEstruturaCompPP().getElementosCompPP()) {
+			listaTiposInterface.add(el.getElementoConhecimento());
+		}
+
+		Set<Conhecimento> listaTiposSubProc = new HashSet<Conhecimento>();
+		for (CompPPProcessoSimples cppSimples : compPP.getProcessosSimples()) {
+			listaTiposSubProc.add(cppSimples.getTipo());
+		}
+
+		return listaTiposSubProc.containsAll(listaTiposInterface);
+	}
+
+	public boolean finalizarDefinicao(CompPPProcessoSimples compPP) {
+		Set<Conhecimento> listaTiposInterface = new HashSet<Conhecimento>();
+
+		for (ElementoCompPP el : compPP.getInterfaceCompPP()
+				.getEstruturaCompPP().getElementosCompPP()) {
+			listaTiposInterface.add(el.getElementoConhecimento());
+		}
+
+		Set<Conhecimento> listaTiposSubProc = new HashSet<Conhecimento>();
+		for (CompPPMacroatividade cppMacro : compPP.getMacroAtividades()) {
+			listaTiposSubProc.add(cppMacro.getTipo());
+		}
+
+		return listaTiposSubProc.containsAll(listaTiposInterface);
+	}
+
+	public boolean finalizarDefinicao(CompPPMacroatividade compPP) {
+		Set<Conhecimento> listaTiposInterface = new HashSet<Conhecimento>();
+
+		for (ElementoCompPP el : compPP.getInterfaceCompPP()
+				.getEstruturaCompPP().getElementosCompPP()) {
+			listaTiposInterface.add(el.getElementoConhecimento());
+		}
+
+		Set<Conhecimento> listaTiposSubAtv = new HashSet<Conhecimento>();
+
+		for (AtividadeProcessoPadrao subAtv : compPP
+				.getAtividadeProcessoPadrao().getSubAtividades()) {
+			listaTiposSubAtv.add(subAtv.getTipo());
+		}
+
+		return listaTiposSubAtv.containsAll(listaTiposInterface);
 	}
 
 	public Collection<KProcesso> getAllKProcesso() {
 		return aplDefinirProcessoPadrao.getAllKProcesso();
 	}
+	
+	public Collection<KProcesso> getAllKProcessoComOrdenacao(String orderBy) {
+		return aplDefinirProcessoPadrao.getAllKProcessoComOrdenacao(orderBy);
+	}
+
+	public Collection getAllKProcessoNaoEngenharia() {
+		return aplDefinirProcessoPadrao.getAllKProcessoNaoEngenharia();
+	}
+
+	public Collection getAllKProcessoEngenharia() {
+		return aplDefinirProcessoPadrao.getAllKProcessoEngenharia();
+	}
 
 	public Collection<KAtividade> getAllKAtividade() {
 		return aplDefinirProcessoPadrao.getAllKAtividade();
 	}
+	
+	public Collection<KAtividade> getAllKAtividadeComOrdenacao(String orderBy) {
+		return aplDefinirProcessoPadrao.getAllKAtividadeComOrdenacao(orderBy);
+	}
+	
+	
 
 	public Collection<KArtefato> getAllKArtefato() {
 		return aplDefinirProcessoPadrao.getAllKArtefato();
@@ -251,6 +390,13 @@ public class CtrlDefinirProcessoPadrao extends CtrlBase {
 
 	public Collection<KTecnica> getAllKProcedimentoTecnicas() {
 		return aplDefinirProcessoPadrao.getAllKProcedimentoTecnicas();
+	}
+
+	@Autowired
+	CompPPMacroatividadeDAO macroDao;
+
+	public boolean teste(CompPPMacroatividade macro) {
+		return macroDao.podeExcluir(macro);
 	}
 
 }

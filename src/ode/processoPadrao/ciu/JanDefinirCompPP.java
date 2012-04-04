@@ -40,6 +40,7 @@ public class JanDefinirCompPP extends JanCore {
 		configuraElementosJanela();
 		preencherCombobox();// insere os elementos nos combobox's
 		janela.mostrar();
+		
 	}
 
 	private Vbox vbox = new Vbox();
@@ -219,8 +220,8 @@ public class JanDefinirCompPP extends JanCore {
 	}
 
 	private void preencherCombobox() {
-		Collection<KProcesso> listaKProcesso = ctrl.getAllKProcesso();
-		Collection<KAtividade> listaKAtividade = ctrl.getAllKAtividade();
+		Collection<KProcesso> listaKProcesso = ctrl.getAllKProcessoComOrdenacao("nome");
+		Collection<KAtividade> listaKAtividade = ctrl.getAllKAtividadeComOrdenacao("nome");
 
 		Comboitem comboItem;
 
