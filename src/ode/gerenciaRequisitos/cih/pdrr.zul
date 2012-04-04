@@ -1,0 +1,33 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Requisito" border="normal" width="500px">
+
+<hlayout>
+	<label value="Identificador:"/>
+	<textbox cols="4" value="RNF007"></textbox>
+	<space width="20px"/>
+	<label value="Data de Criação:"/>
+	<datebox cols="10"></datebox>
+	<space width="20px"/>
+	<label value="Prioridade:"/>
+	<textbox cols="2" value="Média"></textbox>
+	<space width="10px"/>
+</hlayout>
+<hlayout>
+<label value="Descrição:"/>
+<textbox rows="4" width="420px"></textbox>
+</hlayout>
+
+<hlayout>
+	<label value="Projeto:"/>
+	<textbox cols="10" value="RNF007"></textbox>
+	<space width="20px"/>
+	<label value="Tipo:"/>
+	<textbox cols="10"></textbox>
+	<space width="20px"/>
+	<label value="Categoria:"/>
+	<textbox cols="2" value="Média"></textbox>
+	<space width="10px"/>
+</hlayout>
+
+</zk>
