@@ -42,10 +42,10 @@ public class JanIndicarSubAtividades extends JanCore {
 
 		preencheLista();
 
-		botaoDefinirSubArtefato();
+		botaoDefinirSubAtividade();
 	}
 
-	private void botaoDefinirSubArtefato() {
+	private void botaoDefinirSubAtividade() {
 		Button buttonSalvar = new Button();
 		buttonSalvar.setParent(this);
 		buttonSalvar.setLabel("Definir");

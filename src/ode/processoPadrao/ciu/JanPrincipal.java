@@ -1,5 +1,8 @@
 package ode.processoPadrao.ciu;
 
+import java.util.Set;
+
+import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.processoPadrao.cdp.AtividadeProcessoPadrao;
 import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
@@ -14,6 +17,7 @@ import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Menuseparator;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Separator;
 import org.zkoss.zul.Tree;
 import org.zkoss.zul.Treechildren;
 import org.zkoss.zul.Treeitem;
@@ -27,33 +31,26 @@ public class JanPrincipal extends JanCore {
 
 		super(ctrlDefinirProcessoPadrao);
 		menu();
-		atualizaConteudo();
+		conteudo();
 		mostrar();
 	}
 
-	public void atualizaConteudo() {
+	public void conteudo() {
 		this.setTitle("Definir Processo Padrao");
 		criaArvoreCompPP();
 	}
 
 	private void criaArvoreCompPP() {
 		resetaArvore();
-		geraTreeCompPP(ctrl.getcompPPSelecionado()).setParent(
+		geraTreeCompPPCompleta(ctrl.getcompPPSelecionado()).setParent(
 				tree.getTreechildren());
 	}
 
-	private Treeitem geraTreeCompPP(CompPP compPP) {
+	private Treeitem geraTreeCompPPCompleta(CompPP compPP) {
 		Treeitem treeitemCompPP;
 
-		if (compPP instanceof CompPPProcessoComplexo) {
-			treeitemCompPP = geraTreeCompPPComplexo((CompPPProcessoComplexo) compPP);
-
-		} else if (compPP instanceof CompPPProcessoSimples) {
-			treeitemCompPP = geraTreeCompPPSimples((CompPPProcessoSimples) compPP);
-
-		} else if (compPP instanceof CompPPMacroatividade) {
-			treeitemCompPP = geraTreeMacroAtividade((CompPPMacroatividade) compPP);
-
+		if (compPP != null) {
+			treeitemCompPP = geraTreeCompPP(compPP);
 		} else {
 			return adicionaItem(tree.getTreechildren(),
 					"Nenhum Processo selecionado.", "");
@@ -63,13 +60,25 @@ public class JanPrincipal extends JanCore {
 
 	}
 
-	private Treeitem geraTreeCompPPComplexo(CompPPProcessoComplexo compPP) {
+	private Treeitem geraTreeCompPP(CompPP compPP) {
+
+		if (compPP instanceof CompPPProcessoComplexo) {
+			return geraTreeCompPP((CompPPProcessoComplexo) compPP);
+		} else if (compPP instanceof CompPPProcessoSimples) {
+			return geraTreeCompPP((CompPPProcessoSimples) compPP);
+		} else {
+			return geraTreeCompPP((CompPPMacroatividade) compPP);
+		}
+
+	}
+
+	private Treeitem geraTreeCompPP(CompPPProcessoComplexo compPP) {
 		Treeitem itemCabecalho = cabecalhoCompPP(compPP);
 
 		Treechildren tc = itemCabecalho.getTreechildren();
 
 		for (CompPPProcessoSimples compPPSimples : compPP.getProcessosSimples()) {
-			geraTreeCompPPSimples(compPPSimples).setParent(tc);
+			geraTreeCompPP(compPPSimples).setParent(tc);
 		}
 
 		MenupopupV menuContexto = menuDeContextoCompPP(compPP);
@@ -81,13 +90,13 @@ public class JanPrincipal extends JanCore {
 
 	}
 
-	private Treeitem geraTreeCompPPSimples(CompPPProcessoSimples compPP) {
+	private Treeitem geraTreeCompPP(CompPPProcessoSimples compPP) {
 		Treeitem itemCabecalho = cabecalhoCompPP(compPP);
 
 		Treechildren tc = itemCabecalho.getTreechildren();
 
 		for (CompPPMacroatividade macroAtv : compPP.getMacroAtividades()) {
-			geraTreeMacroAtividade(macroAtv).setParent(tc);
+			geraTreeCompPP(macroAtv).setParent(tc);
 		}
 
 		// insere menu de contexto
@@ -99,7 +108,7 @@ public class JanPrincipal extends JanCore {
 		return itemCabecalho;
 	}
 
-	private Treeitem geraTreeMacroAtividade(CompPPMacroatividade compPP) {
+	private Treeitem geraTreeCompPP(CompPPMacroatividade compPP) {
 		Treeitem itemCabecalho = cabecalhoCompPP(compPP);
 
 		Treechildren tc = itemCabecalho.getTreechildren();
@@ -126,15 +135,23 @@ public class JanPrincipal extends JanCore {
 
 		Treeitem subAtividades = adicionaItem(tc, "SubAtividades",
 				"/imagens/folha.gif");
+
 		Treeitem preAtividades = adicionaItem(tc, "Pré-Atividades",
 				"/imagens/folha.gif");
+
 		Treeitem artefatos = adicionaItem(tc, "Artefatos",
 				"/imagens/artefato.gif");
+		Treechildren subAtividadesChildren = new Treechildren();
+		subAtividadesChildren.setParent(artefatos);
+
 		Treeitem recursos = adicionaItem(tc, "Recursos", "/imagens/recurso.gif");
-		Treeitem recursosHumanos = adicionaItem(tc, "Recursos humanos",
-				"/imagens/recursoHumano.gif");
+		Treechildren recursosChildren = new Treechildren();
+		recursosChildren.setParent(recursos);
+
 		Treeitem procedimentos = adicionaItem(tc, "Procedimentos",
 				"/imagens/procedimento.gif");
+		Treechildren procedimentosChildren = new Treechildren();
+		procedimentosChildren.setParent(procedimentos);
 
 		// subAtividades por recursão
 		Treechildren tcSubAtividades = new Treechildren();
@@ -151,8 +168,34 @@ public class JanPrincipal extends JanCore {
 			Treeitem ti = geraTreeAtividadeProcessoPadrao(atv);
 			ti.setParent(tcPreAtividades);
 		}
-		// TODO a medida que adiciono funcionalidades adicionar esses elementos
-		// na arvore.
+
+		// INSUMOS
+		arvoreConhecimento(subAtividadesChildren, atividade.getInsumos(),
+				"/imagens/insumo.jpg");
+
+		// PRODUTOS
+		arvoreConhecimento(subAtividadesChildren, atividade.getProdutos(),
+				"/imagens/produto.jpg");
+
+		// RECURSOS HARDWARE
+		arvoreConhecimento(recursosChildren, atividade.getRecursoHardware(),
+				"/imagens/recursoHardware.gif");
+		// RECURSOS SOFTWARE
+		arvoreConhecimento(recursosChildren, atividade.getRecursoSoftware(),
+				"/imagens/ferramentaSoftware.gif");
+		// RECURSOS Humanos
+		arvoreConhecimento(recursosChildren, atividade.getRecursoHumano(),
+				"/imagens/recursoHumano.gif");
+
+		// PROCEDIMENTO metodos roteiros tecnicas normas
+		arvoreConhecimento(procedimentosChildren,
+				atividade.getProcedimentoMetodo(), "/imagens/metodo.gif");
+		arvoreConhecimento(procedimentosChildren,
+				atividade.getProcedimentoNorma(), "/imagens/norma.gif");
+		arvoreConhecimento(procedimentosChildren,
+				atividade.getProcedimentoRoteiro(), "/imagens/roteiro.gif");
+		arvoreConhecimento(procedimentosChildren,
+				atividade.getProcedimentoTecnica(), "/imagens/tecnica.gif");
 
 		/* MENUS de contexto */
 		MenupopupV menupopupArtefatos = new MenupopupV();
@@ -179,12 +222,11 @@ public class JanPrincipal extends JanCore {
 		menupopupRecursos.setParent(this);
 		recursos.setContext(menupopupRecursos);
 
-		MenupopupV menupopupRecursosHumanos = new MenupopupV();
-		newItemBasicoMenu(menupopupRecursosHumanos, "Editar recursos humanos",
+		newItemBasicoMenu(menupopupRecursos, "Editar recursos humanos",
 				new EventAtividade(atividade,
 						EnumAtividadeProcessoPadrao.REALIZADA_POR));
-		menupopupRecursosHumanos.setParent(this);
-		recursosHumanos.setContext(menupopupRecursosHumanos);
+		menupopupRecursos.setParent(this);
+		recursos.setContext(menupopupRecursos);
 
 		MenupopupV menupopupProcedimentos = new MenupopupV();
 		newItemBasicoMenu(menupopupProcedimentos, "Editar metodos",
@@ -215,6 +257,19 @@ public class JanPrincipal extends JanCore {
 
 	}
 
+	protected void arvoreConhecimento(Treechildren subAtividadesChildren,
+			Set listaConhecimento, String img) {
+		for (Object conhecimento : listaConhecimento) {
+			Treeitem itemInsumo = new Treeitem();
+			itemInsumo.setParent(subAtividadesChildren);
+
+			itemInsumo.setLabel(((Conhecimento) conhecimento).getNome());
+			itemInsumo.setValue(conhecimento);
+
+			itemInsumo.setImage(img);
+		}
+	}
+
 	class EventAtividade implements EventListener {
 		private AtividadeProcessoPadrao atividade;
 		private EnumAtividadeProcessoPadrao enumAtv;
@@ -235,7 +290,7 @@ public class JanPrincipal extends JanCore {
 			AtividadeProcessoPadrao atv) {
 		Treeitem itemCabecalho = new Treeitem();
 		itemCabecalho.setLabel("Atividade: " + atv.getNome());
-		itemCabecalho.setImage("/imagens/atividade.png");
+		itemCabecalho.setImage("/imagens/grupo.png");
 
 		Treechildren tc = new Treechildren();
 		tc.setParent(itemCabecalho);
@@ -269,17 +324,23 @@ public class JanPrincipal extends JanCore {
 		if (tree != null) {// remove a arvore antiga da janela.
 			this.removeChild(tree);
 		}
-		tree = new Tree();// cria uma nova arvore e insere na janela.
+
+		tree = new Tree(); // cria uma nova arvore e insere na janela.
 		tree.setParent(this);
+
+		tree.setStyle("overflow-y: scroll; max-height:100%;");
 		Treechildren treechildren = new Treechildren();
 		treechildren.setParent(tree);
+		Separator sep = new Separator();
+		sep.setParent(this);
+
 	}
 
 	private MenupopupV menuDeContextoCompPP(CompPP compPP) {
 		MenupopupV menupopupContexto = new MenupopupV();
 
 		// insere menus de edição de compPP
-		if (compPP.isEhDefinido() == false) {
+		if (compPP.isDefinicaoConcluida() == false) {
 			menusDeEdicaoCompPP(menupopupContexto, compPP);
 		}
 
@@ -326,6 +387,11 @@ public class JanPrincipal extends JanCore {
 		// menus específicos
 		if (compPP instanceof CompPPMacroatividade) {
 			menusDeEdicaoMacroAtividade(menupopupContexto);
+		} else if (compPP instanceof CompPPProcessoSimples) {
+			menusDeEdicaoCompPPComplexoESimples(menupopupContexto);
+			newItemBasicoMenu(menupopupContexto,
+					"Definir dependências entre subprocessos",
+					new EventListnerDefinirDependencias());
 		} else {
 			menusDeEdicaoCompPPComplexoESimples(menupopupContexto);
 		}
@@ -357,7 +423,7 @@ public class JanPrincipal extends JanCore {
 					new EventListener() {
 						public void onEvent(Event evt) {
 							if (((Integer) evt.getData()).intValue() == Messagebox.OK) {
-								ctrl.finalizarDefinicao();
+								ctrl.finalizarDefinicao(compPP);
 							}
 						}
 					});
@@ -439,8 +505,19 @@ public class JanPrincipal extends JanCore {
 	public class EventListnerPripriedadesBasicas implements EventListener {
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			Object o = arg0.getTarget();
+			// Object o = arg0.getTarget();
+			// System.out.println(((Menuitem) o).getLabel());
+			// fasdf
+
 			ctrl.abrirJanEditarPropriedadesBasicas();
+		}
+	}
+
+	public class EventListnerDefinirDependencias implements EventListener {
+		@Override
+		public void onEvent(Event arg0) throws Exception {
+			// Object o = arg0.getTarget()
+			ctrl.abrirJanDefinirDependencias();
 		}
 	}
 

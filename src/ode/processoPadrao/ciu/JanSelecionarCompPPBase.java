@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
+import ode.conhecimento.principal.cdp.Conhecimento;
 import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
@@ -31,6 +32,7 @@ public class JanSelecionarCompPPBase extends JanCore {
 
 		configuraElementosJanela();
 		janela.mostrar();
+
 	}
 
 	private void configuraElementosJanela() {
@@ -43,17 +45,41 @@ public class JanSelecionarCompPPBase extends JanCore {
 		Listhead listHead = new Listhead();
 		Collection<CompPP> listaCompPP = new ArrayList<CompPP>();
 
-		preencheListaCompPP(listaCompPP);
+		preencheListaCompPPsFinalizado(listaCompPP);
 
 		for (CompPP compPP : listaCompPP) {
 
-			itemLista = new Listitem();
-			Listcell listcell = new Listcell();
-			itemLista.setParent(listaProcessoPadrao);
-			itemLista.appendChild(listcell);
+			// não adiciona na lista o compPP atual.
+			if (compPP.getNome().compareTo(
+					ctrl.getcompPPSelecionado().getNome()) != 0) {
 
-			listcell.setLabel(compPP.getNome());
-			listcell.setValue(compPP);
+				Conhecimento tipoFor = null, tipoSelec = null;
+
+				// coleta os tipos para comparacao;
+				if (compPP instanceof CompPPProcessoComplexo == false) {
+					if (compPP instanceof CompPPProcessoSimples) {
+						tipoFor = ((CompPPProcessoSimples) compPP).getTipo();
+						tipoSelec = ((CompPPProcessoSimples) ctrl
+								.getcompPPSelecionado()).getTipo();
+					} else {// macro atividade
+						tipoFor = ((CompPPMacroatividade) compPP).getTipo();
+						tipoSelec = ((CompPPMacroatividade) ctrl
+								.getcompPPSelecionado()).getTipo();
+					}
+				}
+
+				// efetua a comparação e adiciona na lista se forem do mesmo
+				// tipo.
+				if (tipoFor.getNome().compareTo(tipoSelec.getNome()) == 0) {
+					itemLista = new Listitem();
+					Listcell listcell = new Listcell();
+					itemLista.setParent(listaProcessoPadrao);
+					itemLista.appendChild(listcell);
+
+					listcell.setLabel(compPP.getNome());
+					listcell.setValue(compPP);
+				}
+			}
 		}
 
 		Button buttonSelecionar = new Button();
@@ -77,7 +103,6 @@ public class JanSelecionarCompPPBase extends JanCore {
 									case Messagebox.OK:
 										try {
 											alterarEstruturaCompPP();
-											// ctrl.salvarCompPP(ctrl.getcompPPSelecionado());
 											ctrl.atualizarCompPP(ctrl
 													.getcompPPSelecionado());
 
@@ -98,39 +123,50 @@ public class JanSelecionarCompPPBase extends JanCore {
 
 	}
 
-	private void preencheListaCompPP(Collection listaCompPP) {
-		if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
+	private void preencheListaCompPPsFinalizado(Collection listaCompPP) {
+		listaCompPP.addAll(retornaCompPPsFinalizados(ctrl
+				.getcompPPSelecionado()));
+	}
 
-			listaCompPP.addAll(ctrl.getAllCompPPProcessoComplexo());
+	private Collection retornaCompPPsFinalizados(CompPP compPP) {
 
-		} else if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoSimples) {
+		if (compPP instanceof CompPPProcessoComplexo) {
+			return retornaCompPPsFinalizados((CompPPProcessoComplexo) compPP);
 
-			for (CompPPProcessoSimples compPPsimples : ctrl
-					.getAllCompPPProcessoSimples()) {
+		} else if (compPP instanceof CompPPProcessoSimples) {
+			return retornaCompPPsFinalizados((CompPPProcessoSimples) compPP);
 
-				// verifica se são do mesmo tipo
-				if (((CompPPProcessoSimples) ctrl.getcompPPSelecionado())
-						.getTipo().getNome()
-						.compareTo(compPPsimples.getTipo().getNome()) == 0) {
-
-					listaCompPP.add(compPPsimples);
-				}
-			}
-
-		} else if (ctrl.getcompPPSelecionado() instanceof CompPPMacroatividade) {
-
-			for (CompPPMacroatividade compPPmacroatv : ctrl
-					.getAllCompPPMacroAtividade()) {
-
-				if (((CompPPMacroatividade) ctrl.getcompPPSelecionado())
-						.getTipo().getNome()
-						.compareTo(compPPmacroatv.getTipo().getNome()) == 0) {
-
-					listaCompPP.add(compPPmacroatv);
-				}
-			}
-
+		} else {
+			return retornaCompPPsFinalizados((CompPPMacroatividade) compPP);
 		}
+	}
+
+	private Collection retornaCompPPsFinalizados(CompPPProcessoComplexo compPP) {
+		return ctrl.getAllCompPPFinalizado(CompPPProcessoComplexo.class);
+	}
+
+	private Collection retornaCompPPsFinalizados(CompPPProcessoSimples compPP) {
+		return ctrl.getAllCompPPFinalizado(CompPPProcessoSimples.class);
+		// verifica se são do mesmo tipo
+		/*
+		 * if (((CompPPProcessoSimples) ctrl.getcompPPSelecionado())
+		 * .getTipo().getNome() .compareTo(compPPsimples.getTipo().getNome()) ==
+		 * 0) {
+		 * 
+		 * listaCompPP.add(compPPsimples); }
+		 */
+	}
+
+	private Collection retornaCompPPsFinalizados(CompPPMacroatividade compPP) {
+		return ctrl.getAllCompPPFinalizado(CompPPMacroatividade.class);
+		// verifica se são do mesmo tipo
+		/*
+		 * if (((CompPPMacroatividade) ctrl.getcompPPSelecionado())
+		 * .getTipo().getNome() .compareTo(compPPmacroatv.getTipo().getNome())
+		 * == 0) {
+		 * 
+		 * listaCompPP.add(compPPmacroatv); }
+		 */
 	}
 
 	void alterarEstruturaCompPP() throws CloneNotSupportedException {
@@ -142,8 +178,14 @@ public class JanSelecionarCompPPBase extends JanCore {
 
 			CompPPProcessoComplexo copia = (CompPPProcessoComplexo) compPPBase
 					.clone();
+
 			((CompPPProcessoComplexo) ctrl.getcompPPSelecionado())
 					.setProcessosSimples(copia.getProcessosSimples());
+
+			ctrl.salvarListaCompPP(((CompPPProcessoComplexo) ctrl
+					.getcompPPSelecionado()).getProcessosSimples());
+
+			ctrl.getcompPPSelecionado().setCompPPBase(compPPBase);
 			copia = null;
 
 		} else if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoSimples) {
@@ -153,8 +195,14 @@ public class JanSelecionarCompPPBase extends JanCore {
 
 			CompPPProcessoSimples copia = (CompPPProcessoSimples) compPPBase
 					.clone();
+
 			((CompPPProcessoSimples) ctrl.getcompPPSelecionado())
 					.setMacroAtividades(copia.getMacroAtividades());
+
+			ctrl.salvarListaCompPP(((CompPPProcessoSimples) ctrl
+					.getcompPPSelecionado()).getMacroAtividades());
+
+			ctrl.getcompPPSelecionado().setCompPPBase(compPPBase);
 			copia = null;
 
 		} else { /* macroatividade */
@@ -164,9 +212,12 @@ public class JanSelecionarCompPPBase extends JanCore {
 
 			CompPPMacroatividade copia = (CompPPMacroatividade) compPPBase
 					.clone();
+
 			((CompPPMacroatividade) ctrl.getcompPPSelecionado())
 					.setAtividadeProcessoPadrao(copia
 							.getAtividadeProcessoPadrao());
+			ctrl.getcompPPSelecionado().setCompPPBase(compPPBase);
+
 			copia = null;
 
 		}

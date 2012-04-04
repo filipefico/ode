@@ -16,6 +16,7 @@ import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Vbox;
 
+
 public class JanSelecionaProcessoPadrao extends JanCore {
 
 	private static final long serialVersionUID = -3690385242625438493L;
@@ -54,7 +55,7 @@ public class JanSelecionaProcessoPadrao extends JanCore {
 		listaProcessoPadrao.setParent(vbox);
 		Listhead listHead = new Listhead();
 
-		Collection<CompPP> listaCompPP = ctrl.getAllCompPP();
+		Collection<CompPP> listaCompPP = ctrl.getAllCompPPComOrdenacao("nome");
 		for (CompPP compPP : listaCompPP) {
 			itemLista = new Listitem();
 			Listcell listcell = new Listcell();
@@ -64,6 +65,9 @@ public class JanSelecionaProcessoPadrao extends JanCore {
 
 			listcell.setLabel(compPP.getNome());
 			listcell.setValue(compPP);
+			if (compPP.isDefinicaoConcluida()) {
+				itemLista.setCheckable(false);
+			}
 		}
 
 		Button buttonSelecionar = new Button();

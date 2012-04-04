@@ -3,6 +3,7 @@ package ode.processoPadrao.cdp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.management.loading.PrivateMLet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +15,13 @@ import javax.persistence.ManyToOne;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KArtefato;
 import ode.conhecimento.processo.cdp.KAtividade;
-import ode.conhecimento.processo.cdp.KProcedimento;
-import ode.conhecimento.processo.cdp.KRecurso;
+import ode.conhecimento.processo.cdp.KFerramentaSoftware;
+import ode.conhecimento.processo.cdp.KMetodo;
+import ode.conhecimento.processo.cdp.KNorma;
+import ode.conhecimento.processo.cdp.KRecursoHardware;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
+import ode.conhecimento.processo.cdp.KRoteiro;
+import ode.conhecimento.processo.cdp.KTecnica;
 
 @Entity
 public class AtividadeProcessoPadrao extends ObjetoPersistente {
@@ -26,7 +31,6 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 
 	private boolean ehMarco;
 
-	private Set<KRecursoHumano> recursoHumano;
 	private Set<KArtefato> insumos;
 	private Set<KArtefato> produtos;
 	private Set<AtividadeProcessoPadrao> subAtividades;
@@ -34,24 +38,57 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 
 	private KAtividade tipo;
 
-	private Set<KRecurso> recursoRequerido;
-	private Set<KProcedimento> procedimentoAdotado;
+	// private Set<KRecurso> recursoRequerido;
+	private Set<KRecursoHumano> recursoHumano;
+
+	// private Set<KProcedimento> procedimentoAdotado;
+	private Set<KNorma> procedimentoNorma;
+	private Set<KRoteiro> procedimentoRoteiro;
+	private Set<KMetodo> procedimentoMetodo;
+	private Set<KTecnica> procedimentoTecnica;
 
 	public AtividadeProcessoPadrao() {
-		this.setRecursoHumano(new HashSet<KRecursoHumano>());
 		this.setInsumos(new HashSet<KArtefato>());
 		this.setProdutos(new HashSet<KArtefato>());
 		this.setSubAtividades(new HashSet<AtividadeProcessoPadrao>());
 		this.setPreAtividades(new HashSet<AtividadeProcessoPadrao>());
+
+		this.setRecursoHumano(new HashSet<KRecursoHumano>());
+		this.setRecursoHardware(new HashSet<KRecursoHardware>());
+		this.setRecursoSoftware(new HashSet<KFerramentaSoftware>());
+
+		procedimentoNorma = new HashSet<KNorma>();
+		procedimentoRoteiro = new HashSet<KRoteiro>();
+		procedimentoMetodo = new HashSet<KMetodo>();
+		procedimentoTecnica = new HashSet<KTecnica>();
+
 	}
 
-	/**
-	 * Ontém os KRecursoHumano cascade = "none"
-	 */
 	@ManyToMany(fetch = FetchType.EAGER)
 	public Set<KRecursoHumano> getRecursoHumano() {
 		return recursoHumano;
 	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	public Set<KRecursoHardware> getRecursoHardware() {
+		return recursoHardware;
+	}
+
+	public void setRecursoHardware(Set<KRecursoHardware> recursoHardware) {
+		this.recursoHardware = recursoHardware;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	public Set<KFerramentaSoftware> getRecursoSoftware() {
+		return recursoSoftware;
+	}
+
+	public void setRecursoSoftware(Set<KFerramentaSoftware> recursoSoftware) {
+		this.recursoSoftware = recursoSoftware;
+	}
+
+	private Set<KRecursoHardware> recursoHardware;
+	private Set<KFerramentaSoftware> recursoSoftware;
 
 	public void setRecursoHumano(Set<KRecursoHumano> parKRecursoHumano) {
 		this.recursoHumano = parKRecursoHumano;
@@ -84,7 +121,7 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	}
 
 	/**
-	 * Obtém as SubAtividades. inverse = "true"
+	 * Obtém as SubAtividades
 	 */
 	@ManyToMany(cascade = { javax.persistence.CascadeType.PERSIST,
 			javax.persistence.CascadeType.MERGE, CascadeType.REFRESH,
@@ -168,21 +205,39 @@ public class AtividadeProcessoPadrao extends ObjetoPersistente {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	public Set<KRecurso> getRecursoRequerido() {
-		return recursoRequerido;
+	public Set<KNorma> getProcedimentoNorma() {
+		return procedimentoNorma;
 	}
 
-	public void setRecursoRequerido(Set<KRecurso> recursoRequerido) {
-		this.recursoRequerido = recursoRequerido;
+	public void setProcedimentoNorma(Set<KNorma> procedimentoNorma) {
+		this.procedimentoNorma = procedimentoNorma;
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	public Set<KProcedimento> getProcedimentoAdotado() {
-		return procedimentoAdotado;
+	public Set<KRoteiro> getProcedimentoRoteiro() {
+		return procedimentoRoteiro;
 	}
 
-	public void setProcedimentoAdotado(Set<KProcedimento> procedimentoAdotado) {
-		this.procedimentoAdotado = procedimentoAdotado;
+	public void setProcedimentoRoteiro(Set<KRoteiro> procedimentoRoteiro) {
+		this.procedimentoRoteiro = procedimentoRoteiro;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	public Set<KMetodo> getProcedimentoMetodo() {
+		return procedimentoMetodo;
+	}
+
+	public void setProcedimentoMetodo(Set<KMetodo> procedimentoMetodo) {
+		this.procedimentoMetodo = procedimentoMetodo;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	public Set<KTecnica> getProcedimentoTecnica() {
+		return procedimentoTecnica;
+	}
+
+	public void setProcedimentoTecnica(Set<KTecnica> procedimentoTecnica) {
+		this.procedimentoTecnica = procedimentoTecnica;
 	}
 
 }

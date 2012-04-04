@@ -22,13 +22,15 @@ public class AplCadastrarKCategoriaProcesso extends AplCRUD<KCategoriaProcesso> 
 		return kCategoriaProcessoDAO;
 	}
 
-	public void setKCategoriaProcessoDAO(KCategoriaProcessoDAO kCategoriaProcessoDAO) {
+	public void setKCategoriaProcessoDAO(
+			KCategoriaProcessoDAO kCategoriaProcessoDAO) {
 		this.kCategoriaProcessoDAO = kCategoriaProcessoDAO;
 	}
 
-	protected KCategoriaProcesso alterarDados(KCategoriaProcesso objeto) throws NucleoRegraNegocioExcecao {
+	protected KCategoriaProcesso alterarDados(KCategoriaProcesso objeto)
+			throws NucleoRegraNegocioExcecao {
 		getNucleoDaoBase().atualizar(objeto);
-		//Retorna objetoPersistido;
+		// Retorna objetoPersistido;
 		return objeto;
 	}
 

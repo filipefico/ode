@@ -1,7 +1,6 @@
 package ode._infraestruturaCRUD.cgt;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -33,7 +32,7 @@ public abstract class AplCRUD<T extends ObjetoPersistente> {
 	}
 
 	public void excluir(Set<T> objetos) throws NucleoRegraNegocioExcecao {
-		
+
 		Iterator<T> itItensSelecionados = objetos.iterator();
 
 		while (itItensSelecionados.hasNext()) {

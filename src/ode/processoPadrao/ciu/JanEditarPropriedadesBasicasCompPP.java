@@ -92,7 +92,7 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 								.getValue());
 			}
 		}
-		ctrl.atualizarCompPP((CompPPMacroatividade) compPP);
+		ctrl.atualizarCompPP(compPP);
 	}
 
 	private void configuraTabPanelRequisitos(Tabpanel tabPanelRequisitos) {

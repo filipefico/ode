@@ -38,7 +38,8 @@ public class CompPPMacroatividade extends CompPP {
 		this.tipo = tipo;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH, CascadeType.DETACH }, fetch = FetchType.EAGER)
 	public AtividadeProcessoPadrao getAtividadeProcessoPadrao() {
 		return this.atividadeProcessoPadrao;
 	}

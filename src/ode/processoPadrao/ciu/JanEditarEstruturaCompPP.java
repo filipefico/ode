@@ -9,6 +9,7 @@ import java.util.Set;
 
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.conhecimento.processo.cdp.KProcesso;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.ElementoCompPP;
 
@@ -17,16 +18,19 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
+import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Separator;
 
 public class JanEditarEstruturaCompPP extends JanCore {
 	private static final long serialVersionUID = 3035850190447854404L;
 	private JanelaSimples janela;
 	private Listbox listbox;
+	private Listbox listboxCompPPEngenharia;
 
 	public JanEditarEstruturaCompPP(
 			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
@@ -52,6 +56,11 @@ public class JanEditarEstruturaCompPP extends JanCore {
 
 		preencherListBox(listbox);
 
+		if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
+			listboxCompPPEngenharia = new Listbox();
+			listarProcessosDeEngenharia();
+		}
+
 		buttonOK.setParent(janela);
 		buttonOK.setLabel("Salvar");
 		buttonOK.addEventListener("onClick", new EventListener() {
@@ -61,6 +70,53 @@ public class JanEditarEstruturaCompPP extends JanCore {
 			}
 		});
 
+	}
+
+	protected void listarProcessosDeEngenharia() {
+		new Separator().setParent(janela);
+		new Label("SubProcessos de engenharia listados a seguir:")
+				.setParent(janela);
+
+		listboxCompPPEngenharia.setCheckmark(true);
+		listboxCompPPEngenharia.setParent(janela);
+
+		// pega o único objeto que é do tipo engenharia
+		KProcesso kprocessoEngenharia = null;
+		for (ElementoCompPP el : ctrl.getcompPPSelecionado()
+				.getInterfaceCompPP().getEstruturaCompPP().getElementosCompPP()) {
+			KProcesso kp = (KProcesso) el.getElementoConhecimento();
+			if (kp.isEhEngenharia()) {
+				kprocessoEngenharia = kp;
+			}
+		}
+
+		for (Iterator iterator = ctrl.getAllKProcessoEngenharia().iterator(); iterator
+				.hasNext();) {
+			KProcesso kp = (KProcesso) iterator.next();
+
+			Listitem li = new Listitem();
+			li.setParent(listboxCompPPEngenharia);
+			li.setValue(kp);
+			li.setLabel(kp.getNome());
+
+			if (kprocessoEngenharia != null) {
+				if (kp.getNome().compareTo(kprocessoEngenharia.getNome()) == 0) {
+					listboxCompPPEngenharia.setSelectedItem(li);// seleciona o
+																// item
+																// na lista
+				}
+			}
+		}
+
+		Button bt = new Button();
+		bt.setParent(janela);
+		bt.setLabel("desmarcar");
+		bt.addEventListener("onClick", new EventListener() {
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				listboxCompPPEngenharia.setSelectedIndex(-1);
+			}
+		});
 	}
 
 	private void salvarCompPPAlterado() {
@@ -84,6 +140,15 @@ public class JanEditarEstruturaCompPP extends JanCore {
 			}
 		}
 
+		// adiciona o elemento de engenharia a lista de obrigatórios
+		if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
+
+			Listitem li = (Listitem) listboxCompPPEngenharia.getSelectedItem();
+			if (li != null) {
+				selecionadosObrigatorios.add((Conhecimento) li.getValue());
+			}
+
+		}
 		ctrl.atualizarEstruturaCompPP(selecionados, selecionadosObrigatorios);
 	}
 
@@ -162,7 +227,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 		// obtem valores
 		if (ctrl.getcompPPSelecionado().getClass()
 				.equals(CompPPProcessoComplexo.class)) {
-			listaK = ctrl.getAllKProcesso();
+			listaK = ctrl.getAllKProcessoNaoEngenharia();
 		} else {
 			listaK = ctrl.getAllKAtividade();
 		}

@@ -31,12 +31,14 @@ public abstract class CompPP extends ObjetoPersistente implements Cloneable {
 
 	// Verifica se um Processo já teve sua definição encerrada
 	@Column
-	public boolean isEhDefinido() {
+	public boolean isDefinicaoConcluida() {
 		return definicaoConcluida;
 	}
 
-	public void setEhDefinido(boolean parEhDefinido) {
+	public void setDefinicaoConcluida(boolean parEhDefinido) {
+
 		this.definicaoConcluida = parEhDefinido;
+
 	}
 
 	@Column(nullable = false, length = 100)
@@ -100,9 +102,6 @@ public abstract class CompPP extends ObjetoPersistente implements Cloneable {
 		this.interfaceCompPP.setObjetivo(objetivo);
 	}
 
-	protected <T extends CompPP> T batata(T batatinha) {
-		return batatinha;
-	}
 
 	@Override
 	protected CompPP clone() throws CloneNotSupportedException {
