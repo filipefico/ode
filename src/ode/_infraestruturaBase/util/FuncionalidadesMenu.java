@@ -22,6 +22,7 @@ import ode.conhecimento.processo.ciu.CtrlKProcessoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHardwareCRUD;
 import ode.conhecimento.processo.ciu.CtrlKRecursoHumanoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKTipoSoftwareCRUD;
+import ode.conhecimento.requisito.cci.CtrlCRUDCategoriaRequisito;
 import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKEscalaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKMedidaCRUD;
@@ -36,6 +37,10 @@ import ode.controleProjeto.ciu.CtrlSelecionarProjeto;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.ciu.CtrlUsuarioCRUD;
+import ode.gerenciaRequisitos.cci.CtrlCRUDRequisito;
+import ode.gerenciaRequisitos.cci.CtrlDefinirRelacoesRastreabilidade;
+import ode.gerenciaRequisitos.cci.CtrlGerarRelatorioRastreabilidade;
+import ode.gerenciaRequisitos.cci.CtrlRastrearRequisitos;
 import ode.medicao.EntidadeMensuravel.cci.CtrlEntidadeMensuravel;
 import ode.medicao.analiseMedicao.ciu.CtrlAcaoCorretiva;
 import ode.medicao.analiseMedicao.ciu.CtrlAnaliseMedicao;
@@ -45,7 +50,11 @@ import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
 import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoProjeto;
 import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaOrganizacao;
 import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaProjeto;
+import ode.pgds.cci.CtrlImportarProjeto;
 import ode.processoPadrao.ciu.CtrlDefinirProcessoPadrao;
+import ode.uml.cci.CtrlCRUDCasoUso;
+import ode.uml.cci.CtrlCRUDClasse;
+import ode.uml.cci.CtrlCRUDPacote;
 
 public class FuncionalidadesMenu {
 
@@ -102,6 +111,9 @@ public static List<Funcionalidade> obterFuncionalidades() {
 			.addSubfuncionalidade(criar("Organização")
 				.addSubfuncionalidade(criar("Competências").setCtrl(CtrlKCompetenciaCRUD.class))
 			)
+			.addSubfuncionalidade(criar("Requisito")
+				.addSubfuncionalidade(criar("Categoria").setCtrl(CtrlCRUDCategoriaRequisito.class))
+			)
 			.addSubfuncionalidade(criar("Medição")
 					.addSubfuncionalidade(criar("Medida")
 							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
@@ -149,6 +161,20 @@ public static List<Funcionalidade> obterFuncionalidades() {
 		funcionalidades.add(criar("Ferramentas")
 			.addSubfuncionalidade(criar("Definição de Processos").setCtrl(CtrlDefinicaoProcesso.class).setDisponivelApenasParaProjetosAbertos(true))
 			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecurso.class).setDisponivelApenasParaProjetosAbertos(true))
+		);
+		
+		funcionalidades.add(criar("uml").setDisponivelApenasParaProjetosAbertos(true)
+			.addSubfuncionalidade(criar("Cadastrar Pacote").setCtrl(CtrlCRUDPacote.class))
+			.addSubfuncionalidade(criar("Cadastrar Classe").setCtrl(CtrlCRUDClasse.class))
+			.addSubfuncionalidade(criar("Cadastrar Caso de Uso").setCtrl(CtrlCRUDCasoUso.class))
+		);
+			
+		funcionalidades.add(criar("Gerência de Requisitos").setDisponivelApenasParaProjetosAbertos(true)
+			.addSubfuncionalidade(criar("Cadastrar Requisito").setCtrl(CtrlCRUDRequisito.class))
+			.addSubfuncionalidade(criar("Definir Relações de Rastreabilidade").setCtrl(CtrlDefinirRelacoesRastreabilidade.class))
+			.addSubfuncionalidade(criar("Rastrear Requisitos").setCtrl(CtrlRastrearRequisitos.class))
+			.addSubfuncionalidade(criar("Gerar Relatório").setCtrl(CtrlGerarRelatorioRastreabilidade.class))
+			.addSubfuncionalidade(criar("Importar Projeto - PGDS").setCtrl(CtrlImportarProjeto.class))
 		);
 		
 		return funcionalidades;
