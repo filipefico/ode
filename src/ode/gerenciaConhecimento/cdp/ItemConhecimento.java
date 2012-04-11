@@ -42,11 +42,11 @@ public class ItemConhecimento extends ObjetoPersistente {
 	
 	private List<ItemConhecimento> itensRelacionados;
 	
-	private List<Projeto> projeto;
+	private List<Projeto> projetos;
 	
 	private RecursoHumano autor;
 	
-	private List<Tema> tema;
+	private List<Tema> temas;
 	
 	private List<KAtividade> kAtividades; 
 
@@ -110,12 +110,12 @@ public class ItemConhecimento extends ObjetoPersistente {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@IndexColumn(name = "index_col")
-	public List<Projeto> getProjeto() {
-		return projeto;
+	public List<Projeto> getProjetos() {
+		return projetos;
 	}
 
-	public void setProjeto(List<Projeto> projeto) {
-		this.projeto = projeto;
+	public void setProjetos(List<Projeto> projetos) {
+		this.projetos = projetos;
 	}
 
 	@ManyToOne
@@ -129,12 +129,12 @@ public class ItemConhecimento extends ObjetoPersistente {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@IndexColumn(name = "index_col")
-	public List<Tema> getTema() {
-		return tema;
+	public List<Tema> getTemas() {
+		return temas;
 	}
 
-	public void setTema(List<Tema> tema) {
-		this.tema = tema;
+	public void setTemas(List<Tema> temas) {
+		this.temas = temas;
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)

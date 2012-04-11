@@ -12,6 +12,12 @@ public class LicaoAprendida extends ItemConhecimento {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public static final String TIPO_SUCESSO = "Sucesso";
+	
+	public static final String TIPO_FRACASSO = "Fracasso";
+	
+	public static final String TIPO_INFORMATIVA = "Informativa";
+	
 	private String tipo;
 	
 	private String descricaoProblema;
