@@ -37,6 +37,8 @@ import ode.controleProjeto.ciu.CtrlSelecionarProjeto;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.ciu.CtrlUsuarioCRUD;
+import ode.gerenciaConhecimento.ciu.CtrlGerenciaConhecimento;
+import ode.gerenciaConhecimento.ciu.CtrlTema;
 import ode.gerenciaRequisitos.cci.CtrlCRUDRequisito;
 import ode.gerenciaRequisitos.cci.CtrlDefinirRelacoesRastreabilidade;
 import ode.gerenciaRequisitos.cci.CtrlGerarRelatorioRastreabilidade;
@@ -163,6 +165,13 @@ public static List<Funcionalidade> obterFuncionalidades() {
 			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecurso.class).setDisponivelApenasParaProjetosAbertos(true))
 		);
 		
+
+		funcionalidades.add(criar("Gerência de Conhecimento")
+			.addSubfuncionalidade(criar("Portal").setCtrl(CtrlGerenciaConhecimento.class))
+			.addSubfuncionalidade(criar("Tema").setCtrl(CtrlTema.class))
+		);
+		
+
 		funcionalidades.add(criar("uml").setDisponivelApenasParaProjetosAbertos(true)
 			.addSubfuncionalidade(criar("Cadastrar Pacote").setCtrl(CtrlCRUDPacote.class))
 			.addSubfuncionalidade(criar("Cadastrar Classe").setCtrl(CtrlCRUDClasse.class))
