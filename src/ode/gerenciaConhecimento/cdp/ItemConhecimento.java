@@ -1,9 +1,9 @@
 package ode.gerenciaConhecimento.cdp;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,15 +40,15 @@ public class ItemConhecimento extends ObjetoPersistente {
 	
 	private String estado;
 	
-	private List<ItemConhecimento> itensRelacionados;
+	private List<ItemConhecimento> itensRelacionados = new ArrayList<ItemConhecimento>();
 	
-	private List<Projeto> projetos;
+	private List<Projeto> projetos = new ArrayList<Projeto>();
 	
 	private RecursoHumano autor;
 	
-	private List<Tema> temas;
+	private List<Tema> temas = new ArrayList<Tema>();
 	
-	private List<KAtividade> kAtividades; 
+	private List<KAtividade> kAtividades = new ArrayList<KAtividade>(); 
 
 	public String getTitulo() {
 		return titulo;
@@ -98,7 +98,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.estado = estado;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@IndexColumn(name = "index_col")
 	public List<ItemConhecimento> getItensRelacionados() {
 		return itensRelacionados;
@@ -108,7 +108,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.itensRelacionados = itensRelacionados;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@IndexColumn(name = "index_col")
 	public List<Projeto> getProjetos() {
 		return projetos;

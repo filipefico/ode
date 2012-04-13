@@ -2,18 +2,20 @@ package ode.gerenciaConhecimento.ciu;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import ode._infraestruturaBase.ciu.CtrlBase;
-import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
+import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cgt.AplCadastrarConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cgt.AplCadastrarItemConhecimento;
 import ode.gerenciaConhecimento.cgt.AplCadastrarLicaoAprendida;
+import ode.gerenciaConhecimento.cgt.AplCadastrarTema;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 @Controller
 public class CtrlGerenciaConhecimento extends CtrlBase {
@@ -38,6 +40,15 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	@Autowired
 	AplCadastrarProjeto aplCadastrarProjeto;
+	
+	@Autowired
+	AplCadastrarTema aplCadastrarTema;
+	
+	@Autowired
+	AplCadastrarKAtividade aplCadastrarKAtividade;
+	
+	@Autowired
+	AplCadastrarItemConhecimento aplCadastrarItemConhecimento;
 	
 	@Override
 	public void iniciar() {
@@ -98,7 +109,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		try {
 			aplCadastrarConhecimentoRelativoDiscussao.salvar(crd);
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getCause().printStackTrace();
 		}
 		
 	}
