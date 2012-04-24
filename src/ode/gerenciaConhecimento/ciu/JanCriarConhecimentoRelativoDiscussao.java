@@ -1,13 +1,20 @@
 package ode.gerenciaConhecimento.ciu;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
+import ode._controleProcesso.cdp.Atividade;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoContexto;
+import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
+import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -31,17 +38,17 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Window;
 
-public class JanCriarConhecimentoRelativoDiscussao extends Window{
+public class JanCriarConhecimentoRelativoDiscussao extends Window {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
-	
+
 	Textbox textboxTitulo;
-	Textbox textboxDataCriacao;
+	Label labelDataCriacaoValor;
 	Textbox labelAutor;
 	Textbox textboxResumo;
 	Textbox textboxAplicabilidade;
@@ -49,29 +56,32 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 	Textbox textboxPontosFortes;
 	Textbox textboxPontosFracos;
 	Textbox textboxLinkDiscussao;
-	
+
 	Listbox listboxProjetosRelacionados = new Listbox();
-	//?????? Declarar os outros listbox aqui 
-	
+	Listbox listboxTemasRelacionados = new Listbox();
+	Listbox listboxKAtividadesRelacionadas = new Listbox();
+	Listbox listboxItensConhecimentoRelacionados = new Listbox();
+
+
 	public JanCriarConhecimentoRelativoDiscussao(CtrlGerenciaConhecimento ctrl) {
 		// TODO Auto-generated constructor stub
-	
+
 		ctrlGerenciaConhecimento = ctrl;
-		
+
 		criarJanCriarConhecimentoRelativoDiscussao();
-		
+
 	}
-		
-	public void salvar() throws NucleoRegraNegocioExcecao{
+
+	public void salvar() throws NucleoRegraNegocioExcecao {
 
 		ctrlGerenciaConhecimento.salvarConhecimentoRelativoDiscussao(preencherConhecimentoRelativoDiscussao());
 
 	}
-	
-	public ConhecimentoRelativoDiscussao preencherConhecimentoRelativoDiscussao(){
-		
+
+	public ConhecimentoRelativoDiscussao preencherConhecimentoRelativoDiscussao() {
+
 		ConhecimentoRelativoDiscussao conhecimentoRelativoDiscussao = new ConhecimentoRelativoDiscussao();
-		
+
 		conhecimentoRelativoDiscussao.setAutor(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano());
 		conhecimentoRelativoDiscussao.setDataCriacao(new Date());
 		conhecimentoRelativoDiscussao.setTitulo(textboxTitulo.getValue());
@@ -82,11 +92,47 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		conhecimentoRelativoDiscussao.setPontosFracos(textboxPontosFracos.getValue());
 		conhecimentoRelativoDiscussao.setLinkDiscussao(textboxLinkDiscussao.getValue());
 		
-		return conhecimentoRelativoDiscussao;
+		// preenche temas selecionados
+		Set<Listitem> itens = listboxTemasRelacionados.getSelectedItems();
+		List<Tema> temas = new ArrayList<Tema>();
+		for (Listitem item : itens){
+			temas.add((Tema)item.getValue());
+		}
+		conhecimentoRelativoDiscussao.getTemas().clear();
+		conhecimentoRelativoDiscussao.setTemas(temas);
 		
+		// preenche projetos selecionados
+		itens = listboxProjetosRelacionados.getSelectedItems();
+		List<Projeto> projetos = new ArrayList<Projeto>();
+		for(Listitem item : itens){
+			projetos.add((Projeto)item.getValue());
+		}
+		conhecimentoRelativoDiscussao.getProjetos().clear();
+		conhecimentoRelativoDiscussao.setProjetos(projetos);
+		
+		//preenche atividades selecionadas
+		itens = listboxKAtividadesRelacionadas.getSelectedItems();
+		List<KAtividade> atividades = new ArrayList<KAtividade>();
+		for(Listitem item : itens){
+			atividades.add((KAtividade)item.getValue());
+		}
+		conhecimentoRelativoDiscussao.getkAtividades().clear();
+		conhecimentoRelativoDiscussao.setkAtividades(atividades);
+		
+		//preenche itens de conhecimento relacionados
+		itens = listboxItensConhecimentoRelacionados.getSelectedItems();
+		List<ItemConhecimento> conhecimentos = new ArrayList<ItemConhecimento>();
+		for(Listitem item : itens){
+			conhecimentos.add((ItemConhecimento)item.getValue());
+		}
+		conhecimentoRelativoDiscussao.getItensRelacionados().clear();
+		conhecimentoRelativoDiscussao.setItensRelacionados(conhecimentos);
+
+		return conhecimentoRelativoDiscussao;
+
 	}
-	
-	public void criarJanCriarConhecimentoRelativoDiscussao(){
+
+	public void criarJanCriarConhecimentoRelativoDiscussao() {
 
 		this.setTitle("Criar Conhecimento Relativo a uma Discussão");
 		this.setBorder("normal");
@@ -107,7 +153,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 				salvar();
 				Messagebox messageboxSalvar = new Messagebox();
-				messageboxSalvar.show("Conhecimento Relativo a uma Discussão salvo com sucesso!", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+				messageboxSalvar.show("Conhecimento Relativo a uma Discussão salvo com sucesso!","Informação", Messagebox.OK,messageboxSalvar.INFORMATION);
 				fecharJanela();
 			}
 		});
@@ -117,20 +163,27 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				
-				
-				//Messagebox messageboxCancelar = new Messagebox();
-				Messagebox.show("Deseja realmente cancelar o Conhecimento Relativo a uma Discussão?", "Aviso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
-					
-					@Override
-					public void onEvent(Event arg0) throws Exception {
-						// TODO Auto-generated method stub
-						if (arg0.getName().equals("onYes")){
-							Messagebox.show("Conhecimento Relativo a uma Discussão cancelado!", "Informação", Messagebox.OK, Messagebox.INFORMATION);
-							fecharJanela();
-						}
-					}
-				});
+
+				// Messagebox messageboxCancelar = new Messagebox();
+				Messagebox
+						.show("Deseja realmente cancelar o Conhecimento Relativo a uma Discussão?",
+								"Aviso", Messagebox.YES | Messagebox.NO,
+								Messagebox.QUESTION, new EventListener() {
+
+									@Override
+									public void onEvent(Event arg0)
+											throws Exception {
+										// TODO Auto-generated method stub
+										if (arg0.getName().equals("onYes")) {
+											Messagebox
+													.show("Conhecimento Relativo a uma Discussão cancelado!",
+															"Informação",
+															Messagebox.OK,
+															Messagebox.INFORMATION);
+											fecharJanela();
+										}
+									}
+								});
 			}
 		});
 
@@ -142,14 +195,13 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 		toolbarInferior.setParent(this);
 
-	
 	}
-	
-	public void fecharJanela(){
+
+	public void fecharJanela() {
 		this.detach();
 	}
 
-	public Tabbox criarAbasCriarLicaoAprendida(){
+	public Tabbox criarAbasCriarLicaoAprendida() {
 
 		Tabbox tabbox = new Tabbox();
 		Tabs tabs = new Tabs();
@@ -177,8 +229,8 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		return tabbox;
 
 	}
-	
-	public Tabpanel criarTabInfoGerais(){
+
+	public Tabpanel criarTabInfoGerais() {
 
 		Tabpanel tabpainel = new Tabpanel();
 
@@ -191,8 +243,9 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 		Label labelAutor = new Label("Autor:");
 		Label labelDescricaoAutor = new Label();
-		labelDescricaoAutor.setValue(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome());
-	
+		labelDescricaoAutor.setValue(NucleoContexto.recuperarUsuarioLogado()
+				.getRecursoHumano().getNome());
+
 		labelAutor.setParent(linhaAutor);
 		labelDescricaoAutor.setParent(linhaAutor);
 
@@ -200,17 +253,16 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 		Row linhaDataCriacao = new Row();
 		Label labelDataCriacao = new Label();
-		textboxDataCriacao = new Textbox();
+		labelDataCriacaoValor = new Label();
 
 		Date data = new Date();
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
 		labelDataCriacao.setValue("Data de Criação:");
-		textboxDataCriacao.setValue(formatador.format(data));
-		textboxDataCriacao.setWidth("300px");
+		labelDataCriacaoValor.setValue(formatador.format(data));
 
 		labelDataCriacao.setParent(linhaDataCriacao);
-		textboxDataCriacao.setParent(linhaDataCriacao);
+		labelDataCriacaoValor.setParent(linhaDataCriacao);
 
 		// --- cria linha titulo --- //
 
@@ -221,7 +273,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 		labelTitulo.setValue("Título:");
 		textboxTitulo.setText("");
-		textboxTitulo.setWidth("300px");
+		textboxTitulo.setWidth("435px");
 
 		labelTitulo.setParent(linhaTitulo);
 		textboxTitulo.setParent(linhaTitulo);
@@ -236,7 +288,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		labelResumo.setValue("Resumo:");
 		textboxResumo.setText("");
 		textboxResumo.setHeight("100px");
-		textboxResumo.setWidth("300px");
+		textboxResumo.setWidth("435px");
 		textboxResumo.setRows(3);
 
 		labelResumo.setParent(linhaResumo);
@@ -252,7 +304,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		labelAplicabilidade.setValue("Aplicabilidade:");
 		textboxAplicabilidade.setText("");
 		textboxAplicabilidade.setHeight("100px");
-		textboxAplicabilidade.setWidth("300px");
+		textboxAplicabilidade.setWidth("435px");
 		textboxAplicabilidade.setRows(3);
 
 		labelAplicabilidade.setParent(linhaAplicabilidade);
@@ -266,14 +318,15 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 		rows.setParent(grid);
 		grid.setParent(tabpainel);
+		grid.setSizedByContent(true);
 
 		return tabpainel;
 	}
-	
-	public Tabpanel criarTabInfoEspecifica(){
+
+	public Tabpanel criarTabInfoEspecifica() {
 
 		Tabpanel tabpainel = new Tabpanel();
-
+	
 		Grid grid = new Grid();
 		Rows rows = new Rows();
 
@@ -284,7 +337,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		Label labelConhecimentoAdquirido = new Label();
 		textboxConhecimentoAdquirido = new Textbox();
 
-		labelConhecimentoAdquirido.setValue("Conhecimento Adquirido");
+		labelConhecimentoAdquirido.setValue("Conhecimento Adquirido:");
 		textboxConhecimentoAdquirido.setText("");
 		textboxConhecimentoAdquirido.setHeight("100px");
 		textboxConhecimentoAdquirido.setWidth("300px");
@@ -324,18 +377,18 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 
 		labelPontosFracos.setParent(linhaPontosFracos);
 		textboxPontosFracos.setParent(linhaPontosFracos);
-		
+
 		// --- cria linha link discussão --- //
 
 		Row linhaLinkDiscussao = new Row();
-		
+
 		Label labelLinkDiscussao = new Label();
 		textboxLinkDiscussao = new Textbox();
-		
+
 		labelLinkDiscussao.setValue("Link para a discussão:");
 		textboxLinkDiscussao.setText("");
 		textboxLinkDiscussao.setWidth("300px");
-		
+
 		labelLinkDiscussao.setParent(linhaLinkDiscussao);
 		textboxLinkDiscussao.setParent(linhaLinkDiscussao);
 
@@ -346,112 +399,107 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		rows.setParent(grid);
 		grid.setParent(tabpainel);
 
-
 		return tabpainel;
 
 	}
-	
-	public Tabpanel criarTabAssociacoes(){
+
+	public Tabpanel criarTabAssociacoes() {
 
 		Tabpanel tabpainel = new Tabpanel();
-
+		tabpainel.setStyle("overflow:auto;");
+		tabpainel.setHeight("400px");
+		
 		Grid grid = new Grid();
 		Rows rows = new Rows();
 
-		// --- cria linha Dominios Relacionados --- //
+		//////////////////////////////////////////
+		// Temas relacionados
+		//////////////////////////////////////////
+		Row linhaTemasRelacionados = new Row();
 
-		Row linhaDominiosRelacionados = new Row();
+		Label labelTemasRelacionados = new Label("Temas Relacionados");
 
-		Label labelDominiosRelacionados = new Label("Domínios Relacionados");
+		listboxTemasRelacionados.setMultiple(true);
+		listboxTemasRelacionados.setCheckmark(true);
 
-		Listbox listboxDominiosRelacionados = new Listbox();
-		listboxDominiosRelacionados.setMultiple(true);
-		listboxDominiosRelacionados.setCheckmark(true);
-
-		Listhead colunasDominiosRelacionados = new Listhead();
+		Listhead colunasTemasRelacionados = new Listhead();
 		Listheader colunaTitulo1 = new Listheader("Título");
 
-		colunaTitulo1.setParent(colunasDominiosRelacionados);
-		colunasDominiosRelacionados.setParent(listboxDominiosRelacionados);
+		colunaTitulo1.setParent(colunasTemasRelacionados);
+		colunasTemasRelacionados.setParent(listboxTemasRelacionados);
 
-		Listitem linhaIndustriaNaval = new Listitem();
-		Listcell celulaIndustriaNaval = new Listcell("Indústria Naval");
+		// Preenche temas no listbox
+		Collection<Tema> temas = ctrlGerenciaConhecimento.aplCadastrarTema.recuperarTodos();
+		for(Tema tema : temas){
+			Listitem listitem = new Listitem(tema.getNome());
+			listitem.setValue(tema);
+			listitem.setParent(listboxTemasRelacionados);
+		}
 
-		celulaIndustriaNaval.setParent(linhaIndustriaNaval);
-		linhaIndustriaNaval.setParent(listboxDominiosRelacionados);
+		labelTemasRelacionados.setParent(linhaTemasRelacionados);
+		listboxTemasRelacionados.setParent(linhaTemasRelacionados);
 
-		Listitem linhaMineração = new Listitem();
-		Listcell celulaMineração = new Listcell("Mineração");
-
-		celulaMineração.setParent(linhaMineração);
-		linhaMineração.setParent(listboxDominiosRelacionados);
-
-		labelDominiosRelacionados.setParent(linhaDominiosRelacionados);
-		listboxDominiosRelacionados.setParent(linhaDominiosRelacionados);
-
-		// --- cria linha Projetos Relacionados --- //
-
+		//////////////////////////////////////////
+		// Projetos relacionados
+		//////////////////////////////////////////
 		Row linhaProjetosRelacionados = new Row();
 
 		Label labelProjetosRelacionados = new Label("Projetos Relacionados");
 
 		listboxProjetosRelacionados.setMultiple(true);
 		listboxProjetosRelacionados.setCheckmark(true);
-		
+
 		Listhead colunasProjetosRelacionados = new Listhead();
 		Listheader colunaNome = new Listheader("Nome");
 
 		colunaNome.setParent(colunasProjetosRelacionados);
 		colunasProjetosRelacionados.setParent(listboxProjetosRelacionados);
-		
+
 		// Adicionar itens no listbox projeto
-		Collection<Projeto> projetos = ctrlGerenciaConhecimento.recuperarProjetos();
-		for (Projeto projeto : projetos){
-
-			Listitem linhaSistemaApoio = new Listitem();
-			Listcell celulaSistemaApoio = new Listcell(projeto.getNome());
-			linhaSistemaApoio.setValue(projeto);
-
-			celulaSistemaApoio.setParent(linhaSistemaApoio);
-			linhaSistemaApoio.setParent(listboxProjetosRelacionados);
-			
+		Collection<Projeto> projetos = ctrlGerenciaConhecimento.aplCadastrarProjeto.recuperarTodos();
+		for (Projeto projeto : projetos) {
+			Listitem listitem = new Listitem(projeto.getNome());
+			listitem.setValue(projeto);
+			listitem.setParent(listboxProjetosRelacionados);
 		}
 
 		labelProjetosRelacionados.setParent(linhaProjetosRelacionados);
 		listboxProjetosRelacionados.setParent(linhaProjetosRelacionados);
 
-		// --- cria linha Atividades Relacionados --- //
-
+		//////////////////////////////////////////
+		// Atividades relacionadas
+		//////////////////////////////////////////
 		Row linhaAtividadesRelacionadas = new Row();
 
 		Label labelAtividadesRelacionadas = new Label("Atividades Relacionadas");
 
-		Listbox listboxAtividadesRelacionadas = new Listbox();
-		listboxAtividadesRelacionadas.setMultiple(true);
-		listboxAtividadesRelacionadas.setCheckmark(true);
+		listboxKAtividadesRelacionadas.setMultiple(true);
+		listboxKAtividadesRelacionadas.setCheckmark(true);
 
 		Listhead colunasAtividadesRelacionadas = new Listhead();
 		Listheader colunaTitulo2 = new Listheader("Título");
 
 		colunaTitulo2.setParent(colunasAtividadesRelacionadas);
-		colunasAtividadesRelacionadas.setParent(listboxAtividadesRelacionadas);
+		colunasAtividadesRelacionadas.setParent(listboxKAtividadesRelacionadas);
 
-		Listitem linhaAnaliseRequisitos = new Listitem();
-		Listcell celulaAnaliseRequisitos = new Listcell("Análise de Requisitos");
-
-		celulaAnaliseRequisitos.setParent(linhaAnaliseRequisitos);
-		linhaAnaliseRequisitos.setParent(listboxAtividadesRelacionadas);
+		// Adicionar itens no listbox katividade
+		Collection<KAtividade> atividades = ctrlGerenciaConhecimento.aplCadastrarKAtividade.recuperarTodos();
+		for(KAtividade atividade : atividades){
+			Listitem listitem = new Listitem(atividade.getNome());
+			listitem.setValue(atividade);
+			listitem.setParent(listboxKAtividadesRelacionadas);
+		}
 
 		labelAtividadesRelacionadas.setParent(linhaAtividadesRelacionadas);
-		listboxAtividadesRelacionadas.setParent(linhaAtividadesRelacionadas);
+		listboxKAtividadesRelacionadas.setParent(linhaAtividadesRelacionadas);
 
-		// --- cria linha Itens de Conhecimento Relacionados --- //
-
+		//////////////////////////////////////////
+		// Conhecimentos relacionados
+		//////////////////////////////////////////
 		Row linhaItensConhecimentoRelacionados = new Row();
 
 		Label labelItensConhecimentoRelacionadas = new Label("Itens de Conhecimento Relacionados");
 
-		Listbox listboxItensConhecimentoRelacionados = new Listbox();
 		listboxItensConhecimentoRelacionados.setMultiple(true);
 		listboxItensConhecimentoRelacionados.setCheckmark(true);
 
@@ -461,26 +509,27 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window{
 		colunaTitulo3.setParent(colunasItensConhecimentoRelacionados);
 		colunasItensConhecimentoRelacionados.setParent(listboxItensConhecimentoRelacionados);
 
-		Listitem linhaBancoDadosRelacionais = new Listitem();
-		Listcell celulaBancoDadosRelacionais = new Listcell("Bancos de Dados Relacionais");
-
-		celulaBancoDadosRelacionais.setParent(linhaBancoDadosRelacionais);
-		linhaBancoDadosRelacionais.setParent(listboxItensConhecimentoRelacionados);
+		Collection<ItemConhecimento> itemConhecimento = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+		
+		for(ItemConhecimento itens : itemConhecimento){
+			Listitem listitem = new Listitem(itens.getTitulo());
+			listitem.setValue(itens);
+			listitem.setParent(listboxItensConhecimentoRelacionados);
+		}
 
 		labelItensConhecimentoRelacionadas.setParent(linhaItensConhecimentoRelacionados);
 		listboxItensConhecimentoRelacionados.setParent(linhaItensConhecimentoRelacionados);
 
-
-		linhaDominiosRelacionados.setParent(rows);
+		linhaTemasRelacionados.setParent(rows);
 		linhaProjetosRelacionados.setParent(rows);
 		linhaAtividadesRelacionadas.setParent(rows);
 		linhaItensConhecimentoRelacionados.setParent(rows);
+		
 		rows.setParent(grid);
 		grid.setParent(tabpainel);
-		grid.setSizedByContent(true);
-		
+
 		return tabpainel;
 
 	}
-	
+
 }

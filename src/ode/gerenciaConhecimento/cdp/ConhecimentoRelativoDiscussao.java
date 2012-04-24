@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Conhecimento Relativo a Discussao")
 public class ConhecimentoRelativoDiscussao extends ItemConhecimento {
 
+
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9106412352034918802L;
 
 	private String conhecimentoAdquirido;
 	
