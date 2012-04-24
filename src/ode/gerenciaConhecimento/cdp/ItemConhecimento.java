@@ -3,6 +3,7 @@ package ode.gerenciaConhecimento.cdp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.io.*;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 	private String resumo;
 	
 	private String aplicabilidade;
-	
+
 	private Date dataCriacao;
 	
 	private Date dataUltimoAcesso;
@@ -97,7 +98,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-
+	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@IndexColumn(name = "index_col")
 	public List<ItemConhecimento> getItensRelacionados() {

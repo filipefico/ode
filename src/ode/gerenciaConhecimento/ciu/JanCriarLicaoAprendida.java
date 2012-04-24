@@ -48,7 +48,6 @@ public class JanCriarLicaoAprendida extends Window {
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 
 	Textbox textboxTitulo;
-	Textbox textboxDataCriacao;
 	Textbox labelAutor;
 	Textbox textboxResumo;
 	Textbox textboxAplicabilidade;
@@ -69,7 +68,7 @@ public class JanCriarLicaoAprendida extends Window {
 	public JanCriarLicaoAprendida(CtrlGerenciaConhecimento ctrl) {
 
 		ctrlGerenciaConhecimento = ctrl;
-		cria();
+		criarJanCriarLicaoAprendida();
 	}
 
 	public void salvar() throws NucleoRegraNegocioExcecao{
@@ -138,13 +137,13 @@ public class JanCriarLicaoAprendida extends Window {
 
 	}
 
-	public void cria(){
+	public void criarJanCriarLicaoAprendida(){
 
 		this.setTitle("Criar Lição Aprendida");
 		this.setBorder("normal");
 		this.setClosable(true);
 
-		Tabbox tabbox = criaAbasCriarLicaoAprendida();
+		Tabbox tabbox = criarAbasCriarLicaoAprendida();
 		tabbox.setParent(this);
 
 		Button botaoSalvar = new Button("Salvar");
@@ -200,10 +199,8 @@ public class JanCriarLicaoAprendida extends Window {
 		this.detach();
 	}
 
-	////////////////////////////////////////////
-	/////// ??????????????????????????????????
-	/////// PRESTE ATENCAO NO NOME DOS METODOS: deve ser no infinitivo. Altere para o padrao correto.
-	public Tabbox criaAbasCriarLicaoAprendida(){
+	
+	public Tabbox criarAbasCriarLicaoAprendida(){
 
 		Tabbox tabbox = new Tabbox();
 		Tabs tabs = new Tabs();
@@ -217,9 +214,9 @@ public class JanCriarLicaoAprendida extends Window {
 		infoEspecificas.setParent(tabs);
 		associacoes.setParent(tabs);
 
-		Tabpanel tabInfoGerais = criaTabInfoGerais();
-		Tabpanel tabInfoEspecifica = criaTabInfoEspecifica();
-		Tabpanel tabAssociacoes = criaTabAssociacoes();
+		Tabpanel tabInfoGerais = criarTabInfoGerais();
+		Tabpanel tabInfoEspecifica = criarTabInfoEspecifica();
+		Tabpanel tabAssociacoes = criarTabAssociacoes();
 
 		tabInfoGerais.setParent(tabpanels);
 		tabInfoEspecifica.setParent(tabpanels);
@@ -232,16 +229,13 @@ public class JanCriarLicaoAprendida extends Window {
 
 	}
 
-	////////////////////////////////////////////
-	/////// ??????????????????????????????????
-	/////// PRESTE ATENCAO NO NOME DOS METODOS: deve ser no infinitivo. Altere para o padrao correto.
-	public Tabpanel criaTabInfoGerais(){
+	public Tabpanel criarTabInfoGerais(){
 
 		Tabpanel tabpainel = new Tabpanel();
 
 		Grid grid = new Grid();
 		Rows rows = new Rows();
-
+		
 		// --- cria linha autor --- //
 
 		Row linhaAutor = new Row();
@@ -257,17 +251,16 @@ public class JanCriarLicaoAprendida extends Window {
 
 		Row linhaDataCriacao = new Row();
 		Label labelDataCriacao = new Label();
-		textboxDataCriacao = new Textbox();
+		Label labelDataCriacaoValor = new Label();
 
 		Date data = new Date();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
 
 		labelDataCriacao.setValue("Data de Criação:");
-		textboxDataCriacao.setValue(formatador.format(data));
-		textboxDataCriacao.setWidth("300px");
+		labelDataCriacaoValor.setValue(formatador.format(data));
 
 		labelDataCriacao.setParent(linhaDataCriacao);
-		textboxDataCriacao.setParent(linhaDataCriacao);
+		labelDataCriacaoValor.setParent(linhaDataCriacao);
 
 		// --- cria linha titulo --- //
 
@@ -278,7 +271,7 @@ public class JanCriarLicaoAprendida extends Window {
 
 		labelTitulo.setValue("Título:");
 		textboxTitulo.setText("");
-		textboxTitulo.setWidth("300px");
+		textboxTitulo.setWidth("435px");
 
 		labelTitulo.setParent(linhaTitulo);
 		textboxTitulo.setParent(linhaTitulo);
@@ -293,7 +286,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelResumo.setValue("Resumo:");
 		textboxResumo.setText("");
 		textboxResumo.setHeight("100px");
-		textboxResumo.setWidth("300px");
+		textboxResumo.setWidth("435px");
 		textboxResumo.setRows(3);
 
 		labelResumo.setParent(linhaResumo);
@@ -309,7 +302,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelAplicabilidade.setValue("Aplicabilidade:");
 		textboxAplicabilidade.setText("");
 		textboxAplicabilidade.setHeight("100px");
-		textboxAplicabilidade.setWidth("300px");
+		textboxAplicabilidade.setWidth("435px");
 		textboxAplicabilidade.setRows(3);
 
 		labelAplicabilidade.setParent(linhaAplicabilidade);
@@ -328,13 +321,10 @@ public class JanCriarLicaoAprendida extends Window {
 		return tabpainel;
 	}
 
-	//////////////////////////////////////////
-	/////// ??????????????????????????????????
-	/////// PRESTE ATENCAO NO NOME DOS METODOS: deve ser no infinitivo. Altere para o padrao correto.
-	public Tabpanel criaTabInfoEspecifica(){
+	public Tabpanel criarTabInfoEspecifica(){
 
 		Tabpanel tabpainel = new Tabpanel();
-
+	
 		Grid grid = new Grid();
 		Rows rows = new Rows();
 
@@ -369,7 +359,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelDescricaoProblema.setValue("Descrição do Problema");
 		textboxDescricaoProblema.setText("");
 		textboxDescricaoProblema.setHeight("100px");
-		textboxDescricaoProblema.setWidth("300px");
+		textboxDescricaoProblema.setWidth("337px");
 		textboxDescricaoProblema.setRows(3);
 
 		labelDescricaoProblema.setParent(linhaDescricaoProblema);
@@ -385,7 +375,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelSolucaoAdotadaRecomendada.setValue("Solução Adotada ou Recomendada:");
 		textboxSolucaoAdotadaRecomendada.setText("");
 		textboxSolucaoAdotadaRecomendada.setHeight("100px");
-		textboxSolucaoAdotadaRecomendada.setWidth("300px");
+		textboxSolucaoAdotadaRecomendada.setWidth("337px");
 		textboxSolucaoAdotadaRecomendada.setRows(3);
 
 		labelSolucaoAdotadaRecomendada.setParent(linhaSolucaoAdotadaRecomendada);
@@ -401,7 +391,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelResultadoEsperado.setValue("Resultado Esperado:");
 		textboxResultadoEsperado.setText("");
 		textboxResultadoEsperado.setHeight("100px");
-		textboxResultadoEsperado.setWidth("300px");
+		textboxResultadoEsperado.setWidth("337px");
 		textboxResultadoEsperado.setRows(3);
 
 		labelResultadoEsperado.setParent(linhaResultadoEsperado);
@@ -420,10 +410,7 @@ public class JanCriarLicaoAprendida extends Window {
 
 	}
 
-	////////////////////////////////////////////
-	/////// ??????????????????????????????????
-	/////// PRESTE ATENCAO NO NOME DOS METODOS: deve ser no infinitivo. Altere para o padrao correto.
-	public Tabpanel criaTabAssociacoes(){
+	public Tabpanel criarTabAssociacoes(){
 
 		Tabpanel tabpainel = new Tabpanel();
 		tabpainel.setStyle("overflow:auto;");
@@ -433,7 +420,7 @@ public class JanCriarLicaoAprendida extends Window {
 		Rows rows = new Rows();
 
 		//////////////////////////////////////////
-		// Domínios relacionados
+		// Temas relacionados
 		//////////////////////////////////////////
 		Row linhaTemasRelacionados = new Row();
 
