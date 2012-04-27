@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Conhecimento Relativo a Discussao")
+@DiscriminatorValue("Relativo a Discussao")
 public class ConhecimentoRelativoDiscussao extends ItemConhecimento {
 
 
