@@ -168,7 +168,17 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenLinks = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 	
-		Toolbarbutton toolbarbuttonPaginaInicial = criaToolBarButton(vlayout,"Página Inicial","/imagens/home.png");	
+		Toolbarbutton toolbarbuttonPaginaInicial = criaToolBarButton(vlayout,"Página Inicial","/imagens/home.png");
+		toolbarbuttonPaginaInicial.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				
+				ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento();
+				
+			}
+		});
 		Toolbarbutton toolbarbuttonOdeWeb = criaToolBarButton(vlayout, "ODE Web","/imagens/krec_record.png");
 		
 		vlayout.setParent(painelchildrenLinks);
@@ -202,6 +212,16 @@ public class JanPrincipal extends Borderlayout{
 		});
 		
 		Toolbarbutton toolbarbuttonBuscarItensConhecimento = criaToolBarButton(vlayout,"Buscar itens de Conhecimento","/imagens/kpdf.png");
+		toolbarbuttonBuscarItensConhecimento.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				
+				ctrlGerenciaConhecimento.exibirJanelaBuscarItensConhecimento();
+				
+			}
+		});
 
 		
 		vlayout.setParent(painelchildrenFuncionalidades);
