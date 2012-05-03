@@ -32,7 +32,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanCriarLicaoAprendida janCriarLicaoAprendida;
 	public JanCriarConhecimentoRelativoDiscussao janCriarConhecimentoRelativoDiscussao;
 	public JanBuscarItensConhecimento janBuscarItensConhecimento;
-	public JanAvaliarItemConhecimento janAvaliarItemConhecimento;
+//	public JanAvaliarItemConhecimento janAvaliarItemConhecimento;
 	
 	@Autowired
 	AplCadastrarConhecimentoRelativoDiscussao aplCadastrarConhecimentoRelativoDiscussao;
@@ -88,12 +88,13 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		
 	}
 	
-	public void exibirJanelaAvaliarItemConhecimento(){
+/*	public void exibirJanelaAvaliarItemConhecimento(){
 		
 		janAvaliarItemConhecimento = new JanAvaliarItemConhecimento(this);
 		
 		janP.mostrarJanelaConteudo(janAvaliarItemConhecimento);
 	}
+*/	
 	
 	public void exibirJanelaCriarLicaoAprendida(){
 		
