@@ -1,5 +1,7 @@
 package ode.gerenciaConhecimento.cdp;
 
+import java.util.List;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -13,19 +15,18 @@ public class LicaoAprendida extends ItemConhecimento {
 	private static final long serialVersionUID = 8616593927931529168L;
 
 	public static final String TIPO_SUCESSO = "Sucesso";
-	
+
 	public static final String TIPO_FRACASSO = "Fracasso";
-	
+
 	public static final String TIPO_INFORMATIVA = "Informativa";
-	
+
 	private String tipo;
-	
+
 	private String descricaoProblema;
-	
+
 	private String solucaoAdotadaOuRecomendada;
-	
+
 	private String resultadoEsperado;
-	
 
 	public String getTipo() {
 		return tipo;

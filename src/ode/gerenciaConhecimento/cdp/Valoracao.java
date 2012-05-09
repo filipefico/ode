@@ -1,6 +1,5 @@
 package ode.gerenciaConhecimento.cdp;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -17,7 +16,7 @@ public class Valoracao extends ObjetoPersistente {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private BigDecimal grauUtilidade;
+	private Long grauUtilidade;
 	
 	private String comentario;
 	
@@ -27,11 +26,11 @@ public class Valoracao extends ObjetoPersistente {
 	
 	private RecursoHumano autor;
 	
-	public BigDecimal getGrauUtilidade() {
+	public Long getGrauUtilidade() {
 		return grauUtilidade;
 	}
 
-	public void setGrauUtilidade(BigDecimal grauUtilidade) {
+	public void setGrauUtilidade(Long grauUtilidade) {
 		this.grauUtilidade = grauUtilidade;
 	}
 

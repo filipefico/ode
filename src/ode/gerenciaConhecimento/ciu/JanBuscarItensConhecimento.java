@@ -4,22 +4,19 @@ import java.util.Collection;
 
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
-import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Panel;
-import org.zkoss.zul.Panelchildren;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Tab;
@@ -31,6 +28,11 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class JanBuscarItensConhecimento extends Window {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 
@@ -46,14 +48,14 @@ public class JanBuscarItensConhecimento extends Window {
 	Datebox dateboxFinal_2 = new Datebox();
 	Datebox dateboxInicial_3 = new Datebox();
 	Datebox dateboxFinal_3 = new Datebox();
-	Textbox textboxMinimo_1 = new Textbox("");
-	Textbox textboxMaximo_1 = new Textbox("");
-	Textbox textboxMinimo_2 = new Textbox("");
-	Textbox textboxMaximo_2 = new Textbox("");
-	Textbox textboxMinimo_3 = new Textbox("");
-	Textbox textboxMaximo_3 = new Textbox("");
-	Textbox textboxMinimo_4 = new Textbox("");
-	Textbox textboxMaximo_4 = new Textbox("");
+	Decimalbox textboxMinimo_1 = new Decimalbox();
+	Decimalbox textboxMaximo_1 = new Decimalbox();
+	Decimalbox textboxMinimo_2 = new Decimalbox();
+	Decimalbox textboxMaximo_2 = new Decimalbox();
+	Decimalbox textboxMinimo_3 = new Decimalbox();
+	Decimalbox textboxMaximo_3 = new Decimalbox();
+	Decimalbox textboxMinimo_4 = new Decimalbox();
+	Decimalbox textboxMaximo_4 = new Decimalbox();
 	Combobox combobox = new Combobox();
 	
 	JanBuscarItensConhecimento(CtrlGerenciaConhecimento ctrl){

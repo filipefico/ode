@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
@@ -41,6 +42,8 @@ public class ItemConhecimento extends ObjetoPersistente {
 	
 	private String estado;
 	
+	private Long quantidadeAcessos = new Long(0);
+	
 	private List<ItemConhecimento> itensRelacionados = new ArrayList<ItemConhecimento>();
 	
 	private List<Projeto> projetos = new ArrayList<Projeto>();
@@ -50,6 +53,8 @@ public class ItemConhecimento extends ObjetoPersistente {
 	private List<Tema> temas = new ArrayList<Tema>();
 	
 	private List<KAtividade> kAtividades = new ArrayList<KAtividade>(); 
+	
+	private List<Valoracao> valoracoes = new ArrayList<Valoracao>();
 
 	public String getTitulo() {
 		return titulo;
@@ -99,6 +104,14 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.estado = estado;
 	}
 	
+	public Long getQuantidadeAcessos() {
+		return quantidadeAcessos;
+	}
+
+	public void setQuantidadeAcessos(Long quantidadeAcessos) {
+		this.quantidadeAcessos = quantidadeAcessos;
+	}
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@IndexColumn(name = "index_col")
 	public List<ItemConhecimento> getItensRelacionados() {
@@ -148,4 +161,44 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.kAtividades = kAtividades;
 	}
 
+	@OneToMany(fetch = FetchType.EAGER)
+	@IndexColumn(name = "index_col")
+	public List<Valoracao> getValoracoes() {
+		return valoracoes;
+	}
+
+	public void setValoracoes(List<Valoracao> valoracoes) {
+		this.valoracoes = valoracoes;
+	}
+
+	/**
+	 * Recupera quantidade de valorações deste item de conhecimento.
+	 * @param tipo -1, para quantidade de valorações negativas, 0 para neutras e 1 para positivas.
+	 * @return Quantidade de valorações.
+	 */
+	public int quantidadeValoracoes(int tipo){
+
+		List<Valoracao> valoracoes = this.getValoracoes();
+		int positivas = 0; 
+		int negativas = 0;
+		int neutras = 0;
+
+		for (Valoracao valoracao : valoracoes) {
+			if (valoracao.getGrauUtilidade() < 0)
+				negativas++;
+			else if (valoracao.getGrauUtilidade() == 0)
+				neutras++;
+			else 
+				positivas++;
+		}
+
+		if (tipo == -1)
+			return negativas;
+		else if (tipo == 0)
+			return neutras;
+
+		return positivas;
+
+	}
+	
 }
