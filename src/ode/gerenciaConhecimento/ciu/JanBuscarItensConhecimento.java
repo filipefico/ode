@@ -6,6 +6,9 @@ import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.Tema;
 
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
@@ -25,6 +28,7 @@ import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Window;
 
 public class JanBuscarItensConhecimento extends Window {
@@ -367,6 +371,26 @@ public class JanBuscarItensConhecimento extends Window {
 		tabpanels.setParent(tabbox);
 		
 		tabbox.setParent(this);
+		
+		Button botaoBuscar = new Button("Buscar");
+		Toolbar toolbarInferior = new Toolbar();
+
+		botaoBuscar.addEventListener("onClick", new EventListener() {
+
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				ctrlGerenciaConhecimento.exibirJanelaListaBuscarItensConhecimento();
+			}
+		});
+		
+
+		toolbarInferior.setStyle("border:0px;background:white;");
+		toolbarInferior.setAlign("end");
+
+		toolbarInferior.appendChild(botaoBuscar);
+
+		toolbarInferior.setParent(this);
 		
 	
 	}

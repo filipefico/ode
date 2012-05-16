@@ -39,7 +39,16 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanCriarLicaoAprendida janCriarLicaoAprendida;
 	public JanCriarConhecimentoRelativoDiscussao janCriarConhecimentoRelativoDiscussao;
 	public JanBuscarItensConhecimento janBuscarItensConhecimento;
-	//	public JanAvaliarItemConhecimento janAvaliarItemConhecimento;
+	public JanAvaliarItemConhecimento janAvaliarItemConhecimento;
+	public JanItensCriados janItensCriados;
+	public JanListaBuscarItensConhecimento janListaBuscarItensConhecimento;
+	public JanVisualizarItemConhecimentoUsuarioComum janVisualizarItemConhecimentoUsuarioComum;
+	public JanItensPendentesAvaliacaoUsuarioComum janItensPendentesAvaliacaoUsuarioComum;
+	public JanValorarItemConhecimento janValorarItemConhecimento;
+	public JanItensPendentesAvaliacaoGerente janItensPendentesAvaliacaoGerente;
+	public JanVisualizarItemConhecimentoGerente janVisualizarItemConhecimentoGerente;
+	
+
 
 	@Autowired
 	AplCadastrarConhecimentoRelativoDiscussao aplCadastrarConhecimentoRelativoDiscussao;
@@ -95,14 +104,76 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	}
 
-	/*	public void exibirJanelaAvaliarItemConhecimento(){
+	
+	public void exibirJanelaItensPendentesAvaliacaoUsuarioComum(){
+		
+		janItensPendentesAvaliacaoUsuarioComum = new JanItensPendentesAvaliacaoUsuarioComum(this);
+		
+		janP.mostrarJanelaConteudo(janItensPendentesAvaliacaoUsuarioComum);
+		
+	}
+	
+	public void exibirJanelaItensPendentesAvaliacaoGerente(){
+		
+		janItensPendentesAvaliacaoGerente = new JanItensPendentesAvaliacaoGerente(this);
+		
+		janP.mostrarJanelaConteudo(janItensPendentesAvaliacaoGerente);
+		
+	}
+
+	public void exibirJanelaValorarItemConhecimento(){
+		
+		janValorarItemConhecimento = new JanValorarItemConhecimento(this);
+		
+		janP.mostrarJanelaConteudo(janValorarItemConhecimento);
+		
+	}
+		
+
+
+	public void exibirJanelaAvaliarItemConhecimento(){
 
 		janAvaliarItemConhecimento = new JanAvaliarItemConhecimento(this);
 
 		janP.mostrarJanelaConteudo(janAvaliarItemConhecimento);
+		
 	}
-	 */	
+	 	
 
+
+	
+	public void exibirJanelaItensCriados(){
+		
+		janItensCriados = new JanItensCriados(this);
+		
+		janP.mostrarJanelaConteudo(janItensCriados);
+		
+	}
+	
+	public void exibirJanelaVisualizarItemConhecimentoUsuarioComum(){
+		
+		janVisualizarItemConhecimentoUsuarioComum = new JanVisualizarItemConhecimentoUsuarioComum(this);
+		
+		janP.mostrarJanelaConteudo(janVisualizarItemConhecimentoUsuarioComum);
+		
+	}
+	
+	public void exibirJanelaVisualizarItemConhecimentoGerente(){
+		
+		janVisualizarItemConhecimentoGerente = new JanVisualizarItemConhecimentoGerente(this);
+		
+		janP.mostrarJanelaConteudo(janVisualizarItemConhecimentoGerente);
+		
+	}
+	
+	public void exibirJanelaListaBuscarItensConhecimento(){
+		
+		janListaBuscarItensConhecimento = new JanListaBuscarItensConhecimento(this);
+		
+		janP.mostrarJanelaConteudo(janListaBuscarItensConhecimento);
+		
+	}
+	
 	public void exibirJanelaCriarLicaoAprendida(){
 
 		janCriarLicaoAprendida = new JanCriarLicaoAprendida(this);
