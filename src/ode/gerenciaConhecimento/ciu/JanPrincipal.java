@@ -168,14 +168,12 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenLinks = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 	
-		Toolbarbutton toolbarbuttonPaginaInicial = criaToolBarButton(vlayout,"Página Inicial","/imagens/home.png");
+		Toolbarbutton toolbarbuttonPaginaInicial = criaToolBarButton(vlayout,"Página Inicial","/imagens/gohome.png");
 		toolbarbuttonPaginaInicial.addEventListener("onClick", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				
-				//ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento();
 				
 			}
 		});
@@ -264,9 +262,31 @@ public class JanPrincipal extends Borderlayout{
 		Vlayout vlayout = new Vlayout();
 		
 		Toolbarbutton toolbarbuttonItensCriados = criaToolBarButton(vlayout,"Itens Criados","/imagens/ledblue.png");
+		toolbarbuttonItensCriados.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				
+				ctrlGerenciaConhecimento.exibirJanelaItensCriados();
+				
+			}
+		});
+		
 		Toolbarbutton toolbarbuttonItensAvaliados = criaToolBarButton(vlayout,"Itens Avaliados","/imagens/ledblue.png");
 		Toolbarbutton toolbarbuttonItensValorados = criaToolBarButton(vlayout,"Itens Valorados","/imagens/ledblue.png");
 		Toolbarbutton toolbarbuttonItensPendentesAvaliacao = criaToolBarButton(vlayout,"Itens Pendentes de Avaliação","/imagens/ledblue.png");
+		toolbarbuttonItensPendentesAvaliacao.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				
+			//	ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
+				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+				
+			}
+		});
 
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
