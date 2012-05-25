@@ -1,6 +1,7 @@
 package ode.gerenciaConhecimento.cgd;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -29,8 +30,8 @@ public interface ConhecimentoRelativoDiscussaoDAO extends
 			BigDecimal percentualValoracoesNegativasMinima,
 			BigDecimal percentualValoracoesNegativasMaxima,
 			String tipoItemConhecimento,
-			List<Projeto> projetos,
-			List<KAtividade> atividades,
-			List<Tema> temas);
+			Collection<Projeto> projetos,
+			Collection<KAtividade> atividades,
+			Collection<Tema> temas);
 
 }

@@ -2,6 +2,7 @@ package ode.gerenciaConhecimento.cgd;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -35,16 +36,15 @@ public class ConhecimentoRelativoDiscussaoDAOImpl extends
 			BigDecimal percentualValoracoesNegativasMinima,
 			BigDecimal percentualValoracoesNegativasMaxima,
 			String tipoItemConhecimento,
-			List<Projeto> projetos,
-			List<KAtividade> atividades,
-			List<Tema> temas)
+			Collection<Projeto> projetos,
+			Collection<KAtividade> atividades,
+			Collection<Tema> temas)
 			{		
 		List<ConhecimentoRelativoDiscussao> itens = getEntityManager().
 				createQuery("from ConhecimentoRelativoDiscussao where " +
 						"((:expressao is null or titulo like '%:expressao%') or " +
 						" (:expressao is null or resumo like '%:expressao%') or " + 
-						" (:expressao is null or resumo like '%:expressao%')) and " +
-						"(:tipoItemConhecimento is null or resumo like :tipoItemConhecimento) and " +
+						" (:expressao is null or aplicabilidade like '%:expressao%')) and " +
 						"(:dataCriacaoInicial is null or dataCriacao >= :dataCriacaoInicial) and " +
 						"(:dataCriacaoFinal is null or dataCriacao <= :dataCriacaoFinal) and " +
 						"(:dataUltimaAtualizacaoInicial is null or dataUltimaAtualizacao >= :dataUltimaAtualizacaoInicial) and " +

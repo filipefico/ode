@@ -1,21 +1,14 @@
 package ode.gerenciaConhecimento.ciu;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
-import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
-import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
-import ode.gerenciaConhecimento.cdp.Tema;
 import ode.gerenciaConhecimento.cgt.AplCadastrarConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cgt.AplCadastrarItemConhecimento;
 import ode.gerenciaConhecimento.cgt.AplCadastrarLicaoAprendida;
@@ -213,40 +206,6 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	public Collection<Projeto> recuperarProjetos(){
 		return aplCadastrarProjeto.recuperarTodos();
-	}
-
-	public List<ItemConhecimento> buscar(String expressao,
-			Date dataCriacaoInicial,
-			Date dataCriacaoFinal,
-			Date dataUltimaAtualizacaoInicial,
-			Date dataUltimaAtualizacaoFinal,
-			Date dataUltimoAcessoInicial,
-			Date dataUltimoAcessoFinal,
-			int quantidadeAcessosMinimo,
-			int quantidadeAcessosMaximo,
-			int quantidadeValoracoesMinimo,
-			int quantidadeValoracoesMaximo,
-			BigDecimal percentualValoracoesPositivasMinima,
-			BigDecimal percentualValoracoesPositivasMaxima,
-			BigDecimal percentualValoracoesNegativasMinima,
-			BigDecimal percentualValoracoesNegativasMaxima,
-			String tipoItemConhecimento,
-			List<Projeto> projetos,
-			List<KAtividade> atividades,
-			List<Tema> temas){		
-
-		List<ItemConhecimento> itens = new ArrayList<ItemConhecimento>();
-		
-		List<ConhecimentoRelativoDiscussao> itensCRD = aplCadastrarConhecimentoRelativoDiscussao.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
-		for (ConhecimentoRelativoDiscussao itemCRD : itensCRD)
-			itens.add(itemCRD);
-		
-		List<LicaoAprendida> itensLA = aplCadastrarLicaoAprendida.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
-		for (LicaoAprendida itemLA : itensLA)
-			itens.add(itemLA);
-		
-		return itens;
-		
 	}
 
 }
