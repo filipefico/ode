@@ -1,6 +1,7 @@
 package ode.gerenciaConhecimento.cgt;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -45,9 +46,9 @@ public class AplCadastrarLicaoAprendida extends AplCRUD<LicaoAprendida> {
 			BigDecimal percentualValoracoesNegativasMinima,
 			BigDecimal percentualValoracoesNegativasMaxima,
 			String tipoItemConhecimento,
-			List<Projeto> projetos,
-			List<KAtividade> atividades,
-			List<Tema> temas){
+			Collection<Projeto> projetos,
+			Collection<KAtividade> atividades,
+			Collection<Tema> temas){
 
 		return licaoAprendidaDAO.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
 	}
