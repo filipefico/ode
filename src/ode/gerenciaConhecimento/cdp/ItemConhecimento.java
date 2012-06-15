@@ -1,9 +1,8 @@
 package ode.gerenciaConhecimento.cdp;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -12,13 +11,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
-
-import org.hibernate.annotations.IndexColumn;
 
 @Entity
 @Inheritance
@@ -44,17 +43,17 @@ public class ItemConhecimento extends ObjetoPersistente {
 	
 	private Long quantidadeAcessos = new Long(0);
 	
-	private List<ItemConhecimento> itensRelacionados = new ArrayList<ItemConhecimento>();
+	private Set<ItemConhecimento> itensRelacionados = new HashSet<ItemConhecimento>();
 	
-	private List<Projeto> projetos = new ArrayList<Projeto>();
+	private Set<Projeto> projetos = new HashSet<Projeto>();
 	
 	private RecursoHumano autor;
 	
-	private List<Tema> temas = new ArrayList<Tema>();
+	private Set<Tema> temas = new HashSet<Tema>();
 	
-	private List<KAtividade> kAtividades = new ArrayList<KAtividade>(); 
+	private Set<KAtividade> kAtividades = new HashSet<KAtividade>(); 
 	
-	private List<Valoracao> valoracoes = new ArrayList<Valoracao>();
+	private Set<Valoracao> valoracoes = new HashSet<Valoracao>();
 
 	public String getTitulo() {
 		return titulo;
@@ -80,6 +79,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.aplicabilidade = aplicabilidade;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP) 
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
@@ -88,6 +88,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.dataCriacao = dataCriacao;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP) 
 	public Date getDataUltimoAcesso() {
 		return dataUltimoAcesso;
 	}
@@ -113,22 +114,20 @@ public class ItemConhecimento extends ObjetoPersistente {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@IndexColumn(name = "index_col")
-	public List<ItemConhecimento> getItensRelacionados() {
+	public Set<ItemConhecimento> getItensRelacionados() {
 		return itensRelacionados;
 	}
 
-	public void setItensRelacionados(List<ItemConhecimento> itensRelacionados) {
+	public void setItensRelacionados(Set<ItemConhecimento> itensRelacionados) {
 		this.itensRelacionados = itensRelacionados;
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@IndexColumn(name = "index_col")
-	public List<Projeto> getProjetos() {
+	public Set<Projeto> getProjetos() {
 		return projetos;
 	}
 
-	public void setProjetos(List<Projeto> projetos) {
+	public void setProjetos(Set<Projeto> projetos) {
 		this.projetos = projetos;
 	}
 
@@ -142,32 +141,29 @@ public class ItemConhecimento extends ObjetoPersistente {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@IndexColumn(name = "index_col")
-	public List<Tema> getTemas() {
+	public Set<Tema> getTemas() {
 		return temas;
 	}
 
-	public void setTemas(List<Tema> temas) {
+	public void setTemas(Set<Tema> temas) {
 		this.temas = temas;
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@IndexColumn(name = "index_col")
-	public List<KAtividade> getkAtividades() {
+	public Set<KAtividade> getkAtividades() {
 		return kAtividades;
 	}
 
-	public void setkAtividades(List<KAtividade> kAtividades) {
+	public void setkAtividades(Set<KAtividade> kAtividades) {
 		this.kAtividades = kAtividades;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER)
-	@IndexColumn(name = "index_col")
-	public List<Valoracao> getValoracoes() {
+	public Set<Valoracao> getValoracoes() {
 		return valoracoes;
 	}
 
-	public void setValoracoes(List<Valoracao> valoracoes) {
+	public void setValoracoes(Set<Valoracao> valoracoes) {
 		this.valoracoes = valoracoes;
 	}
 
@@ -178,7 +174,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 	 */
 	public int quantidadeValoracoes(int tipo){
 
-		List<Valoracao> valoracoes = this.getValoracoes();
+		Set<Valoracao> valoracoes = this.getValoracoes();
 		int positivas = 0; 
 		int negativas = 0;
 		int neutras = 0;

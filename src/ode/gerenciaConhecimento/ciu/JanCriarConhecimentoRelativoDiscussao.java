@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -92,7 +93,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 		
 		// preenche temas selecionados
 		Set<Listitem> itens = listboxTemasRelacionados.getSelectedItems();
-		List<Tema> temas = new ArrayList<Tema>();
+		Set<Tema> temas = new HashSet<Tema>();
 		for (Listitem item : itens){
 			temas.add((Tema)item.getValue());
 		}
@@ -101,7 +102,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 		
 		// preenche projetos selecionados
 		itens = listboxProjetosRelacionados.getSelectedItems();
-		List<Projeto> projetos = new ArrayList<Projeto>();
+		Set<Projeto> projetos = new HashSet<Projeto>();
 		for(Listitem item : itens){
 			projetos.add((Projeto)item.getValue());
 		}
@@ -110,7 +111,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 		
 		//preenche atividades selecionadas
 		itens = listboxKAtividadesRelacionadas.getSelectedItems();
-		List<KAtividade> atividades = new ArrayList<KAtividade>();
+		Set<KAtividade> atividades = new HashSet<KAtividade>();
 		for(Listitem item : itens){
 			atividades.add((KAtividade)item.getValue());
 		}
@@ -119,7 +120,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 		
 		//preenche itens de conhecimento relacionados
 		itens = listboxItensConhecimentoRelacionados.getSelectedItems();
-		List<ItemConhecimento> conhecimentos = new ArrayList<ItemConhecimento>();
+		Set<ItemConhecimento> conhecimentos = new HashSet<ItemConhecimento>();
 		for(Listitem item : itens){
 			conhecimentos.add((ItemConhecimento)item.getValue());
 		}

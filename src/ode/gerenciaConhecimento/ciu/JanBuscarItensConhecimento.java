@@ -1,9 +1,12 @@
 package ode.gerenciaConhecimento.ciu;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.zkoss.zk.ui.event.Event;
@@ -49,8 +52,6 @@ public class JanBuscarItensConhecimento extends Window {
 	Textbox textboxExpressao = new Textbox("");
 	Datebox dateboxInicial_1 = new Datebox();
 	Datebox dateboxFinal_1 = new Datebox();
-	Datebox dateboxInicial_2 = new Datebox();
-	Datebox dateboxFinal_2 = new Datebox();
 	Datebox dateboxInicial_3 = new Datebox();
 	Datebox dateboxFinal_3 = new Datebox();
 	Intbox textboxMinimo_1 = new Intbox();
@@ -67,12 +68,8 @@ public class JanBuscarItensConhecimento extends Window {
 
 	JanBuscarItensConhecimento(CtrlGerenciaConhecimento ctrl){
 
-		System.out.println("CRTL = " + ctrl);
-
 		this.ctrlGerenciaConhecimento = ctrl;
 		
-		System.out.println("Ctrl = " + this.ctrlGerenciaConhecimento );
-
 		criarJanBuscarItensConhecimento();
 
 	}
@@ -134,26 +131,6 @@ public class JanBuscarItensConhecimento extends Window {
 		divDataCriacao.setParent(linhaDataCriacao);
 
 		linhaDataCriacao.setParent(rows);
-
-		// --- cria linha Data Ultima Utilização --- //
-
-		Row linhaDataUltimaUtilizacao = new Row();
-
-		Label labelDataUltimaUtilizacao = new Label("Data de Última Utilização:");
-
-		Div divDataUltimaUtilizacao = new Div();
-		Label labelInicial_2 = new Label("Inicial: ");
-		Label labelFinal_2 = new Label(" Final: ");
-
-		labelInicial_2.setParent(divDataUltimaUtilizacao);
-		dateboxInicial_2.setParent(divDataUltimaUtilizacao);
-		labelFinal_2.setParent(divDataUltimaUtilizacao);
-		dateboxFinal_2.setParent(divDataUltimaUtilizacao);
-
-		labelDataUltimaUtilizacao.setParent(linhaDataUltimaUtilizacao);
-		divDataUltimaUtilizacao.setParent(linhaDataUltimaUtilizacao);
-
-		linhaDataUltimaUtilizacao.setParent(rows);
 
 		// --- cria linha Data Ultimo Acesso --- //
 
@@ -246,7 +223,7 @@ public class JanBuscarItensConhecimento extends Window {
 
 		Row linhaPercentualValoracoesNegativas = new Row();
 
-		Label labelPercentualValoracoesNegativas = new Label("Percentual de Valorações Positivas:");
+		Label labelPercentualValoracoesNegativas = new Label("Percentual de Valorações Negativas:");
 
 		Div divPercentualValoracoesNegativas = new Div();
 		Label labelMinimo_4 = new Label("Mínimo: ");
@@ -364,11 +341,7 @@ public class JanBuscarItensConhecimento extends Window {
 
 		colunaTitulo1.setParent(colunasTemasRelacionados);
 		colunasTemasRelacionados.setParent(listboxTemasRelacionados);
-		
-		System.out.println("0 " + ctrlGerenciaConhecimento);
-		
-		System.out.println("0.1 " + ctrlGerenciaConhecimento.aplCadastrarTema);
-
+	
 		// Preenche temas no listbox
 		Collection<Tema> temas = ctrlGerenciaConhecimento.aplCadastrarTema.recuperarTodos();
 		for(Tema tema : temas){
@@ -389,14 +362,6 @@ public class JanBuscarItensConhecimento extends Window {
 
 		tabbox.setParent(this);
 
-		System.out.println("1 " + textboxExpressao.getValue()+ dateboxInicial_1.getValue()+ dateboxFinal_1.getValue()+ dateboxInicial_2.getValue()+ dateboxFinal_2.getValue()+ dateboxInicial_3.getValue()+ dateboxFinal_3.getValue()+ textboxMinimo_1.getValue()+ textboxMaximo_1.getValue()+ textboxMinimo_2.getValue()+ textboxMaximo_2.getValue()+ textboxMinimo_3.getValue()+ textboxMaximo_3.getValue()+ textboxMinimo_4.getValue()+ textboxMaximo_4.getValue());
-
-		System.out.println("2 " + (String) combobox.getSelectedItem().getValue());
-
-		System.out.println("3 " + listboxProjetosRelacionados.getSelectedItems()+ listboxKAtividadesRelacionadas.getSelectedItems() + listboxTemasRelacionados.getSelectedItems());
-
-		System.out.println("4 " + ctrlGerenciaConhecimento);
-
 		Button botaoBuscar = new Button("Buscar");
 		Toolbar toolbarInferior = new Toolbar();
 
@@ -405,12 +370,11 @@ public class JanBuscarItensConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.buscar(textboxExpressao.getValue(), dateboxInicial_1.getValue(), dateboxFinal_1.getValue(), dateboxInicial_2.getValue(), dateboxFinal_2.getValue(), dateboxInicial_3.getValue(), dateboxFinal_3.getValue(), textboxMinimo_1.getValue(), textboxMaximo_1.getValue(), textboxMinimo_2.getValue(), textboxMaximo_2.getValue(), textboxMinimo_3.getValue(), textboxMaximo_3.getValue(), textboxMinimo_4.getValue(), textboxMaximo_4.getValue(), (String)combobox.getSelectedItem().getValue(), listboxProjetosRelacionados.getSelectedItems(), listboxKAtividadesRelacionadas.getSelectedItems(), listboxTemasRelacionados.getSelectedItems());
-				ctrlGerenciaConhecimento.exibirJanelaListaBuscarItensConhecimento();
+				List<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.buscar(textboxExpressao.getValue(), dateboxInicial_1.getValue(), dateboxFinal_1.getValue(), dateboxInicial_3.getValue(), dateboxFinal_3.getValue(), textboxMinimo_1.getValue(), textboxMaximo_1.getValue(), textboxMinimo_2.getValue(), textboxMaximo_2.getValue(), textboxMinimo_3.getValue(), textboxMaximo_3.getValue(), textboxMinimo_4.getValue(), textboxMaximo_4.getValue(), (String)combobox.getSelectedItem().getValue(), recuperarProjetos(), recuperarAtividades(), recuperarTemas());
+				ctrlGerenciaConhecimento.exibirJanelaListaBuscarItensConhecimento(itens);
 			}
 		});
 		
-
 		toolbarInferior.setStyle("border:0px;background:white;");
 		toolbarInferior.setAlign("end");
 
@@ -418,6 +382,30 @@ public class JanBuscarItensConhecimento extends Window {
 
 		toolbarInferior.setParent(this);
 		
+	}
+	
+	public List<Projeto> recuperarProjetos(){
+		List<Projeto> itens = new ArrayList<Projeto>();
+		for (Object listitem : listboxProjetosRelacionados.getSelectedItems()){
+			itens.add((Projeto)((Listitem)(listitem)).getValue());
+		}
+		return itens;
+	}
+	
+	public List<KAtividade> recuperarAtividades(){
+		List<KAtividade> itens = new ArrayList<KAtividade>();
+		for (Object listitem : listboxKAtividadesRelacionadas.getSelectedItems()){
+			itens.add((KAtividade)((Listitem)(listitem)).getValue());
+		}
+		return itens;
+	}
+	
+	public List<Tema> recuperarTemas(){
+		List<Tema> itens = new ArrayList<Tema>();
+		for (Object listitem : listboxTemasRelacionados.getSelectedItems()){
+			itens.add((Tema)((Listitem)(listitem)).getValue());
+		}
+		return itens;
 	}
 
 }
