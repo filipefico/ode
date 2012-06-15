@@ -35,14 +35,12 @@ public class AplCadastrarConhecimentoRelativoDiscussao extends
 	public List<ConhecimentoRelativoDiscussao> buscar(String expressao,
 			Date dataCriacaoInicial,
 			Date dataCriacaoFinal,
-			Date dataUltimaAtualizacaoInicial,
-			Date dataUltimaAtualizacaoFinal,
 			Date dataUltimoAcessoInicial,
 			Date dataUltimoAcessoFinal,
-			int quantidadeAcessosMinimo,
-			int quantidadeAcessosMaximo,
-			int quantidadeValoracoesMinimo,
-			int quantidadeValoracoesMaximo,
+			Long quantidadeAcessosMinimo,
+			Long quantidadeAcessosMaximo,
+			Long quantidadeValoracoesMinimo,
+			Long quantidadeValoracoesMaximo,
 			BigDecimal percentualValoracoesPositivasMinima,
 			BigDecimal percentualValoracoesPositivasMaxima,
 			BigDecimal percentualValoracoesNegativasMinima,
@@ -51,6 +49,9 @@ public class AplCadastrarConhecimentoRelativoDiscussao extends
 			Collection<Projeto> projetos,
 			Collection<KAtividade> atividades,
 			Collection<Tema> temas){
-		return conhecimentoRelativoDiscussaoDAO.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
+		
+		return conhecimentoRelativoDiscussaoDAO.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
+		
 	}
+	
 }

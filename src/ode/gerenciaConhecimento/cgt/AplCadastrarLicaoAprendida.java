@@ -33,14 +33,12 @@ public class AplCadastrarLicaoAprendida extends AplCRUD<LicaoAprendida> {
 	public List<LicaoAprendida> buscar(String expressao,
 			Date dataCriacaoInicial,
 			Date dataCriacaoFinal,
-			Date dataUltimaAtualizacaoInicial,
-			Date dataUltimaAtualizacaoFinal,
 			Date dataUltimoAcessoInicial,
 			Date dataUltimoAcessoFinal,
-			int quantidadeAcessosMinimo,
-			int quantidadeAcessosMaximo,
-			int quantidadeValoracoesMinimo,
-			int quantidadeValoracoesMaximo,
+			Long quantidadeAcessosMinimo,
+			Long quantidadeAcessosMaximo,
+			Long quantidadeValoracoesMinimo,
+			Long quantidadeValoracoesMaximo,
 			BigDecimal percentualValoracoesPositivasMinima,
 			BigDecimal percentualValoracoesPositivasMaxima,
 			BigDecimal percentualValoracoesNegativasMinima,
@@ -50,7 +48,7 @@ public class AplCadastrarLicaoAprendida extends AplCRUD<LicaoAprendida> {
 			Collection<KAtividade> atividades,
 			Collection<Tema> temas){
 
-		return licaoAprendidaDAO.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
+		return licaoAprendidaDAO.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
 	}
 
 }

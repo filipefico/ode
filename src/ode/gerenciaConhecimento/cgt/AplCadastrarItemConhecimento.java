@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ibm.icu.util.GregorianCalendar;
+
 @Service
 @Transactional(rollbackFor = NucleoRegraNegocioExcecao.class)
 public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
@@ -42,14 +44,12 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 	public List<ItemConhecimento> buscar(String expressao,
 			Date dataCriacaoInicial,
 			Date dataCriacaoFinal,
-			Date dataUltimaAtualizacaoInicial,
-			Date dataUltimaAtualizacaoFinal,
 			Date dataUltimoAcessoInicial,
 			Date dataUltimoAcessoFinal,
-			int quantidadeAcessosMinimo,
-			int quantidadeAcessosMaximo,
-			int quantidadeValoracoesMinimo,
-			int quantidadeValoracoesMaximo,
+			Integer quantidadeAcessosMinimo,
+			Integer quantidadeAcessosMaximo,
+			Integer quantidadeValoracoesMinimo,
+			Integer quantidadeValoracoesMaximo,
 			BigDecimal percentualValoracoesPositivasMinima,
 			BigDecimal percentualValoracoesPositivasMaxima,
 			BigDecimal percentualValoracoesNegativasMinima,
@@ -58,12 +58,25 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 			Collection<Projeto> projetos,
 			Collection<KAtividade> atividades,
 			Collection<Tema> temas){
+		
+		//////////////////////////////////////
+		// Tratamento dos dados
+		/////////////////////////////////////
+		if (dataCriacaoInicial == null)
+			dataCriacaoInicial = menorData();
+		if (dataCriacaoFinal == null)
+			dataCriacaoFinal = maiorData();
+		if (dataUltimoAcessoInicial == null)
+			dataUltimoAcessoInicial = menorData();
+		if (dataUltimoAcessoFinal == null)
+			dataUltimoAcessoFinal = maiorData();
+		
 
 		List<ItemConhecimento> itens = new ArrayList<ItemConhecimento>();
 
 		if (tipoItemConhecimento.compareToIgnoreCase("Conhecimento Relativo a Discussão") == 0 || tipoItemConhecimento.compareToIgnoreCase("Todos") == 0) {
 
-			List<ConhecimentoRelativoDiscussao> itensCRD = aplCadastrarConhecimentoRelativoDiscussao.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
+			List<ConhecimentoRelativoDiscussao> itensCRD = aplCadastrarConhecimentoRelativoDiscussao.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, recuperarLong(quantidadeAcessosMinimo), recuperarLong(quantidadeAcessosMaximo), recuperarLong(quantidadeValoracoesMinimo), recuperarLong(quantidadeValoracoesMaximo), percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
 			for (ConhecimentoRelativoDiscussao itemCRD : itensCRD)
 				itens.add(itemCRD);
 
@@ -71,13 +84,35 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 
 		if (tipoItemConhecimento.compareToIgnoreCase("Lição Aprendida") == 0 || tipoItemConhecimento.compareToIgnoreCase("Todos") == 0) {
 
-			List<LicaoAprendida> itensLA = aplCadastrarLicaoAprendida.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimaAtualizacaoInicial, dataUltimaAtualizacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
+			List<LicaoAprendida> itensLA = aplCadastrarLicaoAprendida.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, recuperarLong(quantidadeAcessosMinimo), recuperarLong(quantidadeAcessosMaximo), recuperarLong(quantidadeValoracoesMinimo), recuperarLong(quantidadeValoracoesMaximo), percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
 			for (LicaoAprendida itemLA : itensLA)
 				itens.add(itemLA);
 
 		}
 
 		return itens;
+	}
+	
+	public Date menorData(){
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(new Date());
+		calendar.set(GregorianCalendar.YEAR,1);
+		calendar.set(GregorianCalendar.MONTH,1);
+		calendar.set(GregorianCalendar.DAY_OF_MONTH,1);
+		return calendar.getTime();
+	}
+	
+	public Date maiorData(){
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setTime(new Date());
+		calendar.set(GregorianCalendar.YEAR,3000);
+		calendar.set(GregorianCalendar.MONTH,1);
+		calendar.set(GregorianCalendar.DAY_OF_MONTH,1);
+		return calendar.getTime();
+	}
+	
+	public Long recuperarLong(Integer i){
+		return i == null ? null : new Long(i);
 	}
 
 }

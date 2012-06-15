@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -100,7 +101,7 @@ public class JanCriarLicaoAprendida extends Window {
 
 		// preenche temas selecionados
 		Set<Listitem> itens = listboxTemasRelacionados.getSelectedItems();
-		List<Tema> temas = new ArrayList<Tema>();
+		Set<Tema> temas = new HashSet<Tema>();
 		for (Listitem item : itens){
 			temas.add((Tema)item.getValue());
 		}
@@ -109,7 +110,7 @@ public class JanCriarLicaoAprendida extends Window {
 
 		// preenche projetos selecionados
 		itens = listboxProjetosRelacionados.getSelectedItems();
-		List<Projeto> projetos = new ArrayList<Projeto>();
+		Set<Projeto> projetos = new HashSet<Projeto>();
 		for (Listitem item : itens){
 			projetos.add((Projeto)item.getValue());
 		}
@@ -118,7 +119,7 @@ public class JanCriarLicaoAprendida extends Window {
 
 		// preenche atividades selecionados
 		itens = listboxAtividadesRelacionadas.getSelectedItems();
-		List<KAtividade> atividades = new ArrayList<KAtividade>();
+		Set<KAtividade> atividades = new HashSet<KAtividade>();
 		for (Listitem item : itens){
 			atividades.add((KAtividade)item.getValue());
 		}
@@ -127,7 +128,7 @@ public class JanCriarLicaoAprendida extends Window {
 		
 		// preenche itens selecionados
 		itens = listboxItensRelacionados.getSelectedItems();
-		List<ItemConhecimento> itensConhecimento = new ArrayList<ItemConhecimento>();
+		Set<ItemConhecimento> itensConhecimento = new HashSet<ItemConhecimento>();
 		for (Listitem item : itens){
 			itensConhecimento.add((ItemConhecimento)item.getValue());
 		}

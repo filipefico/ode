@@ -1,6 +1,7 @@
 package ode.gerenciaConhecimento.ciu;
 
 import java.util.Collection;
+import java.util.List;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
@@ -8,6 +9,7 @@ import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cgt.AplCadastrarConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cgt.AplCadastrarItemConhecimento;
@@ -159,9 +161,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		
 	}
 	
-	public void exibirJanelaListaBuscarItensConhecimento(){
+	public void exibirJanelaListaBuscarItensConhecimento(List<ItemConhecimento> itens){
 		
-		janListaBuscarItensConhecimento = new JanListaBuscarItensConhecimento(this);
+		janListaBuscarItensConhecimento = new JanListaBuscarItensConhecimento(this,itens);
 		
 		janP.mostrarJanelaConteudo(janListaBuscarItensConhecimento);
 		

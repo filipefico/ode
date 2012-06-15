@@ -3,6 +3,7 @@ package ode.gerenciaConhecimento.ciu;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
@@ -45,12 +46,14 @@ public class JanListaBuscarItensConhecimento extends Window {
 	Label percentualValoracoesNegativas;
 	Label percentualValoracoesNeutras;
 	Label valoracaoMedia;
+	List<ItemConhecimento> itens;
 	
-	
-	public JanListaBuscarItensConhecimento(CtrlGerenciaConhecimento ctrl) {
+	public JanListaBuscarItensConhecimento(CtrlGerenciaConhecimento ctrl, List<ItemConhecimento> itens) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
+		
+		this.itens = itens;
 		
 		criarJanListaBuscarItensConhecimento();
 	}
@@ -63,9 +66,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 	
 	public void preencherListboxItensEncontrados(){
 		
-		// fiz recuperar todos somente para teste
-		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
-		for (ItemConhecimento item : itens){
+		for (ItemConhecimento item : this.itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
 			preencherLinhaListbox(item);
@@ -175,7 +176,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
-		
+		labelQtdeItensEncontradosValor.setValue(String.valueOf(itens.size()));
 		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: " + labelQtdeItensEncontradosValor.getValue());
 		labelQtdeItensEncontrados.setStyle("font-weight: bold;font-style: italic;");
 		

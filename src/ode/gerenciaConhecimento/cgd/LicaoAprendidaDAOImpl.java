@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.TemporalType;
 
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 import ode.conhecimento.processo.cdp.KAtividade;
@@ -22,14 +26,12 @@ implements LicaoAprendidaDAO {
 	public List<LicaoAprendida> buscar(String expressao,
 			Date dataCriacaoInicial,
 			Date dataCriacaoFinal,
-			Date dataUltimaAtualizacaoInicial,
-			Date dataUltimaAtualizacaoFinal,
 			Date dataUltimoAcessoInicial,
 			Date dataUltimoAcessoFinal,
-			int quantidadeAcessosMinimo,
-			int quantidadeAcessosMaximo,
-			int quantidadeValoracoesMinimo,
-			int quantidadeValoracoesMaximo,
+			Long quantidadeAcessosMinimo,
+			Long quantidadeAcessosMaximo,
+			Long quantidadeValoracoesMinimo,
+			Long quantidadeValoracoesMaximo,
 			BigDecimal percentualValoracoesPositivasMinima,
 			BigDecimal percentualValoracoesPositivasMaxima,
 			BigDecimal percentualValoracoesNegativasMinima,
@@ -39,84 +41,150 @@ implements LicaoAprendidaDAO {
 			Collection<KAtividade> atividades,
 			Collection<Tema> temas)
 			{		
+
+		StringBuilder sb = new StringBuilder();
+
+		// Prepara campo expressao
+		sb.append("%");
+		sb.append(expressao);
+		sb.append("%");
+		expressao = sb.toString();
+
 		List<LicaoAprendida> licoes = getEntityManager().
 				createQuery("from LicaoAprendida where " +
-						"((:expressao is null or titulo like '%:expressao%') or " +
-						" (:expressao is null or resumo like '%:expressao%') or " +
-						"(:tipoItemConhecimento is null or resumo like :tipoItemConhecimento) and " +
-						"(:dataCriacaoInicial is null or dataCriacao >= :dataCriacaoInicial) and " +
-						"(:dataCriacaoFinal is null or dataCriacao <= :dataCriacaoFinal) and " +
-						"(:dataUltimaAtualizacaoInicial is null or dataUltimaAtualizacao >= :dataUltimaAtualizacaoInicial) and " +
-						"(:dataUltimaAtualizacaoFinal is null or dataUltimaAtualizacao <= :dataUltimaAtualizacaoFinal) and " +
-						"(:dataUltimoAcessoInicial is null or dataUltimoAcesso >= :dataUltimoAcessoInicial) and " +
-						"(:dataUltimoAcessoFinal is null or dataUltimoAcesso <= :dataUltimoAcessoFinal) and " +
-						"(:quantidadeAcessosMinimo is null or quantidadeAcessos >= :quantidadeAcessosMinimo) and " +
-						"(:quantidadeAcessosMaximo is null or quantidadeAcessos <= :quantidadeAcessosMaximo) and " +
-						"(:quantidadeValoracoesMinimo is null or quantidadeValoracoes >= :quantidadeValoracoesMinimo) and " +
-						"(:quantidadeValoracoesMaximo is null or quantidadeValoracoes <= :quantidadeValoracoesMaximo) and " +
+						"((titulo like :expressao or :expressao = NULL) or " +
+						"(resumo like :expressao or :expressao = NULL) or " +
+						"(aplicabilidade like :expressao or :expressao = NULL)) and " +
+						"(dataCriacao BETWEEN :dataCriacaoInicial AND :dataCriacaoFinal) and " + 
+						"((dataUltimoAcesso BETWEEN :dataUltimoAcessoInicial AND :dataUltimoAcessoFinal) or dataUltimoAcesso = NULL) and " +
+						"(quantidadeAcessos >= :quantidadeAcessosMinimo or :quantidadeAcessosMinimo = NULL) and " +
+						"(quantidadeAcessos <= :quantidadeAcessosMaximo or :quantidadeAcessosMaximo = NULL)" +
 						" ")
 						.setParameter("expressao", expressao)
-						.setParameter("dataCriacaoInicial", dataCriacaoInicial)
-						.setParameter("dataCriacaoFinal", dataCriacaoFinal)
-						.setParameter("dataUltimaAtualizacaoInicial", dataUltimaAtualizacaoInicial)
-						.setParameter("dataUltimaAtualizacaoFinal", dataUltimaAtualizacaoFinal)
-						.setParameter("dataUltimoAcessoInicial", dataUltimoAcessoInicial)
-						.setParameter("dataUltimoAcessoFinal", dataUltimoAcessoFinal)
+						.setParameter("dataCriacaoInicial", dataCriacaoInicial, TemporalType.DATE)
+						.setParameter("dataCriacaoFinal", dataCriacaoFinal, TemporalType.DATE)
+						.setParameter("dataUltimoAcessoInicial", dataUltimoAcessoInicial, TemporalType.DATE)
+						.setParameter("dataUltimoAcessoFinal", dataUltimoAcessoFinal, TemporalType.DATE)
 						.setParameter("quantidadeAcessosMinimo", quantidadeAcessosMinimo)
 						.setParameter("quantidadeAcessosMaximo", quantidadeAcessosMaximo)
-						.setParameter("quantidadeValoracoesMinimo", quantidadeValoracoesMinimo)
-						.setParameter("quantidadeValoracoesMaximo", quantidadeValoracoesMaximo)
-						.setParameter("tipoItemConhecimento", tipoItemConhecimento)
 						.getResultList();
 
 		// Filtros
 		List<LicaoAprendida> licoesRemovidas = new ArrayList<LicaoAprendida>();
-		for (LicaoAprendida licaoAprendida : licoes){
+		if (!licoesRemovidas.isEmpty()){
+			for (LicaoAprendida licaoAprendida : licoes){
 
-			// percentual valoracoes positivas
-			float percentualPositivas = licaoAprendida.quantidadeValoracoes(1) / licaoAprendida.getValoracoes().size();
+				//quantidade de valoracoes minima
+				if (quantidadeValoracoesMinimo != null) {
+					if (licaoAprendida.getValoracoes().size()<quantidadeValoracoesMinimo)
+						licoesRemovidas.add(licaoAprendida);
+				}
 
-			if (percentualValoracoesPositivasMinima != null) {
-				if (percentualPositivas < percentualValoracoesPositivasMinima.floatValue())
-					licoesRemovidas.add(licaoAprendida);
-			}
+				//quantidade de valoracoes maxima
+				if (quantidadeValoracoesMaximo != null) {
+					if (licaoAprendida.getValoracoes().size()>quantidadeValoracoesMaximo)
+						licoesRemovidas.add(licaoAprendida);
+				}
 
-			if (percentualValoracoesPositivasMaxima != null) {
-				if (percentualPositivas > percentualValoracoesPositivasMaxima.floatValue())
-					licoesRemovidas.add(licaoAprendida);
-			}
+				// percentual valoracoes positivas
+				try {
+					float percentualPositivas = licaoAprendida.quantidadeValoracoes(1) / licaoAprendida.getValoracoes().size();
 
-			// percentual valoracoes negativas
-			float percentualNegativas = licaoAprendida.quantidadeValoracoes(-1) / licaoAprendida.getValoracoes().size();
+					if (percentualValoracoesPositivasMinima != null) {
+						if (percentualPositivas < percentualValoracoesPositivasMinima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
 
-			if (percentualValoracoesNegativasMinima != null) {
-				if (percentualNegativas < percentualValoracoesNegativasMinima.floatValue())
-					licoesRemovidas.add(licaoAprendida);
-			}
 
-			if (percentualValoracoesNegativasMaxima != null) {
-				if (percentualNegativas > percentualValoracoesNegativasMaxima.floatValue())
-					licoesRemovidas.add(licaoAprendida);
-			}
+					if (percentualValoracoesPositivasMaxima != null) {
+						if (percentualPositivas > percentualValoracoesPositivasMaxima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
 
-			// projetos
-			licaoAprendida.getProjetos().retainAll(projetos);
-			if (licaoAprendida.getProjetos().size() == 0) {
-				licoesRemovidas.add(licaoAprendida);
-			}
+				} catch (Exception e) {
+					System.out.println("Divisão por zero.");
+					
+					float percentualPositivas = 0;
+					
+					if (percentualValoracoesPositivasMinima != null) {
+						if (percentualPositivas < percentualValoracoesPositivasMinima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
 
-			// atividades
-			licaoAprendida.getkAtividades().retainAll(atividades);
-			if (licaoAprendida.getkAtividades().size() == 0) {
-				licoesRemovidas.add(licaoAprendida);
-			}
 
-			// temas
-			licaoAprendida.getTemas().retainAll(temas);
-			if (licaoAprendida.getTemas().size() == 0) {
-				licoesRemovidas.add(licaoAprendida);
-			}
-		}	
+					if (percentualValoracoesPositivasMaxima != null) {
+						if (percentualPositivas > percentualValoracoesPositivasMaxima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
+				}
+
+				try {
+					// percentual valoracoes negativas
+					float percentualNegativas = licaoAprendida.quantidadeValoracoes(-1) / licaoAprendida.getValoracoes().size();
+
+					if (percentualValoracoesNegativasMinima != null) {
+						if (percentualNegativas < percentualValoracoesNegativasMinima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
+
+					if (percentualValoracoesNegativasMaxima != null) {
+						if (percentualNegativas > percentualValoracoesNegativasMaxima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
+				} catch (Exception e) {
+					System.out.println("Divisão por zero.");
+					
+					float percentualNegativas = 0;
+							
+					if (percentualValoracoesNegativasMinima != null) {
+						if (percentualNegativas < percentualValoracoesNegativasMinima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
+
+					if (percentualValoracoesNegativasMaxima != null) {
+						if (percentualNegativas > percentualValoracoesNegativasMaxima.floatValue())
+							licoesRemovidas.add(licaoAprendida);
+					}
+
+				}
+
+				// projetos
+				if (!projetos.isEmpty()) {
+					Set<Projeto> projetosRetidos = new HashSet<Projeto>();
+					for (Projeto projeto : licaoAprendida.getProjetos()){
+						projetosRetidos.add(projeto);
+					}
+					projetosRetidos.retainAll(projetos);
+					if (projetosRetidos.size() == 0) {
+						licoesRemovidas.add(licaoAprendida);
+					}
+				}
+
+				// atividades
+				if (!atividades.isEmpty()) {
+					Set<KAtividade> atividadesRetidas = new HashSet<KAtividade>();
+					for (KAtividade atividade : licaoAprendida.getkAtividades()){
+						atividadesRetidas.add(atividade);
+					}
+					atividadesRetidas.retainAll(atividades);
+					if (atividadesRetidas.size() == 0) {
+						licoesRemovidas.add(licaoAprendida);
+					}
+				}
+
+				// temas
+				if (!temas.isEmpty()) {
+					Set<Tema> temasRetidos = new HashSet<Tema>();
+					for (Tema tema : licaoAprendida.getTemas()){
+						temasRetidos.add(tema);
+					}
+					temasRetidos.retainAll(temas);
+					if (temasRetidos.size() == 0) {
+						licoesRemovidas.add(licaoAprendida);
+					}
+				}
+			}	
+		}
 
 		// Remove licoes nao pertecentes
 		licoes.removeAll(licoesRemovidas);
