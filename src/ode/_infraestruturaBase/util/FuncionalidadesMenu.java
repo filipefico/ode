@@ -166,11 +166,11 @@ public static List<Funcionalidade> obterFuncionalidades() {
 		);
 		
 
-		/*funcionalidades.add(criar("Gerência de Conhecimento")
+		funcionalidades.add(criar("Gerência de Conhecimento")
 			.addSubfuncionalidade(criar("Portal").setCtrl(CtrlGerenciaConhecimento.class))
 			.addSubfuncionalidade(criar("Tema").setCtrl(CtrlTema.class))
 		);
-*/		
+		
 
 		funcionalidades.add(criar("uml").setDisponivelApenasParaProjetosAbertos(true)
 			.addSubfuncionalidade(criar("Cadastrar Pacote").setCtrl(CtrlCRUDPacote.class))
