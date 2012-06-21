@@ -118,4 +118,8 @@ public class DAOBaseImpl<T extends ObjetoPersistente> implements DAOBase<T> {
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+	
+	public int recuperarQuantidadeTotal(){
+		return this.recuperarTodos().size();
+	}
 }

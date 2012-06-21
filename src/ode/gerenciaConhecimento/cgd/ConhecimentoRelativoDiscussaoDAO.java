@@ -9,11 +9,12 @@ import ode._infraestruturaBase.cgd.DAOBase;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 public interface ConhecimentoRelativoDiscussaoDAO extends
-		DAOBase<ConhecimentoRelativoDiscussao> {
-	
+DAOBase<ConhecimentoRelativoDiscussao> {
+
 	public List<ConhecimentoRelativoDiscussao> buscar(String expressao,
 			Date dataCriacaoInicial,
 			Date dataCriacaoFinal,
@@ -31,5 +32,11 @@ public interface ConhecimentoRelativoDiscussaoDAO extends
 			Collection<Projeto> projetos,
 			Collection<KAtividade> atividades,
 			Collection<Tema> temas);
+
+	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorQuantidadeAcesso();
+
+	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorDataCriacaoMaisRecente();
+
+	public int recuperarQuantidadeTotal();
 
 }

@@ -3,6 +3,7 @@ package ode.gerenciaConhecimento.ciu;
 import java.util.Collection;
 import java.util.List;
 
+import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
@@ -62,6 +63,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	@Autowired
 	AplCadastrarItemConhecimento aplCadastrarItemConhecimento;
+	
+	@Autowired
+	AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
 
 	@Override
 	public void iniciar() {
@@ -208,6 +212,34 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	public Collection<Projeto> recuperarProjetos(){
 		return aplCadastrarProjeto.recuperarTodos();
+	}
+	
+	public List<LicaoAprendida> recuperarLicoesOrdenadoPorQuantidadeAcesso(){
+		return aplCadastrarLicaoAprendida.recuperarOrdenadoPorQuantidadeAcesso();
+	}
+	
+	public List<LicaoAprendida> recuperarLicoesOrdenadoPorDataCriacaoMaisRecente(){
+		return aplCadastrarLicaoAprendida.recuperarOrdenadoPorDataCriacaoMaisRecente();
+	}
+	
+	public int recuperarQuantidadeTotalLicoesAprendidas(){
+		return this.aplCadastrarLicaoAprendida.recuperarQuantidadeTotal();
+	}
+	
+	public List<ConhecimentoRelativoDiscussao> recuperarItensDiscussaoOrdenadoPorQuantidadeAcesso(){
+		return aplCadastrarConhecimentoRelativoDiscussao.recuperarOrdenadoPorQuantidadeAcesso();
+	}
+	
+	public List<ConhecimentoRelativoDiscussao> recuperarItensDiscussaoOrdenadoPorDataCriacaoMaisRecente(){
+		return aplCadastrarConhecimentoRelativoDiscussao.recuperarOrdenadoPorDataCriacaoMaisRecente();
+	}
+	
+	public int recuperarQuantidadeTotalItensDiscussao(){
+		return this.aplCadastrarConhecimentoRelativoDiscussao.recuperarQuantidadeTotal();
+	}
+	
+	public int recuperarQuantidadeTotalMembros(){
+		return this.aplCadastrarRecursoHumano.recuperarQuantidadeTotal();
 	}
 
 }

@@ -61,5 +61,11 @@ public interface DAOBase<T extends ObjetoPersistente> {
 	 * @return Classe do objeto T.
 	 */
 	public Class<T> getClasseDominio();
+	
+	/**
+	 * Recupera quantidade total de objetos no banco.
+	 * @return Quantidade total.
+	 */
+	public int recuperarQuantidadeTotal();
 
 }
