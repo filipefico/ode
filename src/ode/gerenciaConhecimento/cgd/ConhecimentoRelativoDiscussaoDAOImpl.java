@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.TemporalType;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.springframework.stereotype.Repository;
@@ -193,6 +196,22 @@ ConhecimentoRelativoDiscussaoDAO {
 
 		return itens; 
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorQuantidadeAcesso(){
+		return getEntityManager().
+				createQuery("from ConhecimentoRelativoDiscussao order by quantidadeAcessos").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorDataCriacaoMaisRecente(){
+		return getEntityManager().
+				createQuery("from ConhecimentoRelativoDiscussao order by dataCriacao desc").getResultList();
+	}
+	
+	public int recuperarQuantidadeTotal(){
+		return getEntityManager().createQuery("from ConhecimentoRelativoDiscussao").getResultList().size();
 	}
 
 }

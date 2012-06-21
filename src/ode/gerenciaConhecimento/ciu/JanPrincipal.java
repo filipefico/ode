@@ -1,49 +1,26 @@
 package ode.gerenciaConhecimento.ciu;
 
 
+import java.util.List;
+
+import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.LicaoAprendida;
+
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Borderlayout;
-import org.zkoss.zul.Button;
 import org.zkoss.zul.Center;
-import org.zkoss.zul.Column;
-import org.zkoss.zul.Columns;
-import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Comboitem;
-import org.zkoss.zul.Datebox;
-import org.zkoss.zul.Div;
 import org.zkoss.zul.East;
-import org.zkoss.zul.Grid;
-import org.zkoss.zul.Hlayout;
-import org.zkoss.zul.Image;
-import org.zkoss.zul.Label;
-import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listcell;
-import org.zkoss.zul.Listhead;
-import org.zkoss.zul.Listheader;
-import org.zkoss.zul.Listitem;
-import org.zkoss.zul.North;
 import org.zkoss.zul.Panel;
 import org.zkoss.zul.Panelchildren;
-import org.zkoss.zul.Radio;
-import org.zkoss.zul.Radiogroup;
-import org.zkoss.zul.Row;
-import org.zkoss.zul.Rows;
-import org.zkoss.zul.Separator;
-import org.zkoss.zul.South;
-import org.zkoss.zul.Tab;
-import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
-import org.zkoss.zul.Tabpanels;
-import org.zkoss.zul.Tabs;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Toolbarbutton;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.West;
 import org.zkoss.zul.Window;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 public class JanPrincipal extends Borderlayout{
 
@@ -58,7 +35,9 @@ public class JanPrincipal extends Borderlayout{
 	Panel ferramApoioColab;
 	Panel participacaoPortal;
 	Panel qtdeMembros;
+	Panel licoesMaisAcessadasPortal;
 	Panel itensMaisAcessadosPortal;
+	Panel licoesMaisRecentes;
 	Panel itensMaisRecentes;
 	Panel qtdeItensConhecimento;
 	
@@ -96,14 +75,21 @@ public class JanPrincipal extends Borderlayout{
 		east.setSplittable(true);
 		east.setCollapsible(true);
 		
-		criaPainelItensMaisAcessadosPortal();
-		itensMaisAcessadosPortal.setParent(vbox);
+		criaPainelQtdeItensConhecimento();
+		qtdeItensConhecimento.setParent(vbox);
+		
+		criaPainelLicoesMaisRecentes();
+		licoesMaisRecentes.setParent(vbox);
 		
 		criaPainelItensMaisRecentes();
 		itensMaisRecentes.setParent(vbox);
 		
-		criaPainelQtdeItensConhecimento();
-		qtdeItensConhecimento.setParent(vbox);
+		criaPainelLicoesMaisAcessadas();
+		licoesMaisAcessadasPortal.setParent(vbox);
+		
+		criaPainelItensMaisAcessadosPortal();
+		itensMaisAcessadosPortal.setParent(vbox);
+		
 	}
 	
 	public void criaCenter(){
@@ -114,8 +100,6 @@ public class JanPrincipal extends Borderlayout{
 			
 		painelCentro.setTitle("Bem-vindo ao Portal de Gerência de Conhecimento");
 		painelCentro.setClosable(true);
-		painelCentro.setMaximizable(true);
-		painelCentro.setMinimizable(true);
 		
 		painelChildrenCentro.setParent(painelCentro);
 		painelCentro.setParent(center);
@@ -161,14 +145,12 @@ public class JanPrincipal extends Borderlayout{
 		
 		links.setTitle("Links");
 		links.setClosable(true);
-		links.setMaximizable(true);
-		links.setMinimizable(true);
 		links.setBorder("normal");
 		
 		Panelchildren painelchildrenLinks = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 	
-		Toolbarbutton toolbarbuttonPaginaInicial = criaToolBarButton(vlayout,"Página Inicial","/imagens/gohome.png");
+		Toolbarbutton toolbarbuttonPaginaInicial = criarToolBarButton(vlayout,"Página Inicial","/imagens/gohome.png");
 		toolbarbuttonPaginaInicial.addEventListener("onClick", new EventListener() {
 			
 			@Override
@@ -177,7 +159,7 @@ public class JanPrincipal extends Borderlayout{
 				
 			}
 		});
-		Toolbarbutton toolbarbuttonOdeWeb = criaToolBarButton(vlayout, "ODE Web","/imagens/krec_record.png");
+		Toolbarbutton toolbarbuttonOdeWeb = criarToolBarButton(vlayout, "ODE Web","/imagens/krec_record.png");
 		
 		vlayout.setParent(painelchildrenLinks);
 		painelchildrenLinks.setParent(links);
@@ -190,14 +172,12 @@ public class JanPrincipal extends Borderlayout{
 		
 		funcionalidades.setTitle("Funcionalidades");
 		funcionalidades.setClosable(true);
-		funcionalidades.setMaximizable(true);
-		funcionalidades.setMinimizable(true);
 		funcionalidades.setBorder("normal");
 		
 		Panelchildren painelchildrenFuncionalidades = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonCriarItensConhecimento = criaToolBarButton(vlayout,"Criar itens de Conhecimento","/imagens/definir.png");
+		Toolbarbutton toolbarbuttonCriarItensConhecimento = criarToolBarButton(vlayout,"Criar itens de Conhecimento","/imagens/definir.png");
 		toolbarbuttonCriarItensConhecimento.addEventListener("onClick", new EventListener() {
 			
 			@Override
@@ -209,7 +189,7 @@ public class JanPrincipal extends Borderlayout{
 			}
 		});
 		
-		Toolbarbutton toolbarbuttonBuscarItensConhecimento = criaToolBarButton(vlayout,"Buscar itens de Conhecimento","/imagens/kpdf.png");
+		Toolbarbutton toolbarbuttonBuscarItensConhecimento = criarToolBarButton(vlayout,"Buscar itens de Conhecimento","/imagens/kpdf.png");
 		toolbarbuttonBuscarItensConhecimento.addEventListener("onClick", new EventListener() {
 			
 			@Override
@@ -233,15 +213,13 @@ public class JanPrincipal extends Borderlayout{
 		
 		ferramApoioColab.setTitle("Ferramentas de Apoio à Colaboração");
 		ferramApoioColab.setClosable(true);
-		ferramApoioColab.setMaximizable(true);
-		ferramApoioColab.setMinimizable(true);
 		ferramApoioColab.setBorder("normal");
 		
 		Panelchildren painelchildrenFerramApoioColab = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonPaginasAmarelas = criaToolBarButton(vlayout,"Páginas Amarelas","/imagens/vcard.png");	
-		Toolbarbutton toolbarbuttonForunsDiscussao = criaToolBarButton(vlayout,"Fóruns de Discussão","/imagens/edu_languages.png");
+		Toolbarbutton toolbarbuttonPaginasAmarelas = criarToolBarButton(vlayout,"Páginas Amarelas","/imagens/vcard.png");	
+		Toolbarbutton toolbarbuttonForunsDiscussao = criarToolBarButton(vlayout,"Fóruns de Discussão","/imagens/edu_languages.png");
 		
 		vlayout.setParent(painelchildrenFerramApoioColab);
 		painelchildrenFerramApoioColab.setParent(ferramApoioColab);
@@ -254,14 +232,12 @@ public class JanPrincipal extends Borderlayout{
 		
 		participacaoPortal.setTitle("Sua Participação no Portal");
 		participacaoPortal.setClosable(true);
-		participacaoPortal.setMaximizable(true);
-		participacaoPortal.setMinimizable(true);
 		participacaoPortal.setBorder("normal");
 		
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonItensCriados = criaToolBarButton(vlayout,"Itens Criados","/imagens/ledblue.png");
+		Toolbarbutton toolbarbuttonItensCriados = criarToolBarButton(vlayout,"Itens Criados","/imagens/ledblue.png");
 		toolbarbuttonItensCriados.addEventListener("onClick", new EventListener() {
 			
 			@Override
@@ -273,9 +249,9 @@ public class JanPrincipal extends Borderlayout{
 			}
 		});
 		
-		Toolbarbutton toolbarbuttonItensAvaliados = criaToolBarButton(vlayout,"Itens Avaliados","/imagens/ledblue.png");
-		Toolbarbutton toolbarbuttonItensValorados = criaToolBarButton(vlayout,"Itens Valorados","/imagens/ledblue.png");
-		Toolbarbutton toolbarbuttonItensPendentesAvaliacao = criaToolBarButton(vlayout,"Itens Pendentes de Avaliação","/imagens/ledblue.png");
+		Toolbarbutton toolbarbuttonItensAvaliados = criarToolBarButton(vlayout,"Itens Avaliados","/imagens/ledblue.png");
+		Toolbarbutton toolbarbuttonItensValorados = criarToolBarButton(vlayout,"Itens Valorados","/imagens/ledblue.png");
+		Toolbarbutton toolbarbuttonItensPendentesAvaliacao = criarToolBarButton(vlayout,"Itens Pendentes de Avaliação","/imagens/ledblue.png");
 		toolbarbuttonItensPendentesAvaliacao.addEventListener("onClick", new EventListener() {
 			
 			@Override
@@ -301,17 +277,37 @@ public class JanPrincipal extends Borderlayout{
 		
 		qtdeMembros.setTitle("Quantidade de Membros");
 		qtdeMembros.setClosable(true);
-		qtdeMembros.setMaximizable(true);
-		qtdeMembros.setMinimizable(true);
 		qtdeMembros.setBorder("normal");
 		
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonMembrosOrganizacao = criaToolBarButton(vlayout,"Membros da Organização","/imagens/kdmconfig.png");
+		// Recupera quantidade de membros
+		int qtd = ctrlGerenciaConhecimento.recuperarQuantidadeTotalMembros();
+		criarToolBarButton(vlayout,"Membros da Organização (" + qtd +")","/imagens/kdmconfig.png");
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(qtdeMembros);
+		
+	}
+	
+	public void criaPainelLicoesMaisAcessadas(){
+		
+		licoesMaisAcessadasPortal = new Panel();
+		
+		licoesMaisAcessadasPortal.setTitle("Lições Aprendidas mais Acessadas");
+		licoesMaisAcessadasPortal.setClosable(true);
+		licoesMaisAcessadasPortal.setBorder("normal");
+		
+		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
+		Vlayout vlayout = new Vlayout();
+		
+		criarToolBarButton(vlayout,"Estimar Custo de Software","/imagens/view_detailed.png");
+		criarToolBarButton(vlayout,"Linguagem de Programação Java","/imagens/view_detailed.png");
+		criarToolBarButton(vlayout,"Banco de Dados PostgreSQL","/imagens/view_detailed.png");
+		
+		vlayout.setParent(painelchildrenParticipacaoPortal);
+		painelchildrenParticipacaoPortal.setParent(licoesMaisAcessadasPortal);
 		
 	}
 	
@@ -319,21 +315,41 @@ public class JanPrincipal extends Borderlayout{
 		
 		itensMaisAcessadosPortal = new Panel();
 		
-		itensMaisAcessadosPortal.setTitle("Itens mais Acessados no Portal");
+		itensMaisAcessadosPortal.setTitle("Conh. Rel. a Discussão mais Acessados");
 		itensMaisAcessadosPortal.setClosable(true);
-		itensMaisAcessadosPortal.setMaximizable(true);
-		itensMaisAcessadosPortal.setMinimizable(true);
 		itensMaisAcessadosPortal.setBorder("normal");
 		
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonEstimarCustoSoftware = criaToolBarButton(vlayout,"Estimar Custo de Software","/imagens/view_detailed.png");
-		Toolbarbutton toolbarbuttonLinguagemProgramacaoJava = criaToolBarButton(vlayout,"Linguagem de Programação Java","/imagens/view_detailed.png");
-		Toolbarbutton toolbarbuttonBancoDadosPostgre = criaToolBarButton(vlayout,"Banco de Dados PostgreSQL","/imagens/view_detailed.png");
+		criarToolBarButton(vlayout,"Estimar Custo de Software","/imagens/view_detailed.png");
+		criarToolBarButton(vlayout,"Linguagem de Programação Java","/imagens/view_detailed.png");
+		criarToolBarButton(vlayout,"Banco de Dados PostgreSQL","/imagens/view_detailed.png");
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(itensMaisAcessadosPortal);
+		
+	}
+	
+	public void criaPainelLicoesMaisRecentes(){
+		
+		licoesMaisRecentes = new Panel();
+		
+		licoesMaisRecentes.setTitle("Lições Aprendidas mais Recentes");
+		licoesMaisRecentes.setClosable(true);
+		licoesMaisRecentes.setBorder("normal");
+		
+		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
+		Vlayout vlayout = new Vlayout();
+		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		
+		List<LicaoAprendida> licoes = ctrlGerenciaConhecimento.recuperarLicoesOrdenadoPorDataCriacaoMaisRecente();
+		for (LicaoAprendida licao : licoes)
+			criarToolBarButton(vlayout,licao.getTitulo() + " (" + format.format(licao.getDataCriacao()) + ")","/imagens/view_detailed.png");
+		
+		vlayout.setParent(painelchildrenParticipacaoPortal);
+		painelchildrenParticipacaoPortal.setParent(licoesMaisRecentes);
 		
 	}
 	
@@ -341,18 +357,19 @@ public class JanPrincipal extends Borderlayout{
 		
 		itensMaisRecentes = new Panel();
 		
-		itensMaisRecentes.setTitle("Itens mais Recentes");
+		itensMaisRecentes.setTitle("Conh. Rel. a Discussão mais Recentes");
 		itensMaisRecentes.setClosable(true);
-		itensMaisRecentes.setMaximizable(true);
-		itensMaisRecentes.setMinimizable(true);
 		itensMaisRecentes.setBorder("normal");
 		
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonModeloDocAnaliseReq = criaToolBarButton(vlayout,"Modelo de Documento de Análise de Requisitos","/imagens/view_detailed.png");
-		Toolbarbutton toolbarbuttonBancoDadosRelacionais = criaToolBarButton(vlayout,"Bancos de Dados Relacionais","/imagens/view_detailed.png");
-		Toolbarbutton toolbarbuttonOrientacaoObjetos = criaToolBarButton(vlayout,"Orientação a Objetos","/imagens/view_detailed.png");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		
+		List<ConhecimentoRelativoDiscussao> itens = ctrlGerenciaConhecimento.recuperarItensDiscussaoOrdenadoPorDataCriacaoMaisRecente();
+		for (ConhecimentoRelativoDiscussao item : itens)
+			criarToolBarButton(vlayout,item.getTitulo() + " (" + format.format(item.getDataCriacao()) + ")","/imagens/view_detailed.png");
+		
 	
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(itensMaisRecentes);
@@ -365,15 +382,17 @@ public class JanPrincipal extends Borderlayout{
 		
 		qtdeItensConhecimento.setTitle("Quantidade de Itens de Conhecimento");
 		qtdeItensConhecimento.setClosable(true);
-		qtdeItensConhecimento.setMaximizable(true);
-		qtdeItensConhecimento.setMinimizable(true);
 		qtdeItensConhecimento.setBorder("normal");
 		
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonLicaoAprendida = criaToolBarButton(vlayout,"Lição Aprendida","/imagens/view_detailed.png");
-		Toolbarbutton toolbarbuttonConhecimentoRelativoDiscussao = criaToolBarButton(vlayout,"Conhecimentos relativo a uma Discussão","/imagens/view_detailed.png");
+		// Recupera quantidade
+		int qtdLicoes = this.ctrlGerenciaConhecimento.recuperarQuantidadeTotalLicoesAprendidas();
+		int qtdItens = this.ctrlGerenciaConhecimento.recuperarQuantidadeTotalItensDiscussao();
+		
+		criarToolBarButton(vlayout,"Lição Aprendida (" + qtdLicoes + ")","/imagens/view_detailed.png");
+		criarToolBarButton(vlayout,"Conhecimentos relativo a uma Discussão (" + qtdItens + ")","/imagens/view_detailed.png");
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(qtdeItensConhecimento);
@@ -381,7 +400,7 @@ public class JanPrincipal extends Borderlayout{
 	}
 	
 	// --- função que cria os toolbarbuttons dos paineis acima --- //
-	public Toolbarbutton criaToolBarButton(Vlayout vlayout, String nome, String path){
+	public Toolbarbutton criarToolBarButton(Vlayout vlayout, String nome, String path){
 		
 		
 		Toolbarbutton toolbarbutton = new Toolbarbutton();		

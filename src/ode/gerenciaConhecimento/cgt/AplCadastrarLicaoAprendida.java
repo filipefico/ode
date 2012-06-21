@@ -1,6 +1,7 @@
 package ode.gerenciaConhecimento.cgt;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 import ode.gerenciaConhecimento.cgd.LicaoAprendidaDAO;
@@ -49,6 +51,42 @@ public class AplCadastrarLicaoAprendida extends AplCRUD<LicaoAprendida> {
 			Collection<Tema> temas){
 
 		return licaoAprendidaDAO.buscar(expressao, dataCriacaoInicial, dataCriacaoFinal, dataUltimoAcessoInicial, dataUltimoAcessoFinal, quantidadeAcessosMinimo, quantidadeAcessosMaximo, quantidadeValoracoesMinimo, quantidadeValoracoesMaximo, percentualValoracoesPositivasMinima, percentualValoracoesPositivasMaxima, percentualValoracoesNegativasMinima, percentualValoracoesNegativasMaxima, tipoItemConhecimento, projetos, atividades, temas);
+	}
+
+	public List<LicaoAprendida> recuperarOrdenadoPorQuantidadeAcesso(){
+
+		List<LicaoAprendida> licoes = this.licaoAprendidaDAO.recuperarOrdenadoPorQuantidadeAcesso(); 
+
+		// Recupera os tres primeiros
+		List<LicaoAprendida> novasLicoes = new ArrayList<LicaoAprendida>();
+		if (licoes.size() >= 1)
+			novasLicoes.add(licoes.get(0));
+		if (licoes.size() >= 2)
+			novasLicoes.add(licoes.get(1));
+		if (licoes.size() >= 3)
+			novasLicoes.add(licoes.get(2));
+
+		return novasLicoes;
+	}
+
+	public List<LicaoAprendida> recuperarOrdenadoPorDataCriacaoMaisRecente(){
+
+		List<LicaoAprendida> licoes = this.licaoAprendidaDAO.recuperarOrdenadoPorDataCriacaoMaisRecente(); 
+
+		// Recupera os tres primeiros
+		List<LicaoAprendida> novasLicoes = new ArrayList<LicaoAprendida>();
+		if (licoes.size() >= 1)
+			novasLicoes.add(licoes.get(0));
+		if (licoes.size() >= 2)
+			novasLicoes.add(licoes.get(1));
+		if (licoes.size() >= 3)
+			novasLicoes.add(licoes.get(2));
+
+		return novasLicoes;
+	}
+
+	public int recuperarQuantidadeTotal(){
+		return this.licaoAprendidaDAO.recuperarQuantidadeTotal();
 	}
 
 }

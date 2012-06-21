@@ -240,5 +240,13 @@ public abstract class AplCRUD<T extends ObjetoPersistente> {
 	protected void depoisAlterarDados(T objeto)
 			throws NucleoRegraNegocioExcecao {
 	}
+	
+	/**
+	 * Recupera quantidade total de objetos no banco.
+	 * @return Quantidade total.
+	 */
+	public int recuperarQuantidadeTotal(){
+		return this.getNucleoDaoBase().recuperarQuantidadeTotal();
+	}
 
 }

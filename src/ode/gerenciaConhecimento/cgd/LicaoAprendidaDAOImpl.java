@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.TemporalType;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 import ode.conhecimento.processo.cdp.KAtividade;
@@ -103,9 +105,9 @@ implements LicaoAprendidaDAO {
 
 				} catch (Exception e) {
 					System.out.println("Divisão por zero.");
-					
+
 					float percentualPositivas = 0;
-					
+
 					if (percentualValoracoesPositivasMinima != null) {
 						if (percentualPositivas < percentualValoracoesPositivasMinima.floatValue())
 							licoesRemovidas.add(licaoAprendida);
@@ -133,9 +135,9 @@ implements LicaoAprendidaDAO {
 					}
 				} catch (Exception e) {
 					System.out.println("Divisão por zero.");
-					
+
 					float percentualNegativas = 0;
-							
+
 					if (percentualValoracoesNegativasMinima != null) {
 						if (percentualNegativas < percentualValoracoesNegativasMinima.floatValue())
 							licoesRemovidas.add(licaoAprendida);
@@ -191,6 +193,22 @@ implements LicaoAprendidaDAO {
 
 		return licoes; 
 
+			}
+
+	@SuppressWarnings("unchecked")
+	public List<LicaoAprendida> recuperarOrdenadoPorQuantidadeAcesso(){
+		return getEntityManager().
+				createQuery("from LicaoAprendida order by quantidadeAcessos").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<LicaoAprendida> recuperarOrdenadoPorDataCriacaoMaisRecente(){
+		return getEntityManager().
+				createQuery("from LicaoAprendida order by dataCriacao desc").getResultList();
+	}
+
+	public int recuperarQuantidadeTotal(){
+		return getEntityManager().createQuery("from LicaoAprendida").getResultList().size();
 	}
 
 }
