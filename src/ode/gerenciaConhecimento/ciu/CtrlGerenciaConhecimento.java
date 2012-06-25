@@ -3,6 +3,8 @@ package ode.gerenciaConhecimento.ciu;
 import java.util.Collection;
 import java.util.List;
 
+
+import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
@@ -43,7 +45,8 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanValorarItemConhecimento janValorarItemConhecimento;
 	public JanItensPendentesAvaliacaoGerente janItensPendentesAvaliacaoGerente;
 	public JanVisualizarItemConhecimentoGerente janVisualizarItemConhecimentoGerente;
-	
+	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
+	public JanPaginasAmarelasListaBuscarPessoas janPaginasAmarelasListaBuscarPessoas;
 
 
 	@Autowired
@@ -82,7 +85,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		jan.setTitle("Portal de Gerência de Conhecimento");
 		jan.setWidth("100%");
-		jan.setHeight("600px");
+		jan.setHeight("525px");
 
 		jan.doEmbedded();
 	}
@@ -127,6 +130,22 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janValorarItemConhecimento);
 		
 	}
+	
+	public void exibirJanelaPaginasAmarelasBuscarPessoas(){
+		
+		janPaginasAmarelasBuscarPessoas = new JanPaginasAmarelasBuscarPessoas(this);
+		
+		janP.mostrarJanelaConteudo(janPaginasAmarelasBuscarPessoas);
+		
+	}
+	
+	public void exibirJanelaPaginasAmarelasListaBuscarPessoas(){
+		
+		janPaginasAmarelasListaBuscarPessoas = new JanPaginasAmarelasListaBuscarPessoas(this);
+		
+		janP.mostrarJanelaConteudo(janPaginasAmarelasListaBuscarPessoas);
+		
+	}
 		
 
 
@@ -149,9 +168,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		
 	}
 	
-	public void exibirJanelaVisualizarItemConhecimentoUsuarioComum(){
+	public void exibirJanelaVisualizarItemConhecimentoUsuarioComum(Object item){
 		
-		janVisualizarItemConhecimentoUsuarioComum = new JanVisualizarItemConhecimentoUsuarioComum(this);
+		janVisualizarItemConhecimentoUsuarioComum = new JanVisualizarItemConhecimentoUsuarioComum(this, item);
 		
 		janP.mostrarJanelaConteudo(janVisualizarItemConhecimentoUsuarioComum);
 		

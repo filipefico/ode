@@ -1,12 +1,16 @@
 package ode.gerenciaConhecimento.ciu;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 import ode._infraestruturaBase.util.NucleoContexto;
+import ode.conhecimento.processo.cdp.KAtividade;
+import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
+import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -15,12 +19,15 @@ import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listhead;
+import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
@@ -28,6 +35,14 @@ import org.zkoss.zul.Window;
 public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
+	
+	Tab tabInformacoes = new Tab("Informações");
+	Tab tabAvaliacoes = new Tab("Avaliações");
+	Tab tabValoracoes = new Tab("Valorações");
+	
+	Tabpanel tabpanelInformacoes = new Tabpanel();
+	Tabpanel tabpanelAvaliacoes = new Tabpanel();
+	Tabpanel tabpanelValoracoes = new Tabpanel();
 	
 	Listbox listbox = new Listbox();
 	Listitem listitemTitulo = new Listitem();
@@ -46,16 +61,16 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 	Listcell listcellPontosFracosValor;
 	Listcell listcellLinkDiscussaoValor;
 	
-	public JanVisualizarItemConhecimentoUsuarioComum(CtrlGerenciaConhecimento ctrl) {
+	public JanVisualizarItemConhecimentoUsuarioComum(CtrlGerenciaConhecimento ctrl, Object item) {
 		// TODO Auto-generated constructor stub
 	
 		ctrlGerenciaConhecimento = ctrl;
 		
-		criarJanVisualizarItemConhecimento();
+		criarJanVisualizarItemConhecimento(item);
 	}
 	
 	
-	public void preencherListbox(ItemConhecimento i){
+	public void preencherVisualizacaoEsquerda(ItemConhecimento i){
 		
 		/*
 		 * se o item de conhecimento for Lição Aprendida
@@ -67,8 +82,18 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			
 			LicaoAprendida item = (LicaoAprendida) i;
 			
+			Listhead listhead = new Listhead();
+			Listheader listheader = new Listheader();
+			listheader.setWidth("150px");
+			Listheader listheader2 = new Listheader();
+			
+			listheader.setParent(listhead);
+			listheader2.setParent(listhead);
+			listhead.setParent(listbox);
+			
 			//--- linha Título ---//
 			Listcell listcellTitulo = new Listcell("Título:");
+			listcellTitulo.setStyle("font-weight: bold; color: black;");
 			listcellTituloValor = new Listcell(item.getTitulo());
 			
 			listcellTitulo.setParent(listitemTitulo);
@@ -78,7 +103,8 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Autor ---//
 			Listitem listitemAutor = new Listitem();
 			Listcell listcellAutor = new Listcell("Autor:");
-			listcellAutorValor = new Listcell("AUTORRRR");
+			listcellAutor.setStyle("font-weight: bold; color: black;");
+			listcellAutorValor = new Listcell(item.getAutor().getNome());
 			
 			listcellAutor.setParent(listitemAutor);
 			listcellAutorValor.setParent(listitemAutor);
@@ -87,6 +113,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Criado Em ---//
 			Listitem listitemCriadoEm = new Listitem();
 			Listcell listcellCriadoEm = new Listcell("Criado em:");
+			listcellCriadoEm.setStyle("font-weight: bold; color: black;");
 			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 			listcellCriadoEmValor = new Listcell(formatador.format(item.getDataCriacao()));
 			
@@ -97,6 +124,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Tipo de Item de Conhecimento ---//				
 			Listitem listitemTipoItemConhecimento = new Listitem();
 			Listcell listcellTipoItemConhecimento = new Listcell("Tipo de Item de Conhecimento:");
+			listcellTipoItemConhecimento.setStyle("font-weight: bold; color: black;");
 			listcellTipoItemConhecimentoValor = new Listcell("Lição Aprendida");
 			
 			listcellTipoItemConhecimento.setParent(listitemTipoItemConhecimento);
@@ -106,6 +134,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Resumo ---//
 			Listitem listitemResumo = new Listitem();
 			Listcell listcellResumo = new Listcell("Resumo:");
+			listcellResumo.setStyle("font-weight: bold; color: black;");
 			listcellResumoValor = new Listcell(item.getResumo());
 			
 			listcellResumo.setParent(listitemResumo);
@@ -115,6 +144,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Aplicabilidade ---//
 			Listitem listitemAplicabilidade = new Listitem();
 			Listcell listcellAplicabilidade = new Listcell("Aplicabilidade:");
+			listcellAplicabilidade.setStyle("font-weight: bold; color: black;");
 			listcellAplicabilidadeValor = new Listcell(item.getAplicabilidade());
 			
 			listcellAplicabilidade.setParent(listitemAplicabilidade);
@@ -124,6 +154,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Tipo de Lição Aprendida ---//
 			Listitem listitemTipoLicaoAprendida = new Listitem();
 			Listcell listcellTipoLicaoAprendida = new Listcell("Tipo de Lição Aprendida:");
+			listcellTipoLicaoAprendida.setStyle("font-weight: bold; color: black;");
 			listcellTipoLicaoAprendidaValor = new Listcell(item.getTipo());
 			
 			listcellTipoLicaoAprendida.setParent(listitemTipoLicaoAprendida);
@@ -133,6 +164,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Descrição do Problema ---//
 			Listitem listitemDescricaoProblema = new Listitem();
 			Listcell listcellDescricaoProblema = new Listcell("Descrição do Problema:");
+			listcellDescricaoProblema.setStyle("font-weight: bold; color: black;");
 			listcellDescricaoProblemaValor = new Listcell(item.getDescricaoProblema());
 			
 			listcellDescricaoProblema.setParent(listitemDescricaoProblema);
@@ -142,6 +174,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Solução Adotada ou Recomendada ---//
 			Listitem listitemSolucaoAdotadaRecomendada = new Listitem();
 			Listcell listcellSolucaoAdotadaRecomendada = new Listcell("Solução Adotada ou Recomendada:");
+			listcellSolucaoAdotadaRecomendada.setStyle("font-weight: bold; color: black;");
 			listcellSolucaoAdotadaRecomendadaValor = new Listcell(item.getSolucaoAdotadaOuRecomendada());
 			
 			listcellSolucaoAdotadaRecomendada.setParent(listitemSolucaoAdotadaRecomendada);
@@ -151,6 +184,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Resultado Esperado ---//
 			Listitem listitemResultadoEsperado = new Listitem();
 			Listcell listcellResultadoEsperado = new Listcell("Resultado Esperado:");
+			listcellResultadoEsperado.setStyle("font-weight: bold; color: black;");
 			listcellResultadoEsperadoValor = new Listcell(item.getResultadoEsperado());
 			
 			listcellResultadoEsperado.setParent(listitemResultadoEsperado);
@@ -168,8 +202,18 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			
 			ConhecimentoRelativoDiscussao item = (ConhecimentoRelativoDiscussao) i;
 			
+			Listhead listhead = new Listhead();
+			Listheader listheader = new Listheader();
+			listheader.setWidth("150px");
+			Listheader listheader2 = new Listheader();
+			
+			listheader.setParent(listhead);
+			listheader2.setParent(listhead);
+			listhead.setParent(listbox);
+			
 			//--- linha Título ---//
 			Listcell listcellTitulo = new Listcell("Título:");
+			listcellTitulo.setStyle("font-weight: bold; color: black;");
 			listcellTituloValor = new Listcell(item.getTitulo());
 			
 			listcellTitulo.setParent(listitemTitulo);
@@ -179,7 +223,8 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Autor ---//
 			Listitem listitemAutor = new Listitem();
 			Listcell listcellAutor = new Listcell("Autor:");
-			listcellAutorValor = new Listcell("AUTORRRR");
+			listcellAutor.setStyle("font-weight: bold; color: black;");
+			listcellAutorValor = new Listcell(item.getAutor().getNome());
 			
 			listcellAutor.setParent(listitemAutor);
 			listcellAutorValor.setParent(listitemAutor);
@@ -188,6 +233,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Criado Em ---//
 			Listitem listitemCriadoEm = new Listitem();
 			Listcell listcellCriadoEm = new Listcell("Criado em:");
+			listcellCriadoEm.setStyle("font-weight: bold; color: black;");
 			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 			listcellCriadoEmValor = new Listcell(formatador.format(item.getDataCriacao()));
 			
@@ -198,6 +244,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Tipo de Item de Conhecimento ---//
 			Listitem listitemTipoItemConhecimento = new Listitem();
 			Listcell listcellTipoItemConhecimento = new Listcell("Tipo de Item de Conhecimento:");
+			listcellTipoItemConhecimento.setStyle("font-weight: bold; color: black;");
 			listcellTipoItemConhecimentoValor = new Listcell("Conhecimento Relativo a uma Discussão");
 			
 			listcellTipoItemConhecimento.setParent(listitemTipoItemConhecimento);
@@ -207,6 +254,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Resumo ---//
 			Listitem listitemResumo = new Listitem();
 			Listcell listcellResumo = new Listcell("Resumo:");
+			listcellResumo.setStyle("font-weight: bold; color: black;");
 			listcellResumoValor = new Listcell(item.getResumo());
 			
 			listcellResumo.setParent(listitemResumo);
@@ -216,6 +264,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Aplicabilidade ---//
 			Listitem listitemAplicabilidade = new Listitem();
 			Listcell listcellAplicabilidade = new Listcell("Aplicabilidade:");
+			listcellAplicabilidade.setStyle("font-weight: bold; color: black;");
 			listcellAplicabilidadeValor = new Listcell(item.getAplicabilidade());
 			
 			listcellAplicabilidade.setParent(listitemAplicabilidade);
@@ -225,6 +274,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Conhecimento Adquirido ---//
 			Listitem listitemConhecimentoAdquirido = new Listitem();
 			Listcell listcellConhecimentoAdquirido = new Listcell("Conhecimento Adquirido:");
+			listcellConhecimentoAdquirido.setStyle("font-weight: bold; color: black;");
 			listcellConhecimentoAdquiridoValor = new Listcell(item.getConhecimentoAdquirido());
 			
 			listcellConhecimentoAdquirido.setParent(listitemConhecimentoAdquirido);
@@ -234,6 +284,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Pontos Fortes ---//
 			Listitem listitemPontosFortes = new Listitem();
 			Listcell listcellPontosFortes = new Listcell("Pontos Fortes:");
+			listcellPontosFortes.setStyle("font-weight: bold; color: black;");
 			listcellPontosFortesValor = new Listcell(item.getPontosFortes());
 			
 			listcellPontosFortes.setParent(listitemPontosFortes);
@@ -243,6 +294,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Pontos Fracos ---//
 			Listitem listitemPontosFracos = new Listitem();
 			Listcell listcellPontosFracos = new Listcell("Pontos Fracos:");
+			listcellPontosFracos.setStyle("font-weight: bold; color: black;");
 			listcellPontosFracosValor = new Listcell(item.getPontosFracos());
 			
 			listcellPontosFracos.setParent(listitemPontosFracos);
@@ -252,6 +304,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			//--- linha Resultado Esperado ---//
 			Listitem listitemLinkDiscussao = new Listitem();
 			Listcell listcellLinkDiscussao = new Listcell("Link para a discussão:");
+			listcellLinkDiscussao.setStyle("font-weight: bold; color: black;");
 			listcellLinkDiscussaoValor = new Listcell(item.getLinkDiscussao());
 			
 			listcellLinkDiscussao.setParent(listitemLinkDiscussao);
@@ -261,109 +314,168 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 	}
 	
-	public void criarJanVisualizarItemConhecimento(){
+	public void preencherVisualizacaoDireita(Hbox hbox, ItemConhecimento item){
 		
-		this.setTitle("Visualizar Item de Conhecimento");
-		this.setBorder("normal");
-		
-		Hbox hbox = new Hbox();
-		
-		Tabbox tabboxVisualizarItemConhecimento = new Tabbox();
-		Tabs tabsVisualizarItemConhecimento = new Tabs();
-		
-		Tab tabInformacoes = new Tab("Informações");
-		Tab tabAvaliacoes = new Tab("Avaliações");
-		Tab tabValoracoes = new Tab("Valorações");
-		
-		tabInformacoes.setParent(tabsVisualizarItemConhecimento);
-		tabAvaliacoes.setParent(tabsVisualizarItemConhecimento);
-		tabValoracoes.setParent(tabsVisualizarItemConhecimento);
-		
-		tabsVisualizarItemConhecimento.setParent(tabboxVisualizarItemConhecimento);
-		
-		Tabpanels tabpanelsVisualizarItemConhecimento = new Tabpanels();
-		
-		Tabpanel tabpanelInformacoes = new Tabpanel();
-		
-		listbox.setSizedByContent(true);
-		listbox.setWidth("300px");
-		listbox.setHeight("400px");
-		
-		//cria licao aprendida teste
-		LicaoAprendida licaoTESTE = new LicaoAprendida();
-		licaoTESTE.setTitulo("tituloTESTE");
-		//licaoTESTE.setAutor(NucleoContexto.recuperarUsuarioLogado().)
-		licaoTESTE.setDataCriacao(new Date());
-		licaoTESTE.setResumo("resumoTESTE");
-		licaoTESTE.setResultadoEsperado("resumoTESTE");
-		licaoTESTE.setAplicabilidade("aplicabilidadeTESTE");
-		licaoTESTE.setTipo("sucesso");
-		licaoTESTE.setDescricaoProblema("descricaoProblemaTESTE");
-		licaoTESTE.setSolucaoAdotadaOuRecomendada("solucaoAdotadaOuRecomendadaTESTE");
-		licaoTESTE.setResultadoEsperado("resultadoEsperadoTESTE");
-		
-		//cria conhecimento relativo a uma discussao teste
-		ConhecimentoRelativoDiscussao conheTESTE = new ConhecimentoRelativoDiscussao();
-		conheTESTE.setTitulo("tituloTESTE");
-		//conheTESTE(NucleoContexto.recuperarUsuarioLogado().)
-		conheTESTE.setDataCriacao(new Date());
-		conheTESTE.setResumo("resumoTESTE");
-		conheTESTE.setAplicabilidade("aplicabilidadeTESTE");
-		conheTESTE.setConhecimentoAdquirido("conhecimentoAdquiridoTESTE");
-		conheTESTE.setPontosFortes("pontosFortesTESTE");
-		conheTESTE.setPontosFracos("pontosFracosTESTE");
-		conheTESTE.setLinkDiscussao("linkDiscussaoTESTE");
-		
-		preencherListbox(licaoTESTE);
-		
-		listbox.setParent(hbox);
-			
 		Vbox vboxInformacoes = new Vbox();
 		
 		Label labelResumoValoracoes = new Label("Resumo das Valorações:");
 		labelResumoValoracoes.setStyle("font-weight: bold; color: blue;");
+		labelResumoValoracoes.setParent(vboxInformacoes);
+		
 		Label labelMediaNotas = new Label("Média das Notas: " + "INTEIRO");
+		labelMediaNotas.setParent(vboxInformacoes);
+		
 		Label labelQuantidade = new Label("Quantidade: " + "INTEIRO");
+		labelQuantidade.setParent(vboxInformacoes);
+		
 		Label labelPositivas = new Label("Positivas: " + "INTEIRO" + "%");
+		labelPositivas.setParent(vboxInformacoes);
+		
 		Label labelNegativas = new Label("Negativas: " + "INTEIRO" + "%");
+		labelNegativas.setParent(vboxInformacoes);
+		
 		Label labelNeutras = new Label("Neutras: " + "INTEIRO" + "%");
+		labelNeutras.setParent(vboxInformacoes);
+		
 		Label labelAcessos = new Label("Acessos:");
+		labelAcessos.setParent(vboxInformacoes);
 		labelAcessos.setStyle("font-weight: bold; color: blue;");
+		
 		Label labelQtdeAcessos = new Label("Quantidade: " + "INTEIRO");
+		labelQtdeAcessos.setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Projetos relacionados
+		//////////////////////////////////////////
+		Vbox vboxProjetos = new Vbox();
+		
 		Label labelProjetosRelacionados = new Label("Projetos Relacionados:");
+		labelProjetosRelacionados.setParent(vboxProjetos);
 		labelProjetosRelacionados.setStyle("font-weight: bold; color: blue;");
+		
+		Collection<Projeto> projetos = item.getProjetos();
+		for (Projeto projeto : projetos){
+			Label nomeProjeto = new Label(projeto.getNome());
+			nomeProjeto.setParent(vboxProjetos);
+			
+		}
+		
+		vboxProjetos.setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Atividades relacionados
+		//////////////////////////////////////////
+		
+		Vbox vboxAtividades = new Vbox();
+		
 		Label labelAtividadesRelacionados = new Label("Atividades Relacionadas:");
+		labelAtividadesRelacionados.setParent(vboxAtividades);
 		labelAtividadesRelacionados.setStyle("font-weight: bold; color: blue;");
-		Label labelDominiosRelacionados = new Label("Domínios Relacionados:");
-		labelDominiosRelacionados.setStyle("font-weight: bold; color: blue;");
+		
+		Collection<KAtividade> atividades = item.getkAtividades();
+		for (KAtividade atividade : atividades){
+			Label nomeKAtividade = new Label(atividade.getNome());
+			nomeKAtividade.setParent(vboxAtividades);
+		}
+		
+		vboxAtividades.setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Temas relacionados
+		//////////////////////////////////////////
+		
+		Vbox vboxTemasRelacionados = new Vbox();
+		
+		Label labelTemasRelacionados = new Label("Temas Relacionados:");
+		labelTemasRelacionados.setParent(vboxTemasRelacionados);
+		labelTemasRelacionados.setStyle("font-weight: bold; color: blue;");
+		
+		Collection<Tema> temas = item.getTemas();
+		for (Tema tema : temas){
+			Label nomeTema = new Label(tema.getNome());
+			nomeTema.setParent(vboxTemasRelacionados);
+		}
+		
+		vboxTemasRelacionados.setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Itens relacionados
+		//////////////////////////////////////////
+		
+		Vbox vboxItensRelacionados = new Vbox();
+		
 		Label labelItensRelacionados = new Label("Itens Relacionados:");
+		labelItensRelacionados.setParent(vboxItensRelacionados);
 		labelItensRelacionados.setStyle("font-weight: bold; color: blue;");
 		
-		labelResumoValoracoes.setParent(vboxInformacoes);
-		labelMediaNotas.setParent(vboxInformacoes);
-		labelQuantidade.setParent(vboxInformacoes);
-		labelPositivas.setParent(vboxInformacoes);
-		labelNegativas.setParent(vboxInformacoes);
-		labelNeutras.setParent(vboxInformacoes);
-		labelAcessos.setParent(vboxInformacoes);
-		labelQtdeAcessos.setParent(vboxInformacoes);
-		labelProjetosRelacionados.setParent(vboxInformacoes);
-		labelAtividadesRelacionados.setParent(vboxInformacoes);
-		labelDominiosRelacionados.setParent(vboxInformacoes);
-		labelItensRelacionados.setParent(vboxInformacoes);
+		Collection<ItemConhecimento> itens = item.getItensRelacionados();
+		for (ItemConhecimento itemConhecimento : itens){
+			Label itensRelacionados = new Label(itemConhecimento.getTitulo());
+			itensRelacionados.setParent(vboxItensRelacionados);
+		}
+		
+		vboxItensRelacionados.setParent(vboxInformacoes);
 		
 		vboxInformacoes.setParent(hbox);
 		
+	}
+	
+	public void preencherAbaInformacoes(Object item){
+		
+		Hbox hbox = new Hbox();
+		
+		listbox.setWidth("380px");
+		listbox.setHeight("345px");
+		
+		ItemConhecimento itemConhecimento = (ItemConhecimento) item; 
+		
+		preencherVisualizacaoEsquerda(itemConhecimento);
+		listbox.setParent(hbox);
+		
+		preencherVisualizacaoDireita(hbox, itemConhecimento);
+	
 		hbox.setParent(tabpanelInformacoes);
-		tabpanelInformacoes.setParent(tabpanelsVisualizarItemConhecimento);
 		
-
+	}
+	
+	public void preencherAbaAvaliacoes(Object item){
 		
-		Tabpanel tabpanelAvaliacoes = new Tabpanel();
-		Tabpanel tabpanelValoracoes = new Tabpanel();
+	}
+	
+	public void preencherAbaValoracoes(Object item){
 		
+	}
+	
+	public void criarJanVisualizarItemConhecimento(Object item){
+		
+		this.setTitle("Visualizar Item de Conhecimento");
+		this.setBorder("normal");
+		
+		
+		Tabbox tabboxVisualizarItemConhecimento = new Tabbox();
+		tabboxVisualizarItemConhecimento.setHeight("380px");
+		Tabs tabsVisualizarItemConhecimento = new Tabs();
+		
+		tabInformacoes.setParent(tabsVisualizarItemConhecimento);
+		tabAvaliacoes.setParent(tabsVisualizarItemConhecimento);
+		tabValoracoes.setParent(tabsVisualizarItemConhecimento);
+		tabsVisualizarItemConhecimento.setParent(tabboxVisualizarItemConhecimento);
+		
+		Tabpanels tabpanelsVisualizarItemConhecimento = new Tabpanels();
+	
 		tabpanelsVisualizarItemConhecimento.setParent(tabboxVisualizarItemConhecimento);
 		tabboxVisualizarItemConhecimento.setParent(this);
+		
+		preencherAbaInformacoes(item);
+		tabpanelInformacoes.setStyle("overflow:auto;");
+		tabpanelInformacoes.setParent(tabpanelsVisualizarItemConhecimento);
+		
+		preencherAbaAvaliacoes(item);
+		tabpanelAvaliacoes.setParent(tabpanelsVisualizarItemConhecimento);
+		
+		preencherAbaValoracoes(item);
+		tabpanelValoracoes.setParent(tabpanelsVisualizarItemConhecimento);
+
 		
 		Button botaoVoltar = new Button("Voltar");
 		Button botaoValorar = new Button("Valorar");
@@ -374,6 +486,9 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
+				
+				//o ideal eh voltar para a pesquisa anterior
+				ctrlGerenciaConhecimento.exibirJanelaBuscarItensConhecimento();
 			
 			}
 		});

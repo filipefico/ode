@@ -58,14 +58,20 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		//listbox	
 		Listhead colunas = new Listhead();;
 		Listheader colunaRadioButton = new Listheader(" ");
-		Listheader colunaTitulo = new Listheader("Título");
-		Listheader colunaInformacoes = new Listheader("Informações");
-		Listheader colunaAvaliadoresSelecionados = new Listheader("Avaliadores Selecionados");
-		
 		colunaRadioButton.setWidth("30px");
+		Listheader colunaTitulo = new Listheader("Título");
+		colunaTitulo.setWidth("120px");
+		Listheader colunaInformacoes = new Listheader("Informações");
+		colunaInformacoes.setWidth("250px");
+		Listheader colunaAvaliadoresSelecionados = new Listheader("Avaliadores Selecionados");
+		colunaAvaliadoresSelecionados.setWidth("165px");
+		
+		
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
 		listboxQtdeItens.setSizedByContent(true);
+		listboxQtdeItens.setWidth("580px");
+		listboxQtdeItens.setHeight("350px");
 		
 		colunaRadioButton.setParent(colunas);
 		colunaTitulo.setParent(colunas);
@@ -90,7 +96,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
+			//	ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
 				
 			}
 		});

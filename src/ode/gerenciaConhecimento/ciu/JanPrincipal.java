@@ -1,6 +1,6 @@
 package ode.gerenciaConhecimento.ciu;
 
-
+//// testeeeeeeeee /////////
 import java.util.List;
 
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
@@ -100,7 +100,7 @@ public class JanPrincipal extends Borderlayout{
 			
 		painelCentro.setTitle("Bem-vindo ao Portal de Gerência de Conhecimento");
 		painelCentro.setClosable(true);
-		
+			
 		painelChildrenCentro.setParent(painelCentro);
 		painelCentro.setParent(center);
 		center.setParent(this);
@@ -218,8 +218,20 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenFerramApoioColab = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		Toolbarbutton toolbarbuttonPaginasAmarelas = criarToolBarButton(vlayout,"Páginas Amarelas","/imagens/vcard.png");	
-		Toolbarbutton toolbarbuttonForunsDiscussao = criarToolBarButton(vlayout,"Fóruns de Discussão","/imagens/edu_languages.png");
+
+		Toolbarbutton toolbarbuttonPaginasAmarelas = criarToolBarButton(vlayout,"Páginas Amarelas","/imagens/vcard.png");
+		toolbarbuttonPaginasAmarelas.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+			//	ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasListaBuscarPessoas();
+			}
+		});
+		
+		Toolbarbutton toolbarbuttonForunsDiscussao = criarToolBarButton(vlayout,"Fóruns de Discussão","/imagens/edu_languages.png");	
+
 		
 		vlayout.setParent(painelchildrenFerramApoioColab);
 		painelchildrenFerramApoioColab.setParent(ferramApoioColab);
@@ -258,8 +270,8 @@ public class JanPrincipal extends Borderlayout{
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-			//	ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
-				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
+			//	ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
 				
 			}
 		});
