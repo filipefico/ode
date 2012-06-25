@@ -203,6 +203,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 	public Tabbox criarAbasCriarLicaoAprendida() {
 
 		Tabbox tabbox = new Tabbox();
+		tabbox.setHeight("380px");
 		Tabs tabs = new Tabs();
 		Tabpanels tabpanels = new Tabpanels();
 
@@ -272,7 +273,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 
 		labelTitulo.setValue("Título:");
 		textboxTitulo.setText("");
-		textboxTitulo.setWidth("435px");
+		textboxTitulo.setWidth("430px");
 
 		labelTitulo.setParent(linhaTitulo);
 		textboxTitulo.setParent(linhaTitulo);
@@ -287,7 +288,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 		labelResumo.setValue("Resumo:");
 		textboxResumo.setText("");
 		textboxResumo.setHeight("100px");
-		textboxResumo.setWidth("435px");
+		textboxResumo.setWidth("430px");
 		textboxResumo.setRows(3);
 
 		labelResumo.setParent(linhaResumo);
@@ -303,7 +304,7 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 		labelAplicabilidade.setValue("Aplicabilidade:");
 		textboxAplicabilidade.setText("");
 		textboxAplicabilidade.setHeight("100px");
-		textboxAplicabilidade.setWidth("435px");
+		textboxAplicabilidade.setWidth("430px");
 		textboxAplicabilidade.setRows(3);
 
 		labelAplicabilidade.setParent(linhaAplicabilidade);
@@ -325,6 +326,8 @@ public class JanCriarConhecimentoRelativoDiscussao extends Window {
 	public Tabpanel criarTabInfoEspecifica() {
 
 		Tabpanel tabpainel = new Tabpanel();
+		tabpainel.setStyle("overflow:auto;");
+		tabpainel.setHeight("350px");
 	
 		Grid grid = new Grid();
 		Rows rows = new Rows();

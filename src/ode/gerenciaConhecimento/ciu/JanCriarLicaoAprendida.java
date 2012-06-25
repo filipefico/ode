@@ -204,6 +204,7 @@ public class JanCriarLicaoAprendida extends Window {
 	public Tabbox criarAbasCriarLicaoAprendida(){
 
 		Tabbox tabbox = new Tabbox();
+		tabbox.setHeight("380px");
 		Tabs tabs = new Tabs();
 		Tabpanels tabpanels = new Tabpanels();
 
@@ -272,7 +273,7 @@ public class JanCriarLicaoAprendida extends Window {
 
 		labelTitulo.setValue("Título:");
 		textboxTitulo.setText("");
-		textboxTitulo.setWidth("435px");
+		textboxTitulo.setWidth("425px");
 
 		labelTitulo.setParent(linhaTitulo);
 		textboxTitulo.setParent(linhaTitulo);
@@ -287,7 +288,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelResumo.setValue("Resumo:");
 		textboxResumo.setText("");
 		textboxResumo.setHeight("100px");
-		textboxResumo.setWidth("435px");
+		textboxResumo.setWidth("425px");
 		textboxResumo.setRows(3);
 
 		labelResumo.setParent(linhaResumo);
@@ -303,7 +304,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelAplicabilidade.setValue("Aplicabilidade:");
 		textboxAplicabilidade.setText("");
 		textboxAplicabilidade.setHeight("100px");
-		textboxAplicabilidade.setWidth("435px");
+		textboxAplicabilidade.setWidth("425px");
 		textboxAplicabilidade.setRows(3);
 
 		labelAplicabilidade.setParent(linhaAplicabilidade);
@@ -325,7 +326,9 @@ public class JanCriarLicaoAprendida extends Window {
 	public Tabpanel criarTabInfoEspecifica(){
 
 		Tabpanel tabpainel = new Tabpanel();
-	
+		tabpainel.setStyle("overflow:auto;");
+		tabpainel.setHeight("200px");
+	//	tabpainel.setHeight("500px");
 		Grid grid = new Grid();
 		Rows rows = new Rows();
 
@@ -360,7 +363,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelDescricaoProblema.setValue("Descrição do Problema");
 		textboxDescricaoProblema.setText("");
 		textboxDescricaoProblema.setHeight("100px");
-		textboxDescricaoProblema.setWidth("337px");
+		textboxDescricaoProblema.setWidth("315px");
 		textboxDescricaoProblema.setRows(3);
 
 		labelDescricaoProblema.setParent(linhaDescricaoProblema);
@@ -376,7 +379,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelSolucaoAdotadaRecomendada.setValue("Solução Adotada ou Recomendada:");
 		textboxSolucaoAdotadaRecomendada.setText("");
 		textboxSolucaoAdotadaRecomendada.setHeight("100px");
-		textboxSolucaoAdotadaRecomendada.setWidth("337px");
+		textboxSolucaoAdotadaRecomendada.setWidth("315px");
 		textboxSolucaoAdotadaRecomendada.setRows(3);
 
 		labelSolucaoAdotadaRecomendada.setParent(linhaSolucaoAdotadaRecomendada);
@@ -392,7 +395,7 @@ public class JanCriarLicaoAprendida extends Window {
 		labelResultadoEsperado.setValue("Resultado Esperado:");
 		textboxResultadoEsperado.setText("");
 		textboxResultadoEsperado.setHeight("100px");
-		textboxResultadoEsperado.setWidth("337px");
+		textboxResultadoEsperado.setWidth("315px");
 		textboxResultadoEsperado.setRows(3);
 
 		labelResultadoEsperado.setParent(linhaResultadoEsperado);

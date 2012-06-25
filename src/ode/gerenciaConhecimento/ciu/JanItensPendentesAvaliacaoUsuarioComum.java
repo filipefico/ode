@@ -65,15 +65,22 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 		//listbox	
 		Listhead colunas = new Listhead();;
 		Listheader colunaRadioButton = new Listheader(" ");
-		Listheader colunaTitulo = new Listheader("Título");
-		Listheader colunaAutor = new Listheader("Autor");
-		Listheader colunaDataCriacao = new Listheader("Data de Criação");
-		Listheader colunaTipo = new Listheader("Tipo");
-		
 		colunaRadioButton.setWidth("30px");
+		Listheader colunaTitulo = new Listheader("Título");
+		colunaTitulo.setWidth("180px");
+		Listheader colunaAutor = new Listheader("Autor");
+		colunaAutor.setWidth("130px");
+		Listheader colunaDataCriacao = new Listheader("Data de Criação");
+		colunaDataCriacao.setWidth("100px");
+		Listheader colunaTipo = new Listheader("Tipo");
+		colunaTipo.setWidth("140px");
+		
+		
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
 		listboxQtdeItens.setSizedByContent(true);
+		listboxQtdeItens.setWidth("580px");
+		listboxQtdeItens.setHeight("350px");
 		
 		colunaRadioButton.setParent(colunas);
 		colunaTitulo.setParent(colunas);
@@ -96,7 +103,7 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
+				//ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
 				
 			}
 		});

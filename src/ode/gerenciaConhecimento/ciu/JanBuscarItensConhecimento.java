@@ -77,7 +77,7 @@ public class JanBuscarItensConhecimento extends Window {
 	void criarJanBuscarItensConhecimento(){
 
 
-		//	this.setHeight("500px");
+		//	this.setHeight("400px");
 		this.setTitle("Buscar Itens de Conhecimento");
 		this.setBorder("normal");
 
@@ -85,6 +85,7 @@ public class JanBuscarItensConhecimento extends Window {
 
 		Tabs tabs = new Tabs();
 		Tab tabCriterios = new Tab("Critérios");
+		tabbox.setHeight("380px");
 
 		tabCriterios.setParent(tabs);
 		tabs.setParent(tabbox);

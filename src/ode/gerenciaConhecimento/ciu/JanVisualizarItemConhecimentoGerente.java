@@ -461,6 +461,7 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 		this.setBorder("normal");
 		
 		Tabbox tabboxVisualizarItemConhecimento = new Tabbox();
+		tabboxVisualizarItemConhecimento.setHeight("380px");
 		Tabs tabsVisualizarItemConhecimento = new Tabs();
 		
 		Tab tabInformacoes = new Tab("Informações");

@@ -66,6 +66,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 	
 	public void preencherListboxItensEncontrados(){
 		
+		
 		for (ItemConhecimento item : this.itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
@@ -81,13 +82,11 @@ public class JanListaBuscarItensConhecimento extends Window {
 		//coluna conteudo
 		Listcell listcellConteudo = new Listcell();
 		Vbox vboxConteudo = new Vbox();
-		vboxConteudo.setWidth("200px");
 		labelTitulo = new Label(item.getTitulo());
 		labelTitulo.setStyle("font-weight: bold; font-style: italic;color: black;");
 		labelTitulo.setParent(vboxConteudo);
 		labelResumo = new Label(item.getResumo());
 		labelResumo.setMultiline(true);
-		labelResumo.setWidth("200px");
 		labelResumo.setParent(vboxConteudo);
 		vboxConteudo.setParent(listcellConteudo);
 		
@@ -186,14 +185,19 @@ public class JanListaBuscarItensConhecimento extends Window {
 		listboxBuscarItensConhecimento.setMultiple(false);
 		listboxBuscarItensConhecimento.setCheckmark(true);
 		listboxBuscarItensConhecimento.setSizedByContent(true);
-		listboxBuscarItensConhecimento.setWidth("560px");
+		listboxBuscarItensConhecimento.setHeight("350px");
+		listboxBuscarItensConhecimento.setWidth("580px");
+		
 		
 		Listhead listheadBuscarItensConhecimento = new Listhead();
 		Listheader listheaderRadio = new Listheader(" ");
+		listheaderRadio.setWidth("25px");
 		Listheader listheaderConteudo = new Listheader("Conteúdo");
-		listheaderConteudo.setWidth("200px");
+		listheaderConteudo.setWidth("185px");
 		Listheader listheaderValoracoes = new Listheader("Valorações");
+		listheaderValoracoes.setWidth("133px");
 		Listheader listheaderInformacoes = new Listheader("Informações");
+		listheaderInformacoes.setWidth("220px");
 		
 		listheaderRadio.setParent(listheadBuscarItensConhecimento);
 		listheaderConteudo.setParent(listheadBuscarItensConhecimento);
@@ -214,7 +218,12 @@ public class JanListaBuscarItensConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
+
+				Object objeto = new Object();
+				if (listboxBuscarItensConhecimento.getSelectedItem() != null) {
+					objeto =  listboxBuscarItensConhecimento.getSelectedItem().getValue();
+				} 
+				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(objeto);
 			}
 		});
 		
@@ -223,7 +232,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				
+				ctrlGerenciaConhecimento.exibirJanelaBuscarItensConhecimento();
 			}
 		});
 
