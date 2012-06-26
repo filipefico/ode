@@ -37,6 +37,7 @@ import ode.controleProjeto.ciu.CtrlSelecionarProjeto;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
 import ode.controleUsuario.ciu.CtrlUsuarioCRUD;
+import ode.entidadeProblema.cci.CtrlEntidadeProblema;
 import ode.gerenciaConhecimento.ciu.CtrlGerenciaConhecimento;
 import ode.gerenciaConhecimento.ciu.CtrlTema;
 import ode.gerenciaRequisitos.cci.CtrlCRUDRequisito;
@@ -52,8 +53,16 @@ import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
 import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoProjeto;
 import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaOrganizacao;
 import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaProjeto;
+import ode.problema.ciu.CtrlKCategoriaProblemaCRUD;
+import ode.problema.ciu.CtrlKCausaCRUD;
+import ode.problema.ciu.CtrlKCriterioSelecaoSolucaoCRUD;
+import ode.problema.ciu.CtrlKProblemaCRUD;
+import ode.problema.ciu.CtrlKSolucaoCRUD;
 import ode.pgds.cci.CtrlImportarProjeto;
 import ode.processoPadrao.ciu.CtrlDefinirProcessoPadrao;
+import ode.resolucaoProblema.ciu.CtrlOcorrenciaProblema;
+import ode.resolucaoProblema.ciu.CtrlRegistrarResultadoSolucao;
+import ode.resolucaoProblema.ciu.CtrlResolverProblema;
 import ode.uml.cci.CtrlCRUDCasoUso;
 import ode.uml.cci.CtrlCRUDClasse;
 import ode.uml.cci.CtrlCRUDPacote;
@@ -133,6 +142,24 @@ public static List<Funcionalidade> obterFuncionalidades() {
 							)
 					.addSubfuncionalidade(criar("Periodicidade").setCtrl(CtrlKPeriodicidadeCRUD.class))
 				)
+				.addSubfuncionalidade(criar("Problema")
+				.addSubfuncionalidade(criar("Problema").setCtrl(CtrlKProblemaCRUD.class))
+				.addSubfuncionalidade(criar("Solução").setCtrl(CtrlKSolucaoCRUD.class))
+				.addSubfuncionalidade(criar("Causa").setCtrl(CtrlKCausaCRUD.class))
+			    .addSubfuncionalidade(criar("Categoria Problema").setCtrl(CtrlKCategoriaProblemaCRUD.class))
+			    .addSubfuncionalidade(criar("Critério Seleção Solução").setCtrl(CtrlKCriterioSelecaoSolucaoCRUD.class))
+
+			)
+		);
+		funcionalidades.add(criar("Entidade Problema")
+				.addSubfuncionalidade(criar("Entidade Problema").setCtrl(CtrlEntidadeProblema.class)
+					)
+		);
+		funcionalidades.add(criar("ResolucaoProblema")
+				.addSubfuncionalidade(criar("Ocorrencia Problema").setCtrl(CtrlOcorrenciaProblema.class))
+				.addSubfuncionalidade(criar("Resolver Problema").setCtrl(CtrlResolverProblema.class))
+				.addSubfuncionalidade(criar("Registrar Resultado Solucao").setCtrl(CtrlRegistrarResultadoSolucao.class))
+				
 		);
 		
 		funcionalidades.add(criar("Medição")
