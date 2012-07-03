@@ -15,7 +15,9 @@ import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
+import ode.gerenciaConhecimento.cdp.Valoracao;
 import ode.gerenciaConhecimento.cgd.ItemConhecimentoDAO;
+import ode.gerenciaConhecimento.cgd.ValoracaoDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,9 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 
 	@Autowired
 	ItemConhecimentoDAO itemConhecimentoDAO;
+	
+	@Autowired
+	AplCadastrarValoracao aplCadastrarValoracao;
 
 	@Autowired
 	AplCadastrarConhecimentoRelativoDiscussao aplCadastrarConhecimentoRelativoDiscussao;
@@ -115,4 +120,18 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 		return i == null ? null : new Long(i);
 	}
 
+	public void adicionarValoracao(Valoracao valoracao, ItemConhecimento itemConhecimento){
+		try {
+		itemConhecimento = this.recuperarPorId(itemConhecimento.getId());
+		
+		valoracao.setItemConhecimentoAvaliado(itemConhecimento);
+		
+		aplCadastrarValoracao.salvar(valoracao);
+		
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
