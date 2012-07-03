@@ -61,10 +61,14 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 	Listcell listcellPontosFracosValor;
 	Listcell listcellLinkDiscussaoValor;
 	
+	ItemConhecimento itemConhecimento;
+	
 	public JanVisualizarItemConhecimentoUsuarioComum(CtrlGerenciaConhecimento ctrl, Object item) {
 		// TODO Auto-generated constructor stub
 	
 		ctrlGerenciaConhecimento = ctrl;
+		
+		itemConhecimento = (ItemConhecimento) item;
 		
 		criarJanVisualizarItemConhecimento(item);
 	}
@@ -497,8 +501,8 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaValorarItemConhecimento();
+				
+				ctrlGerenciaConhecimento.exibirJanelaValorarItemConhecimento(itemConhecimento);
 			}
 		});
 

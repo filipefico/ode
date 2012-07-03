@@ -14,6 +14,7 @@ import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
+import ode.gerenciaConhecimento.cdp.Valoracao;
 import ode.gerenciaConhecimento.cgt.AplCadastrarConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cgt.AplCadastrarItemConhecimento;
 import ode.gerenciaConhecimento.cgt.AplCadastrarLicaoAprendida;
@@ -123,9 +124,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		
 	}
 
-	public void exibirJanelaValorarItemConhecimento(){
+	public void exibirJanelaValorarItemConhecimento(ItemConhecimento itemConhecimento){
 		
-		janValorarItemConhecimento = new JanValorarItemConhecimento(this);
+		janValorarItemConhecimento = new JanValorarItemConhecimento(this, itemConhecimento);
 		
 		janP.mostrarJanelaConteudo(janValorarItemConhecimento);
 		
@@ -259,6 +260,10 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	public int recuperarQuantidadeTotalMembros(){
 		return this.aplCadastrarRecursoHumano.recuperarQuantidadeTotal();
+	}
+	
+	public void adicionarValoracao(Valoracao valoracao, ItemConhecimento itemConhecimento){
+		this.aplCadastrarItemConhecimento.adicionarValoracao(valoracao, itemConhecimento);
 	}
 
 }

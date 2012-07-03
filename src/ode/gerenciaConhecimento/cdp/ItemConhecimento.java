@@ -1,13 +1,16 @@
 package ode.gerenciaConhecimento.cdp;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,6 +31,12 @@ public class ItemConhecimento extends ObjetoPersistente {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public static String ESTADO_AGUARDANDO_AVALIACAO = "Aguardando Avaliação";
+	
+	public static String ESTADO_DISPONIVEL = "Disponível";
+	
+	public static String ESTADO_REJEITADO = "Rejeitado";
 	
 	private String titulo;
 	
@@ -54,6 +63,8 @@ public class ItemConhecimento extends ObjetoPersistente {
 	private Set<KAtividade> kAtividades = new HashSet<KAtividade>(); 
 	
 	private Set<Valoracao> valoracoes = new HashSet<Valoracao>();
+	
+	private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
 
 	public String getTitulo() {
 		return titulo;
@@ -158,13 +169,24 @@ public class ItemConhecimento extends ObjetoPersistente {
 		this.kAtividades = kAtividades;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="ITEMCONHECIMENTOAVALIADO_ID", referencedColumnName="ID")
 	public Set<Valoracao> getValoracoes() {
 		return valoracoes;
 	}
 
 	public void setValoracoes(Set<Valoracao> valoracoes) {
 		this.valoracoes = valoracoes;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="ITEMCONHECIMENTOAVALIADO_ID", referencedColumnName="ID")
+	public Set<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 
 	/**
@@ -180,9 +202,9 @@ public class ItemConhecimento extends ObjetoPersistente {
 		int neutras = 0;
 
 		for (Valoracao valoracao : valoracoes) {
-			if (valoracao.getGrauUtilidade() < 0)
+			if (valoracao.getGrauUtilidade().compareTo(new BigDecimal(0)) < 0)
 				negativas++;
-			else if (valoracao.getGrauUtilidade() == 0)
+			else if (valoracao.getGrauUtilidade().compareTo(new BigDecimal(0)) == 0)
 				neutras++;
 			else 
 				positivas++;
@@ -196,5 +218,12 @@ public class ItemConhecimento extends ObjetoPersistente {
 		return positivas;
 
 	}
+	
+	public void addValoracao(Valoracao valoracao) {
+        this.valoracoes.add(valoracao);
+        if (valoracao.getItemConhecimentoAvaliado() != this) {
+            valoracao.setItemConhecimentoAvaliado(this);
+        }
+    }
 	
 }

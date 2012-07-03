@@ -222,7 +222,9 @@ public class JanListaBuscarItensConhecimento extends Window {
 				Object objeto = new Object();
 				if (listboxBuscarItensConhecimento.getSelectedItem() != null) {
 					objeto =  listboxBuscarItensConhecimento.getSelectedItem().getValue();
-				} 
+				}
+				((ItemConhecimento)objeto).setQuantidadeAcessos(((ItemConhecimento)objeto).getQuantidadeAcessos() + 1);
+				ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.salvar((ItemConhecimento)objeto);
 				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(objeto);
 			}
 		});

@@ -1,8 +1,11 @@
 package ode.gerenciaConhecimento.ciu;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
-import org.zkoss.math.BigDecimals;
+import ode._infraestruturaBase.util.NucleoContexto;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
+import ode.gerenciaConhecimento.cdp.Valoracao;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
@@ -37,10 +40,14 @@ public class JanValorarItemConhecimento extends Window {
 	Decimalbox decimalboxGrauUtilidade;
 	Textbox textboxComentario;
 	
-	public JanValorarItemConhecimento(CtrlGerenciaConhecimento ctrl) {
+	ItemConhecimento itemConhecimento;
+	
+	public JanValorarItemConhecimento(CtrlGerenciaConhecimento ctrl, ItemConhecimento itemConhecimento) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
+		
+		this.itemConhecimento = itemConhecimento;
 		
 		criarJanValorarItemConhecimento();
 	}
@@ -180,8 +187,12 @@ public class JanValorarItemConhecimento extends Window {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				
+				Valoracao valoracao = new Valoracao();
+				valoracao.setGrauUtilidade(decimalboxGrauUtilidade.getValue());
+				valoracao.setComentario(textboxComentario.getValue());
+				valoracao.setAutor(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano());
+				valoracao.setDataValoracao(new Date());
+				ctrlGerenciaConhecimento.adicionarValoracao(valoracao, itemConhecimento);
 			}
 		});
 		
