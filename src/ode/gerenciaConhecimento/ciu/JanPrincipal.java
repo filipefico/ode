@@ -30,7 +30,6 @@ public class JanPrincipal extends Borderlayout{
 	private static final long serialVersionUID = 1L;
 
 	// ---- paineis do setor leste e oeste do borderlayout ---- //
-	Panel links;
 	Panel funcionalidades;
 	Panel ferramApoioColab;
 	Panel participacaoPortal;
@@ -58,7 +57,7 @@ public class JanPrincipal extends Borderlayout{
 		criaWest();
 		criaEast();
 		criaCenter();
-		
+				
 	}
 	
 	// --- funções que criam os setores leste, oeste e centro do borderlayout --- //
@@ -118,9 +117,6 @@ public class JanPrincipal extends Borderlayout{
 		west.setCollapsible(true);
 		vbox.setParent(west);
 		
-		criaPainelLinks();
-		links.setParent(vbox);
-		
 		criaPainelFuncionalidades();
 		funcionalidades.setParent(vbox);
 		
@@ -133,36 +129,6 @@ public class JanPrincipal extends Borderlayout{
 		criaPainelQtdeMembros();
 		qtdeMembros.setParent(vbox);
 		
-		
-	}
-	
-	
-
-	// --- funções que criam os paineis nos setores leste e oeste do borderlayout --- //
-
-	public void criaPainelLinks(){
-		links = new Panel();
-		
-		links.setTitle("Links");
-		links.setClosable(true);
-		links.setBorder("normal");
-		
-		Panelchildren painelchildrenLinks = new Panelchildren();
-		Vlayout vlayout = new Vlayout();
-	
-		Toolbarbutton toolbarbuttonPaginaInicial = criarToolBarButton(vlayout,"Página Inicial","/imagens/gohome.png");
-		toolbarbuttonPaginaInicial.addEventListener("onClick", new EventListener() {
-			
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		Toolbarbutton toolbarbuttonOdeWeb = criarToolBarButton(vlayout, "ODE Web","/imagens/krec_record.png");
-		
-		vlayout.setParent(painelchildrenLinks);
-		painelchildrenLinks.setParent(links);
 		
 	}
 	
@@ -219,14 +185,23 @@ public class JanPrincipal extends Borderlayout{
 		Vlayout vlayout = new Vlayout();
 		
 
+		Toolbarbutton toolbarbuttonMeusTemas = criarToolBarButton(vlayout,"Meus Temas de Interesse","/imagens/vcard.png");
+		toolbarbuttonMeusTemas.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				ctrlGerenciaConhecimento.exibirJanelaMeusTemasDeItenteresse();
+			}
+		});
+		
 		Toolbarbutton toolbarbuttonPaginasAmarelas = criarToolBarButton(vlayout,"Páginas Amarelas","/imagens/vcard.png");
 		toolbarbuttonPaginasAmarelas.addEventListener("onClick", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-			//	ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
-				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasListaBuscarPessoas();
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
 			}
 		});
 		
@@ -314,9 +289,10 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		criarToolBarButton(vlayout,"Estimar Custo de Software","/imagens/view_detailed.png");
-		criarToolBarButton(vlayout,"Linguagem de Programação Java","/imagens/view_detailed.png");
-		criarToolBarButton(vlayout,"Banco de Dados PostgreSQL","/imagens/view_detailed.png");
+		List<LicaoAprendida> licoes = ctrlGerenciaConhecimento.recuperarLicoesOrdenadoPorQuantidadeAcesso();
+		for (LicaoAprendida licao : licoes)
+			criarToolBarButton(vlayout,licao.getTitulo() + " (" + licao.getQuantidadeAcessos() + ")","/imagens/view_detailed.png");
+		
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(licoesMaisAcessadasPortal);
@@ -334,9 +310,9 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		criarToolBarButton(vlayout,"Estimar Custo de Software","/imagens/view_detailed.png");
-		criarToolBarButton(vlayout,"Linguagem de Programação Java","/imagens/view_detailed.png");
-		criarToolBarButton(vlayout,"Banco de Dados PostgreSQL","/imagens/view_detailed.png");
+		List<ConhecimentoRelativoDiscussao> itens = ctrlGerenciaConhecimento.recuperarItensDiscussaoOrdenadoPorQuantidadeAcesso();
+		for (ConhecimentoRelativoDiscussao item : itens)
+			criarToolBarButton(vlayout,item.getTitulo() + " (" + item.getQuantidadeAcessos() + ")","/imagens/view_detailed.png");
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(itensMaisAcessadosPortal);

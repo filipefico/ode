@@ -1,12 +1,19 @@
 package ode.gerenciaConhecimento.ciu;
 
+import java.util.Collection;
+import java.util.List;
+
+import ode._controleRecursoHumano.cdp.RecursoHumano;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
+import org.zkoss.zul.Listitem;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
@@ -41,10 +48,8 @@ public class JanPaginasAmarelasListaBuscarPessoas extends Window {
 		listbox.setMultiple(true);
 		listbox.setCheckmark(true);
 		
-		Vbox vbox = new Vbox();
-		
 		Label labelQtdePessoasEncontrados = new Label("Quantidade de Pessoas Encontradas: " + labelQtdePessoasEncontradasValor.getValue());
-		labelQtdePessoasEncontrados.setParent(vbox);
+		labelQtdePessoasEncontrados.setParent(this);
 		
 		Listhead listhead = new Listhead();
 		Listheader listheaderNome = new Listheader("Nome");
@@ -54,7 +59,7 @@ public class JanPaginasAmarelasListaBuscarPessoas extends Window {
 		listheaderContato.setParent(listhead);
 		listhead.setParent(listbox);
 		
-		listbox.setParent(vbox);
+		listbox.setParent(this);
 		
 		Button botaoVisualizar = new Button("Visualizar");
 		Button botaoSelecionar = new Button("Selecionar");
@@ -81,11 +86,22 @@ public class JanPaginasAmarelasListaBuscarPessoas extends Window {
 		toolbarInferior.appendChild(botaoSelecionar);
 		toolbarInferior.appendChild(botaoNovaBusca);
 
-		toolbarInferior.setParent(vbox);
+		toolbarInferior.setParent(this);
 		
-		vbox.setParent(this);
+		this.preencherLista();
 		
-		
+	}
+	
+	public void preencherLista(){
+		Collection<RecursoHumano> recursosHumanos = ctrlGerenciaConhecimento.recuperarRecursosHumanosAtivos();
+		for (RecursoHumano recursoHumano : recursosHumanos) {
+			Listitem listitem = new Listitem();
+			listitem.setParent(listbox);
+			
+			new Listcell(recursoHumano.getNome()).setParent(listitem);
+			new Listcell(recursoHumano.getTelefone() + " - " + recursoHumano.getEmail()).setParent(listitem);
+			
+		}
 	}
 	
 }
