@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
@@ -48,6 +49,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanVisualizarItemConhecimentoGerente janVisualizarItemConhecimentoGerente;
 	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
 	public JanPaginasAmarelasListaBuscarPessoas janPaginasAmarelasListaBuscarPessoas;
+	public JanMeusTemasDeInteresse janMeusTemasDeInteresse;
 
 
 	@Autowired
@@ -208,6 +210,14 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janCriarConhecimentoRelativoDiscussao);
 
 	}
+	
+	public void exibirJanelaMeusTemasDeItenteresse(){
+
+		janMeusTemasDeInteresse = new JanMeusTemasDeInteresse(this);
+
+		janP.mostrarJanelaConteudo(janMeusTemasDeInteresse);
+
+	}
 
 
 	public void salvarLicaoAprendida(LicaoAprendida la) {
@@ -266,4 +276,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		this.aplCadastrarItemConhecimento.adicionarValoracao(valoracao, itemConhecimento);
 	}
 
+	public Collection<RecursoHumano> recuperarRecursosHumanosAtivos(){
+		return aplCadastrarRecursoHumano.recuperarRecursosHumanosAtivos();
+	}
 }

@@ -50,10 +50,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		this.setTitle("Páginas Amarelas");
 		this.setBorder("normal");
 		
-		Vbox vboxPaginasAmarelas = new Vbox();
-		
 		Tabbox tabbox = new Tabbox();
-		tabbox.setWidth("400px");
 		Tabs tabs = new Tabs();
 		
 		Tab tabBuscarPessoas = new Tab("Buscar Pessoas");
@@ -63,7 +60,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		Tabpanels tabpanels = new Tabpanels();
 		Tabpanel tabpanelBuscarPessoas = new Tabpanel();
 		
-		listbox.setHeight("400px");
+		listbox.setHeight("300px");
 		listbox.setSizedByContent(true);
 		
 		//////////////////////////////////////////
@@ -134,7 +131,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		listboxAtividadesRelacionadas.setCheckmark(true);
 
 		Listhead colunasAtividadesRelacionadas = new Listhead();
-		Listheader colunaTitulo = new Listheader("Título");
+		Listheader colunaTitulo = new Listheader("Nome");
 		
 		colunaTitulo.setParent(colunasAtividadesRelacionadas);
 		colunasAtividadesRelacionadas.setParent(listboxAtividadesRelacionadas);
@@ -173,7 +170,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		Listcell listcellTemasValor = new Listcell();
 		
 		Listhead colunasTemasRelacionados = new Listhead();
-		Listheader colunaTituloTema = new Listheader("Título");
+		Listheader colunaTituloTema = new Listheader("Nome");
 
 		colunaTituloTema.setParent(colunasTemasRelacionados);
 		colunasTemasRelacionados.setParent(listboxTemasRelacionados);
@@ -198,7 +195,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		tabpanelBuscarPessoas.setParent(tabpanels);
 		tabpanels.setParent(tabbox);
 		
-		tabbox.setParent(vboxPaginasAmarelas);
+		tabbox.setParent(this);
 		
 		//botões
 		Button botaoBuscar = new Button("Buscar");
@@ -220,9 +217,8 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		toolbarInferior.appendChild(botaoBuscar);
 		toolbarInferior.appendChild(botaoCancelar);
 
-		toolbarInferior.setParent(vboxPaginasAmarelas);
+		toolbarInferior.setParent(this);
 		
-		vboxPaginasAmarelas.setParent(this);
 	}
 	
 }

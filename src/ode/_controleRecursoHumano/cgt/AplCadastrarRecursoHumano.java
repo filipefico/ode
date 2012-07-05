@@ -29,4 +29,7 @@ public class AplCadastrarRecursoHumano extends AplCRUD<RecursoHumano> {
 		return getNucleoDaoBase().recuperarTodosComOrdenacao("nome");
 	}
 
+	public Collection<RecursoHumano> recuperarRecursosHumanosAtivos(){
+		return recursoHumanoDAO.recuperarRecursosHumanosAtivos();
+	}
 }
