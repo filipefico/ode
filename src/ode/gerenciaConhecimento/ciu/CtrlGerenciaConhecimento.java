@@ -8,10 +8,13 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
+import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
+import ode.controleUsuario.cdp.Usuario;
+import ode.controleUsuario.cgt.AplCadastrarUsuario;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -72,6 +75,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	@Autowired
 	AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
+	
+	@Autowired
+	AplCadastrarUsuario aplCadastrarUsuario;
 
 	@Override
 	public void iniciar() {
@@ -278,5 +284,17 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	public Collection<RecursoHumano> recuperarRecursosHumanosAtivos(){
 		return aplCadastrarRecursoHumano.recuperarRecursosHumanosAtivos();
+	}
+	
+	public Usuario recuperarUsuarioPorID(Long id){
+		return aplCadastrarUsuario.recuperarPorId(id);
+	}
+	
+	public void salvarMeusTemas(RecursoHumano recursoHumano) {
+		try {
+			aplCadastrarRecursoHumano.salvar(recursoHumano);
+		} catch (NucleoRegraNegocioExcecao e) {
+			e.printStackTrace();
+		}
 	}
 }

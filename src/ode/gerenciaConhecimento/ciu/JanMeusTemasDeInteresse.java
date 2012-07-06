@@ -3,6 +3,7 @@ package ode.gerenciaConhecimento.ciu;
 import java.util.Collection;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
+import ode._infraestruturaBase.util.NucleoContexto;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.zkoss.zk.ui.event.Event;
@@ -12,6 +13,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Window;
 
@@ -29,6 +31,8 @@ public class JanMeusTemasDeInteresse extends Window {
 	public JanMeusTemasDeInteresse(CtrlGerenciaConhecimento ctrlGerenciaConhecimento) {
 		super();
 		
+		this.ctrlGerenciaConhecimento = ctrlGerenciaConhecimento;
+		
 		this.setTitle("Meus Temas de Intersse");
 		this.setBorder("normal");
 		
@@ -42,11 +46,14 @@ public class JanMeusTemasDeInteresse extends Window {
 		listboxTemasRelacionados.setCheckmark(true);
 
 		// Preenche temas no listbox
+		RecursoHumano recursoHumano = NucleoContexto.recuperarUsuarioLogado().getRecursoHumano();
 		Collection<Tema> temas = ctrlGerenciaConhecimento.aplCadastrarTema.recuperarTodos();
 		for (Tema tema : temas){
 			Listitem listitem = new Listitem(tema.getNome());
 			listitem.setValue(tema);
 			listitem.setParent(listboxTemasRelacionados);
+			if (recursoHumano.getTemasInteresse().contains(tema))
+				listitem.setSelected(true);
 		}
 		
 		listboxTemasRelacionados.setParent(this);
@@ -59,7 +66,15 @@ public class JanMeusTemasDeInteresse extends Window {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
+				salvar();
+			}
+		});
+		
+		botaoCancelar.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				JanMeusTemasDeInteresse.this.detach();
 			}
 		});
 
@@ -71,6 +86,24 @@ public class JanMeusTemasDeInteresse extends Window {
 		toolbarInferior.appendChild(botaoCancelar);
 
 		toolbarInferior.setParent(this);
+	}
+	
+	public void salvar(){
+		RecursoHumano recursoHumano = NucleoContexto.recuperarUsuarioLogado().getRecursoHumano();
+		recursoHumano.getTemasInteresse().clear();
+		
+		for (Object item : listboxTemasRelacionados.getSelectedItems()){
+			recursoHumano.getTemasInteresse().add((Tema)((Listitem)item).getValue());
+		}
+		
+		ctrlGerenciaConhecimento.salvarMeusTemas(recursoHumano);
+		
+		try {
+			Messagebox.show("Seus dados foram salvos com sucesso!");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+			
 	}
 
 }
