@@ -98,7 +98,6 @@ public class JanPrincipal extends Borderlayout{
 		painelChildrenCentro = new Panelchildren();
 			
 		painelCentro.setTitle("Bem-vindo ao Portal de Gerência de Conhecimento");
-		painelCentro.setClosable(true);
 			
 		painelChildrenCentro.setParent(painelCentro);
 		painelCentro.setParent(center);
