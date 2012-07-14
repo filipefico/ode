@@ -278,6 +278,7 @@ public class JanBuscarItensConhecimento extends Window {
 
 		listboxProjetosRelacionados.setMultiple(true);
 		listboxProjetosRelacionados.setCheckmark(true);
+		listboxProjetosRelacionados.setHeight("140px");
 
 		Listhead colunasProjetosRelacionados = new Listhead();
 		Listheader colunaNome = new Listheader("Nome");
@@ -307,6 +308,7 @@ public class JanBuscarItensConhecimento extends Window {
 
 		listboxKAtividadesRelacionadas.setMultiple(true);
 		listboxKAtividadesRelacionadas.setCheckmark(true);
+		listboxKAtividadesRelacionadas.setHeight("140px");
 
 		Listhead colunasAtividadesRelacionadas = new Listhead();
 		Listheader colunaTitulo2 = new Listheader("Título");
@@ -336,6 +338,7 @@ public class JanBuscarItensConhecimento extends Window {
 
 		listboxTemasRelacionados.setMultiple(true);
 		listboxTemasRelacionados.setCheckmark(true);
+		listboxTemasRelacionados.setHeight("140px");
 
 		Listhead colunasTemasRelacionados = new Listhead();
 		Listheader colunaTitulo1 = new Listheader("Título");

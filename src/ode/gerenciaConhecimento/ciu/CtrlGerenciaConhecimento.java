@@ -53,6 +53,8 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
 	public JanPaginasAmarelasListaBuscarPessoas janPaginasAmarelasListaBuscarPessoas;
 	public JanMeusTemasDeInteresse janMeusTemasDeInteresse;
+	public JanItensValorados janItensValorados;
+	public JanItensAvaliados janItensAvaliados;
 
 
 	@Autowired
@@ -113,6 +115,20 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		janP.mostrarJanelaConteudo(janBuscarItensConhecimento);
 
+	}
+	
+	public void exibirJanelaItensValorados(Collection<ItemConhecimento> itens){
+		
+		janItensValorados = new JanItensValorados(this, itens);
+		
+		janP.mostrarJanelaConteudo(janItensValorados);
+	}
+	
+	public void exibirJanelaItensAvaliados(Collection<ItemConhecimento> itens){
+		
+		janItensAvaliados = new JanItensAvaliados(this, itens);
+		
+		janP.mostrarJanelaConteudo(janItensAvaliados);
 	}
 
 	

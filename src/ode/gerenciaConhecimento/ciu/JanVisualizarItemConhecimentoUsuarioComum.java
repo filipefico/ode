@@ -1,5 +1,7 @@
 package ode.gerenciaConhecimento.ciu;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +13,7 @@ import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
+import ode.gerenciaConhecimento.cdp.Valoracao;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -62,6 +65,21 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 	Listcell listcellLinkDiscussaoValor;
 	
 	ItemConhecimento itemConhecimento;
+	
+	Listitem listitem;
+	Listbox listboxValoracoes = new Listbox();
+	
+	float positiva = 0;
+	float negativa = 0;
+	float neutra = 0;
+	int tamanho = 0;
+	double somaValoracao = 0;
+	
+	Label qtdeValoracoes;
+	Label percentualValoracoesPositivas;
+	Label percentualValoracoesNegativas;
+	Label percentualValoracoesNeutras;
+	Label valoracaoMedia;
 	
 	public JanVisualizarItemConhecimentoUsuarioComum(CtrlGerenciaConhecimento ctrl, Object item) {
 		// TODO Auto-generated constructor stub
@@ -326,26 +344,104 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		labelResumoValoracoes.setStyle("font-weight: bold; color: blue;");
 		labelResumoValoracoes.setParent(vboxInformacoes);
 		
-		Label labelMediaNotas = new Label("Média das Notas: " + "INTEIRO");
-		labelMediaNotas.setParent(vboxInformacoes);
+		Collection<Valoracao> valoracoes = item.getValoracoes();
 		
-		Label labelQuantidade = new Label("Quantidade: " + "INTEIRO");
-		labelQuantidade.setParent(vboxInformacoes);
+		tamanho = valoracoes.size();
 		
-		Label labelPositivas = new Label("Positivas: " + "INTEIRO" + "%");
+		qtdeValoracoes = new Label(Integer.toString(tamanho));
+		qtdeValoracoes.setStyle("font-weight: bold;");
+		Label labelQuantidades = new Label("Quantidade: " + qtdeValoracoes.getValue());
+		
+		for (Valoracao valoracao : valoracoes){
+			
+			BigDecimal bigDecimalPositiva1 = new BigDecimal("10.0");
+			BigDecimal bigDecimalPositiva2 = new BigDecimal("0.01");
+			
+			BigDecimal bigDecimalNegativa1 = new BigDecimal("-10.0");
+			BigDecimal bigDecimalNegativa2 = new BigDecimal("-0.01");
+			
+			BigDecimal bigDecimalNeutra = new BigDecimal("0.00");
+			
+			BigDecimal utilidade;
+			utilidade = valoracao.getGrauUtilidade();
+
+			somaValoracao = somaValoracao + utilidade.doubleValue();
+			
+			if(utilidade.doubleValue() >= bigDecimalNegativa1.doubleValue() && utilidade.doubleValue() <= bigDecimalNegativa2.doubleValue()){
+				negativa++;
+			}
+			
+			if(utilidade.doubleValue() == bigDecimalNeutra.doubleValue()){
+				neutra++;
+			}
+			
+			if(utilidade.doubleValue() >= bigDecimalPositiva2.doubleValue() && utilidade.doubleValue() <= bigDecimalPositiva1.doubleValue()){
+				positiva++;
+			}
+		}
+		
+		
+		Label labelPositivas = new Label();
+		Label labelNegativas = new Label();
+		Label labelNeutras = new Label();
+		Label labelValoracaoMedia = new Label();
+		
+		if(tamanho != 0){
+			
+			DecimalFormat formatador = new DecimalFormat("0.0");
+			
+			//percentual de valorações positivas
+			percentualValoracoesPositivas = new Label();
+			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100));
+			percentualValoracoesPositivas.setStyle("font-weight: bold;");
+			labelPositivas.setValue("Positivas: " + percentualValoracoesPositivas.getValue() + "%");
+			
+			//percentual de valorações negativas
+			percentualValoracoesNegativas = new Label();
+			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100));
+			percentualValoracoesNegativas.setStyle("font-weight: bold;");
+			labelNegativas.setValue("Negativas: " + percentualValoracoesNegativas.getValue() + "%");
+			
+			//percentual de valorações neutras
+			percentualValoracoesNeutras = new Label();
+			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100));
+			percentualValoracoesNeutras.setStyle("font-weight: bold;");
+			labelNeutras.setValue("Neutras: " + percentualValoracoesNeutras.getValue() + "%");
+			
+			//medias das notas dada na valoração
+			valoracaoMedia = new Label();
+			valoracaoMedia.setValue(formatador.format(somaValoracao/tamanho));
+			valoracaoMedia.setStyle("font-weight: bold;");
+			labelValoracaoMedia.setValue("Média das notas: " + valoracaoMedia.getValue());
+			
+		}else{
+			percentualValoracoesPositivas = new Label("0");
+			labelPositivas.setValue("Positivas: " + percentualValoracoesPositivas.getValue() + "%");
+			percentualValoracoesNegativas = new Label("0");
+			labelNegativas.setValue("Negativas: " + percentualValoracoesNegativas.getValue() + "%");
+			percentualValoracoesNeutras = new Label("0");
+			labelNeutras.setValue("Neutras: " + percentualValoracoesNeutras.getValue() + "%");
+			valoracaoMedia = new Label("0");
+			labelValoracaoMedia.setValue("Média das notas: " + valoracaoMedia.getValue());
+		}
+		
+		labelValoracaoMedia.setParent(vboxInformacoes);
+		labelQuantidades.setParent(vboxInformacoes);
 		labelPositivas.setParent(vboxInformacoes);
-		
-		Label labelNegativas = new Label("Negativas: " + "INTEIRO" + "%");
 		labelNegativas.setParent(vboxInformacoes);
-		
-		Label labelNeutras = new Label("Neutras: " + "INTEIRO" + "%");
 		labelNeutras.setParent(vboxInformacoes);
+		
 		
 		Label labelAcessos = new Label("Acessos:");
 		labelAcessos.setParent(vboxInformacoes);
 		labelAcessos.setStyle("font-weight: bold; color: blue;");
+	
+		positiva = 0;
+		negativa = 0;
+		neutra = 0;
+		somaValoracao = 0;
 		
-		Label labelQtdeAcessos = new Label("Quantidade: " + "INTEIRO");
+		Label labelQtdeAcessos = new Label("Quantidade: " + item.getQuantidadeAcessos());
 		labelQtdeAcessos.setParent(vboxInformacoes);
 		
 		//////////////////////////////////////////
@@ -446,7 +542,84 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 	}
 	
+	public void preencherLinhaListboxValoracoes(Valoracao item){
+		
+		Listcell listcellValoracoes = new Listcell();
+		Vbox vboxLinhaValoracoes = new Vbox();
+		
+		Label labelAutor = new Label("Autor: " + item.getAutor().getNome());
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		Label labelDataValoracao = new Label("Valorado em: " + formatador.format(item.getDataValoracao())); //rever
+		Label labelGrauUtilidade = new Label("Utilidade: " + item.getGrauUtilidade().doubleValue()); //rever
+		Label labelClassificacao = new Label();
+		
+		BigDecimal bigDecimalPositiva1 = new BigDecimal("10.0");
+		BigDecimal bigDecimalPositiva2 = new BigDecimal("0.01");
+		
+		BigDecimal bigDecimalNegativa1 = new BigDecimal("-10.0");
+		BigDecimal bigDecimalNegativa2 = new BigDecimal("-0.01");
+		
+		BigDecimal bigDecimalNeutra = new BigDecimal("0.00");
+		
+		BigDecimal valoracao;
+		valoracao = item.getGrauUtilidade();
+
+		
+		if(valoracao.doubleValue() >= bigDecimalNegativa1.doubleValue() && valoracao.doubleValue() <= bigDecimalNegativa2.doubleValue()){
+			Label labelNegativa = new Label();
+			labelNegativa.setValue("Negativa");
+			labelNegativa.setStyle("font-weight: bold; color: black;");
+			labelClassificacao.setValue("Classificação: " + labelNegativa.getValue());
+		}
+		
+		if(valoracao.doubleValue() == bigDecimalNeutra.doubleValue()){
+			labelClassificacao.setValue("Classificação: Neutra");
+		}
+		
+		if(valoracao.doubleValue() >= bigDecimalPositiva2.doubleValue() && valoracao.doubleValue() <= bigDecimalPositiva1.doubleValue()){
+			labelClassificacao.setValue("Classificação: Positiva");
+		}
+		
+		Label labelComentario = new Label("Comentário: " + item.getComentario());
+		
+		labelAutor.setParent(vboxLinhaValoracoes);
+		labelDataValoracao.setParent(vboxLinhaValoracoes);
+		labelGrauUtilidade.setParent(vboxLinhaValoracoes);
+		labelClassificacao.setParent(vboxLinhaValoracoes);
+		labelComentario.setParent(vboxLinhaValoracoes);
+		
+		vboxLinhaValoracoes.setParent(listcellValoracoes);
+		
+		listcellValoracoes.setParent(listitem);
+		
+		
+		
+	}
+	
+	public void preencherListboxValoracoes(){
+		// fiz recuperar todos somente para teste
+		Collection<Valoracao> itens = itemConhecimento.getValoracoes();
+		for (Valoracao item : itens){
+			listitem = new Listitem();
+			listitem.setValue(item);
+			preencherLinhaListboxValoracoes(item);
+			listitem.setParent(listboxValoracoes);
+		}
+	}
+	
 	public void preencherAbaValoracoes(Object item){
+		
+		Listhead listhead = new Listhead();
+		Listheader listheaderValoracoes = new Listheader("Valorações");
+		
+		listheaderValoracoes.setParent(listhead);
+		listhead.setParent(listboxValoracoes);
+		
+		listboxValoracoes.setHeight("350px");
+		preencherListboxValoracoes();
+		
+		listboxValoracoes.setParent(tabpanelValoracoes);
+		
 		
 	}
 	
