@@ -1,9 +1,11 @@
 package ode.gerenciaConhecimento.ciu;
 
 //// testeeeeeeeee /////////
+import java.util.Collection;
 import java.util.List;
 
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 
 import org.zkoss.zk.ui.Component;
@@ -236,7 +238,27 @@ public class JanPrincipal extends Borderlayout{
 		});
 		
 		Toolbarbutton toolbarbuttonItensAvaliados = criarToolBarButton(vlayout,"Itens Avaliados","/imagens/ledblue.png");
+		toolbarbuttonItensAvaliados.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+				ctrlGerenciaConhecimento.exibirJanelaItensAvaliados(itens);
+			}
+		});
+		
 		Toolbarbutton toolbarbuttonItensValorados = criarToolBarButton(vlayout,"Itens Valorados","/imagens/ledblue.png");
+		toolbarbuttonItensValorados.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+				ctrlGerenciaConhecimento.exibirJanelaItensValorados(itens);
+			}
+		});
+		
 		Toolbarbutton toolbarbuttonItensPendentesAvaliacao = criarToolBarButton(vlayout,"Itens Pendentes de Avaliação","/imagens/ledblue.png");
 		toolbarbuttonItensPendentesAvaliacao.addEventListener("onClick", new EventListener() {
 			
@@ -244,8 +266,8 @@ public class JanPrincipal extends Borderlayout{
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
-			//	ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+				//ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
+				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
 				
 			}
 		});

@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
@@ -26,13 +24,8 @@ import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
-public class JanListaBuscarItensConhecimento extends Window {
+public class JanItensAvaliados extends Window {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	int qtdeItens = 0; //acho q nem vai precisar desses atributos, pois é só fazer um get
@@ -42,7 +35,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 	Label labelAutor;
 	Label labelTipoValor;
 	Label labelQtdeAcessosValor;
-	Label labelQtdeItensEncontradosValor = new Label("0");
+	Label labelQtdeItensEncontradosValor = new Label();
 	Listitem listitem = new Listitem();
 	Listbox listboxBuscarItensConhecimento = new Listbox();
 	Label qtdeValoracoes;
@@ -50,7 +43,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 	Label percentualValoracoesNegativas;
 	Label percentualValoracoesNeutras;
 	Label valoracaoMedia;
-	List<ItemConhecimento> itens;
+	Collection<ItemConhecimento> itens;
 	
 	float positiva = 0;
 	float negativa = 0;
@@ -58,32 +51,25 @@ public class JanListaBuscarItensConhecimento extends Window {
 	int tamanho = 0;
 	double somaValoracao = 0;
 	
-	public JanListaBuscarItensConhecimento(CtrlGerenciaConhecimento ctrl, List<ItemConhecimento> itens) {
+	public JanItensAvaliados(CtrlGerenciaConhecimento ctrl, Collection<ItemConhecimento> itens) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
 		
 		this.itens = itens;
 		
-		criarJanListaBuscarItensConhecimento();
+		criarJanItensAvaliados();
 	}
 	
-	public void alterarLabelQtdeItensEncontrados(int qtde){
-		
-		labelQtdeItensEncontradosValor.setValue(Integer.toString(qtde));
-		
-	}
-	
-	public void preencherListboxItensEncontrados(){
-		
-		
+	public void preencherListboxItensAvaliados(){
+				
 		for (ItemConhecimento item : this.itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
 			preencherLinhaListbox(item);
 			listitem.setParent(listboxBuscarItensConhecimento);
 		}
-	}
+	}	
 	
 	public void preencherLinhaListbox(ItemConhecimento item){
 		
@@ -238,10 +224,10 @@ public class JanListaBuscarItensConhecimento extends Window {
 		
 		
 	}
-	
-	public void criarJanListaBuscarItensConhecimento(){
+
+	public void criarJanItensAvaliados(){
 		
-		this.setTitle("Buscar Itens de Conhecimento");
+		this.setTitle("Avaliar Itens de Conhecimento");
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
@@ -275,12 +261,12 @@ public class JanListaBuscarItensConhecimento extends Window {
 		listheaderInformacoes.setParent(listheadBuscarItensConhecimento);
 		listheadBuscarItensConhecimento.setParent(listboxBuscarItensConhecimento);
 		
-		preencherListboxItensEncontrados();
+		preencherListboxItensAvaliados();
 
 		listboxBuscarItensConhecimento.setParent(vbox);
 		
 		Button botaoVisualizar = new Button("Visualizar");
-		Button botaoNovaBusca = new Button("Nova Busca");
+		Button botaoAvaliar = new Button("Avaliar");
 		Toolbar toolbarInferior = new Toolbar();
 
 		botaoVisualizar.addEventListener("onClick", new EventListener() {
@@ -308,12 +294,25 @@ public class JanListaBuscarItensConhecimento extends Window {
 			}
 		});
 		
-		botaoNovaBusca.addEventListener("onClick", new EventListener() {
+		botaoAvaliar.addEventListener("onClick", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaBuscarItensConhecimento();
+				
+				if(listboxBuscarItensConhecimento.getSelectedIndex() == -1){
+					Messagebox messageboxInformar = new Messagebox();
+					messageboxInformar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxInformar.INFORMATION);
+				}else{
+					Object objeto = new Object();
+					if (listboxBuscarItensConhecimento.getSelectedItem() != null) {
+						objeto =  listboxBuscarItensConhecimento.getSelectedItem().getValue();
+					}
+					
+					if(objeto != null){
+						//chamar funcao para avaliar o item de conhecimento
+					}
+				}
 			}
 		});
 
@@ -323,7 +322,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 		toolbarInferior.setAlign("end");
 
 		toolbarInferior.appendChild(botaoVisualizar);
-		toolbarInferior.appendChild(botaoNovaBusca);
+		toolbarInferior.appendChild(botaoAvaliar);
 
 		toolbarInferior.setParent(vbox);
 		
