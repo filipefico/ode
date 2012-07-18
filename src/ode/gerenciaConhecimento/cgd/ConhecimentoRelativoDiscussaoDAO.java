@@ -9,7 +9,6 @@ import ode._infraestruturaBase.cgd.DAOBase;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
-import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 public interface ConhecimentoRelativoDiscussaoDAO extends

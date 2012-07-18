@@ -231,6 +231,7 @@ public class JanItensAvaliados extends Window {
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
+		vbox.setWidth("100%");
 		labelQtdeItensEncontradosValor.setValue(String.valueOf(itens.size()));
 		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: " + labelQtdeItensEncontradosValor.getValue());
 		labelQtdeItensEncontrados.setStyle("font-weight: bold;font-style: italic;");
@@ -242,7 +243,7 @@ public class JanItensAvaliados extends Window {
 		listboxBuscarItensConhecimento.setCheckmark(true);
 		listboxBuscarItensConhecimento.setSizedByContent(true);
 		listboxBuscarItensConhecimento.setHeight("350px");
-		listboxBuscarItensConhecimento.setWidth("580px");
+	//	listboxBuscarItensConhecimento.setWidth("580px");
 		
 		
 		Listhead listheadBuscarItensConhecimento = new Listhead();

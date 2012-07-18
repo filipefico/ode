@@ -28,6 +28,11 @@ import org.zkoss.zul.Window;
 
 public class JanVisualizarItemConhecimentoGerente extends Window {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	Tabpanel tabpanelInformacoes;

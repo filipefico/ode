@@ -71,7 +71,7 @@ public class JanPrincipal extends Borderlayout{
 		east.setParent(this);
 		vbox.setParent(east);
 		
-		east.setSize("300px");
+		east.setSize("270px");
 		east.setFlex(true);
 		east.setSplittable(true);
 		east.setCollapsible(true);
@@ -98,8 +98,13 @@ public class JanPrincipal extends Borderlayout{
 		center = new Center();
 		painelCentro = new Panel();
 		painelChildrenCentro = new Panelchildren();
+		/*painelChildrenCentro.setHeight("500px");
+		painelChildrenCentro.setStyle("overflow:auto;");*/
 			
 		painelCentro.setTitle("Bem-vindo ao Portal de Gerência de Conhecimento");
+		
+		ctrlGerenciaConhecimento.exibirJanelaItensCriados_inicial().setParent(painelChildrenCentro);
+		ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao_inicial().setParent(painelChildrenCentro);
 			
 		painelChildrenCentro.setParent(painelCentro);
 		painelCentro.setParent(center);
@@ -112,7 +117,7 @@ public class JanPrincipal extends Borderlayout{
 		West west = new West();
 		
 		west.setParent(this);
-		west.setSize("300px");
+		west.setSize("270px");
 		west.setFlex(true);
 		west.setSplittable(true);
 		west.setCollapsible(true);
@@ -202,7 +207,7 @@ public class JanPrincipal extends Borderlayout{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelas();
 			}
 		});
 		
@@ -439,6 +444,8 @@ public class JanPrincipal extends Borderlayout{
 		// Adiciona janela no center
 		this.painelChildrenCentro.appendChild(window);
 	}
+	
+	
 	
 	
 }

@@ -184,6 +184,7 @@ public class JanValorarItemConhecimento extends Window {
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
+		vbox.setWidth("100%");
 		
 		Tabbox tabboxValorItemConhecimento = new Tabbox();
 
@@ -197,7 +198,7 @@ public class JanValorarItemConhecimento extends Window {
 		Tabpanel tabpanel = new Tabpanel();
 		
 		listboxValoracao.setSizedByContent(true);
-		listboxValoracao.setWidth("560px");
+		//listboxValoracao.setWidth("560px");
 		
 		preencherListbox();
 		

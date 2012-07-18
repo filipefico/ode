@@ -16,13 +16,16 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Panel;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
-import org.zkoss.zul.Vlayout;
 import org.zkoss.zul.Window;
 
 public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	

@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 
-import ode._infraestruturaBase.util.NucleoContexto;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
@@ -30,12 +28,16 @@ import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Tabpanels;
 import org.zkoss.zul.Tabs;
-import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
 public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
@@ -340,6 +342,13 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 		Vbox vboxInformacoes = new Vbox();
 		
+		Hbox hboxMediaNotas = new Hbox();
+		Hbox hboxQuantidadeValoracoes = new Hbox();
+		Hbox hboxPositivas = new Hbox();
+		Hbox hboxNegativas = new Hbox();
+		Hbox hboxNeutras = new Hbox();
+		Hbox hboxQuantidadeAcessos = new Hbox();
+		
 		Label labelResumoValoracoes = new Label("Resumo das Valorações:");
 		labelResumoValoracoes.setStyle("font-weight: bold; color: blue;");
 		labelResumoValoracoes.setParent(vboxInformacoes);
@@ -349,8 +358,10 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		tamanho = valoracoes.size();
 		
 		qtdeValoracoes = new Label(Integer.toString(tamanho));
-		qtdeValoracoes.setStyle("font-weight: bold;");
-		Label labelQuantidades = new Label("Quantidade: " + qtdeValoracoes.getValue());
+		qtdeValoracoes.setStyle("font-weight: bold; font-size: 12px;");
+		Label labelQuantidadeValoracoes = new Label("- Quantidade: ");
+		labelQuantidadeValoracoes.setParent(hboxQuantidadeValoracoes);
+		qtdeValoracoes.setParent(hboxQuantidadeValoracoes);
 		
 		for (Valoracao valoracao : valoracoes){
 			
@@ -392,44 +403,67 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			
 			//percentual de valorações positivas
 			percentualValoracoesPositivas = new Label();
-			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100));
-			percentualValoracoesPositivas.setStyle("font-weight: bold;");
-			labelPositivas.setValue("Positivas: " + percentualValoracoesPositivas.getValue() + "%");
+			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100) + "%");
+			percentualValoracoesPositivas.setStyle("font-weight: bold; font-size: 12px;");
+			labelPositivas.setValue("- Positivas: ");
+			labelPositivas.setParent(hboxPositivas);
+			percentualValoracoesPositivas.setParent(hboxPositivas);
 			
 			//percentual de valorações negativas
 			percentualValoracoesNegativas = new Label();
-			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100));
-			percentualValoracoesNegativas.setStyle("font-weight: bold;");
-			labelNegativas.setValue("Negativas: " + percentualValoracoesNegativas.getValue() + "%");
+			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100) + "%");
+			percentualValoracoesNegativas.setStyle("font-weight: bold; font-size: 12px;");
+			labelNegativas.setValue("- Negativas: ");
+			labelNegativas.setParent(hboxNegativas);
+			percentualValoracoesNegativas.setParent(hboxNegativas);
 			
 			//percentual de valorações neutras
 			percentualValoracoesNeutras = new Label();
-			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100));
-			percentualValoracoesNeutras.setStyle("font-weight: bold;");
-			labelNeutras.setValue("Neutras: " + percentualValoracoesNeutras.getValue() + "%");
+			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100) + "%");
+			percentualValoracoesNeutras.setStyle("font-weight: bold; font-size: 12px;");
+			labelNeutras.setValue("- Neutras: ");
+			labelNeutras.setParent(hboxNeutras);
+			percentualValoracoesNeutras.setParent(hboxNeutras);
 			
 			//medias das notas dada na valoração
 			valoracaoMedia = new Label();
 			valoracaoMedia.setValue(formatador.format(somaValoracao/tamanho));
-			valoracaoMedia.setStyle("font-weight: bold;");
-			labelValoracaoMedia.setValue("Média das notas: " + valoracaoMedia.getValue());
+			valoracaoMedia.setStyle("font-weight: bold; font-size: 12px;");
+			labelValoracaoMedia.setValue("- Média das notas: ");
+			labelValoracaoMedia.setParent(hboxMediaNotas);
+			valoracaoMedia.setParent(hboxMediaNotas);
 			
 		}else{
-			percentualValoracoesPositivas = new Label("0");
-			labelPositivas.setValue("Positivas: " + percentualValoracoesPositivas.getValue() + "%");
-			percentualValoracoesNegativas = new Label("0");
-			labelNegativas.setValue("Negativas: " + percentualValoracoesNegativas.getValue() + "%");
-			percentualValoracoesNeutras = new Label("0");
-			labelNeutras.setValue("Neutras: " + percentualValoracoesNeutras.getValue() + "%");
-			valoracaoMedia = new Label("0");
-			labelValoracaoMedia.setValue("Média das notas: " + valoracaoMedia.getValue());
+			percentualValoracoesPositivas = new Label("0%");
+			percentualValoracoesPositivas.setStyle("font-weight: bold; font-size: 12px;");
+			labelPositivas.setValue("- Positivas: ");
+			labelPositivas.setParent(hboxPositivas);
+			percentualValoracoesPositivas.setParent(hboxPositivas);
+			
+			percentualValoracoesNegativas = new Label("0%");
+			percentualValoracoesNegativas.setStyle("font-weight: bold; font-size: 12px;");
+			labelNegativas.setValue("- Negativas: ");
+			labelNegativas.setParent(hboxNegativas);
+			percentualValoracoesNegativas.setParent(hboxNegativas);
+			
+			percentualValoracoesNeutras = new Label("0%");
+			percentualValoracoesNeutras.setStyle("font-weight: bold; font-size: 12px;");
+			labelNeutras.setValue("- Neutras: ");
+			labelNeutras.setParent(hboxNeutras);
+			percentualValoracoesNeutras.setParent(hboxNeutras);
+			
+			valoracaoMedia = new Label("0,0");
+			valoracaoMedia.setStyle("font-weight: bold; font-size: 12px;");
+			labelValoracaoMedia.setValue("- Média das notas: ");
+			labelValoracaoMedia.setParent(hboxMediaNotas);
+			valoracaoMedia.setParent(hboxMediaNotas);
 		}
 		
-		labelValoracaoMedia.setParent(vboxInformacoes);
-		labelQuantidades.setParent(vboxInformacoes);
-		labelPositivas.setParent(vboxInformacoes);
-		labelNegativas.setParent(vboxInformacoes);
-		labelNeutras.setParent(vboxInformacoes);
+		hboxMediaNotas.setParent(vboxInformacoes);
+		hboxQuantidadeValoracoes.setParent(vboxInformacoes);
+		hboxPositivas.setParent(vboxInformacoes);
+		hboxNegativas.setParent(vboxInformacoes);
+		hboxNeutras.setParent(vboxInformacoes);
 		
 		
 		Label labelAcessos = new Label("Acessos:");
@@ -440,9 +474,14 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		negativa = 0;
 		neutra = 0;
 		somaValoracao = 0;
+	
+		Label labelQtdeAcessosValor = new Label(Integer.toString(item.getQuantidadeAcessos().intValue()));
+		labelQtdeAcessosValor.setStyle("font-weight: bold; font-size: 12px;");
+		Label labelQtdeAcessos = new Label("- Quantidade: ");
+		labelQtdeAcessos.setParent(hboxQuantidadeAcessos);
+		labelQtdeAcessosValor.setParent(hboxQuantidadeAcessos);
+		hboxQuantidadeAcessos.setParent(vboxInformacoes);
 		
-		Label labelQtdeAcessos = new Label("Quantidade: " + item.getQuantidadeAcessos());
-		labelQtdeAcessos.setParent(vboxInformacoes);
 		
 		//////////////////////////////////////////
 		// Projetos relacionados
@@ -453,11 +492,19 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		labelProjetosRelacionados.setParent(vboxProjetos);
 		labelProjetosRelacionados.setStyle("font-weight: bold; color: blue;");
 		
+		Label nomeProjeto;
+		
 		Collection<Projeto> projetos = item.getProjetos();
-		for (Projeto projeto : projetos){
-			Label nomeProjeto = new Label(projeto.getNome());
+		
+		if(projetos.size() == 0){
+			nomeProjeto = new Label("- Nenhum");
 			nomeProjeto.setParent(vboxProjetos);
-			
+		}else{
+			for (Projeto projeto : projetos){
+				nomeProjeto = new Label("- " + projeto.getNome());
+				nomeProjeto.setParent(vboxProjetos);
+				
+			}
 		}
 		
 		vboxProjetos.setParent(vboxInformacoes);
@@ -468,14 +515,24 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 		Vbox vboxAtividades = new Vbox();
 		
+		
+		
 		Label labelAtividadesRelacionados = new Label("Atividades Relacionadas:");
 		labelAtividadesRelacionados.setParent(vboxAtividades);
 		labelAtividadesRelacionados.setStyle("font-weight: bold; color: blue;");
 		
+		Label nomeKAtividade;
+		
 		Collection<KAtividade> atividades = item.getkAtividades();
-		for (KAtividade atividade : atividades){
-			Label nomeKAtividade = new Label(atividade.getNome());
+		
+		if (atividades.size() == 0){
+			nomeKAtividade = new Label("- Nenhum");
 			nomeKAtividade.setParent(vboxAtividades);
+		}else{
+			for (KAtividade atividade : atividades){
+				nomeKAtividade = new Label("- " + atividade.getNome());
+				nomeKAtividade.setParent(vboxAtividades);
+			}
 		}
 		
 		vboxAtividades.setParent(vboxInformacoes);
@@ -490,10 +547,18 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		labelTemasRelacionados.setParent(vboxTemasRelacionados);
 		labelTemasRelacionados.setStyle("font-weight: bold; color: blue;");
 		
+		Label nomeTema;
+		
 		Collection<Tema> temas = item.getTemas();
-		for (Tema tema : temas){
-			Label nomeTema = new Label(tema.getNome());
+		
+		if(temas.size() == 0){
+			nomeTema = new Label("- Nenhum");
 			nomeTema.setParent(vboxTemasRelacionados);
+		}else{
+			for (Tema tema : temas){
+				nomeTema = new Label("- " + tema.getNome());
+				nomeTema.setParent(vboxTemasRelacionados);
+			}
 		}
 		
 		vboxTemasRelacionados.setParent(vboxInformacoes);
@@ -508,10 +573,18 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		labelItensRelacionados.setParent(vboxItensRelacionados);
 		labelItensRelacionados.setStyle("font-weight: bold; color: blue;");
 		
+		Label itensRelacionados;
+		
 		Collection<ItemConhecimento> itens = item.getItensRelacionados();
-		for (ItemConhecimento itemConhecimento : itens){
-			Label itensRelacionados = new Label(itemConhecimento.getTitulo());
+		
+		if(itens.size() == 0){
+			itensRelacionados = new Label("- Nenhum");
 			itensRelacionados.setParent(vboxItensRelacionados);
+		}else{
+			for (ItemConhecimento itemConhecimento : itens){
+				itensRelacionados = new Label("- " + itemConhecimento.getTitulo());
+				itensRelacionados.setParent(vboxItensRelacionados);
+			}
 		}
 		
 		vboxItensRelacionados.setParent(vboxInformacoes);

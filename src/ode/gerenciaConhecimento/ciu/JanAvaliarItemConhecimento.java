@@ -16,7 +16,6 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -28,6 +27,11 @@ import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
 public class JanAvaliarItemConhecimento extends Window {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
@@ -59,6 +63,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		//////////////////////////////////////////
 		
 		Vbox vboxNotas = new Vbox();
+		vboxNotas.setWidth("100%");
 		
 		Tabbox tabboxNotas = new Tabbox();
 		Tabs tabsNotas = new Tabs();
@@ -85,7 +90,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		// criar o listbox para as notas
 		Listbox listboxNotas = new Listbox();
 		listboxNotas.setSizedByContent(true);
-		listboxNotas.setWidth("550px");
+		//listboxNotas.setWidth("550px");
 		
 		Listhead listheadNotas = new Listhead();
 		Listheader listheaderCriterio = new Listheader("Critério");

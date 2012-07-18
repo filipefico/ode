@@ -12,7 +12,6 @@ import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
-import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 import ode.gerenciaConhecimento.cgd.ConhecimentoRelativoDiscussaoDAO;
 
