@@ -3,8 +3,6 @@ package ode.gerenciaConhecimento.ciu;
 import java.util.Collection;
 import java.util.List;
 
-
-import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
@@ -50,11 +48,10 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanValorarItemConhecimento janValorarItemConhecimento;
 	public JanItensPendentesAvaliacaoGerente janItensPendentesAvaliacaoGerente;
 	public JanVisualizarItemConhecimentoGerente janVisualizarItemConhecimentoGerente;
-	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
-	public JanPaginasAmarelasListaBuscarPessoas janPaginasAmarelasListaBuscarPessoas;
 	public JanMeusTemasDeInteresse janMeusTemasDeInteresse;
 	public JanItensValorados janItensValorados;
 	public JanItensAvaliados janItensAvaliados;
+	public JanPaginasAmarelas janPaginasAmarelas;
 
 
 	@Autowired
@@ -99,6 +96,21 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		jan.setHeight("525px");
 
 		jan.doEmbedded();
+	}
+	
+	public JanItensCriados exibirJanelaItensCriados_inicial(){
+		
+		janItensCriados = new JanItensCriados(this);
+		
+		return janItensCriados;
+		
+	}
+	
+	public JanItensPendentesAvaliacaoGerente exibirJanelaItensPendentesAvaliacao_inicial(){
+		
+		janItensPendentesAvaliacaoGerente = new JanItensPendentesAvaliacaoGerente(this);
+		
+		return janItensPendentesAvaliacaoGerente;
 	}
 
 	public void exibirJanelaTiposItemConhecimento(){
@@ -156,20 +168,11 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		
 	}
 	
-	public void exibirJanelaPaginasAmarelasBuscarPessoas(){
+	public void exibirJanelaPaginasAmarelas(){
 		
-		janPaginasAmarelasBuscarPessoas = new JanPaginasAmarelasBuscarPessoas(this);
+		janPaginasAmarelas = new JanPaginasAmarelas(this);
 		
-		janP.mostrarJanelaConteudo(janPaginasAmarelasBuscarPessoas);
-		
-	}
-	
-	public void exibirJanelaPaginasAmarelasListaBuscarPessoas(){
-		
-		janPaginasAmarelasListaBuscarPessoas = new JanPaginasAmarelasListaBuscarPessoas(this);
-		
-		janP.mostrarJanelaConteudo(janPaginasAmarelasListaBuscarPessoas);
-		
+		janP.mostrarJanelaConteudo(janPaginasAmarelas);
 	}
 		
 

@@ -17,7 +17,6 @@ import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 import ode.gerenciaConhecimento.cdp.Valoracao;
 import ode.gerenciaConhecimento.cgd.ItemConhecimentoDAO;
-import ode.gerenciaConhecimento.cgd.ValoracaoDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

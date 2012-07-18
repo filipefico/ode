@@ -22,6 +22,11 @@ import org.zkoss.zul.Window;
 
 public class JanItensPendentesAvaliacaoGerente extends Window {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	Label labelQtdeItensValor = new Label("0");
@@ -50,6 +55,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
+		vbox.setWidth("100%");
 		Label labelQtdeItens = new Label();
 			
 		labelQtdeItens.setValue("Quantidade de Itens: " + labelQtdeItensValor.getValue());
@@ -58,19 +64,19 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		//listbox	
 		Listhead colunas = new Listhead();;
 		Listheader colunaRadioButton = new Listheader(" ");
-		colunaRadioButton.setWidth("30px");
+	//	colunaRadioButton.setWidth("30px");
 		Listheader colunaTitulo = new Listheader("Título");
-		colunaTitulo.setWidth("120px");
+		//colunaTitulo.setWidth("120px");
 		Listheader colunaInformacoes = new Listheader("Informações");
-		colunaInformacoes.setWidth("250px");
+		//colunaInformacoes.setWidth("250px");
 		Listheader colunaAvaliadoresSelecionados = new Listheader("Avaliadores Selecionados");
-		colunaAvaliadoresSelecionados.setWidth("165px");
+	//	colunaAvaliadoresSelecionados.setWidth("165px");
 		
 		
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
 		listboxQtdeItens.setSizedByContent(true);
-		listboxQtdeItens.setWidth("580px");
+		//listboxQtdeItens.setWidth("580px");
 		listboxQtdeItens.setHeight("350px");
 		
 		colunaRadioButton.setParent(colunas);

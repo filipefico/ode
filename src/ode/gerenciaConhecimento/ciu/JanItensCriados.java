@@ -22,6 +22,11 @@ import org.zkoss.zul.Window;
 
 public class JanItensCriados extends Window {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	Listitem listitem;
@@ -93,6 +98,7 @@ public class JanItensCriados extends Window {
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
+		vbox.setWidth("100%");
 		
 		Label labelQuantidadeItens = new Label("Quantidade de Itens: " + labelQuantidadeItensValor.getValue());
 		
@@ -100,23 +106,23 @@ public class JanItensCriados extends Window {
 		
 		listboxItensCriados.setMultiple(false);
 		listboxItensCriados.setCheckmark(true);
-		listboxItensCriados.setSizedByContent(true);
-		listboxItensCriados.setWidth("580px");
+	//	listboxItensCriados.setSizedByContent(true);
+	//	listboxItensCriados.setWidth("580px");
 		listboxItensCriados.setHeight("350px");
 		Listhead listheadItensCriados = new Listhead();
 		
 		Listheader listheaderRadio = new Listheader(" ");
 		listheaderRadio.setWidth("30px");
 		Listheader listheaderTitulo = new Listheader("Título");
-		listheaderTitulo.setWidth("110px");
+	//	listheaderTitulo.setWidth("110px");
 		Listheader listheaderAutor = new Listheader("Autor");
-		listheaderAutor.setWidth("110px");
+	//	listheaderAutor.setWidth("110px");
 		Listheader listheaderDataCriacao = new Listheader("Data da Criação");
-		listheaderDataCriacao.setWidth("110px");
+	//	listheaderDataCriacao.setWidth("110px");
 		Listheader listheaderTipo = new Listheader("Tipo");
-		listheaderTipo.setWidth("110px");
+	//	listheaderTipo.setWidth("110px");
 		Listheader listheaderStatus = new Listheader("Status");
-		listheaderStatus.setWidth("95px");
+	//	listheaderStatus.setWidth("95px");
 		
 		listheaderRadio.setParent(listheadItensCriados);
 		listheaderTitulo.setParent(listheadItensCriados);

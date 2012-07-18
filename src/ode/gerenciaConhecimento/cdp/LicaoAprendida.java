@@ -1,7 +1,5 @@
 package ode.gerenciaConhecimento.cdp;
 
-import java.util.List;
-
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 

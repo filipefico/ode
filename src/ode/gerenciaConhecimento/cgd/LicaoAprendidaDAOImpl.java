@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.TemporalType;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 import ode.conhecimento.processo.cdp.KAtividade;
