@@ -9,6 +9,8 @@ import ode.gerenciaConhecimento.cdp.Tema;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Constraint;
+import org.zkoss.zul.Decimalbox;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
@@ -81,7 +83,7 @@ public class JanMeusTemasDeInteresse extends Window {
 		Toolbar toolbarInferior = new Toolbar(); 
 		toolbarInferior.setStyle("border:0px;background:white;");
 		toolbarInferior.setAlign("end");
-
+		
 		toolbarInferior.appendChild(botaoSalvar);
 		toolbarInferior.appendChild(botaoCancelar);
 

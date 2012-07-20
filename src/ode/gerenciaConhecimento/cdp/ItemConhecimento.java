@@ -48,7 +48,7 @@ public class ItemConhecimento extends ObjetoPersistente {
 	
 	private Date dataUltimoAcesso;
 	
-	private String estado;
+	private String estado = ESTADO_AGUARDANDO_AVALIACAO;
 	
 	private Long quantidadeAcessos = new Long(0);
 	

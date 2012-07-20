@@ -87,7 +87,7 @@ public class JanItensCriados extends Window {
 			listcellTipo.setParent(listitem);
 		}
 		
-		listcellStatus = new Listcell("Statustatus");
+		listcellStatus = new Listcell(item.getEstado());
 		listcellStatus.setParent(listitem);
 		
 	}
