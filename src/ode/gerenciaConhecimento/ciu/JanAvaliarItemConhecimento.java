@@ -91,6 +91,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listbox listboxNotas = new Listbox();
 		listboxNotas.setSizedByContent(true);
 		//listboxNotas.setWidth("550px");
+
 		
 		Listhead listheadNotas = new Listhead();
 		Listheader listheaderCriterio = new Listheader("Critério");

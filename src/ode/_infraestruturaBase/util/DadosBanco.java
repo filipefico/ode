@@ -99,6 +99,7 @@ public class DadosBanco {
 		inserirKRecursoHumano("Desenvolvedor");
 		inserirKRecursoHumano("Usuário");
 		inserirKRecursoHumano("Cliente");
+		inserirKRecursoHumano("Gerente Conhecimento");
 	}
 
 	private void inicializarKCategoriasProcesso()
