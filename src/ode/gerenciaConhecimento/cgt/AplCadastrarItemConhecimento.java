@@ -11,6 +11,7 @@ import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -132,5 +133,11 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void adicionarAvaliacao(Avaliacao avaliacao, ItemConhecimento conhecimento){
+		conhecimento = itemConhecimentoDAO.recuperarPorId(conhecimento.getId());
+		avaliacao.setItemConhecimentoAvaliado(conhecimento);
+		conhecimento.getAvaliacoes().add(avaliacao);
 	}
 }

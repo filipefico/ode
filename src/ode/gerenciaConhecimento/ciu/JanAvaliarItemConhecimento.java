@@ -3,6 +3,10 @@ package ode.gerenciaConhecimento.ciu;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ode._infraestruturaBase.util.NucleoContexto;
+import ode.gerenciaConhecimento.cdp.Avaliacao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
@@ -16,11 +20,8 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Tab;
-import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
-import org.zkoss.zul.Tabpanels;
-import org.zkoss.zul.Tabs;
+import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Separator;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
@@ -34,20 +35,22 @@ public class JanAvaliarItemConhecimento extends Window {
 	private static final long serialVersionUID = 1L;
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
+	ItemConhecimento itemConhecimento;
 	
-	Label labelAutorValor = new Label();
-	Decimalbox textboxCorrecao = new Decimalbox();
-	Decimalbox textboxCompletude = new Decimalbox();
-	Decimalbox textboxConsistencia = new Decimalbox();
-	Decimalbox textboxUtilidade = new Decimalbox();
-	Decimalbox textboxAplicabilidade = new Decimalbox();
+	Decimalbox decimalboxCorrecao = new Decimalbox();
+	Decimalbox decimalboxCompletude = new Decimalbox();
+	Decimalbox decimalboxConsistencia = new Decimalbox();
+	Decimalbox decimalboxUtilidade = new Decimalbox();
+	Decimalbox decimalboxAplicabilidade = new Decimalbox();
+	Decimalbox decimalboxMedia = new Decimalbox();
 	Listcell listcellTextboxMediaNotas = new Listcell();
 	Textbox textboxParecer = new Textbox("");
 	Combobox comboboxResultadoFinal = new Combobox();
 	
-	JanAvaliarItemConhecimento(CtrlGerenciaConhecimento ctrl){
+	JanAvaliarItemConhecimento(CtrlGerenciaConhecimento ctrl, ItemConhecimento itemConhecimento){
 		
 		ctrlGerenciaConhecimento = ctrl;
+		this.itemConhecimento = itemConhecimento;
 		
 		criarJanAvaliarItemConhecimento();
 		
@@ -59,44 +62,53 @@ public class JanAvaliarItemConhecimento extends Window {
 		this.setBorder("normal");
 		
 		//////////////////////////////////////////
-		// Criar a Tab Notas
+		// Criar a Vbox Principal
 		//////////////////////////////////////////
 		
-		Vbox vboxNotas = new Vbox();
-		vboxNotas.setWidth("100%");
+		Vbox vboxPrincipal = new Vbox();
+		vboxPrincipal.setWidth("100%");
+		vboxPrincipal.setParent(this);
 		
-		Tabbox tabboxNotas = new Tabbox();
-		Tabs tabsNotas = new Tabs();
-		Tab tabNotas = new Tab("Notas");
-		
-		tabNotas.setParent(tabsNotas);
-		
-		Tabpanels tabpanelsNotas = new Tabpanels();
-		Tabpanel tabpanelNotas = new Tabpanel();
+		Label labelTitulo = new Label("Título: " + itemConhecimento.getTitulo());
+		labelTitulo.setParent(vboxPrincipal);
 		
 		Label labelAutor = new Label();
-		labelAutorValor.setValue("PEGA O AUTOR DO ITEM DE CONHECIMENTO");
+		labelAutor.setValue("Autor: " + itemConhecimento.getAutor().getNome());
+		labelAutor.setParent(vboxPrincipal);
+		
+		(new Separator()).setParent(vboxPrincipal);
+		
+		Label labelAvaliador = new Label();
+		labelAvaliador.setValue("Avaliador: " + NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome());
+		labelAvaliador.setParent(vboxPrincipal);
+		
 		Label labelDataAvaliacao = new Label();
-		
-		labelAutor.setValue("Autor: " + labelAutorValor.getValue());
-		labelAutor.setParent(vboxNotas);
-		
 		//A data é a atual, assim não precisa ser declarada como global
 		Date data = new Date();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		labelDataAvaliacao.setValue("Data da Avaliação: " + formatador.format(data));
-		labelDataAvaliacao.setParent(vboxNotas);
+		labelDataAvaliacao.setParent(vboxPrincipal);
+		
+		(new Separator()).setParent(vboxPrincipal);
+		
+		// Cria o hbox do meio
+		Hbox hboxCentral = new Hbox();
+		hboxCentral.setParent(vboxPrincipal);
+		
+		// Cria o vbox das notas
+		Vbox vboxNotas = new Vbox();
+		vboxNotas.setParent(hboxCentral);
+		
+		Label labelNotas= new Label("Notas");
+		labelNotas.setParent(vboxNotas);
 		
 		// criar o listbox para as notas
 		Listbox listboxNotas = new Listbox();
 		listboxNotas.setSizedByContent(true);
-		//listboxNotas.setWidth("550px");
-
 		
 		Listhead listheadNotas = new Listhead();
 		Listheader listheaderCriterio = new Listheader("Critério");
 		Listheader listheaderNota = new Listheader("Nota");
-
 		
 		listheaderCriterio.setParent(listheadNotas);
 		listheaderNota.setParent(listheadNotas);
@@ -106,7 +118,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellCorrecao = new Listcell("Correção:");
 		Listcell listcellTextboxCorrecao = new Listcell();
 		
-		textboxCorrecao.setParent(listcellTextboxCorrecao);
+		decimalboxCorrecao.setParent(listcellTextboxCorrecao);
 		listcellCorrecao.setParent(listitemCorrecao);
 		listcellTextboxCorrecao.setParent(listitemCorrecao);
 		listitemCorrecao.setParent(listboxNotas);
@@ -115,7 +127,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellCompletude = new Listcell("Completude:");
 		Listcell listcellTextboxCompletude = new Listcell();
 				
-		textboxCompletude.setParent(listcellTextboxCompletude);
+		decimalboxCompletude.setParent(listcellTextboxCompletude);
 		listcellCompletude.setParent(listitemCompletude);
 		listcellTextboxCompletude.setParent(listitemCompletude);
 		listitemCompletude.setParent(listboxNotas);
@@ -124,7 +136,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellConsistencia = new Listcell("Consistência:");
 		Listcell listcellTextboxConsistencia = new Listcell();
 		
-		textboxConsistencia.setParent(listcellTextboxConsistencia);
+		decimalboxConsistencia.setParent(listcellTextboxConsistencia);
 		listcellConsistencia.setParent(listitemConsistencia);
 		listcellTextboxConsistencia.setParent(listitemConsistencia);
 		listitemConsistencia.setParent(listboxNotas);
@@ -133,7 +145,7 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellUtilidade = new Listcell("Utilidade:");
 		Listcell listcellTextboxUtilidade = new Listcell();
 		
-		textboxUtilidade.setParent(listcellTextboxUtilidade);
+		decimalboxUtilidade.setParent(listcellTextboxUtilidade);
 		listcellUtilidade.setParent(listitemUtilidade);
 		listcellTextboxUtilidade.setParent(listitemUtilidade);
 		listitemUtilidade.setParent(listboxNotas);
@@ -142,59 +154,34 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellAplicabilidade = new Listcell("Aplicabilidade:");
 		Listcell listcellTextboxAplicabilidade = new Listcell();
 		
-		textboxAplicabilidade.setParent(listcellTextboxAplicabilidade);
+		decimalboxAplicabilidade.setParent(listcellTextboxAplicabilidade);
 		listcellAplicabilidade.setParent(listitemAplicabilidade);
 		listcellTextboxAplicabilidade.setParent(listitemAplicabilidade);
 		listitemAplicabilidade.setParent(listboxNotas);
 		
+		
 		Listitem listitemMediaNotas = new Listitem();
 		Listcell listcellMediaNotas = new Listcell("Média das Notas:");
 		listcellTextboxMediaNotas.setValue("MEDIA DAS NOTAS");
+		decimalboxMedia.setParent(listcellMediaNotas);
 		
 		listcellMediaNotas.setParent(listitemMediaNotas);
 		listcellTextboxMediaNotas.setParent(listitemMediaNotas);
 		listitemMediaNotas.setParent(listboxNotas);
+	
 		
 		listboxNotas.setParent(vboxNotas);
-		vboxNotas.setParent(tabpanelNotas);
 		
-		tabpanelNotas.setParent(tabpanelsNotas);
-		
-		tabsNotas.setParent(tabboxNotas);
-		tabpanelsNotas.setParent(tabboxNotas);
-		
-		tabboxNotas.setParent(this);
-		
-		//////////////////////////////////////////
-		// criar Tab Resultado
-		//////////////////////////////////////////
-		
-		Hbox hboxResultado = new Hbox();
-		
-		Tabbox tabboxResultado = new Tabbox();
-		
-		Tabs tabsResultado = new Tabs();
-		Tab tabResultado = new Tab("Resultado");
-		
-		tabResultado.setParent(tabsResultado);
-		tabsResultado.setParent(tabboxResultado);
-		
-		Tabpanels tabpanelsResultado = new Tabpanels();
-		Tabpanel tabpanelResultado = new Tabpanel();
-		
-		tabpanelResultado.setParent(tabpanelsResultado);
-		tabpanelsResultado.setParent(tabboxResultado);
-		
-		Vbox vboxParecer = new Vbox();
-		
+		Vbox vboxResultado = new Vbox();
+		vboxResultado.setParent(hboxCentral);
 		Label labelParecer = new Label("Parecer: ");
 		textboxParecer.setRows(3);
 		textboxParecer.setWidth("350px");
 		
-		labelParecer.setParent(vboxParecer);
-		textboxParecer.setParent(vboxParecer);
+		labelParecer.setParent(vboxResultado);
+		textboxParecer.setParent(vboxResultado);
 		
-		Vbox vboxResultadoFinal = new Vbox();
+		(new Separator()).setParent(vboxResultado);
 		
 		Label labelResultadoFinal = new Label("Resultado Final:");
 		comboboxResultadoFinal.setWidth("180px");
@@ -208,15 +195,8 @@ public class JanAvaliarItemConhecimento extends Window {
 		comboitemNaoAprovado.setParent(comboboxResultadoFinal);
 		comboitemIndefinido.setParent(comboboxResultadoFinal);
 		
-		labelResultadoFinal.setParent(vboxResultadoFinal);
-		comboboxResultadoFinal.setParent(vboxResultadoFinal);
-		
-		vboxParecer.setParent(hboxResultado);
-		vboxResultadoFinal.setParent(hboxResultado);
-		
-		hboxResultado.setParent(tabpanelResultado);
-		
-		tabboxResultado.setParent(this);
+		labelResultadoFinal.setParent(vboxResultado);
+		comboboxResultadoFinal.setParent(vboxResultado);
 		
 		//////////////////////////////////////////
 		// Criar buttons
@@ -230,8 +210,41 @@ public class JanAvaliarItemConhecimento extends Window {
 
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
+				
+				String msg = "";
+				
+				if (decimalboxAplicabilidade.getValue() == null)
+					msg += "Aplicabilidade deve ser informada.\n";
+				if (decimalboxCompletude.getValue() == null)
+					msg += "Completude deve ser informada.\n";
+				if (decimalboxConsistencia.getValue() == null)
+					msg += "Consistência deve ser informada.\n";
+				if (decimalboxCorrecao.getValue() == null)
+					msg += "Correção deve ser informada.\n";
+				if (decimalboxUtilidade.getValue() == null)
+					msg += "Utilitdade deve ser informada.\n";
+				if (textboxParecer.getValue() == null)
+					msg += "Parecer deve ser informado.\n";
+				if (comboboxResultadoFinal.getSelectedItem() == null)
+					msg += "Resultado final deve ser informado.\n";
 
+				if (msg.isEmpty()) {
+					Avaliacao avaliacao = new Avaliacao();
+					avaliacao.setAutor(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano());
+					avaliacao.setNotaAplicabilidade(decimalboxAplicabilidade.getValue());
+					avaliacao.setNotaCompletude(decimalboxCompletude.getValue());
+					avaliacao.setNotaConsistencia(decimalboxConsistencia.getValue());
+					avaliacao.setNotaCorrecao(decimalboxCorrecao.getValue());
+					avaliacao.setNotaUtilidade(decimalboxUtilidade.getValue());
+					avaliacao.setParecer(textboxParecer.getValue());
+					avaliacao.setResultadoFinal((String)comboboxResultadoFinal.getSelectedItem().getValue());
+					ctrlGerenciaConhecimento.salvarAvaliacaoItemConhecimento(avaliacao, itemConhecimento);
+					Messagebox.show("Avaliação salva com sucesso.");
+				}else{
+					Messagebox.show(msg);
+				}
+				
+				
 			}
 		});
 

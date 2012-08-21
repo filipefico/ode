@@ -29,6 +29,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
+	Label labelQtdeItens = new Label();
 	Label labelQtdeItensValor = new Label("0");
 	Listbox listboxQtdeItens = new Listbox();
 	Listitem listitem;
@@ -56,28 +57,23 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
-		Label labelQtdeItens = new Label();
 			
-		labelQtdeItens.setValue("Quantidade de Itens: " + labelQtdeItensValor.getValue());
 		labelQtdeItens.setParent(vbox);
 		
 		//listbox	
 		Listhead colunas = new Listhead();;
 		Listheader colunaRadioButton = new Listheader(" ");
-	//	colunaRadioButton.setWidth("30px");
+		colunaRadioButton.setWidth("30px");
 		Listheader colunaTitulo = new Listheader("Título");
-		//colunaTitulo.setWidth("120px");
+		colunaTitulo.setWidth("120px");
 		Listheader colunaInformacoes = new Listheader("Informações");
-		//colunaInformacoes.setWidth("250px");
+		colunaInformacoes.setWidth("250px");
 		Listheader colunaAvaliadoresSelecionados = new Listheader("Avaliadores Selecionados");
-	//	colunaAvaliadoresSelecionados.setWidth("165px");
-		
+		colunaAvaliadoresSelecionados.setWidth("100%");
 		
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
 		listboxQtdeItens.setSizedByContent(true);
-		//listboxQtdeItens.setWidth("580px");
-		listboxQtdeItens.setHeight("350px");
 		
 		colunaRadioButton.setParent(colunas);
 		colunaTitulo.setParent(colunas);
@@ -113,7 +109,8 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento();
+				if (listboxQtdeItens.getSelectedItem() != null)
+					ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue());
 				
 			}
 		});
@@ -142,6 +139,8 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			preencherLinhaListbox(item);
 			listitem.setParent(listboxQtdeItens);
 		}
+		
+		labelQtdeItens.setValue("Quantidade de Itens: " + itens.size());
 		
 	}
 	

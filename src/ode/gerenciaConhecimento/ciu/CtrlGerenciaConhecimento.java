@@ -13,6 +13,7 @@ import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.controleUsuario.cdp.Usuario;
 import ode.controleUsuario.cgt.AplCadastrarUsuario;
+import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -177,9 +178,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		
 
 
-	public void exibirJanelaAvaliarItemConhecimento(){
+	public void exibirJanelaAvaliarItemConhecimento(ItemConhecimento itemConhecimento){
 
-		janAvaliarItemConhecimento = new JanAvaliarItemConhecimento(this);
+		janAvaliarItemConhecimento = new JanAvaliarItemConhecimento(this, itemConhecimento);
 
 		janP.mostrarJanelaConteudo(janAvaliarItemConhecimento);
 		
@@ -315,5 +316,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		} catch (NucleoRegraNegocioExcecao e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void salvarAvaliacaoItemConhecimento(Avaliacao avaliacao, ItemConhecimento itemConhecimento){
+		this.aplCadastrarItemConhecimento.adicionarAvaliacao(avaliacao, itemConhecimento);
 	}
 }
