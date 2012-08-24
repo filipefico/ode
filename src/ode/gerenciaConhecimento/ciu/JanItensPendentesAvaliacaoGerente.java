@@ -3,6 +3,7 @@ package ode.gerenciaConhecimento.ciu;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
+import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -186,7 +187,14 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		Label labelAvaliadores = new Label("Avaliadores:");
 		labelAvaliadores.setParent(vboxAvaliadoresSelecionados);
 		
-		Label labelAvaliacoesRealizadas = new Label("Avaliações Realizadas: " + labelQtdeAvaliacoesRealizadas.getValue());
+		Collection<Avaliacao> itens = item.getAvaliacoes();
+		for (Avaliacao avaliacao : itens){
+			Label labelNomeAutor = new Label();
+			labelNomeAutor.setValue(avaliacao.getAutor().getNome());
+			labelNomeAutor.setParent(vboxAvaliadoresSelecionados);
+		}
+		
+		Label labelAvaliacoesRealizadas = new Label("Avaliações Realizadas: " + itens.size());
 		labelAvaliacoesRealizadas.setParent(vboxAvaliadoresSelecionados);
 		
 		vboxAvaliadoresSelecionados.setParent(listcellAvaliadoresSelecionados);

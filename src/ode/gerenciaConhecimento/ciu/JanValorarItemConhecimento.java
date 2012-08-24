@@ -219,7 +219,21 @@ public class JanValorarItemConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(itemConhecimento);
+				
+				Messagebox.show("Deseja realmente cancelar a Valoração?", "Aviso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						// TODO Auto-generated method stub
+						if (arg0.getName().equals("onYes")){
+							Messagebox.show("Valoração cancelada!", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+							ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(itemConhecimento);
+						}
+					}
+				});
+				
+				
+				
 			}
 		});
 		

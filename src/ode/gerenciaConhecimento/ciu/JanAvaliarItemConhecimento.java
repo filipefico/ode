@@ -1,5 +1,6 @@
 package ode.gerenciaConhecimento.ciu;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,13 +38,19 @@ public class JanAvaliarItemConhecimento extends Window {
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	ItemConhecimento itemConhecimento;
 	
+	BigDecimal notaCorrecao = new BigDecimal("0.00");
+	BigDecimal notaCompletude = new BigDecimal("0.00");
+	BigDecimal notaConsistencia = new BigDecimal("0.00");
+	BigDecimal notaUtilidade = new BigDecimal("0.00");
+	BigDecimal notaAplicabilidade = new BigDecimal("0.00");
+	
 	Decimalbox decimalboxCorrecao = new Decimalbox();
 	Decimalbox decimalboxCompletude = new Decimalbox();
 	Decimalbox decimalboxConsistencia = new Decimalbox();
 	Decimalbox decimalboxUtilidade = new Decimalbox();
 	Decimalbox decimalboxAplicabilidade = new Decimalbox();
-	Decimalbox decimalboxMedia = new Decimalbox();
-	Listcell listcellTextboxMediaNotas = new Listcell();
+	Listcell listcellMediaNotasValor = new Listcell();
+	Label media = new Label();
 	Textbox textboxParecer = new Textbox("");
 	Combobox comboboxResultadoFinal = new Combobox();
 	
@@ -54,6 +61,23 @@ public class JanAvaliarItemConhecimento extends Window {
 		
 		criarJanAvaliarItemConhecimento();
 		
+	}
+	
+	public BigDecimal getNota(Decimalbox nota){
+		BigDecimal n = nota.getValue();
+		
+		return n;
+	}
+	
+	public String calculaMediaNotas(){
+		double media = (notaAplicabilidade.doubleValue() + notaCompletude.doubleValue() 
+				+ notaConsistencia.doubleValue() + notaCorrecao.doubleValue() 
+				+ notaUtilidade.doubleValue())/5;
+		
+		//Label label = new Label(Double.toString(media));
+		String label = Double.toString(media);
+		
+		return label;
 	}
 	
 	public void criarJanAvaliarItemConhecimento(){
@@ -117,7 +141,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listitem listitemCorrecao = new Listitem();
 		Listcell listcellCorrecao = new Listcell("Correção:");
 		Listcell listcellTextboxCorrecao = new Listcell();
-		
+	//	decimalboxCorrecao.setConstraint("no empty");
+		decimalboxCorrecao.addEventListener("onBlur", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				notaCorrecao = getNota(decimalboxCorrecao);
+				media.setValue(calculaMediaNotas());
+			}
+		});
 		decimalboxCorrecao.setParent(listcellTextboxCorrecao);
 		listcellCorrecao.setParent(listitemCorrecao);
 		listcellTextboxCorrecao.setParent(listitemCorrecao);
@@ -128,6 +161,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellTextboxCompletude = new Listcell();
 				
 		decimalboxCompletude.setParent(listcellTextboxCompletude);
+	//	decimalboxCompletude.setConstraint("no empty");
+		decimalboxCompletude.addEventListener("onBlur", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				notaCompletude = getNota(decimalboxCompletude);
+				media.setValue(calculaMediaNotas());
+			}
+		});
 		listcellCompletude.setParent(listitemCompletude);
 		listcellTextboxCompletude.setParent(listitemCompletude);
 		listitemCompletude.setParent(listboxNotas);
@@ -137,6 +180,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellTextboxConsistencia = new Listcell();
 		
 		decimalboxConsistencia.setParent(listcellTextboxConsistencia);
+	//	decimalboxConsistencia.setConstraint("no empty");
+		decimalboxConsistencia.addEventListener("onBlur", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				notaConsistencia = getNota(decimalboxConsistencia);
+				media.setValue(calculaMediaNotas());
+			}
+		});
 		listcellConsistencia.setParent(listitemConsistencia);
 		listcellTextboxConsistencia.setParent(listitemConsistencia);
 		listitemConsistencia.setParent(listboxNotas);
@@ -146,6 +199,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellTextboxUtilidade = new Listcell();
 		
 		decimalboxUtilidade.setParent(listcellTextboxUtilidade);
+	//	decimalboxUtilidade.setConstraint("no empty");
+		decimalboxUtilidade.addEventListener("onBlur", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				notaUtilidade = getNota(decimalboxUtilidade);
+				media.setValue(calculaMediaNotas());
+			}
+		});
 		listcellUtilidade.setParent(listitemUtilidade);
 		listcellTextboxUtilidade.setParent(listitemUtilidade);
 		listitemUtilidade.setParent(listboxNotas);
@@ -155,6 +218,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listcell listcellTextboxAplicabilidade = new Listcell();
 		
 		decimalboxAplicabilidade.setParent(listcellTextboxAplicabilidade);
+	//	decimalboxAplicabilidade.setConstraint("no empty");
+		decimalboxAplicabilidade.addEventListener("onBlur", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				notaAplicabilidade = getNota(decimalboxAplicabilidade);
+				media.setValue(calculaMediaNotas());
+			}
+		});
 		listcellAplicabilidade.setParent(listitemAplicabilidade);
 		listcellTextboxAplicabilidade.setParent(listitemAplicabilidade);
 		listitemAplicabilidade.setParent(listboxNotas);
@@ -162,11 +235,10 @@ public class JanAvaliarItemConhecimento extends Window {
 		
 		Listitem listitemMediaNotas = new Listitem();
 		Listcell listcellMediaNotas = new Listcell("Média das Notas:");
-		listcellTextboxMediaNotas.setValue("MEDIA DAS NOTAS");
-		decimalboxMedia.setParent(listcellMediaNotas);
 		
+		media.setParent(listcellMediaNotasValor);
 		listcellMediaNotas.setParent(listitemMediaNotas);
-		listcellTextboxMediaNotas.setParent(listitemMediaNotas);
+		listcellMediaNotasValor.setParent(listitemMediaNotas);
 		listitemMediaNotas.setParent(listboxNotas);
 	
 		
@@ -231,6 +303,7 @@ public class JanAvaliarItemConhecimento extends Window {
 				if (msg.isEmpty()) {
 					Avaliacao avaliacao = new Avaliacao();
 					avaliacao.setAutor(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano());
+					avaliacao.setDataAvaliacao(new Date());
 					avaliacao.setNotaAplicabilidade(decimalboxAplicabilidade.getValue());
 					avaliacao.setNotaCompletude(decimalboxCompletude.getValue());
 					avaliacao.setNotaConsistencia(decimalboxConsistencia.getValue());
@@ -239,7 +312,17 @@ public class JanAvaliarItemConhecimento extends Window {
 					avaliacao.setParecer(textboxParecer.getValue());
 					avaliacao.setResultadoFinal((String)comboboxResultadoFinal.getSelectedItem().getValue());
 					ctrlGerenciaConhecimento.salvarAvaliacaoItemConhecimento(avaliacao, itemConhecimento);
-					Messagebox.show("Avaliação salva com sucesso.");
+					Messagebox messageboxSalvar = new Messagebox();
+					Messagebox.show("Avaliação salva com sucesso!", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION, new EventListener() {
+						
+						@Override
+						public void onEvent(Event arg0) throws Exception {
+							// TODO Auto-generated method stub
+							if(arg0.getName().equals("onOK")){
+								ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+							}
+						}
+					});
 				}else{
 					Messagebox.show(msg);
 				}
@@ -254,6 +337,17 @@ public class JanAvaliarItemConhecimento extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 
+				Messagebox.show("Deseja realmente cancelar a Avaliação?", "Aviso", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
+
+					@Override
+					public void onEvent(Event arg0) throws Exception {
+						// TODO Auto-generated method stub
+						if (arg0.getName().equals("onYes")){
+							Messagebox.show("Avaliação cancelada!", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+							ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+						}
+					}
+				});
 
 			}
 		});

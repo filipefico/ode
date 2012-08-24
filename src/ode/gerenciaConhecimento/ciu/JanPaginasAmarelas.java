@@ -12,6 +12,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
@@ -70,6 +71,7 @@ public class JanPaginasAmarelas extends Window {
 		tabpanelsBuscarPessoas.setParent(tabboxBuscarPessoas);
 		
 		Vbox vboxBuscarPessoas = new Vbox();
+		vboxBuscarPessoas.setWidth("100%");
 		Hbox hboxBuscarPessoas_1 = new Hbox();
 		Hbox hboxBuscarPessoas_2 = new Hbox();
 		
@@ -281,9 +283,10 @@ public class JanPaginasAmarelas extends Window {
 		tabpanelsResultado.setParent(tabboxResultado);
 		
 		Vbox vboxResultado = new Vbox();
+		vboxResultado.setWidth("100%");
 		vboxResultado.setParent(tabpanelResultado);
 		
-		Label labelQtdePessoasEncontradas = new Label("Quantidade de pessoas encontradas: xxx");
+		Label labelQtdePessoasEncontradas = new Label("Quantidade de pessoas encontradas: 1");
 		labelQtdePessoasEncontradas.setParent(vboxResultado);
 		
 		listboxPessoasEncontradas.setMultiple(true);
@@ -296,6 +299,22 @@ public class JanPaginasAmarelas extends Window {
 		colunaNome.setParent(colunasPessoasEncontradas);
 		colunaContato.setParent(colunasPessoasEncontradas);
 		colunasPessoasEncontradas.setParent(listboxPessoasEncontradas);
+		
+		Listitem listitem = new Listitem();
+		Listcell listcellNome = new Listcell("José da Silva Pereira");
+		Listcell listcellContato = new Listcell();
+		Vbox vboxContato = new Vbox();
+		
+		Label labelEmail = new Label("E-mail: josesilva@nemo.ufes.br");
+		Label labelTelefone = new Label("Telefone: (27) 3333-2222");
+		
+		labelEmail.setParent(vboxContato);
+		labelTelefone.setParent(vboxContato);
+		
+		vboxContato.setParent(listcellContato);
+		listcellNome.setParent(listitem);
+		listcellContato.setParent(listitem);
+		listitem.setParent(listboxPessoasEncontradas);
 		
 		listboxPessoasEncontradas.setParent(vboxResultado);
 		
