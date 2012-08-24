@@ -145,7 +145,7 @@ public class JanItensCriados extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-			//	ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
+				//ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
 				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoGerente();
 			}
 		});

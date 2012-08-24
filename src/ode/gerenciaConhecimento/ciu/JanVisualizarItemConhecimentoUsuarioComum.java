@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -68,8 +69,10 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 	
 	ItemConhecimento itemConhecimento;
 	
-	Listitem listitem;
+	Listitem listitemValoracao;
+	Listitem listitemAvaliacao;
 	Listbox listboxValoracoes = new Listbox();
+	Listbox listboxAvaliacoes = new Listbox();
 	
 	float positiva = 0;
 	float negativa = 0;
@@ -613,6 +616,107 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 	
 	public void preencherAbaAvaliacoes(Object item){
 		
+		Listhead listhead = new Listhead();
+		Listheader listheaderInformacoes = new Listheader("informações");
+		Listheader listheaderNotas = new Listheader("Notas");
+		Listheader listheaderResultado = new Listheader("Resultado");
+		
+		listheaderInformacoes.setParent(listhead);
+		listheaderNotas.setParent(listhead);
+		listheaderResultado.setParent(listhead);
+		listhead.setParent(listboxAvaliacoes);
+		
+		listboxAvaliacoes.setHeight("350px");
+		preencherListboxAvaliacoes();
+		
+		listboxAvaliacoes.setParent(tabpanelAvaliacoes);
+		
+	}
+	
+	public void preencherListboxAvaliacoes(){
+		Collection<Avaliacao> itens = itemConhecimento.getAvaliacoes();
+		for (Avaliacao item : itens){
+			listitemAvaliacao = new Listitem();
+			listitemAvaliacao.setValue(item);
+			preencherLinhaListboxAvaliacoes(item);
+			listitemAvaliacao.setParent(listboxAvaliacoes);
+		}
+	}
+	
+	public double calculaMedia(double correcao, double completude, double consistencia, double utilidade, double aplicabilidade){
+		return (correcao + completude + consistencia + utilidade + aplicabilidade)/5;
+	}
+	
+	public void preencherLinhaListboxAvaliacoes(Avaliacao item){
+		
+		Listcell listcellInformacoes = new Listcell();
+		Listcell listcellNotas = new Listcell();
+		Listcell listcellResultado = new Listcell();
+		
+		listcellInformacoes.setParent(listitemAvaliacao);
+		listcellNotas.setParent(listitemAvaliacao);
+		listcellResultado.setParent(listitemAvaliacao);
+		
+		Vbox vboxInformacoes = new Vbox();
+		Vbox vboxNotas = new Vbox();
+		Vbox vboxResultado = new Vbox();
+				
+		vboxInformacoes.setParent(listcellInformacoes);
+		vboxNotas.setParent(listcellNotas);
+		vboxResultado.setParent(listcellResultado);
+		
+		/////////////////////////
+		// criar aba informacoes
+		/////////////////////////
+			
+		Label labelAutor = new Label("Autor: " + item.getAutor().getNome());
+	//	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+	//	Label labelDataAvaliacao = new Label("Data da Avaliação: " + formatador.format(item.getDataAvaliacao()));
+		//labelDataAvaliacao.setValue();
+		Label labelDataAvaliacao = new Label("Data da Avaliação: " + item.getDataAvaliacao());
+
+		
+		labelAutor.setParent(vboxInformacoes);
+		labelDataAvaliacao.setParent(vboxInformacoes);
+		
+		/////////////////////////
+		// criar aba Notas
+		/////////////////////////
+		
+		double correcao = item.getNotaCorrecao().doubleValue();
+		Label labelCorrecao = new Label("Correção: " + Double.toString(correcao));
+		labelCorrecao.setParent(vboxNotas);
+		
+		double completude = item.getNotaCompletude().doubleValue();
+		Label labelCompletude = new Label("Completude: " + Double.toString(completude));
+		labelCompletude.setParent(vboxNotas);
+		
+		double consistencia = item.getNotaConsistencia().doubleValue();
+		Label labelConsistencia = new Label("Consistência: " + Double.toString(consistencia));
+		labelConsistencia.setParent(vboxNotas);
+		
+		double utilidade = item.getNotaUtilidade().doubleValue();
+		Label labelUtilidade = new Label("Utilidade: " + Double.toString(utilidade));
+		labelUtilidade.setParent(vboxNotas);
+		
+		double aplicabilidade = item.getNotaAplicabilidade().doubleValue();
+		Label labelAplicabilidade = new Label("Aplicabilidade: " + Double.toString(aplicabilidade));
+		labelAplicabilidade.setParent(vboxNotas);
+		
+		double media = calculaMedia(correcao, completude, consistencia, utilidade, aplicabilidade);
+		Label labelMedia = new Label("Média das Notas: " + Double.toString(media));
+		labelMedia.setParent(vboxNotas);
+		
+		/////////////////////////
+		// criar aba Rsultado
+		/////////////////////////
+		
+		Label labelParecer = new Label("Parecer: " + item.getParecer());
+		Label labelResultadoFinal = new Label("Resultado Final: " + item.getResultadoFinal());
+		
+		labelParecer.setParent(vboxResultado);
+		labelResultadoFinal.setParent(vboxResultado);
+		
 	}
 	
 	public void preencherLinhaListboxValoracoes(Valoracao item){
@@ -663,20 +767,19 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 		vboxLinhaValoracoes.setParent(listcellValoracoes);
 		
-		listcellValoracoes.setParent(listitem);
+		listcellValoracoes.setParent(listitemValoracao);
 		
 		
 		
 	}
 	
 	public void preencherListboxValoracoes(){
-		// fiz recuperar todos somente para teste
 		Collection<Valoracao> itens = itemConhecimento.getValoracoes();
 		for (Valoracao item : itens){
-			listitem = new Listitem();
-			listitem.setValue(item);
+			listitemValoracao = new Listitem();
+			listitemValoracao.setValue(item);
 			preencherLinhaListboxValoracoes(item);
-			listitem.setParent(listboxValoracoes);
+			listitemValoracao.setParent(listboxValoracoes);
 		}
 	}
 	
