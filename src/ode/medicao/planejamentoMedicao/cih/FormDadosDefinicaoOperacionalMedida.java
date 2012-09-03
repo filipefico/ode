@@ -95,6 +95,8 @@ public class FormDadosDefinicaoOperacionalMedida extends FormularioDadosCRUD<Def
 		
 		tbFormula.setWidth("385px");
 		gridDadosCadastro.adicionarLinha("Formula" , tbFormula);
+		tbFormula.setWidth("100%");
+		tbFormula.setRows(3);
 		
 		tabs.add(tabDadosCadastro);
 		//////////////////////////////////////////

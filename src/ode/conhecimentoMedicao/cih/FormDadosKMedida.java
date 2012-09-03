@@ -1,10 +1,13 @@
 package ode.conhecimentoMedicao.cih;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Caption;
@@ -17,8 +20,8 @@ import ode.conhecimentoMedicao.cdp.KEscala;
 import ode.conhecimentoMedicao.cdp.KMedida;
 import ode.conhecimentoMedicao.cdp.KUnidadeMedida;
 import ode.conhecimentoMedicao.cdp.NaturezaMedida;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cdp.TipoEscala;
+import ode.medicao.EntidadeMensuravel.cdp.TipoEntidadeMensuravel;
 import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
 import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
 import ode._infraestruturaBase.ciu.NucleoTab;
@@ -46,14 +49,15 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 	private CtrlKMedidaCRUD ctrl;
 	private Groupbox gbElementoMensuravel;
 	private Groupbox gbEscala;
+	private Collection<KElementoMensuravel> elementosDisponiveis;
 	private EventListener onSelectetTipoMensuravel = new EventListener() {
 		
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			TipoEntidadeMensuravel tipo = lbTipoMensuravel.getObjetoSelecionado();
-			Collection<KElementoMensuravel> eleMens = ctrl.getAplKElementoMensuravel().recuperarTodos();
+			Set<TipoEntidadeMensuravel> tipos = lbTipoMensuravel.getObjetosSelecionados();
 			lbElementoMensuravel.detach();
-			lbElementoMensuravel = new NucleoMultipleListBox<KElementoMensuravel>();
+			lbElementoMensuravel = new NucleoListbox<KElementoMensuravel>();
+			Collection<KElementoMensuravel> eleMens = ctrl.separaElementosPorTiposMensuraveis(tipos, elementosDisponiveis);
 			gbElementoMensuravel.appendChild(lbElementoMensuravel);
 			lbElementoMensuravel.setCheckmark(true);
 			lbElementoMensuravel.setObjetos(eleMens);
@@ -93,9 +97,12 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 	
 	@Override
 	protected List<NucleoTab> definirTabs() {
+		
+		ctrl = (CtrlKMedidaCRUD) this.getControlador();
+		elementosDisponiveis = ctrl.getAplKElementoMensuravel().recuperarTodos();
+		
 		// Cria a nova lista
 		List<NucleoTab> listaTabs = new ArrayList<NucleoTab>();
-		ctrl = (CtrlKMedidaCRUD) this.getControlador();
 		// ////////////////////////////
 		// Dados Cadastro
 		// ////////////////////////////
@@ -171,7 +178,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		boxEntidade.appendChild(gbElementoMensuravel);
 		
 		tipoEntidadeMensuravelTab.setConteudoTab(boxEntidade);
-		try{onSelectetTipoMensuravel.onEvent(null);}catch (Exception e) {}
 		
 		listaTabs.add(tipoEntidadeMensuravelTab);
 		
@@ -195,7 +201,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		gbEscala = new Groupbox();
 		
 		gbEscala.appendChild(new Caption("Escala"));
-		try{onSelectTipoEscala.onEvent(null);}catch (Exception e) {}
 		
 		gbEscala.appendChild(lbEscala);
 		
@@ -218,8 +223,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		lbDerivada.setObjetos(ctrl.definirAplCRUD().recuperarTodos());
 		
 		lbDerivada.addEventListener("onSelect", onSelectNatureza);
-		
-		try{onSelectNatureza.onEvent(null);}catch(Exception e){};
 		
 		derivadaTab.setConteudoTab(lbDerivada);
 		
@@ -251,7 +254,15 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		
 		listaTabs.add(defOperMed);
 		
+		desparaEventos();
+		
 		return listaTabs;
+	}
+
+	protected void desparaEventos() {		
+		try{onSelectNatureza.onEvent(null);}catch(Exception e){};
+		try{onSelectTipoEscala.onEvent(null);}catch (Exception e) {};
+		try{onSelectetTipoMensuravel.onEvent(null);}catch (Exception e) {};
 	}
 
 	@Override
@@ -264,11 +275,12 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		lbUnidadeMedida.setObjetoSelecionado(objeto.getUnidadeMedida());
 		lbTipoEscala.setObjetoSelecionado(objeto.getEscala().getTipo());
 		lbEscala.setObjetoSelecionado(objeto.getEscala());
-		lbTipoMensuravel.setObjetosSelecionados(objeto.getTiposEntidadeMensuraveis());
 		lbElementoMensuravel.setObjetoSelecionado(objeto.getPropriedadeMedida());
 		lbDerivada.setObjetosSelecionados(objeto.getDerivadaDe());
 		lbCorrelata.setObjetosSelecionados(objeto.getMedidasCorrelatas());
+		lbTipoMensuravel.setObjetosSelecionados(Arrays.asList(TipoEntidadeMensuravel.values()));
 		((CtrlKMedidaCRUD)this.getControlador()).getCtrlKDefinicaoOperacional().atualizarPesquisa(objeto);
+		desparaEventos();
 	}
 
 	@Override
@@ -279,7 +291,6 @@ public class FormDadosKMedida extends FormularioDadosCRUD<KMedida> {
 		objeto.setNaturezaMedida(lbNaturezaMedida.getObjetoSelecionado());
 		objeto.setUnidadeMedida(lbUnidadeMedida.getObjetoSelecionado());
 		objeto.setEscala(lbEscala.getObjetoSelecionado());
-		objeto.setTiposEntidadeMensuraveis(lbTipoMensuravel.getObjetosSelecionados());
 		objeto.setPropriedadeMedida(lbElementoMensuravel.getObjetoSelecionado());
 		if(lbNaturezaMedida.getObjetoSelecionado()==NaturezaMedida.BASE){
 			lbDerivada.clearSelection();

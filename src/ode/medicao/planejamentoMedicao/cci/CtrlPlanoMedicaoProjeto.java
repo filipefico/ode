@@ -25,6 +25,7 @@ import ode.medicao.planejamentoMedicao.cdp.ObjetivoEstrategico;
 import ode.medicao.planejamentoMedicao.cdp.ObjetivoMedicao;
 import ode.medicao.planejamentoMedicao.cdp.ObjetivoSoftware;
 import ode.medicao.planejamentoMedicao.cdp.PlanoMedicao;
+import ode.medicao.planejamentoMedicao.cdp.PlanoMedicaoOrganizacao;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKMedida;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgd.ProjetoDAO;
@@ -34,6 +35,7 @@ import ode.medicao.planejamentoMedicao.cgt.AplCadastrarNecessidadeInformacao;
 import ode.medicao.planejamentoMedicao.cgt.AplCadastrarObjetivoEstrategico;
 import ode.medicao.planejamentoMedicao.cgt.AplCadastrarObjetivoMedicao;
 import ode.medicao.planejamentoMedicao.cgt.AplCadastrarObjetivoSoftware;
+import ode.medicao.planejamentoMedicao.cgt.AplElaborarPlanoMedicaoOrganizacao;
 import ode.medicao.planejamentoMedicao.cgt.AplElaborarPlanoMedicaoProjeto;
 import ode.medicao.planejamentoMedicao.cih.PainelPrincipalPlanoMedicao;
 import ode.medicao.planejamentoMedicao.cih.PainelPrincipalPlanoMedicaoOganizacao;
@@ -43,8 +45,9 @@ import ode.medicao.planejamentoMedicao.cih.PainelPrincipalPlanoMedicaoProjeto;
 public class CtrlPlanoMedicaoProjeto extends CtrlPlanoMedicao{
 	public static final String NOME = "CtrlPlanoMedicaoProjeto";
 
-
-	protected String title ="Novo Plano de Medição do Projeto";
+	protected String getDefaultTitle(){
+		return "Novo Plano de Medição do Projeto";
+	}
 	
 	private PlanoMedicaoProjeto pmo;
 	JanelaSimples janela;
@@ -53,6 +56,9 @@ public class CtrlPlanoMedicaoProjeto extends CtrlPlanoMedicao{
 	
 	@Autowired
 	AplElaborarPlanoMedicaoProjeto apl;
+	
+	@Autowired
+	AplElaborarPlanoMedicaoOrganizacao aplOrganizacao;
 	
 	@Autowired
 	ProjetoDAO pdao;
@@ -65,9 +71,16 @@ public class CtrlPlanoMedicaoProjeto extends CtrlPlanoMedicao{
 	public PlanoMedicaoProjeto getPlanoMedicao() {
 		return pmo;
 	}
+	
+	protected PainelPrincipalPlanoMedicao getPainelPrincipal() {
+		PainelPrincipalPlanoMedicao pppmo = new PainelPrincipalPlanoMedicaoProjeto();
+		pppmo.setControlador(this);
+		return pppmo;
+	}
 
 	public void setPlanoMedicao(PlanoMedicaoProjeto objeto) {
 		this.pmo = objeto;
+		atualizaTitle(pmo);
 	}
 	
 	public void salvar(){
@@ -79,12 +92,6 @@ public class CtrlPlanoMedicaoProjeto extends CtrlPlanoMedicao{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	protected PainelPrincipalPlanoMedicao getPainelPrincipal() {
-		PainelPrincipalPlanoMedicao pppmo = new PainelPrincipalPlanoMedicaoProjeto();
-		pppmo.setControlador(this);
-		return pppmo;
 	}
 	
 	@Override
@@ -116,6 +123,15 @@ public class CtrlPlanoMedicaoProjeto extends CtrlPlanoMedicao{
 
 	public Iterable<Projeto> getProjetos() {
 		return pdao.recuperarTodos();
+	}
+
+	public void deletar() {
+		apl.delete(getPlanoMedicao());
+		iniciar();
+	}
+
+	public Collection<PlanoMedicaoOrganizacao> getPlanosDeOrganizacao() {
+		return aplOrganizacao.recuperarTodos();
 	}
 
 	

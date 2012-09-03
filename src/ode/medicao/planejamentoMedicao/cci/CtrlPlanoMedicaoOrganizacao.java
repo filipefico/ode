@@ -39,9 +39,10 @@ import ode.medicao.planejamentoMedicao.cih.PainelPrincipalPlanoMedicaoOganizacao
 @Controller(CtrlPlanoMedicaoOrganizacao.NOME)
 public class CtrlPlanoMedicaoOrganizacao extends CtrlPlanoMedicao{
 	public static final String NOME = "CtrlPlanoMedicaoOrganizacao";
-
 	
-	protected String title ="Novo Plano de Medição da Organização";
+	protected String getDefaultTitle(){
+		return "Novo Plano de Medição da Organização";
+	}
 	
 	private PlanoMedicaoOrganizacao pmo;
 	JanelaSimples janela;
@@ -68,6 +69,7 @@ public class CtrlPlanoMedicaoOrganizacao extends CtrlPlanoMedicao{
 
 	public void setPlanoMedicao(PlanoMedicaoOrganizacao objeto) {
 		this.pmo = objeto;
+		this.atualizaTitle(pmo);
 	}
 	
 	public void salvar(){
@@ -76,6 +78,7 @@ public class CtrlPlanoMedicaoOrganizacao extends CtrlPlanoMedicao{
 		Messagebox mbox = new Messagebox();
 		try {
 			mbox.show("Plano de Medição da Organização salvo");
+			setTitle(pmo.toString());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -102,11 +105,18 @@ public class CtrlPlanoMedicaoOrganizacao extends CtrlPlanoMedicao{
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				painel.preencherDados((PlanoMedicaoOrganizacao)lista.getSelectedItem().getValue());
+				setPlanoMedicao((PlanoMedicaoOrganizacao)lista.getSelectedItem().getValue());
+				PlanoMedicaoOrganizacao pp = (PlanoMedicaoOrganizacao)lista.getSelectedItem().getValue();
+				painel.preencherDados(getPlanoMedicao());
 				janela.onClose();
 			}
 		});
 		janela.mostrar();
+	}
+
+	public void deletar() {
+		apl.delete(getPlanoMedicao());
+		iniciar();
 	}
 
 	

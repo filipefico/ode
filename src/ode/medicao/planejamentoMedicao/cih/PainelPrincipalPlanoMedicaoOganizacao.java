@@ -13,17 +13,13 @@ public class PainelPrincipalPlanoMedicaoOganizacao extends PainelPrincipalPlanoM
 
 	@Override
 	protected void novo() {
-		dbData.setValue(new Date());
+		dbData.setValue(null);
 		tbDescricao.setText("");
 		ibVersao.setText("");
 		cbResponsavel.selecionarPrimeiroElemento();
-		//compObj.decelecionaTudo();
+		compObj.decelecionaTudo();
+		medPlan.decelecionaTudo();
 		((CtrlPlanoMedicaoOrganizacao)getControlador()).setPlanoMedicao(((CtrlPlanoMedicaoOrganizacao)getControlador()).novoPlanoMedicao());
-	}
-
-	@Override
-	protected void salvar() {
-		((CtrlPlanoMedicaoOrganizacao)getControlador()).salvar();
 	}
 
 	@Override
@@ -32,29 +28,23 @@ public class PainelPrincipalPlanoMedicaoOganizacao extends PainelPrincipalPlanoM
 	}
 	
 	@Override
-	protected void deletar() {
-		
+	protected void salvar() {
+		((CtrlPlanoMedicaoOrganizacao)getControlador()).salvar();
 	}
 	
+	@Override
+	protected void deletar() {
+		((CtrlPlanoMedicaoOrganizacao)getControlador()).deletar();
+	}
+	
+	@Override
 	public void preencherDados(PlanoMedicao objeto) {
-		dbData.setValue(objeto.getData());
-		tbDescricao.setText(objeto.getDescricao());
-		ibVersao.setText(Float.toString(objeto.getVersao()));
-		cbResponsavel.setObjetoSelecionado(objeto.getResponsavel());
-		compObj.populaArvore(objeto.getObjsEstrategico(), objeto.getObjsSoftware(), objeto.getObjsMedicao(), objeto.getNecessidades(), objeto.getProcessos());
+		super.preencherDados(objeto);
 	}
 
+	@Override
 	public void preencherObjetos(PlanoMedicao objeto) {
-		objeto.setData(dbData.getValue());
-		objeto.setDescricao(tbDescricao.getText());
-		objeto.setVersao(Float.parseFloat(ibVersao.getText()));
-		objeto.setResponsavel(cbResponsavel.getObjetoSelecionado());
-		objeto.setObjsEstrategico(compObj.getEstrategicosSelecionados());
-		objeto.setObjsSoftware(new HashSet(compObj.getSoftwareSelecionados()));
-		objeto.setObjsMedicao(new HashSet(compObj.getMedicaoSelecionados()));
-		objeto.setNecessidades(new HashSet(compObj.getNecessidadesSelecionadas()));
-		objeto.setProcessos(new HashSet(compObj.getProcessosSelecionados()));
-		objeto.adicionaMpm(new MedidaPlanoMedicao());
+		super.preencherObjetos(objeto);
 	}
 
 	

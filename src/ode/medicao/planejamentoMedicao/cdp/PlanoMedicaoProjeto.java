@@ -1,6 +1,7 @@
 package ode.medicao.planejamentoMedicao.cdp;
 
 import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
 
 import ode.controleProjeto.cdp.Projeto;
 
@@ -29,6 +30,6 @@ public class PlanoMedicaoProjeto extends PlanoMedicao{
 	}
 	
 	public String toString(){
-		return "Plano de Medição do "+projeto+" - Versão "+getVersao();
+		return "Plano de Medição do projeto "+projeto+" - Versão "+getVersao();
 	}
 }

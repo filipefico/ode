@@ -39,4 +39,8 @@ public class ValorReferencia extends ObjetoPersistente{
 		this.faixa = faixa;
 	}
 	
+	public String toString(){
+		return Float.toString(valor);
+	}
+	
 }

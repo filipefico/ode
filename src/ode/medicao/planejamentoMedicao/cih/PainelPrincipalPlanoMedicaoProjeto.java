@@ -6,11 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
+import org.zkoss.zul.api.Tabpanel;
 
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.ciu.NucleoCombobox;
@@ -32,16 +34,64 @@ public class PainelPrincipalPlanoMedicaoProjeto extends PainelPrincipalPlanoMedi
 	NucleoCombobox<PlanoMedicaoOrganizacao> cbPlanos = new NucleoCombobox<PlanoMedicaoOrganizacao>();
 	NucleoCombobox<Projeto> cbProjetos = new NucleoCombobox<Projeto>();
 	
-	Set<PlanoMedicaoOrganizacao> gambiarra = new HashSet<PlanoMedicaoOrganizacao>();
+	
+	
+	@Override
+	protected void novo() {
+		cbPlanos.selecionarPrimeiroElemento();
+		cbProjetos.selecionarPrimeiroElemento();
+		dbData.setValue(null);
+		tbDescricao.setText("");
+		ibVersao.setText("");
+		cbResponsavel.selecionarPrimeiroElemento();
+		compObj.decelecionaTudo();
+		medPlan.decelecionaTudo();
+		((CtrlPlanoMedicaoProjeto)getControlador()).setPlanoMedicao(((CtrlPlanoMedicaoProjeto)getControlador()).novoPlanoMedicao());
+	}
+
+	@Override
+	protected void abrir() {
+		((CtrlPlanoMedicaoProjeto)getControlador()).abrir();
+	}
+	
+	@Override
+	protected void salvar() {
+		((CtrlPlanoMedicaoProjeto)getControlador()).salvar();
+	}
+	
+	@Override
+	protected void deletar() {
+		((CtrlPlanoMedicaoProjeto)getControlador()).deletar();
+	}
+	
+	@Override
+	public void preencherDados(PlanoMedicao objeto) {
+		super.preencherDados(objeto);
+		cbPlanos.setObjetoSelecionado(((PlanoMedicaoProjeto)objeto).getPlanoBase());
+		cbProjetos.setObjetoSelecionado(((PlanoMedicaoProjeto)objeto).getProjeto());
+	}
+
+	@Override
+	public void preencherObjetos(PlanoMedicao objeto) {
+		super.preencherObjetos(objeto);
+		((PlanoMedicaoProjeto)objeto).setPlanoBase(cbPlanos.getObjetoSelecionado());
+		((PlanoMedicaoProjeto)objeto).setProjeto(cbProjetos.getObjetoSelecionado());
+	}
+	
+	
+	Set<PlanoMedicaoOrganizacao> planosASeremEscolhidos = new HashSet<PlanoMedicaoOrganizacao>();
 	
 	private class EventoCopia implements EventListener{
 
 		@Override
 		public void onEvent(Event arg0) throws Exception {
-			dbData.setValue(new Date());
-			tbDescricao.setText("Plano de Medição versão "+cbPlanos.getObjetoSelecionado().getVersao());
-			ibVersao.setText(Float.toString(cbPlanos.getObjetoSelecionado().getVersao()));
-			cbResponsavel.selecionarPrimeiroElemento();
+			PlanoMedicaoOrganizacao pmoSelecionado = cbPlanos.getObjetoSelecionado();
+			dbData.setValue(pmoSelecionado.getData());
+			tbDescricao.setText("Plano de Medição da Organização versão "+pmoSelecionado.getVersao()+": "+pmoSelecionado.getDescricao());
+			ibVersao.setText(Float.toString(pmoSelecionado.getVersao()));
+			cbResponsavel.setObjetoSelecionado(pmoSelecionado.getResponsavel());
+			compObj.populaArvore(pmoSelecionado.getObjsEstrategico(), pmoSelecionado.getObjsSoftware(), pmoSelecionado.getObjsMedicao(), pmoSelecionado.getNecessidades(), pmoSelecionado.getProcessos());
+			medPlan.mostraMpm(pmoSelecionado.getMpm());
 		}
 		
 	}
@@ -54,11 +104,7 @@ List<NucleoTab> abas = listaabas;
 		//Controle
 		///////////////////////////
 		
-		//GAMBIARRA
-		PlanoMedicaoOrganizacao pmo1 = new PlanoMedicaoOrganizacao();
-		pmo1.setVersao((float)1.0);
-		gambiarra.add(pmo1);
-		//
+		planosASeremEscolhidos.addAll(((CtrlPlanoMedicaoProjeto)ctrl).getPlanosDeOrganizacao());
 
 		NucleoTab tabControle = new NucleoTab();
 		
@@ -66,7 +112,7 @@ List<NucleoTab> abas = listaabas;
 		GridDados gridControle =  new GridDados();
 		tabControle.setNomeTab("Controle");
 		
-		cbPlanos.setObjetos(gambiarra);
+		cbPlanos.setObjetos(planosASeremEscolhidos);
 		cbPlanos.selecionarPrimeiroElemento();
 		cbPlanos.setWidth("100%");
 		gridControle.adicionarLinha("Plano Base",cbPlanos);
@@ -112,7 +158,7 @@ List<NucleoTab> abas = listaabas;
 		compObj.setEventoMedicao(new EventListener() {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				//medPlan.atualizar((HashSet<NecessidadeInformacao>)arg0.getData());
+				medPlan.atualizar((HashSet<NecessidadeInformacao>)arg0.getData());
 			}
 		});
 		
@@ -144,52 +190,5 @@ List<NucleoTab> abas = listaabas;
 		
 		return abas;
 	}
-	
-	@Override
-	protected void novo() {
-		dbData.setValue(new Date());
-		tbDescricao.setText("");
-		ibVersao.setText("");
-		cbResponsavel.selecionarPrimeiroElemento();
-		//compObj.decelecionaTudo();
-		((CtrlPlanoMedicaoProjeto)getControlador()).setPlanoMedicao(((CtrlPlanoMedicaoProjeto)getControlador()).novoPlanoMedicao());
-	}
-
-	@Override
-	protected void salvar() {
-		((CtrlPlanoMedicaoProjeto)getControlador()).salvar();
-	}
-
-	@Override
-	protected void abrir() {
-		((CtrlPlanoMedicaoProjeto)getControlador()).abrir();
-	}
-	
-	@Override
-	protected void deletar() {
-		
-	}
-	
-	public void preencherDados(PlanoMedicao objeto) {
-		dbData.setValue(objeto.getData());
-		tbDescricao.setText(objeto.getDescricao());
-		ibVersao.setText(Float.toString(objeto.getVersao()));
-		cbResponsavel.setObjetoSelecionado(objeto.getResponsavel());
-		compObj.populaArvore(objeto.getObjsEstrategico(), objeto.getObjsSoftware(), objeto.getObjsMedicao(), objeto.getNecessidades(), objeto.getProcessos());
-	}
-
-	public void preencherObjetos(PlanoMedicao objeto) {
-		objeto.setData(dbData.getValue());
-		objeto.setDescricao(tbDescricao.getText());
-		objeto.setVersao(Float.parseFloat(ibVersao.getText()));
-		objeto.setResponsavel(cbResponsavel.getObjetoSelecionado());
-		objeto.setObjsEstrategico(compObj.getEstrategicosSelecionados());
-		objeto.setObjsSoftware(new HashSet(compObj.getSoftwareSelecionados()));
-		objeto.setObjsMedicao(new HashSet(compObj.getMedicaoSelecionados()));
-		objeto.setNecessidades(new HashSet(compObj.getNecessidadesSelecionadas()));
-		objeto.setProcessos(new HashSet(compObj.getProcessosSelecionados()));
-		objeto.adicionaMpm(new MedidaPlanoMedicao());
-	}
-
 	
 }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.conhecimentoMedicao.cgd.KElementoMensuravelDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;

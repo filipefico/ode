@@ -23,6 +23,7 @@ public class ObjetivoMedicao extends Objetivo{
 	
 	private TipoObjetivoMedicao tipoObjetivoMedicao;
 	
+	
 	@ManyToMany(fetch=FetchType.EAGER, mappedBy="objetivosMedicao")
 	public Set<NecessidadeInformacao> getNecessidadeInformacao() {
 		return necessidadeInformacao;

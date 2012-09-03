@@ -21,18 +21,22 @@ public class AplElaborarPlanoMedicaoOrganizacao{
 	
 	public void salvar(PlanoMedicaoOrganizacao org){
 		if(org.isPersistente()){
-			dao.atualizar(org);
+			getDAO().atualizar(org);
 		}else{
-			dao.salvar(org);
+			getDAO().salvar(org);
 		}
 	}
 	
 	public PlanoMedicaoOrganizacao recuperarPorId(Long id){
-		return dao.recuperarPorId(id);
+		return getDAO().recuperarPorId(id);
 	}
 	
 	public Collection<PlanoMedicaoOrganizacao> recuperarTodos(){
-		return dao.recuperarTodos();
+		return getDAO().recuperarTodosComOrdenacao("versao");
+	}
+
+	public void delete(PlanoMedicaoOrganizacao pmo) {
+		dao.excluir(pmo);
 	}
 	
 }

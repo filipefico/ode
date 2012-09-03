@@ -11,8 +11,8 @@ import org.zkoss.zul.Textbox;
 
 import ode.conhecimentoMedicao.cci.CtrlKElementoMensuravelCRUD;
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.EntidadeMensuravel;
+import ode.medicao.EntidadeMensuravel.cdp.TipoEntidadeMensuravel;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.FormularioDadosCRUD;
 import ode._infraestruturaCRUD.ciu.GridDados;

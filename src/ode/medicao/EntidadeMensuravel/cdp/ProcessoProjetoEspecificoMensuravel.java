@@ -5,7 +5,6 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import ode.conhecimento.processo.cdp.KProcesso;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 
 @Entity
 public class ProcessoProjetoEspecificoMensuravel extends EntidadeMensuravel<KProcesso>{

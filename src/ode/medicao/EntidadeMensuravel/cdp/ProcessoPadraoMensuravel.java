@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KProcesso;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 
 @Entity
 public class ProcessoPadraoMensuravel extends EntidadeMensuravel<KProcesso>{

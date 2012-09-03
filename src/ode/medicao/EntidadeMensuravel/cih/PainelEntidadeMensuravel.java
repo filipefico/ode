@@ -10,7 +10,6 @@ import java.util.List;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode._infraestruturaBase.ciu.NucleoTab;
 import ode._infraestruturaCRUD.ciu.NucleoSwitcher;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.medicao.EntidadeMensuravel.cci.CtrlEntidadeMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.ArtefatoMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.AtividadeMensuravel;
@@ -19,6 +18,7 @@ import ode.medicao.EntidadeMensuravel.cdp.ProcessoPadraoMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.ProcessoProjetoEspecificoMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.ProjetoMensuravel;
 import ode.medicao.EntidadeMensuravel.cdp.RecursoHumanoMensuravel;
+import ode.medicao.EntidadeMensuravel.cdp.TipoEntidadeMensuravel;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;

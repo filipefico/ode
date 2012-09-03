@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import ode.conhecimentoMedicao.cdp.KElementoMensuravel;
 import ode.conhecimentoMedicao.cdp.KMedida;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 
 @Repository

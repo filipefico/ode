@@ -223,16 +223,17 @@ public class ComponenteObjetivosTree extends Tree{
 			Collection<ObjetivoMedicao> objsMedicao,
 			Collection<NecessidadeInformacao> necessidades,
 			Collection<KProcesso> processos) {
+		decelecionaTudo();
 		for(Treeitem itemE:estList){
 			if(objsEstrategico.contains(itemE.getValue())){
 				itemE.setOpen(true);
 				itemE.setSelected(true);
 				for(Treeitem itemS:sftList){
 					if(objsSoftware.contains(itemS.getValue())){
-						itemE.setOpen(true);
-						itemE.setSelected(true);
+						itemS.setOpen(true);
+						itemS.setSelected(true);
 						for(Treeitem itemM:medList){
-							if(objsSoftware.contains(itemM.getValue())){
+							if(objsMedicao.contains(itemM.getValue())){
 								itemM.setOpen(true);
 								itemM.setSelected(true);
 								for(Treeitem itemN:necInfList){
@@ -250,6 +251,48 @@ public class ComponenteObjetivosTree extends Tree{
 						}
 					}
 				}
+			}
+		}
+		HashSet<NecessidadeInformacao> itensRetorno = new HashSet<NecessidadeInformacao>();
+		for(Treeitem tree:necInfList){
+			if(tree.isSelected()) itensRetorno.add((NecessidadeInformacao)tree.getValue());
+		}
+		try {
+			ev.onEvent(new Event("trocouNecessidade", new Treeitem(), itensRetorno));
+		} catch (Exception e) {
+			System.out.println("Trocou necessidade Error");
+		}
+	}
+
+	public void decelecionaTudo() {
+		for(Treeitem item :estList){
+			if(item.isSelected()){
+				item.setOpen(false);
+				item.setSelected(false);
+			}
+		}
+		for(Treeitem item :sftList){
+			if(item.isSelected()){
+				item.setOpen(false);
+				item.setSelected(false);
+			}
+		}
+		for(Treeitem item :medList){
+			if(item.isSelected()){
+				item.setOpen(false);
+				item.setSelected(false);
+			}
+		}
+		for(Treeitem item :necInfList){
+			if(item.isSelected()){
+				item.setOpen(false);
+				item.setSelected(false);
+			}
+		}
+		for(Treeitem item :procList){
+			if(item.isSelected()){
+				item.setOpen(false);
+				item.setSelected(false);
 			}
 		}
 	}
