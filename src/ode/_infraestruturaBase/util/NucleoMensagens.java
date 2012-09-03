@@ -681,5 +681,33 @@ public class NucleoMensagens {
 
 	public static final String TERMO_INTERVALO = "termo.intervalo";
 
+	public static final String TERMO_DADOS_POSSIVEIS_VALORES = "termo.dados.possiveis.valores";
+	
+	public static final String TERMO_CADASTRO_DE_CARACTERISTICAS = "termo.cadastro.de.caracteristicas";
+	
+	public static final String TERMO_INCLUIR = "termo.incluir";
+	
+	public static final String TERMO_DADOS_DE_CARACTERISTICA = "termo.dados.de.caracteristica";
+	
+	public static final String TERMO_VALOR_ORDENADO = "termo.valor.ordenado";
+	
+	public static final String TERMO_VALOR_NAO_ORDENADO = "termo.valor.nao.ordenado";
+	
+	public static final String TERMO_VALOR = "termo.valor";
+
+	public static final String TERMO_VALOR_MAXIMO = "termo.valor.maximo";
+
+	public static final String TERMO_VALOR_MINIMO = "termo.valor.minimo";
+	
+	public static final String TERMO_PERMITE_CRIACAO_DE_POSSIVEL_VALOR = "termo.permite.criacao.de.possivel.valor";
+	
+	public static final String TERMO_PERMITE_ATRIBUICAO_DE_MULTI_VALOR = "termo.permite.atribuicao.de.multi.valor";
+
+	public static final String TERMO_PERSPECTIVA_ANALISE = "termo.perspectiva.analise";
+	
+	public static final String TERMO_POSSIVEIS_VALORES = "termo.possiveis.valores";
+	
+	public static final String TERMO_DADOS_DO_VALOR = "termo.dados.do.valor";
+
 	
 }

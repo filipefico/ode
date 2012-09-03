@@ -32,6 +32,8 @@ import ode.conhecimentoMedicao.cci.CtrlKProcedimentoAnaliseMedicaoCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKProcedimentoMedicaoCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKUnidadeMedidaCRUD;
 import ode.conhecimentoMedicao.cci.CtrlKValorEscalaCRUD;
+import ode.controleCaracteristica.ciu.CtrlCaracteristica;
+import ode.controleCaracteristica.ciu.CtrlPerspectivaAnalise;
 import ode.controleProjeto.ciu.CtrlProjetoCRUD;
 import ode.controleProjeto.ciu.CtrlSelecionarProjeto;
 import ode.controleUsuario.cdp.Funcionalidade;
@@ -212,6 +214,11 @@ public static List<Funcionalidade> obterFuncionalidades() {
 			.addSubfuncionalidade(criar("Gerar Relatório").setCtrl(CtrlGerarRelatorioRastreabilidade.class))
 			.addSubfuncionalidade(criar("Importar Projeto - PGDS").setCtrl(CtrlImportarProjeto.class))
 		);
+		
+		funcionalidades.add(criar("Organização")
+				.addSubfuncionalidade(criar("Caracteristicas").setCtrl(CtrlCaracteristica.class))
+				.addSubfuncionalidade(criar("Perspectivas de Analise").setCtrl(CtrlPerspectivaAnalise.class))
+			);
 		
 		return funcionalidades;
 
