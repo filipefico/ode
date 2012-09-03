@@ -114,8 +114,13 @@ public class CtrlPossivelValorNaoOrdenado extends CtrlCRUD<PossivelValorNaoOrden
 		
 		new JanelaDefinirTabelaSimilaridade(this, modo);
 	}
+	
 
-	public void definirSimilaridade(){
+	public void salvarSimilaridade(Similaridade simi) {
+		 aplCadastrarPossivelValorNaoOrdenado.salvarSimilaridade(simi);		
+	}
+
+	/*public void definirSimilaridade(){
 		
 		Set<Listitem> itensSelecionados = painelCRUD.getListagem()
 				.getSelecionados();
@@ -134,15 +139,12 @@ public class CtrlPossivelValorNaoOrdenado extends CtrlCRUD<PossivelValorNaoOrden
 
 	}
 
-	public void salvarSimilaridade(Similaridade simi) {
-		 aplCadastrarPossivelValorNaoOrdenado.salvarSimilaridade(simi);		
-	}
 
 	public void abrirJanelaDeterminarSimilaridade(
 			Set<PossivelValorNaoOrdenado> pvalor) {
 		new JanelaDeterminarSimilaridade(this, pvalor);
 		
-	}
+	}*/
 	
 	@Override
 	public void atualizarPesquisa() {
