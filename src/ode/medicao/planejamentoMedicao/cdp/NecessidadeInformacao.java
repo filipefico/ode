@@ -23,6 +23,17 @@ public class NecessidadeInformacao extends Conhecimento{
 	private Set<KMedida> medidas;
 	private Set<KProcesso> processos;
 
+	private Set<MedidaPlanoMedicao> medidasNoPlano;
+
+	@ManyToMany(fetch = FetchType.EAGER,mappedBy="necessidadesInformacao")
+	public Set<MedidaPlanoMedicao> getMedidasNoPlano() {
+		return medidasNoPlano;
+	}
+
+	public void setMedidasNoPlano(Set<MedidaPlanoMedicao> medidasNoPlano) {
+		this.medidasNoPlano = medidasNoPlano;
+	}
+	
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="KNecessidadeInformacao_KObjetivoMedicao")	
@@ -53,4 +64,5 @@ public class NecessidadeInformacao extends Conhecimento{
 	public void setMedidas(Set<KMedida> medidas) {
 		this.medidas = medidas;
 	}
+
 }

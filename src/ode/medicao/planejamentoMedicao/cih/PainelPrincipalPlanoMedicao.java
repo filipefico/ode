@@ -61,8 +61,6 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 	protected abstract void salvar();
 	protected abstract void abrir();
 	protected abstract void deletar();
-	public abstract void preencherDados(PlanoMedicao objeto) ;
-	public abstract void preencherObjetos(PlanoMedicao objeto) ;
 	
 	
 	
@@ -308,6 +306,29 @@ public abstract class PainelPrincipalPlanoMedicao extends Vlayout {
 		/////////////////////////////////
 		
 		return abas;
+	}
+	
+	public void preencherDados(PlanoMedicao objeto) {
+		dbData.setValue(objeto.getData());
+		tbDescricao.setText(objeto.getDescricao());
+		ibVersao.setText(Float.toString(objeto.getVersao()));
+		cbResponsavel.setObjetoSelecionado(objeto.getResponsavel());
+		compObj.populaArvore(objeto.getObjsEstrategico(), objeto.getObjsSoftware(), objeto.getObjsMedicao(), objeto.getNecessidades(), objeto.getProcessos());
+		medPlan.mostraMpm(objeto.getMpm());
+		ctrl.setTitle(objeto.toString());
+	}
+	
+	public void preencherObjetos(PlanoMedicao objeto) {
+		objeto.setData(dbData.getValue());
+		objeto.setDescricao(tbDescricao.getText());
+		objeto.setVersao(Float.valueOf(ibVersao.getText()));
+		objeto.setResponsavel(cbResponsavel.getObjetoSelecionado());
+		objeto.setObjsEstrategico(compObj.getEstrategicosSelecionados());
+		objeto.setObjsSoftware(new HashSet(compObj.getSoftwareSelecionados()));
+		objeto.setObjsMedicao(new HashSet(compObj.getMedicaoSelecionados()));
+		objeto.setNecessidades(new HashSet(compObj.getNecessidadesSelecionadas()));
+		objeto.setProcessos(new HashSet(compObj.getProcessosSelecionados()));
+		objeto.setMpm(medPlan.confereMpm(objeto.getMpm()));
 	}
 	
 }

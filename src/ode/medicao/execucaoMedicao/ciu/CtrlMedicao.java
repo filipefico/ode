@@ -1,5 +1,8 @@
 package ode.medicao.execucaoMedicao.ciu;
 
+import java.util.Collection;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.event.Event;
@@ -19,39 +22,28 @@ import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.ciu.NucleoCombobox;
 import ode._infraestruturaCRUD.ciu.GridDados;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
+import ode._infraestruturaCRUD.ciu.NucleoListbox;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.conhecimentoMedicao.cdp.KMedida;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKMedida;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
+import ode.medicao.execucaoMedicao.cdp.Medicao;
+import ode.medicao.execucaoMedicao.cgt.AplRegistrarMedicao;
 import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
+import ode.medicao.planejamentoMedicao.cdp.PlanoMedicaoOrganizacao;
 
 @Controller
 public class CtrlMedicao extends CtrlBase{
 
-	JanelaSimples js;
+	private JanelaSimples js;
+	private PainelMedicao painelMedicao;
 	
-	NucleoCombobox<KMedida> cbKMedida;
-	NucleoCombobox<RecursoHumano> cbRecursoHumano ;
-	NucleoCombobox<DefinicaoOperacionalMedida> cbDefinicao ;
-	Textbox decbox ;
-	Datebox datebox ;
-	NucleoCombobox<Projeto> cbProjeto ;
-	NucleoCombobox<KAtividade> cbAtividade;
-	Textbox tbContexto = new Textbox();
+	private JanelaSimples janela;	
+	private NucleoListbox<Medicao> lista;
 	
-	
-	private class OnMedidaSelecionada implements EventListener{
-
-		@Override
-		public void onEvent(Event arg0) throws Exception {
-			cbDefinicao.getItems().clear();
-			cbDefinicao.setObjetos(cbKMedida.getObjetoSelecionado().getDefinicoesMedida());
-			cbDefinicao.selecionarPrimeiroElemento();
-		}
-		
-	}
+	private Medicao atual;
 	
 	@Autowired
 	AplCadastrarRecursoHumano aplRH;
@@ -61,84 +53,109 @@ public class CtrlMedicao extends CtrlBase{
 	AplCadastrarProjeto aplProjeto;
 	@Autowired
 	AplCadastrarKAtividade aplAtividade;
+	@Autowired
+	AplRegistrarMedicao aplMedicao;
+	
+	public Medicao getNewMedicao(){
+		return new Medicao();
+	}
+	
+	public Collection<Projeto> getTodosProjetos(){
+		return aplProjeto.recuperarTodos();
+	}
+	
+	public Collection<KMedida> getTodasMedidas(){
+		return aplKmedida.recuperarTodos();
+	}
+	
+	public Collection<KAtividade> getTodasAtividades(){
+		return aplAtividade.recuperarTodos();
+	}
+	
+	public Collection<RecursoHumano> getTodosRecursosHumano(){
+		return aplRH.recuperarTodos();
+	}
 	
 	@Override
 	public void iniciar() {
-		cbKMedida = new NucleoCombobox<KMedida>();
-		cbKMedida.setWidth("100%");
-		cbRecursoHumano = new NucleoCombobox<RecursoHumano>();
-		cbRecursoHumano.setWidth("100%");
-		cbDefinicao = new NucleoCombobox<DefinicaoOperacionalMedida>();
-		cbDefinicao.setWidth("100%");
-		decbox = new Textbox();
-		decbox.setWidth("100%");
-		datebox = new Datebox();
-		cbProjeto = new NucleoCombobox<Projeto>();
-		cbProjeto.setWidth("100%");
-		cbAtividade = new NucleoCombobox<KAtividade>();
-		cbAtividade.setWidth("100%");
-		tbContexto = new Textbox();
-		tbContexto.setWidth("100%");
-		
-		
 		
 		js = factoryJanelaSimples();
-		js.setTitle("Coleta de Dados");
-		GridDados gd = new GridDados();
 		
-		cbKMedida.setObjetos(aplKmedida.recuperarTodos());
-		gd.adicionarLinha("Medida", cbKMedida);
-		cbKMedida.addEventListener("onSelect", new OnMedidaSelecionada());
-		cbKMedida.selecionarPrimeiroElemento();
+		js.setTitle("Execução de Medição");
 		
-		gd.adicionarLinha("Definição Operacional", cbDefinicao);
-		cbDefinicao.setObjetos(cbKMedida.getObjetoSelecionado().getDefinicoesMedida());
-		cbDefinicao.selecionarPrimeiroElemento();
+		painelMedicao = new PainelMedicao();
 		
-		gd.adicionarLinha("Valor Medido", decbox);
+		painelMedicao.setCtrl(this);
 		
-		gd.adicionarLinha("Data da Medição", datebox);
+		painelMedicao.montar();
 		
-		cbProjeto.setObjetos(aplProjeto.recuperarTodos());
-		gd.adicionarLinha("Projeto", cbProjeto);
+		painelMedicao.setParent(js);
 		
-		cbRecursoHumano.setObjetos(aplRH.recuperarTodos());
-		gd.adicionarLinha("Executor da Medição", cbRecursoHumano);
+		js.mostrar();
+	}
+	
+	public void iniciar(Medicao objeto) {	
+		js = factoryJanelaSimples();
 		
-		cbAtividade.setObjetos(aplAtividade.recuperarTodos());
-		gd.adicionarLinha("Momento da Medição", cbAtividade);
+		js.setTitle(objeto.toString());
 		
-		Vbox vbox = new Vbox();
-		vbox.appendChild(new Label("Contexto da Medição"));
-		tbContexto.setParent(vbox);
-		gd.adicionarLinhaUnica(vbox);
-		tbContexto.setRows(4);
-		tbContexto.setHflex("1");
-		vbox.setHflex("1");
+		painelMedicao = new PainelMedicao();
 		
-		Button salvar = new Button("Salvar");
-		Toolbar tb = new Toolbar();
-		salvar.setParent(tb);
-		tb.setStyle("border:0px;background:white;");
-		tb.setAlign("end");
+		painelMedicao.setCtrl(this);
 		
-		salvar.addEventListener("onClick", new EventListener() {
+		painelMedicao.montar(objeto);
+		
+		painelMedicao.setParent(js);
+		
+		js.mostrar();
+	}
+
+	public void salvar() {
+		Medicao med = getNewMedicao();
+		painelMedicao.painelToObjeto(med);
+		aplMedicao.salvar(med);
+		atual = med;
+	}
+
+	public void abrirMedicoesPassadas() {
+		janela= factoryJanelaSimples();
+		lista = new NucleoListbox<Medicao>();
+		Vbox box = new Vbox();
+		box.setParent(janela);
+		lista.setParent(box);
+		janela.setTitle("Abrir");
+		lista.setObjetos(aplMedicao.recuperarTodos());
+		Button ok = new Button("Abrir");
+		ok.setParent(box);
+		ok.addEventListener("onClick", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				try {
-					Messagebox mbox = new Messagebox();
-					mbox.show("Medição salva");
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				js.onClose();
+				atual = lista.getObjetoSelecionado();
+				iniciar(atual);
+				janela.onClose();
 			}
 		});
+		janela.mostrar();
+	}
+
+	public void atualizar() {
+		painelMedicao.painelToObjeto(atual);
+		aplMedicao.atualizar(atual);
+	}
+
+	public void excluir() {
+		aplMedicao.excluir(atual);
+	}
+
+	public void fechar() {
+
+		if(janela!=null){
+			janela.onClose();
+		}
 		
-		gd.setParent(js);
-		tb.setParent(js);
-		
-		js.mostrar();
+		atual=null;
 	}
 
 }

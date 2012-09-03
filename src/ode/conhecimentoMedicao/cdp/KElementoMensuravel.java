@@ -11,11 +11,13 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.medicao.EntidadeMensuravel.cdp.TipoEntidadeMensuravel;
 
 
 @Entity
@@ -28,7 +30,7 @@ public class KElementoMensuravel extends Conhecimento{
 	
 	private Set<TipoEntidadeMensuravel> tipoEntidadeMensuravel;
 	
-	@ElementCollection(targetClass=TipoEntidadeMensuravel.class)
+	@ElementCollection(fetch=FetchType.EAGER,targetClass=TipoEntidadeMensuravel.class)
 	@Enumerated(EnumType.ORDINAL)
 	public Set<TipoEntidadeMensuravel> getTipoEntidadeMensuravel() {
 		return tipoEntidadeMensuravel;

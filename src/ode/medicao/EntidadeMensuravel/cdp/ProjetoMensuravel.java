@@ -3,7 +3,6 @@ package ode.medicao.EntidadeMensuravel.cdp;
 import javax.persistence.Entity;
 
 import ode.conhecimento.processo.cdp.KRecursoHumano;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 import ode.controleProjeto.cdp.Projeto;
 
 @Entity

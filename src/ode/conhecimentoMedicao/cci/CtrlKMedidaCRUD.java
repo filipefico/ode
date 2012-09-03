@@ -2,6 +2,7 @@ package ode.conhecimentoMedicao.cci;
 
 import java.lang.management.GarbageCollectorMXBean;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import ode.conhecimentoMedicao.cgt.AplCadastrarKMedida;
 import ode.conhecimentoMedicao.cgt.AplCadastrarKUnidadeMedida;
 import ode.conhecimentoMedicao.cih.FormDadosKMedida;
 import ode.conhecimentoMedicao.cih.PainelCRUDKMedida;
+import ode.medicao.EntidadeMensuravel.cdp.TipoEntidadeMensuravel;
 import ode.medicao.planejamentoMedicao.cci.CtrlDefinicaoOperacionalMedida;
 import ode.medicao.planejamentoMedicao.cdp.DefinicaoOperacionalMedida;
 import ode.medicao.planejamentoMedicao.cdp.NecessidadeInformacao;
@@ -133,6 +135,17 @@ public class CtrlKMedidaCRUD extends CtrlCRUD<KMedida>{
 		}catch(NullPointerException e){
 			//Tá de boa... O formDados nao foi instanciado ainda. por isso nao consegue fechar
 		}
+	}
+	public Collection<KElementoMensuravel> separaElementosPorTiposMensuraveis(Set<TipoEntidadeMensuravel> tipos, Collection<KElementoMensuravel> elementosDisponiveis) {
+		Set<KElementoMensuravel> retorno = new HashSet<KElementoMensuravel>();
+		for(TipoEntidadeMensuravel tipo:tipos){
+			for(KElementoMensuravel elemento:elementosDisponiveis){
+				if(elemento.getTipoEntidadeMensuravel().contains(tipo)){
+					retorno.add(elemento);
+				}
+			}
+		}
+		return retorno;
 	}
 
 }

@@ -8,9 +8,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.conhecimento.processo.cdp.KProcedimento;
 
 @Entity
-public class KProcedimentoAnaliseMedicao extends Conhecimento{
+public class KProcedimentoAnaliseMedicao extends KProcedimento{
 
 	/**
 	 * 

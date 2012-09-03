@@ -10,13 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KProcesso;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 
-@Entity
+@MappedSuperclass
 @Inheritance(strategy=InheritanceType.JOINED)
 public abstract class PlanoMedicao extends ObjetoPersistente{
 
@@ -24,7 +26,10 @@ public abstract class PlanoMedicao extends ObjetoPersistente{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7735685755805004193L;
+	private static final long serialVersionUID = 3784305725825059413L;
+	/**
+	 * 
+	 */
 	private Date data;
 	private String descricao;
 	private float versao;
@@ -93,13 +98,6 @@ public abstract class PlanoMedicao extends ObjetoPersistente{
 		this.mpm = mpm;
 	}
 
-	public Date getData() {
-		return data;
-	}
-
-	public void setData(Date data) {
-		this.data = data;
-	}
 
 	public String getDescricao() {
 		return descricao;
@@ -107,6 +105,14 @@ public abstract class PlanoMedicao extends ObjetoPersistente{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public float getVersao() {
@@ -117,19 +123,13 @@ public abstract class PlanoMedicao extends ObjetoPersistente{
 		this.versao = versao;
 	}
 
+	@OneToOne
 	public RecursoHumano getResponsavel() {
 		return responsavel;
 	}
 
 	public void setResponsavel(RecursoHumano responsavel) {
 		this.responsavel = responsavel;
-	}
-	
-	public void adicionaMpm(MedidaPlanoMedicao medidaPlanoMedicao) {
-		if(this.mpm==null){
-			this.mpm = new HashSet<MedidaPlanoMedicao>();
-		}
-		this.mpm.add(medidaPlanoMedicao);
 	}
 	
 }

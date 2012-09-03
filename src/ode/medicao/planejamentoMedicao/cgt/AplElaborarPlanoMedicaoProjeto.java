@@ -37,4 +37,8 @@ public class AplElaborarPlanoMedicaoProjeto{
 		return dao.recuperarTodos();
 	}
 	
+	public void delete(PlanoMedicaoProjeto pmo) {
+		dao.excluir(pmo);
+	}
+	
 }

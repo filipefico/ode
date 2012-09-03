@@ -28,7 +28,6 @@ public class KMedida extends Conhecimento{
 	private static final long serialVersionUID = -1131134688369383223L;
 	private String mnemonico;
 	private Set<KMedida> derivadaDe;
-	private Set<TipoEntidadeMensuravel> TiposEntidadeMensuraveis;
 	private KElementoMensuravel propriedadeMedida;
 	private KUnidadeMedida unidadeMedida;
 	private KEscala escala;
@@ -88,14 +87,6 @@ public class KMedida extends Conhecimento{
 	}
 	public void setNaturezaMedida(NaturezaMedida naturezaMedida) {
 		this.naturezaMedida = naturezaMedida;
-	}
-	
-	@ElementCollection(targetClass=TipoEntidadeMensuravel.class,fetch=FetchType.EAGER)
-	public Set<TipoEntidadeMensuravel> getTiposEntidadeMensuraveis() {
-		return TiposEntidadeMensuraveis;
-	}
-	public void setTiposEntidadeMensuraveis(Set<TipoEntidadeMensuravel> tiposEntidadeMensuraveis) {
-		TiposEntidadeMensuraveis = tiposEntidadeMensuraveis;
 	}
 	
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL, orphanRemoval=true)

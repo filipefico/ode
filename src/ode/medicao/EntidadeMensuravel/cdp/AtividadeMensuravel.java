@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 
 import ode.conhecimento.processo.cdp.KArtefato;
 import ode.conhecimento.processo.cdp.KAtividade;
-import ode.conhecimentoMedicao.cdp.TipoEntidadeMensuravel;
 
 @Entity
 public class AtividadeMensuravel extends EntidadeMensuravel<KAtividade>{

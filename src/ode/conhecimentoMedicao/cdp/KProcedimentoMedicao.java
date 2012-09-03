@@ -3,9 +3,10 @@ package ode.conhecimentoMedicao.cdp;
 import javax.persistence.Entity;
 
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.conhecimento.processo.cdp.KProcedimento;
 
 @Entity
-public class KProcedimentoMedicao extends Conhecimento{
+public class KProcedimentoMedicao extends KProcedimento{
 	
 	/**
 	 * 
