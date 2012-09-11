@@ -17,20 +17,18 @@ public class RequisitoDAOImpl extends DAOBaseImpl<Requisito> implements Requisit
 
 	@Override
 	public Requisito recuperarPorId(Long id) {
-		String query = "select r from Requisito r, CategoriaRequisito, Projeto, Pacote, CasoUso, TipoRequisito, Prioridade, RecursoHumano ";
+		String query = "select r from Requisito r ";
 		query += "left join fetch r.categoria ";
 		query += "left join fetch r.conflitos ";
 		query += "left join fetch r.dependencias ";
 		query += "left join fetch r.projeto ";
 		query += "left join fetch r.pacotes ";
 		query += "left join fetch r.casosUso ";
-		query += "left join fetch r.tipoRequisito ";
-		query += "left join fetch r.prioridade ";
 		query += "left join fetch r.interessados ";
 		query += "left join fetch r.responsaveis ";	
 		query += "where r.id =  " + id;
-		System.out.println(id);
-		return (Requisito) getEntityManager().createQuery(query).getSingleResult();
+		
+		return (Requisito) getEntityManager().createQuery(query).getResultList().get(0);
 	}
 	
 	@SuppressWarnings("unchecked")

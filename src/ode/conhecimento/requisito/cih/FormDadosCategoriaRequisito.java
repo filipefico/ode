@@ -12,7 +12,6 @@ import ode._infraestruturaCRUD.ciu.GridDados;
 import ode.conhecimento.requisito.cci.CtrlCRUDCategoriaRequisito;
 import ode.conhecimento.requisito.cdp.CategoriaRequisito;
 import ode.conhecimento.requisito.cdp.TipoRequisito;
-import ode.conhecimento.requisito.cgd.TipoRequisitoDAO;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -35,9 +34,6 @@ public class FormDadosCategoriaRequisito extends
 
 	CtrlCRUDCategoriaRequisito ctrlCategoriaRequisito = (CtrlCRUDCategoriaRequisito) SpringUtil
 			.getApplicationContext().getBean(CtrlCRUDCategoriaRequisito.class);
-
-	TipoRequisitoDAO daoTipoRequisito = (TipoRequisitoDAO) SpringUtil
-			.getApplicationContext().getBean(TipoRequisitoDAO.class);
 
 	@Override
 	protected List<NucleoTab> definirTabs() {
@@ -88,8 +84,8 @@ public class FormDadosCategoriaRequisito extends
 	}
 
 	private void preencherComboTipo() {
-		Collection<TipoRequisito> tiposRequisito = daoTipoRequisito
-				.recuperarTodos();
+		TipoRequisito[] tiposRequisito = TipoRequisito.values();
+
 		for (TipoRequisito tipoRequisito : tiposRequisito) {
 			Comboitem item = new Comboitem();
 
@@ -98,37 +94,42 @@ public class FormDadosCategoriaRequisito extends
 
 			item.setParent(comboTipo);
 		}
-		if (tiposRequisito.size() > 0)
-			comboTipo.setSelectedIndex(1);
+
+		comboTipo.setSelectedIndex(0);
 	}
 
 	private void preencherComboSupercategoria() {
 		comboSupercategoria.getChildren().clear();
-		
+
 		TipoRequisito tipoRequisito = (TipoRequisito) comboTipo
 				.getSelectedItem().getValue();
 		Collection<CategoriaRequisito> categorias = ctrlCategoriaRequisito
 				.obterCategoriasPorTipo(tipoRequisito);
-		
+
 		for (CategoriaRequisito categoriaRequisito : categorias) {
-			if (!categoriaRequisito.equals(getObjetoCadastroDados())){
+			if (!categoriaRequisito.equals(getObjetoCadastroDados())) {
 				Comboitem item = new Comboitem();
-			
+
 				item.setLabel(categoriaRequisito.getNome());
 				item.setValue(categoriaRequisito);
-				
+
 				item.setParent(comboSupercategoria);
 			}
 		}
+		if (comboSupercategoria.getItemCount() > 0)
+			comboSupercategoria.setSelectedIndex(0);
 	}
 
 	@Override
 	protected void preencherDadosObjeto(CategoriaRequisito objeto) {
 		objeto.setNome(tbNome.getValue());
 		objeto.setDescricao(tbDescricao.getValue());
-		objeto.setTipoRequisito((TipoRequisito) comboTipo.getSelectedItem().getValue());
-		if (comboSupercategoria.getSelectedItem() == null) return;
-		objeto.setSuperCategoria((CategoriaRequisito)comboSupercategoria.getSelectedItem().getValue());
+		objeto.setTipoRequisito((TipoRequisito) comboTipo.getSelectedItem()
+				.getValue());
+		if (comboSupercategoria.getSelectedItem() == null)
+			return;
+		objeto.setSuperCategoria((CategoriaRequisito) comboSupercategoria
+				.getSelectedItem().getValue());
 	}
 
 	@Override
@@ -139,7 +140,8 @@ public class FormDadosCategoriaRequisito extends
 		comboTipo.setValue(objeto.getTipoRequisito().getNome());
 		comboTipo.setDisabled(true);
 		Events.sendEvent("onChange", comboTipo, null);
-		if (objeto.getSuperCategoria() == null) return;
+		if (objeto.getSuperCategoria() == null)
+			return;
 		comboSupercategoria.setValue(objeto.getSuperCategoria().getNome());
 	}
 

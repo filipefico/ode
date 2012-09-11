@@ -6,7 +6,6 @@ import ode._infraestruturaBase.util.NucleoContexto;
 import ode.uml.cci.CtrlCRUDPacote;
 import ode.uml.cdp.Pacote;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;

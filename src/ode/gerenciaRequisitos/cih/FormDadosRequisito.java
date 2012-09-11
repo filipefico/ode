@@ -16,10 +16,8 @@ import ode._infraestruturaCRUD.ciu.GridDados;
 import ode.conhecimento.requisito.cci.CtrlCRUDCategoriaRequisito;
 import ode.conhecimento.requisito.cdp.CategoriaRequisito;
 import ode.conhecimento.requisito.cdp.TipoRequisito;
-import ode.conhecimento.requisito.cgd.TipoRequisitoDAO;
 import ode.gerenciaRequisitos.cdp.Prioridade;
 import ode.gerenciaRequisitos.cdp.Requisito;
-import ode.gerenciaRequisitos.cgd.PrioridadeDAO;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -42,12 +40,6 @@ public class FormDadosRequisito extends FormularioDadosCRUD<Requisito> {
 
 	private CtrlCRUDCategoriaRequisito categoriaRequisitoCtrl = SpringUtil
 			.getApplicationContext().getBean(CtrlCRUDCategoriaRequisito.class);
-
-	private TipoRequisitoDAO tipoRequisitoDao = SpringUtil
-			.getApplicationContext().getBean(TipoRequisitoDAO.class);
-
-	private PrioridadeDAO prioridadeDao = SpringUtil.getApplicationContext()
-			.getBean(PrioridadeDAO.class);
 
 	private RecursoHumanoDAO daoRecursoHumano = (RecursoHumanoDAO) SpringUtil
 			.getApplicationContext().getBean(RecursoHumanoDAO.class);
@@ -198,7 +190,7 @@ public class FormDadosRequisito extends FormularioDadosCRUD<Requisito> {
 	private void preencherComboPrioridade() {
 		comboPrioridade.getChildren().clear();
 
-		Collection<Prioridade> prioridades = prioridadeDao.recuperarTodos();
+		Prioridade[] prioridades = Prioridade.values();
 
 		for (Prioridade prioridade : prioridades) {
 			Comboitem item = new Comboitem();
@@ -208,15 +200,14 @@ public class FormDadosRequisito extends FormularioDadosCRUD<Requisito> {
 
 			item.setParent(comboPrioridade);
 		}
-		if (prioridades.size() > 0){
-			comboPrioridade.setSelectedIndex(0);
-		}
+		
+		comboPrioridade.setSelectedIndex(0);
 	}
 
 	private void preencherComboTipo() {
 		comboTipo.getChildren().clear();
 
-		Collection<TipoRequisito> tipos = tipoRequisitoDao.recuperarTodos();
+		TipoRequisito[] tipos = TipoRequisito.values();
 
 		for (TipoRequisito tipoRequisito : tipos) {
 			Comboitem item = new Comboitem();
@@ -226,9 +217,8 @@ public class FormDadosRequisito extends FormularioDadosCRUD<Requisito> {
 
 			item.setParent(comboTipo);
 		}
-		if (tipos.size() > 0){
-			comboTipo.setSelectedIndex(0);
-		}
+		
+		comboTipo.setSelectedIndex(0);
 	}
 
 	private void preencherComboCategoria() {
@@ -270,19 +260,19 @@ public class FormDadosRequisito extends FormularioDadosCRUD<Requisito> {
 	@Override
 	protected void preencherDadosTela(Requisito objeto)
 			throws NucleoRegraNegocioExcecao {
+		objetoCadastro = objeto;
+		comboProjeto.setValue(objeto.getProjeto().getNome());
+		dataCriacao.setValue(objeto.getDataCriacao());
+		textboxIdentificador.setValue(objeto.getIdentificador());
 		tbDescricao.setValue(objeto.getDescricao());
 		comboPrioridade.setValue(objeto.getPrioridade().getNome());
 		comboTipo.setValue(objeto.getTipoRequisito().getNome());
 		Events.sendEvent("onChange", comboTipo, null);
 		if (objeto.getCategoria() != null)
 			comboCategoria.setValue(objeto.getCategoria().getNome());
-
-		// preencherComboboxCategoria();
-		// NucleoUtil.selecionaComboitem(coCategoria, objeto.getCategoria());
-		// dlbResponsaveis.atualizaListas(daoRecursoHumano.recuperarTodos(),
-		// objeto.getResponsaveis());
-		// dlbInteressados.atualizaListas(daoRecursoHumano.recuperarTodos(),
-		// objeto.getInteressados());
+		
+		//dlbInteressados.preencheListbox();
+		dlbResponsaveis.preencheListbox();
 	}
 
 	@Override
