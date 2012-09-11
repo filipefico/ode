@@ -16,17 +16,15 @@ CategoriaRequisitoDAO {
 	@SuppressWarnings("unchecked")
 	public Collection<CategoriaRequisito> obterCategoriaPorTipo (TipoRequisito tipoRequisito){
 		StringBuilder consulta = new StringBuilder();
-		consulta.append("select c from CategoriaRequisito ");
-		consulta.append("c left join c.tipoRequisito t ");
-		consulta.append("where t.nome like '" + tipoRequisito.getNome() + "'");
+		consulta.append("select c from CategoriaRequisito c ");
+		consulta.append("where c.tipoRequisito = " + tipoRequisito.ordinal());
 		
 		return getEntityManager().createQuery(consulta.toString()).getResultList();
 	}
 
 	@Override
 	public CategoriaRequisito recuperarPorId(Long id) {
-		String query = "select c from CategoriaRequisito c, TipoRequisito ";
-		query += "left join fetch c.tipoRequisito ";
+		String query = "select c from CategoriaRequisito c ";
 		query += "left join fetch c.superCategoria ";
 		query += "where c.id =  " + id;
 		return (CategoriaRequisito) getEntityManager().createQuery(query).getSingleResult();

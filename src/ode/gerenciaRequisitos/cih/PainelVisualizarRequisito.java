@@ -3,74 +3,137 @@ package ode.gerenciaRequisitos.cih;
 import java.util.Collection;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
+import ode._infraestruturaCRUD.ciu.GridDados;
 import ode.gerenciaRequisitos.cdp.Requisito;
 import ode.uml.cdp.CasoUso;
 import ode.uml.cdp.Pacote;
 
-import org.zkoss.zul.Label;
+import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Listcell;
+import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vlayout;
 
-public class PainelVisualizarRequisito extends Vlayout{
-	
+public class PainelVisualizarRequisito extends Vlayout {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4609555786660056076L;
 
-	public PainelVisualizarRequisito(Requisito requisito){
+	public PainelVisualizarRequisito(Requisito requisito) {
 		carregarComponentes(requisito);
 	}
 
-	public void carregarComponentes(Requisito requisito){
-		new Label("Identificador: " + requisito.getIdentificador()).setParent(this);
-		
-		new Label("Data de Criação: " + requisito.getDataCriacao()).setParent(this);
-		
-		new Label("Prioridade: " + requisito.getPrioridade()).setParent(this);
-		
-		new Label("Descrição: " + requisito.getDescricao()).setParent(this);
-		
-		new Label("Projeto: " + requisito.getProjeto().getNome()).setParent(this);
-		
-		new Label("Tipo de Requisito: " + requisito.getTipoRequisito().getNome()).setParent(this);
-		
-		new Label("Categoria: " + requisito.getCategoria().getNome()).setParent(this);
-		
-		new Label("Conflitos:").setParent(this);
+	public void carregarComponentes(Requisito requisito) {
+		GridDados grid = new GridDados();
+		grid.setParent(this);
+
+		Textbox tbIdentificador = new Textbox(requisito.getIdentificador());
+		tbIdentificador.setReadonly(true);
+		grid.adicionarLinha("Identificador", tbIdentificador);
+
+		Datebox dbCriacao = new Datebox(requisito.getDataCriacao());
+		dbCriacao.setReadonly(true);
+		grid.adicionarLinha("Data de Criação", dbCriacao);
+
+		Textbox tbPrioridade = new Textbox(requisito.getPrioridade().getNome());
+		tbPrioridade.setReadonly(true);
+		grid.adicionarLinha("Prioridade", tbPrioridade);
+
+		Textbox tbDescricao = new Textbox(requisito.getDescricao());
+		tbDescricao.setRows(5);
+		tbDescricao.setMultiline(true);
+		tbDescricao.setReadonly(true);
+		grid.adicionarLinha("Descrição", tbDescricao);
+
+		Textbox tbProjeto = new Textbox(requisito.getProjeto().getNome());
+		tbProjeto.setReadonly(true);
+		grid.adicionarLinha("Projeto", tbProjeto);
+
+		Textbox tbTipoRequisito = new Textbox(requisito.getTipoRequisito()
+				.getNome());
+		tbTipoRequisito.setReadonly(true);
+		grid.adicionarLinha("Tipo", tbTipoRequisito);
+
+		Textbox tbCategoria = new Textbox(requisito.getCategoria().getNome());
+		tbCategoria.setReadonly(true);
+		grid.adicionarLinha("Categoria", tbCategoria);
+
+		Listbox lbConflitos = new Listbox();
 		Collection<Requisito> conflitos = requisito.getConflitos();
-		for (Requisito r : conflitos){
-			new Label(r.getIdentificador() + "   " + r.getDescricao()).setParent(this);
+		for (Requisito r : conflitos) {
+			Listitem item = new Listitem();
+			new Listcell(r.getIdentificador()).setParent(item);
+			new Listcell(r.getDescricao().substring(0, 99) + "...")
+					.setParent(item);
+
+			item.setValue(r);
+			item.setParent(lbConflitos);
 		}
-		
-		new Label("Dependências:").setParent(this);
+		grid.adicionarLinha("Conflitos", lbConflitos);
+
+		Listbox lbDependencias = new Listbox();
 		Collection<Requisito> dependencias = requisito.getDependencias();
-		for (Requisito r : dependencias){
-			new Label(r.getIdentificador() + "   " + r.getDescricao()).setParent(this);
+		for (Requisito r : dependencias) {
+			Listitem item = new Listitem();
+			new Listcell(r.getIdentificador()).setParent(item);
+			new Listcell(r.getDescricao().substring(0, 99) + "...")
+					.setParent(item);
+
+			item.setValue(r);
+			item.setParent(lbDependencias);
 		}
-		
-		new Label("Pacotes:").setParent(this);
+		grid.adicionarLinha("Dependências", lbDependencias);
+
+		Listbox lbPacotes = new Listbox();
 		Collection<Pacote> pacotes = requisito.getPacotes();
-		for (Pacote p : pacotes){
-			new Label(p.getNome() + "   " + p.getDescricao()).setParent(this);
+		for (Pacote p : pacotes) {
+			Listitem item = new Listitem();
+			new Listcell(p.getNome()).setParent(item);
+			new Listcell(p.getDescricao().substring(0, 99) + "...")
+					.setParent(item);
+
+			item.setValue(p);
+			item.setParent(lbPacotes);
 		}
-		
-		new Label("Casos de Uso:").setParent(this);
+		grid.adicionarLinha("Pacotes", lbPacotes);
+
+		Listbox lbCasosUso = new Listbox();
 		Collection<CasoUso> casosUso = requisito.getCasosUso();
-		for (CasoUso c : casosUso){
-			new Label(c.getNome() + "   " + c.getDescricao()).setParent(this);
+		for (CasoUso c : casosUso) {
+			Listitem item = new Listitem();
+			new Listcell(c.getNome()).setParent(item);
+			new Listcell(c.getDescricao().substring(0, 99) + "...")
+					.setParent(item);
+
+			item.setValue(c);
+			item.setParent(lbCasosUso);
 		}
-		
-		new Label("Responsáveis:").setParent(this);
+		grid.adicionarLinha("Casos de Uso", lbCasosUso);
+
+		Listbox lbResponsaveis = new Listbox();
 		Collection<RecursoHumano> responsaveis = requisito.getResponsaveis();
-		for (RecursoHumano resp : responsaveis){
-			new Label(resp.getNome() + "   " + resp.getCargo());
+		for (RecursoHumano resp : responsaveis) {
+			Listitem item = new Listitem();
+			new Listcell(resp.getNome()).setParent(item);
+
+			item.setValue(resp);
+			item.setParent(lbResponsaveis);
 		}
-		
-		new Label("Interessados:").setParent(this);
+		grid.adicionarLinha("Responsáveis", lbResponsaveis);
+
+		Listbox lbInteressados = new Listbox();
 		Collection<RecursoHumano> interessados = requisito.getInteressados();
-		for (RecursoHumano interess : interessados){
-			new Label(interess.getNome() + "   " + interess.getCargo());
+		for (RecursoHumano interess : interessados) {
+			Listitem item = new Listitem();
+			new Listcell(interess.getNome()).setParent(item);
+
+			item.setValue(interess);
+			item.setParent(lbInteressados);
 		}
-		
+		grid.adicionarLinha("Interessados", lbInteressados);
+
 	}
 }

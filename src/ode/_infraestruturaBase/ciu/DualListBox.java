@@ -152,118 +152,7 @@ public abstract class DualListBox<T extends Object> extends Hbox{
 		
 		preencheListbox();
 	}
-	
-	
-/*	@SuppressWarnings("unchecked")
-	public void carregaInterfaceTeste(){		
-		Columns columns = new Columns();
-		columns.setParent(this);
-		
-		Rows rows = new Rows();
-		rows.setParent(this);
-		
-		Column column1 = new Column();
-		column1.setWidth("45%");
-		column1.setParent(columns);
-		
-		Column column2 = new Column();
-		column2.setWidth("10%");	
-		column2.setParent(columns);
-		
-		Column column3 = new Column();
-		column3.setWidth("45%");
-		column3.setParent(columns);
-		
-		Row row = new Row();
-		row.setParent(rows);
-		
-		Vbox candidatos = new Vbox();
-		candidatos.setParent(row);
-		candidatos.setWidth("100%");
-		
-		new Label("Disponíveis:").setParent(candidatos);
-		lbDisponiveis.setParent(candidatos);
-		lbDisponiveis.setWidth("100%");
-		lbDisponiveis.setHeight("300px");
-		lbDisponiveis.setRows(10);
-		lbDisponiveis.setMultiple(true);
-		lbDisponiveis.appendChild(defineCabecalho());
-		
-		botoes.setSpacing("15px");
-		botoes.setAlign("center");
-		botoes.setPack("center");
-		botoes.setParent(row);
-		botoes.setWidth("100%");
-		
-		btSelecionaTodos.setParent(botoes);
-		btSelecionaTodos.setLabel(">>");
-		btSelecionaTodos.addEventListener("onClick", new EventListener() {
-			
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				List<Listitem> itens = new ArrayList<Listitem>();
-				itens.addAll(lbDisponiveis.getItems());
-				for (Listitem listitem : itens) {
-					listitem.setParent(lbSelecionados);
-				}				
-			}
-		});
-		
-		btSelecionaUm.setParent(botoes);
-		btSelecionaUm.setLabel(">");
-		btSelecionaUm.addEventListener("onClick", new EventListener() {
-			
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				List<Listitem> itens = new ArrayList<Listitem>();
-				itens.addAll(lbDisponiveis.getSelectedItems());
-				for (Listitem listitem : itens) {
-					listitem.setParent(lbSelecionados);
-				}				
-			}
-		});
-		
-		btRemoveUm.setParent(botoes);
-		btRemoveUm.setLabel("<");
-		btRemoveUm.addEventListener("onClick", new EventListener() {
-			
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				List<Listitem> itens = new ArrayList<Listitem>();
-				itens.addAll(lbSelecionados.getSelectedItems());
-				for (Listitem listitem : itens) {
-					listitem.setParent(lbDisponiveis);
-				}				
-			}
-		});
-		
-		btRemoveTodos.setParent(botoes);
-		btRemoveTodos.setLabel("<<");
-		btRemoveTodos.addEventListener("onClick", new EventListener() {
-			
-			@Override
-			public void onEvent(Event arg0) throws Exception {
-				List<Listitem> itens = new ArrayList<Listitem>();
-				itens.addAll(lbSelecionados.getItems());
-				for (Listitem listitem : itens) {
-					listitem.setParent(lbDisponiveis);
-				}				
-			}
-		});
-		
-		Vbox selecionados = new Vbox();
-		selecionados.setParent(row);
-		new Label("Selecionados:").setParent(selecionados);
-		lbSelecionados.setParent(selecionados);
-		lbSelecionados.setWidth("100%");
-		lbSelecionados.setHeight("300px");
-		lbSelecionados.setMultiple(true);
-		lbSelecionados.appendChild(defineCabecalho());
-		
-		preencheListbox();
-		
-	}
-*/
+
 	public void preencheListbox(){
 		disponiveis = listaDisponiveis();
 		selecionados = listaSelecionados();
@@ -280,6 +169,24 @@ public abstract class DualListBox<T extends Object> extends Hbox{
 				item.setParent(lbSelecionados);
 			}else{
 				item.setParent(lbDisponiveis);
+			}
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void removeObjeto (T objeto){
+		List<Listitem> itens = lbDisponiveis.getItems();
+		for (Listitem listitem : itens) {
+			if (objeto.equals(listitem.getValue())){
+				lbDisponiveis.removeChild(listitem);
+				return;
+			}
+		}
+		itens = lbSelecionados.getItems();
+		for (Listitem listitem : itens) {
+			if (objeto.equals(listitem.getValue())){
+				lbSelecionados.removeChild(listitem);
+				return;
 			}
 		}
 	}

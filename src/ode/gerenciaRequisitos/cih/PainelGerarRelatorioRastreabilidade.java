@@ -175,11 +175,11 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 			if (lista.get(3).isChecked())
 				grid.adicionarLinha("Prioridade", new Label(requisito
-						.getPrioridade().getNome()));
+						.getPrioridade().name()));
 
 			if (lista.get(4).isChecked())
 				grid.adicionarLinha("Tipo de Requisito", new Label(requisito
-						.getTipoRequisito().getNome()));
+						.getTipoRequisito().name()));
 
 			if (lista.get(5).isChecked())
 				grid.adicionarLinha("Categoria de Requisito", requisito
@@ -362,26 +362,6 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 			}
 			
 			new Separator().setParent(add);
-
-			/*
-			 * if (lista.get(13).isChecked()) { Listbox listbox = new Listbox();
-			 * 
-			 * Listhead listhead = new Listhead(); listhead.setParent(listbox);
-			 * 
-			 * new Listheader("Nome").setParent(listhead); new
-			 * Listheader("Descrição").setParent(listhead);
-			 * 
-			 * Set<A> casosUso = requisito.getCasosUso(); for (CasoUso casoUso :
-			 * casosUso) { Set<Classe> classes = casoUso.getClasses(); for
-			 * (Classe classe : classes) { Listitem item = new Listitem();
-			 * 
-			 * new Listcell(classe.getNome()).setParent(item); new
-			 * Listcell(classe.getDescricao()).setParent(item);
-			 * 
-			 * item.setParent(listbox); } }
-			 * 
-			 * grid.adicionarLinha("Artefatos Relacionados", listbox); }
-			 */
 		}
 		return add;
 	}

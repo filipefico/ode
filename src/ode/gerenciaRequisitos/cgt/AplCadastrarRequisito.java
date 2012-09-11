@@ -11,6 +11,7 @@ import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
+import ode.conhecimento.requisito.cdp.TipoRequisito;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaRequisitos.cdp.Requisito;
 import ode.gerenciaRequisitos.cgd.GeradorIdentificadorDAO;
@@ -41,11 +42,11 @@ public class AplCadastrarRequisito extends AplCRUD<Requisito> {
 	@Override
 	protected void antesIncluirNovo(Requisito objeto) throws NucleoRegraNegocioExcecao {
 		objeto.setDataCriacao(new Date());
-		if (objeto.getTipoRequisito().getNome().equals("Funcional")){
+		if (objeto.getTipoRequisito().equals(TipoRequisito.FUNCIONAL)){
 			objeto.setIdentificador(geradorIdDao.getIdentificadorFuncional(objeto.getProjeto()));
 			return;
 		}else{
-			if (objeto.getTipoRequisito().getNome().equals("Não-Funcional")){
+			if (objeto.getTipoRequisito().equals(TipoRequisito.NAOFUNCIONAL)){
 				objeto.setIdentificador(geradorIdDao.getIdentificadorNaoFuncional(objeto.getProjeto()));
 			}else{
 				objeto.setIdentificador(geradorIdDao.getIdentificadorRegraDeNegocio(objeto.getProjeto()));

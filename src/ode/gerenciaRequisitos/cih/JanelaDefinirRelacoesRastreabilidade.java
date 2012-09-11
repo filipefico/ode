@@ -60,8 +60,12 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 			if (coRequisito.getSelectedItem() == null)
 				return new ArrayList<Requisito>();
 			List<Requisito> requisitos = new ArrayList<Requisito>();
+			try{
 			requisitos.addAll(((Requisito) coRequisito.getSelectedItem()
 					.getValue()).getDependencias());
+			}catch(NullPointerException e){
+				
+			}
 			return requisitos;
 		}
 	};
@@ -73,8 +77,11 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 			if (coRequisito.getSelectedItem() == null)
 				return new ArrayList<Requisito>();
 			List<Requisito> requisitos = new ArrayList<Requisito>();
+			try{
 			requisitos.addAll(((Requisito) coRequisito.getSelectedItem()
 					.getValue()).getConflitos());
+			}catch(NullPointerException e){
+			}
 			return requisitos;
 		}
 	};
@@ -90,10 +97,10 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 		this.setHeight(null);
 		this.setPosition("center");
 		this.setSizable(false);
-		
+
 		barraFerramentas.setParent(this);
 		barraFerramentas.setWidth("100%");
-		
+
 		salvar.addEventListener("onClick", new EventSalvar());
 		salvar.setImage("imagens/filesave.png");
 		salvar.setParent(barraFerramentas);
@@ -118,10 +125,9 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 		tbDescricao.setRows(4);
 		grid.adicionarLinha("Descrição", tbDescricao);
 
-		
 		NucleoTabbox tabbox = new NucleoTabbox();
 		tabbox.setParent(this);
-		
+
 		NucleoTab dependencias = new NucleoTab("Dependências");
 		tabbox.addTab(dependencias);
 		dependencias.setConteudoTab(dlbDependencias);
@@ -135,7 +141,7 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 		dlbConflitos.setWidth("560px");
 		dlbConflitos.setHeight("400px");
 		dlbConflitos.setCheckmark(true);
-		
+
 		NucleoTab pacotes = new NucleoTab("Pacotes");
 		pacotes.setConteudoTab(dlbPacotes);
 		tabbox.addTab(pacotes);
@@ -154,16 +160,18 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 		artefatos.getTabpanel().setHeight("400px");
 		tabbox.addTab(artefatos);
 
-		
-
-		atualizaListas();
 		preencherComboboxRequisitos();
+		atualizaListas();
 	}
 
 	public void atualizaListas() {
 		dlbCasosUso.preencheListbox();
 		dlbConflitos.preencheListbox();
+		dlbConflitos.removeObjeto((Requisito) coRequisito.getSelectedItem()
+				.getValue());
 		dlbDependencias.preencheListbox();
+		dlbDependencias.removeObjeto((Requisito) coRequisito.getSelectedItem()
+				.getValue());
 		dlbPacotes.preencheListbox();
 	}
 
@@ -192,22 +200,27 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 			requisito.setConflitos(dlbConflitos.getSelecionados());
 			requisito.setPacotes(dlbPacotes.getSelecionados());
 			requisito.setCasosUso(dlbCasosUso.getSelecionados());
-			try{
-			ctrlRequisito.definirAplCRUD().salvar(requisito);
-			}catch (Exception e) {
-				Messagebox.show("Erro ao definir as relações. Erro: " + e.getMessage());
+			try {
+				ctrlRequisito.definirAplCRUD().salvar(requisito);
+			} catch (Exception e) {
+				Messagebox.show("Erro ao definir as relações. Erro: "
+						+ e.getMessage());
 				e.printStackTrace();
 				return;
 			}
-			Messagebox.show("As relações foram definidas com sucesso. Deseja definir relações de outro requisito?", "Confirmação", Messagebox.YES | Messagebox.NO, null,new EventListener() {
-				@Override
-				public void onEvent(Event arg0) throws Exception {
-					if (arg0.getName().equals("onNo")){
-						referencia.detach();
-					}
-					
-				}
-			});
+			Messagebox
+					.show("As relações foram definidas com sucesso. Deseja definir relações de outro requisito?",
+							"Confirmação", Messagebox.YES | Messagebox.NO,
+							null, new EventListener() {
+								@Override
+								public void onEvent(Event arg0)
+										throws Exception {
+									if (arg0.getName().equals("onNo")) {
+										referencia.detach();
+									}
+
+								}
+							});
 		}
 
 	}
@@ -322,8 +335,12 @@ public class JanelaDefinirRelacoesRastreabilidade extends JanelaSimples {
 				return new ArrayList<CasoUso>();
 
 			List<CasoUso> casosUso = new ArrayList<CasoUso>();
-			casosUso.addAll(((Requisito) coRequisito.getSelectedItem()
+			try{
+				casosUso.addAll(((Requisito) coRequisito.getSelectedItem()
 					.getValue()).getCasosUso());
+			}catch(NullPointerException e){
+				
+			}
 
 			return casosUso;
 		}

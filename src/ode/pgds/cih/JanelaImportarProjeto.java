@@ -25,7 +25,7 @@ public class JanelaImportarProjeto extends JanelaSimples {
 	Combobox comboRepositorio = new Combobox();
 	Textbox textboxProjeto = new Textbox();
 	Textbox textboxEndereco = new Textbox();
-	Button atualizar = new Button("Att");
+	Button atualizar = new Button();
 	Window janela = this;
 
 	public JanelaImportarProjeto() {
@@ -34,17 +34,18 @@ public class JanelaImportarProjeto extends JanelaSimples {
 		this.setWidth("600px");
 		this.setHeight(null);
 		this.setPosition("center");
-		this.setSizable(false);
+		this.setSizable(true);
 
 		GridDados grid = new GridDados();
 		grid.setParent(this);
 		
 		Hbox hbox = new Hbox();
-		textboxEndereco.setWidth("100%");
+		textboxEndereco.setWidth("300px");
 		textboxEndereco.setConstraint("no empty");
 		textboxEndereco.setValue("http://192.168.1.103:8080/pgds");
 		textboxEndereco.setParent(hbox);
 		
+		atualizar.setImage("/imagens/update.png");
 		atualizar.setParent(hbox);
 		atualizar.addEventListener("onClick", new EventListener() {
 			

@@ -33,17 +33,6 @@ public class PainelCRUDPossivelValorNaoOrdenado extends PainelCRUD<PossivelValor
 		
 	}
 	
-	public Toolbar definirBotaoSimilaridade(Toolbar toolbar){
-		
-		Toolbarbutton tbbtSimilaridade = new Toolbarbutton();
-		tbbtSimilaridade.setImage("/imagens/definir.png");
-		tbbtSimilaridade.setTooltiptext("Definir Similaridade");
-		tbbtSimilaridade.setParent(toolbar);
-		tbbtSimilaridade.addEventListener("onClick", new EventListenerSimilaridade());
-		
-		return toolbar;
-	}
-	
 	public Toolbar definirBotaoTabelaSimilaridade(Toolbar toolbar){
 		
 		Toolbarbutton tbbtSimilaridade = new Toolbarbutton();
@@ -59,21 +48,6 @@ public class PainelCRUDPossivelValorNaoOrdenado extends PainelCRUD<PossivelValor
 		tbbtSimilaridadeE.addEventListener("onClick", new EventListenerTabelaSimilaridadeEDITAR());
 		
 		return toolbar;
-	}
-	/** Classe do evento do botao Similaridade. */
-	private class EventListenerSimilaridade implements EventListener {
-
-		public void onEvent(Event event) {
-			
-			CtrlPossivelValorNaoOrdenado ctrlPNO = (CtrlPossivelValorNaoOrdenado) SpringUtil.getApplicationContext().getBean(CtrlPossivelValorNaoOrdenado.class);
-			ctrlPNO.definirSimilaridade();	
-		}
-
-		@SuppressWarnings("unused")
-		public boolean isAsap() {
-			return true;
-		}
-
 	}
 	
 	/** Classe do evento do botao de definir a tabela de Similaridade. */

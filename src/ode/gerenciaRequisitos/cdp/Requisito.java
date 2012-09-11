@@ -4,7 +4,10 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -48,6 +51,7 @@ public class Requisito extends ObjetoPersistente{
 		this.identificador = identificador;
 	}
 	
+	@Column (length = 4000)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -140,7 +144,7 @@ public class Requisito extends ObjetoPersistente{
 		this.responsaveis = responsaveis;
 	}
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@Enumerated(EnumType.ORDINAL)
 	public TipoRequisito getTipoRequisito() {
 		return tipoRequisito;
 	}
@@ -149,7 +153,7 @@ public class Requisito extends ObjetoPersistente{
 		this.tipoRequisito = tipoRequisito;
 	}
 
-	@ManyToOne (fetch = FetchType.LAZY)
+	@Enumerated (EnumType.ORDINAL)
 	public Prioridade getPrioridade() {
 		return prioridade;
 	}

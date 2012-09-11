@@ -1,7 +1,10 @@
 package ode._controleRecursoHumano.cdp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Cascade;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.controleProjeto.cdp.Projeto;
@@ -13,7 +16,7 @@ public class Equipe extends ObjetoPersistente {
 	
 	private Projeto projeto;
 
-	@OneToOne
+	@OneToOne (cascade = {CascadeType.REMOVE})
 	public Projeto getProjeto() {
 		return projeto;
 	}

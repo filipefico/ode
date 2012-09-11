@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,12 +13,10 @@ import java.util.Set;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode.conhecimento.requisito.cdp.TipoRequisito;
-import ode.conhecimento.requisito.cgd.TipoRequisitoDAO;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgd.ProjetoDAO;
 import ode.gerenciaRequisitos.cdp.Prioridade;
 import ode.gerenciaRequisitos.cdp.Requisito;
-import ode.gerenciaRequisitos.cgd.PrioridadeDAO;
 import ode.gerenciaRequisitos.cgd.RequisitoDAO;
 import ode.pgds.cdp.Resultado;
 import ode.uml.cdp.CasoUso;
@@ -58,20 +58,12 @@ public class AplImportarProjeto {
 	CasoUsoDAO casoUsoDao;
 	
 	@Autowired
-	TipoRequisitoDAO tipoRequisitoDao;
-	
-	@Autowired
-	PrioridadeDAO prioridadeDao;
-	
-	@Autowired
 	RequisitoDAO requisitoDao;
 	
 	@Autowired
 	ProjetoDAO projetoDao;
 	
 	Model modelo;
-	List<Prioridade> prioridades = new ArrayList<Prioridade>();
-	List<TipoRequisito> tiposRequisito = new ArrayList<TipoRequisito>();
 	Projeto projeto;
 	Pacote pacoteDefault;
 	
@@ -112,7 +104,7 @@ public class AplImportarProjeto {
 			return lista;
 		}
 
-		lista.addAll(result.getRepositorios());
+		lista.addAll(result.getRepositorios().keySet());
 		
 		return lista;
 	}
@@ -199,12 +191,12 @@ public class AplImportarProjeto {
 		indexFim = string.indexOf("^^", indexInicio);
 		String prioridade = string.substring(indexInicio + 1, indexFim - 1);
 		if (prioridade.equals("Alta")){
-			requisito.setPrioridade(prioridades.get(0));
+			requisito.setPrioridade(Prioridade.ALTA);
 		}else{
 			if (prioridade.equals("Baixa")){
-				requisito.setPrioridade(prioridades.get(1));
+				requisito.setPrioridade(Prioridade.BAIXA);
 			}else{
-				requisito.setPrioridade(prioridades.get(2));
+				requisito.setPrioridade(Prioridade.MEDIA);
 			}
 		}
 		
@@ -217,56 +209,17 @@ public class AplImportarProjeto {
 		requisito.setProjeto(projeto);
 		
 		/* Adiciona Tipo de Requisito */
-		if (requisito.getIdentificador().contains("Funcional")){
-			requisito.setTipoRequisito(tiposRequisito.get(0));
+		if (requisito.getIdentificador().contains("RF")){
+			requisito.setTipoRequisito(TipoRequisito.FUNCIONAL);
 		}else{
-			if (requisito.getIdentificador().contains("Não")){
-				requisito.setTipoRequisito(tiposRequisito.get(1));
+			if (requisito.getIdentificador().contains("RNF")){
+				requisito.setTipoRequisito(TipoRequisito.NAOFUNCIONAL);
 			}else{
-				requisito.setTipoRequisito(tiposRequisito.get(2));
+				requisito.setTipoRequisito(TipoRequisito.REGRADENEGOCIO);
 			}
 		}
 		
-		StringBuilder sparl = new StringBuilder();
-		
-		/* Adiciona Dependencias */
-		sparl.append(" PREFIX onto: <http://localhost/ontologies/SE/onto.owl#> ");
-		sparl.append(" PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ");
-		sparl.append("select distinct ?requisito");
-		sparl.append(" WHERE { ");
-		sparl.append(" ?individuo rdf:type onto:Requisito");
-		sparl.append(" . ");
-		sparl.append(" ?individuo onto:conflitaCom ?requisito");
-		sparl.append(" . ");
-		sparl.append(" ?individuo ?p onto:" + requisito.getIdentificador());
-		sparl.append("} order by ?requisito");
-		
-		List<String> requisitosString = converteRetornoSparql(ExecuteQueryByModel(sparl.toString(), modelo));
-		Set<Requisito> requisitos = new HashSet<Requisito>();
-		for (String string2 : requisitosString) {
-			requisitos.add(requisitoDao.obterPorIdentificadorEProjeto(string2, projeto));
-		}
-		requisito.setConflitos(requisitos);
-		
-		/* Adiciona Conflitos */
-		sparl = new StringBuilder();
-		sparl.append(" PREFIX onto: <http://localhost/ontologies/SE/onto.owl#> ");
-		sparl.append(" PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ");
-		sparl.append("select distinct ?requisito");
-		sparl.append(" WHERE { ");
-		sparl.append(" ?individuo rdf:type onto:Requisito");
-		sparl.append(" . ");
-		sparl.append(" ?individuo onto:dependeDe ?requisito");
-		sparl.append(" . ");
-		sparl.append(" ?individuo ?p onto:" + requisito.getIdentificador());
-		sparl.append("} order by ?requisito");
-		
-		List<String> dependenciasString = converteRetornoSparql(ExecuteQueryByModel(sparl.toString(), modelo));
-		Set<Requisito> dependencias = new HashSet<Requisito>();
-		for (String string2 : dependenciasString) {
-			dependencias.add(requisitoDao.obterPorIdentificadorEProjeto(string2, projeto));
-		}
-		requisito.setDependencias(dependencias);
+		StringBuilder sparl;
 		
 		/* Adiciona Casos de Uso */
 		sparl = new StringBuilder();
@@ -292,6 +245,9 @@ public class AplImportarProjeto {
 		Set<Pacote> pacotes = new HashSet<Pacote>();
 		pacotes.add(pacoteDefault);
 		requisito.setPacotes(pacotes);
+		
+		/*Adiciona Data de Criação*/
+		requisito.setDataCriacao(new Date());
 
 		return requisito;
 	}
@@ -368,12 +324,55 @@ public class AplImportarProjeto {
 		return casoUso;
 	}
 	
+	public void adicionaDependenciasEntreRequisitos(){
+		Collection<Requisito> todosRequisitos = requisitoDao.obterPorProjeto(projeto);
+		for (Requisito requisito : todosRequisitos) {
+			StringBuilder sparl = new StringBuilder();
+			
+			/* Adiciona Dependencias */
+			sparl.append(" PREFIX onto: <http://localhost/ontologies/SE/onto.owl#> ");
+			sparl.append(" PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ");
+			sparl.append("select distinct ?requisito");
+			sparl.append(" WHERE { ");
+			sparl.append(" ?individuo rdf:type onto:Requisito");
+			sparl.append(" . ");
+			sparl.append(" ?individuo onto:conflitaCom ?requisito");
+			sparl.append(" . ");
+			sparl.append(" ?individuo ?p onto:" + requisito.getIdentificador());
+			sparl.append("} order by ?requisito");
+			
+			List<String> requisitosString = converteRetornoSparql(ExecuteQueryByModel(sparl.toString(), modelo));
+			Set<Requisito> requisitos = new HashSet<Requisito>();
+			for (String string2 : requisitosString) {
+				requisitos.add(requisitoDao.obterPorIdentificadorEProjeto(string2, projeto));
+			}
+			requisito.setConflitos(requisitos);
+			
+			/* Adiciona Conflitos */
+			sparl = new StringBuilder();
+			sparl.append(" PREFIX onto: <http://localhost/ontologies/SE/onto.owl#> ");
+			sparl.append(" PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ");
+			sparl.append("select distinct ?requisito");
+			sparl.append(" WHERE { ");
+			sparl.append(" ?individuo rdf:type onto:Requisito");
+			sparl.append(" . ");
+			sparl.append(" ?individuo onto:dependeDe ?requisito");
+			sparl.append(" . ");
+			sparl.append(" ?individuo ?p onto:" + requisito.getIdentificador());
+			sparl.append("} order by ?requisito");
+			
+			List<String> dependenciasString = converteRetornoSparql(ExecuteQueryByModel(sparl.toString(), modelo));
+			Set<Requisito> dependencias = new HashSet<Requisito>();
+			for (String string2 : dependenciasString) {
+				dependencias.add(requisitoDao.obterPorIdentificadorEProjeto(string2, projeto));
+			}
+			requisito.setDependencias(dependencias);
+			requisitoDao.salvar(requisito);
+		}
+	}
+	
 	public void recuperarDados (String enderecoBase, String repositorio, String projetoNome){
 		modelo = recuperaModeloSemantico(repositorio, enderecoBase);
-		
-		prioridades.addAll(prioridadeDao.recuperarTodosComOrdenacao("nome"));
-		
-		tiposRequisito.addAll(tipoRequisitoDao.recuperarTodosComOrdenacao("descricao"));
 
 		projeto = new Projeto();
 		projeto.setNome(projetoNome);
@@ -454,6 +453,7 @@ public class AplImportarProjeto {
 		List<String> requisitos = converteRetornoSparql(ExecuteQueryByModel(sparl.toString(), modelo));
 		for (String string : requisitos) {
 			requisitoDao.salvar(stringToRequisito(string));
-		}	
+		}
+		//adicionaDependenciasEntreRequisitos();
 	}
 }

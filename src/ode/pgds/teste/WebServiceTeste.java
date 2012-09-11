@@ -2,6 +2,7 @@ package ode.pgds.teste;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import ode.pgds.cdp.Resultado;
 
@@ -12,7 +13,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.client.RestTemplate;
 
 public class WebServiceTeste {
-	
+/*	
 	public void testeChamadaReqODE() {
 
 		try {
@@ -21,7 +22,7 @@ public class WebServiceTeste {
 			Resultado result = restTemplate.getForObject(url, Resultado.class);
 
 			//recupero a lista de repositorios
-			List<String> repos = result.getRepositorios();
+			Set<String> repos = result.getRepositorios().keySet();
 			
 			System.out.println("URl´s");
 			for (String string : repos) {
@@ -75,7 +76,7 @@ public class WebServiceTeste {
 			Resultado result = restTemplate.getForObject(url, Resultado.class);
 
 			
-			List<String> repos = result.getRepositorios();
+			Set<String> repos = result.getRepositorios().keySet();
 			
 
 		} catch (Exception e) {
@@ -126,5 +127,5 @@ public class WebServiceTeste {
 	}
 
 	
-
+*/
 }

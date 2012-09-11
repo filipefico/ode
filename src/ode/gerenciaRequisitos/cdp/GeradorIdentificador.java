@@ -30,7 +30,7 @@ public class GeradorIdentificador extends ObjetoPersistente{
 		projeto = p;
 	}
 
-	@OneToOne (fetch = FetchType.LAZY)
+	@OneToOne
 	public Projeto getProjeto() {
 		return projeto;
 	}
