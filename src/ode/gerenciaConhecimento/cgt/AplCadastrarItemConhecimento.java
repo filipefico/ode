@@ -140,4 +140,9 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 		avaliacao.setItemConhecimentoAvaliado(conhecimento);
 		conhecimento.getAvaliacoes().add(avaliacao);
 	}
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoPendentesPorUsuarioAtual(){
+		return this.itemConhecimentoDAO.recuperarItensConhecimentoPendentesPorUsuarioAtual();
+	}
+		
 }

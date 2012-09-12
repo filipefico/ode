@@ -133,7 +133,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	public void preencherListboxItensPendentesAvaliacao(){
 		
 		// fiz recuperar todos somente para teste
-		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
 		for (ItemConhecimento item : itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
