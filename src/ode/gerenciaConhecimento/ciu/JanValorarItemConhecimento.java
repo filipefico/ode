@@ -227,7 +227,7 @@ public class JanValorarItemConhecimento extends Window {
 						// TODO Auto-generated method stub
 						if (arg0.getName().equals("onYes")){
 							Messagebox.show("Valoração cancelada!", "Informação", Messagebox.OK, Messagebox.INFORMATION);
-							ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(itemConhecimento);
+							ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento(itemConhecimento);
 						}
 					}
 				});
@@ -260,7 +260,7 @@ public class JanValorarItemConhecimento extends Window {
 						public void onEvent(Event arg0) throws Exception {
 							// TODO Auto-generated method stub
 							if(arg0.getName().equals("onOK")){
-								ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(itemConhecimento);
+								ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento(itemConhecimento);
 							}
 						}
 					});

@@ -270,10 +270,7 @@ public class JanPrincipal extends Borderlayout{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				
-				//ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
-				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
-				
+				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
 			}
 		});
 

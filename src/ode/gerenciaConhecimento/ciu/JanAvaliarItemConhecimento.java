@@ -319,7 +319,7 @@ public class JanAvaliarItemConhecimento extends Window {
 						public void onEvent(Event arg0) throws Exception {
 							// TODO Auto-generated method stub
 							if(arg0.getName().equals("onOK")){
-								ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+								ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
 							}
 						}
 					});
@@ -344,7 +344,7 @@ public class JanAvaliarItemConhecimento extends Window {
 						// TODO Auto-generated method stub
 						if (arg0.getName().equals("onYes")){
 							Messagebox.show("Avaliação cancelada!", "Informação", Messagebox.OK, Messagebox.INFORMATION);
-							ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente();
+							ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
 						}
 					}
 				});

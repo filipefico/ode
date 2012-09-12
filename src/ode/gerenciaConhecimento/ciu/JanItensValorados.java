@@ -289,7 +289,7 @@ public void preencherLinhaListbox(ItemConhecimento item){
 					if(objeto != null){
 						((ItemConhecimento)objeto).setQuantidadeAcessos(((ItemConhecimento)objeto).getQuantidadeAcessos() + 1);
 						ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.salvar((ItemConhecimento)objeto);
-						ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum(objeto);
+						ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento((ItemConhecimento)objeto);
 					}
 				}
 				

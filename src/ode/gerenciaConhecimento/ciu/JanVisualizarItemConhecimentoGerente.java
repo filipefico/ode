@@ -35,6 +35,8 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
+	ItemConhecimento itemConhecimento;
+	
 	Tabpanel tabpanelInformacoes;
 	Tabpanel tabpanelAvaliacoes;
 	Tabpanel tabpanelValoracoes;
@@ -57,14 +59,18 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 	Listcell listcellPontosFracosValor;
 	Listcell listcellLinkDiscussaoValor;
 	
-	public JanVisualizarItemConhecimentoGerente(CtrlGerenciaConhecimento ctrl) {
+	
+	
+	public JanVisualizarItemConhecimentoGerente(CtrlGerenciaConhecimento ctrl, Object item) {
 		// TODO Auto-generated constructor stub
 	
 		ctrlGerenciaConhecimento = ctrl;
 		
+		itemConhecimento = (ItemConhecimento) item;
+		
 		criarJanVisualizarItemConhecimento();
+		
 	}
-	
 	
 	public void preencherListboxInformacoes(ItemConhecimento i){
 		

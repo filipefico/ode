@@ -16,6 +16,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
@@ -144,13 +145,25 @@ public class JanItensCriados extends Window {
 
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				//ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
-				ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoGerente();
+				if(listboxItensCriados.getSelectedIndex() == -1){
+					Messagebox messageboxInformar = new Messagebox();
+					messageboxInformar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxInformar.INFORMATION);
+				}else{
+					Object objeto = new Object();
+					if (listboxItensCriados.getSelectedItem() != null) {
+						objeto =  listboxItensCriados.getSelectedItem().getValue();
+					}
+					
+					if(objeto != null){
+						if (((ItemConhecimento)objeto).getEstado().equals(ItemConhecimento.ESTADO_DISPONIVEL)){
+							((ItemConhecimento)objeto).setQuantidadeAcessos(((ItemConhecimento)objeto).getQuantidadeAcessos() + 1);
+							ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.salvar((ItemConhecimento)objeto);
+						}
+						ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento((ItemConhecimento)objeto);
+					}
+				}
 			}
 		});
-
-		
 
 		toolbarInferior.setStyle("border:0px;background:white;");
 		toolbarInferior.setAlign("end");

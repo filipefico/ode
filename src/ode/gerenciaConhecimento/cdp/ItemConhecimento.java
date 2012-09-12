@@ -22,6 +22,10 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 
+/**
+ * @author alexandregnc
+ *
+ */
 @Entity
 @Inheritance
 @DiscriminatorColumn(name="TIPO_CONHECIMENTO")
@@ -65,6 +69,8 @@ public class ItemConhecimento extends ObjetoPersistente {
 	private Set<Valoracao> valoracoes = new HashSet<Valoracao>();
 	
 	private Set<Avaliacao> avaliacoes = new HashSet<Avaliacao>();
+	
+	private Set<RecursoHumano> avaliadores = new HashSet<RecursoHumano>();
 
 	public String getTitulo() {
 		return titulo;
@@ -187,6 +193,15 @@ public class ItemConhecimento extends ObjetoPersistente {
 
 	public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
 		this.avaliacoes = avaliacoes;
+	}
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	public Set<RecursoHumano> getAvaliadores() {
+		return avaliadores;
+	}
+
+	public void setAvaliadores(Set<RecursoHumano> avaliadores) {
+		this.avaliadores = avaliadores;
 	}
 
 	/**

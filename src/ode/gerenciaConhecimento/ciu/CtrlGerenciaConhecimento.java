@@ -7,7 +7,9 @@ import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
 import ode._infraestruturaBase.ciu.CtrlBase;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
+import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
+import ode.atuacaoRecursoHumano.cgd.AtuacaoRHDAO;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
@@ -72,12 +74,15 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	@Autowired
 	AplCadastrarItemConhecimento aplCadastrarItemConhecimento;
-	
+
 	@Autowired
 	AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
-	
+
 	@Autowired
 	AplCadastrarUsuario aplCadastrarUsuario;
+
+	@Autowired
+	AtuacaoRHDAO atuacaoRHDAO;
 
 	@Override
 	public void iniciar() {
@@ -98,19 +103,19 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		jan.doEmbedded();
 	}
-	
+
 	public JanItensCriados exibirJanelaItensCriados_inicial(){
-		
+
 		janItensCriados = new JanItensCriados(this);
-		
+
 		return janItensCriados;
-		
+
 	}
-	
+
 	public JanItensPendentesAvaliacaoGerente exibirJanelaItensPendentesAvaliacao_inicial(){
-		
+
 		janItensPendentesAvaliacaoGerente = new JanItensPendentesAvaliacaoGerente(this);
-		
+
 		return janItensPendentesAvaliacaoGerente;
 	}
 
@@ -129,53 +134,64 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janBuscarItensConhecimento);
 
 	}
-	
+
 	public void exibirJanelaItensValorados(Collection<ItemConhecimento> itens){
-		
+
 		janItensValorados = new JanItensValorados(this, itens);
-		
+
 		janP.mostrarJanelaConteudo(janItensValorados);
 	}
-	
+
 	public void exibirJanelaItensAvaliados(Collection<ItemConhecimento> itens){
-		
+
 		janItensAvaliados = new JanItensAvaliados(this, itens);
-		
+
 		janP.mostrarJanelaConteudo(janItensAvaliados);
 	}
 
-	
-	public void exibirJanelaItensPendentesAvaliacaoUsuarioComum(){
-		
-		janItensPendentesAvaliacaoUsuarioComum = new JanItensPendentesAvaliacaoUsuarioComum(this);
-		
-		janP.mostrarJanelaConteudo(janItensPendentesAvaliacaoUsuarioComum);
-		
+	public void exibirJanelaItensPendentesAvaliacao(){
+
+		// Recupera todos que são gerentes de projeto
+		Collection<RecursoHumano> recursos = atuacaoRHDAO.recuperarAptosPorPapel(new Long(31));
+
+		if (recursos.contains(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano())){
+			this.exibirJanelaItensPendentesAvaliacaoGerente();
+		} else {
+			exibirJanelaItensPendentesAvaliacaoUsuarioComum();
+		}
 	}
-	
+
+	public void exibirJanelaItensPendentesAvaliacaoUsuarioComum(){
+
+		janItensPendentesAvaliacaoUsuarioComum = new JanItensPendentesAvaliacaoUsuarioComum(this);
+
+		janP.mostrarJanelaConteudo(janItensPendentesAvaliacaoUsuarioComum);
+
+	}
+
 	public void exibirJanelaItensPendentesAvaliacaoGerente(){
-		
+
 		janItensPendentesAvaliacaoGerente = new JanItensPendentesAvaliacaoGerente(this);
-		
+
 		janP.mostrarJanelaConteudo(janItensPendentesAvaliacaoGerente);
-		
+
 	}
 
 	public void exibirJanelaValorarItemConhecimento(ItemConhecimento itemConhecimento){
-		
+
 		janValorarItemConhecimento = new JanValorarItemConhecimento(this, itemConhecimento);
-		
+
 		janP.mostrarJanelaConteudo(janValorarItemConhecimento);
-		
+
 	}
-	
+
 	public void exibirJanelaPaginasAmarelas(){
-		
+
 		janPaginasAmarelas = new JanPaginasAmarelas(this);
-		
+
 		janP.mostrarJanelaConteudo(janPaginasAmarelas);
 	}
-		
+
 
 
 	public void exibirJanelaAvaliarItemConhecimento(ItemConhecimento itemConhecimento){
@@ -183,44 +199,56 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janAvaliarItemConhecimento = new JanAvaliarItemConhecimento(this, itemConhecimento);
 
 		janP.mostrarJanelaConteudo(janAvaliarItemConhecimento);
-		
+
 	}
-	 	
 
 
-	
+
+
 	public void exibirJanelaItensCriados(){
-		
+
 		janItensCriados = new JanItensCriados(this);
-		
+
 		janP.mostrarJanelaConteudo(janItensCriados);
-		
+
 	}
-	
-	public void exibirJanelaVisualizarItemConhecimentoUsuarioComum(Object item){
-		
+
+	public void exibirJanelaVisualizarItemConhecimento(ItemConhecimento itemConhecimento){
+
+		// Recupera todos que são gerentes de projeto
+		Collection<RecursoHumano> recursos = atuacaoRHDAO.recuperarAptosPorPapel(new Long(31));
+
+		if (recursos.contains(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano())){
+			this.exibirJanelaVisualizarItemConhecimentoGerente(itemConhecimento);
+		} else {
+			exibirJanelaVisualizarItemConhecimentoUsuarioComum(itemConhecimento);
+		}
+	}
+
+	public void exibirJanelaVisualizarItemConhecimentoUsuarioComum(ItemConhecimento item){
+
 		janVisualizarItemConhecimentoUsuarioComum = new JanVisualizarItemConhecimentoUsuarioComum(this, item);
-		
+
 		janP.mostrarJanelaConteudo(janVisualizarItemConhecimentoUsuarioComum);
-		
+
 	}
-	
-	public void exibirJanelaVisualizarItemConhecimentoGerente(){
-		
-		janVisualizarItemConhecimentoGerente = new JanVisualizarItemConhecimentoGerente(this);
-		
+
+	public void exibirJanelaVisualizarItemConhecimentoGerente(ItemConhecimento itemConhecimento){
+
+		janVisualizarItemConhecimentoGerente = new JanVisualizarItemConhecimentoGerente(this,itemConhecimento);
+
 		janP.mostrarJanelaConteudo(janVisualizarItemConhecimentoGerente);
-		
+
 	}
-	
+
 	public void exibirJanelaListaBuscarItensConhecimento(List<ItemConhecimento> itens){
-		
+
 		janListaBuscarItensConhecimento = new JanListaBuscarItensConhecimento(this,itens);
-		
+
 		janP.mostrarJanelaConteudo(janListaBuscarItensConhecimento);
-		
+
 	}
-	
+
 	public void exibirJanelaCriarLicaoAprendida(){
 
 		janCriarLicaoAprendida = new JanCriarLicaoAprendida(this);
@@ -236,7 +264,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janCriarConhecimentoRelativoDiscussao);
 
 	}
-	
+
 	public void exibirJanelaMeusTemasDeItenteresse(){
 
 		janMeusTemasDeInteresse = new JanMeusTemasDeInteresse(this);
@@ -269,35 +297,35 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public Collection<Projeto> recuperarProjetos(){
 		return aplCadastrarProjeto.recuperarTodos();
 	}
-	
+
 	public List<LicaoAprendida> recuperarLicoesOrdenadoPorQuantidadeAcesso(){
 		return aplCadastrarLicaoAprendida.recuperarOrdenadoPorQuantidadeAcesso();
 	}
-	
+
 	public List<LicaoAprendida> recuperarLicoesOrdenadoPorDataCriacaoMaisRecente(){
 		return aplCadastrarLicaoAprendida.recuperarOrdenadoPorDataCriacaoMaisRecente();
 	}
-	
+
 	public int recuperarQuantidadeTotalLicoesAprendidas(){
 		return this.aplCadastrarLicaoAprendida.recuperarQuantidadeTotal();
 	}
-	
+
 	public List<ConhecimentoRelativoDiscussao> recuperarItensDiscussaoOrdenadoPorQuantidadeAcesso(){
 		return aplCadastrarConhecimentoRelativoDiscussao.recuperarOrdenadoPorQuantidadeAcesso();
 	}
-	
+
 	public List<ConhecimentoRelativoDiscussao> recuperarItensDiscussaoOrdenadoPorDataCriacaoMaisRecente(){
 		return aplCadastrarConhecimentoRelativoDiscussao.recuperarOrdenadoPorDataCriacaoMaisRecente();
 	}
-	
+
 	public int recuperarQuantidadeTotalItensDiscussao(){
 		return this.aplCadastrarConhecimentoRelativoDiscussao.recuperarQuantidadeTotal();
 	}
-	
+
 	public int recuperarQuantidadeTotalMembros(){
 		return this.aplCadastrarRecursoHumano.recuperarQuantidadeTotal();
 	}
-	
+
 	public void adicionarValoracao(Valoracao valoracao, ItemConhecimento itemConhecimento){
 		this.aplCadastrarItemConhecimento.adicionarValoracao(valoracao, itemConhecimento);
 	}
@@ -305,11 +333,11 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public Collection<RecursoHumano> recuperarRecursosHumanosAtivos(){
 		return aplCadastrarRecursoHumano.recuperarRecursosHumanosAtivos();
 	}
-	
+
 	public Usuario recuperarUsuarioPorID(Long id){
 		return aplCadastrarUsuario.recuperarPorId(id);
 	}
-	
+
 	public void salvarMeusTemas(RecursoHumano recursoHumano) {
 		try {
 			aplCadastrarRecursoHumano.salvar(recursoHumano);
@@ -317,8 +345,12 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void salvarAvaliacaoItemConhecimento(Avaliacao avaliacao, ItemConhecimento itemConhecimento){
 		this.aplCadastrarItemConhecimento.adicionarAvaliacao(avaliacao, itemConhecimento);
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoPendentesPorUsuarioAtual(){
+		return this.aplCadastrarItemConhecimento.recuperarTodos();
 	}
 }
