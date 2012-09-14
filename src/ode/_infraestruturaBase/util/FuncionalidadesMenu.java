@@ -153,7 +153,7 @@ public static List<Funcionalidade> obterFuncionalidades() {
 
 			)
 		);
-		funcionalidades.add(criar("Entidade Problema")
+	/*	funcionalidades.add(criar("Entidade Problema")
 				.addSubfuncionalidade(criar("Entidade Problema").setCtrl(CtrlEntidadeProblema.class)
 					)
 		);
@@ -162,7 +162,7 @@ public static List<Funcionalidade> obterFuncionalidades() {
 				.addSubfuncionalidade(criar("Resolver Problema").setCtrl(CtrlResolverProblema.class))
 				.addSubfuncionalidade(criar("Registrar Resultado Solucao").setCtrl(CtrlRegistrarResultadoSolucao.class))
 				
-		);
+		);*/
 		
 		funcionalidades.add(criar("Medição")
 				.addSubfuncionalidade(criar("Entidade Mensuráveis").setCtrl(CtrlEntidadeMensuravel.class)
@@ -183,11 +183,11 @@ public static List<Funcionalidade> obterFuncionalidades() {
 						)
 		);
 		
-		funcionalidades.add(criar("Processo Padrão")
+		/*funcionalidades.add(criar("Processo Padrão")
 			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
-		);
+		);*/
 		
-		funcionalidades.add(criar("Agenda").setCtrl(ode.agenda.ciu.CtrlAgenda.class));
+		//funcionalidades.add(criar("Agenda").setCtrl(ode.agenda.ciu.CtrlAgenda.class));
 		
 		funcionalidades.add(criar("Ferramentas")
 			.addSubfuncionalidade(criar("Definição de Processos").setCtrl(CtrlDefinicaoProcesso.class).setDisponivelApenasParaProjetosAbertos(true))

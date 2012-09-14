@@ -54,7 +54,8 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanMeusTemasDeInteresse janMeusTemasDeInteresse;
 	public JanItensValorados janItensValorados;
 	public JanItensAvaliados janItensAvaliados;
-	public JanPaginasAmarelas janPaginasAmarelas;
+	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
+	public JanPaginasAmarelasResultadoPesquisa janPaginasAmarelasResultadoPesquisa;
 
 
 	@Autowired
@@ -99,7 +100,8 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		jan.setTitle("Portal de Gerência de Conhecimento");
 		jan.setWidth("100%");
-		jan.setHeight("525px");
+		jan.setHeight("580px");
+		//jan.setHeight("100%");
 
 		jan.doEmbedded();
 	}
@@ -148,6 +150,20 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		janP.mostrarJanelaConteudo(janItensAvaliados);
 	}
+	
+	public void exibirJanelaPaginasAmarelasBuscarPessoas(){
+		
+		janPaginasAmarelasBuscarPessoas = new JanPaginasAmarelasBuscarPessoas(this);
+		
+		janP.mostrarJanelaConteudo(janPaginasAmarelasBuscarPessoas);
+	}
+	
+	public void exibirJanelaPaginasAmarelasResultadoPesquisa(){
+		
+		janPaginasAmarelasResultadoPesquisa = new JanPaginasAmarelasResultadoPesquisa(this);
+		
+		janP.mostrarJanelaConteudo(janPaginasAmarelasResultadoPesquisa);
+	}
 
 	public void exibirJanelaItensPendentesAvaliacao(){
 
@@ -183,13 +199,6 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		janP.mostrarJanelaConteudo(janValorarItemConhecimento);
 
-	}
-
-	public void exibirJanelaPaginasAmarelas(){
-
-		janPaginasAmarelas = new JanPaginasAmarelas(this);
-
-		janP.mostrarJanelaConteudo(janPaginasAmarelas);
 	}
 
 

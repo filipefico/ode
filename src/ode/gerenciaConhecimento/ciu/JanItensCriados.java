@@ -109,7 +109,7 @@ public class JanItensCriados extends Window {
 		listboxItensCriados.setCheckmark(true);
 	//	listboxItensCriados.setSizedByContent(true);
 	//	listboxItensCriados.setWidth("580px");
-		listboxItensCriados.setHeight("350px");
+		listboxItensCriados.setHeight("150px");
 		Listhead listheadItensCriados = new Listhead();
 		
 		Listheader listheaderRadio = new Listheader(" ");

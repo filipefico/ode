@@ -75,6 +75,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
 		listboxQtdeItens.setSizedByContent(true);
+		listboxQtdeItens.setHeight("150px");
 		
 		colunaRadioButton.setParent(colunas);
 		colunaTitulo.setParent(colunas);
