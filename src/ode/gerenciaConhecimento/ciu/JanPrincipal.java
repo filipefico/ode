@@ -98,8 +98,8 @@ public class JanPrincipal extends Borderlayout{
 		center = new Center();
 		painelCentro = new Panel();
 		painelChildrenCentro = new Panelchildren();
-		/*painelChildrenCentro.setHeight("500px");
-		painelChildrenCentro.setStyle("overflow:auto;");*/
+		//painelCentro.setHeight("500px");
+		painelChildrenCentro.setStyle("overflow:auto;");
 			
 		painelCentro.setTitle("Bem-vindo ao Portal de Gerência de Conhecimento");
 		
@@ -207,7 +207,7 @@ public class JanPrincipal extends Borderlayout{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelas();
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
 			}
 		});
 		
