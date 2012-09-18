@@ -1,11 +1,19 @@
 package ode.gerenciaConhecimento.ciu;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
+import ode.conhecimento.processo.cdp.KAtividade;
+import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
+import ode.gerenciaConhecimento.cdp.Tema;
+import ode.gerenciaConhecimento.cdp.Valoracao;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -17,6 +25,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Separator;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -36,6 +45,12 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	ItemConhecimento itemConhecimento;
+	
+	Tab tabInformacoes = new Tab("Informações");
+	Tab tabAvaliacoes = new Tab("Avaliações");
+	Tab tabValoracoes = new Tab("Valorações");
+	
+	Listbox listbox = new Listbox();
 	
 	Tabpanel tabpanelInformacoes;
 	Tabpanel tabpanelAvaliacoes;
@@ -60,6 +75,22 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 	Listcell listcellLinkDiscussaoValor;
 	
 	
+	Listitem listitemValoracao;
+	Listitem listitemAvaliacao;
+	
+	float positiva = 0;
+	float negativa = 0;
+	float neutra = 0;
+	int tamanho = 0;
+	double somaValoracao = 0;
+	
+	Label qtdeValoracoes;
+	Label percentualValoracoesPositivas;
+	Label percentualValoracoesNegativas;
+	Label percentualValoracoesNeutras;
+	Label valoracaoMedia;
+	
+	
 	
 	public JanVisualizarItemConhecimentoGerente(CtrlGerenciaConhecimento ctrl, Object item) {
 		// TODO Auto-generated constructor stub
@@ -68,11 +99,11 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 		
 		itemConhecimento = (ItemConhecimento) item;
 		
-		criarJanVisualizarItemConhecimento();
+		criarJanVisualizarItemConhecimento(item);
 		
 	}
 	
-	public void preencherListboxInformacoes(ItemConhecimento i){
+public void preencherVisualizacaoEsquerda(ItemConhecimento i){
 		
 		/*
 		 * se o item de conhecimento for Lição Aprendida
@@ -84,95 +115,114 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 			
 			LicaoAprendida item = (LicaoAprendida) i;
 			
+			Listhead listhead = new Listhead();
+			Listheader listheader = new Listheader();
+			listheader.setWidth("150px");
+			Listheader listheader2 = new Listheader();
+			
+			listheader.setParent(listhead);
+			listheader2.setParent(listhead);
+			listhead.setParent(listbox);
+			
 			//--- linha Título ---//
 			Listcell listcellTitulo = new Listcell("Título:");
+			listcellTitulo.setStyle("font-weight: bold; color: black;");
 			listcellTituloValor = new Listcell(item.getTitulo());
 			
 			listcellTitulo.setParent(listitemTitulo);
 			listcellTituloValor.setParent(listitemTitulo);
-			listitemTitulo.setParent(listboxInformacoes);
+			listitemTitulo.setParent(listbox);
 			
 			//--- linha Autor ---//
 			Listitem listitemAutor = new Listitem();
 			Listcell listcellAutor = new Listcell("Autor:");
-			listcellAutorValor = new Listcell("AUTORRRR");
+			listcellAutor.setStyle("font-weight: bold; color: black;");
+			listcellAutorValor = new Listcell(item.getAutor().getNome());
 			
 			listcellAutor.setParent(listitemAutor);
 			listcellAutorValor.setParent(listitemAutor);
-			listitemAutor.setParent(listboxInformacoes);
+			listitemAutor.setParent(listbox);
 			
 			//--- linha Criado Em ---//
 			Listitem listitemCriadoEm = new Listitem();
 			Listcell listcellCriadoEm = new Listcell("Criado em:");
+			listcellCriadoEm.setStyle("font-weight: bold; color: black;");
 			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 			listcellCriadoEmValor = new Listcell(formatador.format(item.getDataCriacao()));
 			
 			listcellCriadoEm.setParent(listitemCriadoEm);
 			listcellCriadoEmValor.setParent(listitemCriadoEm);
-			listitemCriadoEm.setParent(listboxInformacoes);
+			listitemCriadoEm.setParent(listbox);
 			
 			//--- linha Tipo de Item de Conhecimento ---//				
 			Listitem listitemTipoItemConhecimento = new Listitem();
 			Listcell listcellTipoItemConhecimento = new Listcell("Tipo de Item de Conhecimento:");
+			listcellTipoItemConhecimento.setStyle("font-weight: bold; color: black;");
 			listcellTipoItemConhecimentoValor = new Listcell("Lição Aprendida");
 			
 			listcellTipoItemConhecimento.setParent(listitemTipoItemConhecimento);
 			listcellTipoItemConhecimentoValor.setParent(listitemTipoItemConhecimento);
-			listitemTipoItemConhecimento.setParent(listboxInformacoes);
+			listitemTipoItemConhecimento.setParent(listbox);
 		
 			//--- linha Resumo ---//
 			Listitem listitemResumo = new Listitem();
 			Listcell listcellResumo = new Listcell("Resumo:");
+			listcellResumo.setStyle("font-weight: bold; color: black;");
 			listcellResumoValor = new Listcell(item.getResumo());
 			
 			listcellResumo.setParent(listitemResumo);
 			listcellResumoValor.setParent(listitemResumo);
-			listitemResumo.setParent(listboxInformacoes);
+			listitemResumo.setParent(listbox);
 			
 			//--- linha Aplicabilidade ---//
 			Listitem listitemAplicabilidade = new Listitem();
 			Listcell listcellAplicabilidade = new Listcell("Aplicabilidade:");
+			listcellAplicabilidade.setStyle("font-weight: bold; color: black;");
 			listcellAplicabilidadeValor = new Listcell(item.getAplicabilidade());
 			
 			listcellAplicabilidade.setParent(listitemAplicabilidade);
 			listcellAplicabilidadeValor.setParent(listitemAplicabilidade);
-			listitemAplicabilidade.setParent(listboxInformacoes);
+			listitemAplicabilidade.setParent(listbox);
 			
 			//--- linha Tipo de Lição Aprendida ---//
 			Listitem listitemTipoLicaoAprendida = new Listitem();
 			Listcell listcellTipoLicaoAprendida = new Listcell("Tipo de Lição Aprendida:");
+			listcellTipoLicaoAprendida.setStyle("font-weight: bold; color: black;");
 			listcellTipoLicaoAprendidaValor = new Listcell(item.getTipo());
 			
 			listcellTipoLicaoAprendida.setParent(listitemTipoLicaoAprendida);
 			listcellTipoLicaoAprendidaValor.setParent(listitemTipoLicaoAprendida);
-			listitemTipoLicaoAprendida.setParent(listboxInformacoes);
+			listitemTipoLicaoAprendida.setParent(listbox);
 			
 			//--- linha Descrição do Problema ---//
 			Listitem listitemDescricaoProblema = new Listitem();
 			Listcell listcellDescricaoProblema = new Listcell("Descrição do Problema:");
+			listcellDescricaoProblema.setStyle("font-weight: bold; color: black;");
 			listcellDescricaoProblemaValor = new Listcell(item.getDescricaoProblema());
 			
 			listcellDescricaoProblema.setParent(listitemDescricaoProblema);
 			listcellDescricaoProblemaValor.setParent(listitemDescricaoProblema);
-			listitemDescricaoProblema.setParent(listboxInformacoes);
+			listitemDescricaoProblema.setParent(listbox);
 			
 			//--- linha Solução Adotada ou Recomendada ---//
 			Listitem listitemSolucaoAdotadaRecomendada = new Listitem();
 			Listcell listcellSolucaoAdotadaRecomendada = new Listcell("Solução Adotada ou Recomendada:");
+			listcellSolucaoAdotadaRecomendada.setStyle("font-weight: bold; color: black;");
 			listcellSolucaoAdotadaRecomendadaValor = new Listcell(item.getSolucaoAdotadaOuRecomendada());
 			
 			listcellSolucaoAdotadaRecomendada.setParent(listitemSolucaoAdotadaRecomendada);
 			listcellSolucaoAdotadaRecomendadaValor.setParent(listitemSolucaoAdotadaRecomendada);
-			listitemSolucaoAdotadaRecomendada.setParent(listboxInformacoes);
+			listitemSolucaoAdotadaRecomendada.setParent(listbox);
 			
 			//--- linha Resultado Esperado ---//
 			Listitem listitemResultadoEsperado = new Listitem();
 			Listcell listcellResultadoEsperado = new Listcell("Resultado Esperado:");
+			listcellResultadoEsperado.setStyle("font-weight: bold; color: black;");
 			listcellResultadoEsperadoValor = new Listcell(item.getResultadoEsperado());
 			
 			listcellResultadoEsperado.setParent(listitemResultadoEsperado);
 			listcellResultadoEsperadoValor.setParent(listitemResultadoEsperado);
-			listitemResultadoEsperado.setParent(listboxInformacoes);
+			listitemResultadoEsperado.setParent(listbox);
 		}
 		
 		/*
@@ -185,288 +235,585 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 			
 			ConhecimentoRelativoDiscussao item = (ConhecimentoRelativoDiscussao) i;
 			
+			Listhead listhead = new Listhead();
+			Listheader listheader = new Listheader();
+			listheader.setWidth("150px");
+			Listheader listheader2 = new Listheader();
+			
+			listheader.setParent(listhead);
+			listheader2.setParent(listhead);
+			listhead.setParent(listbox);
+			
 			//--- linha Título ---//
 			Listcell listcellTitulo = new Listcell("Título:");
+			listcellTitulo.setStyle("font-weight: bold; color: black;");
 			listcellTituloValor = new Listcell(item.getTitulo());
 			
 			listcellTitulo.setParent(listitemTitulo);
 			listcellTituloValor.setParent(listitemTitulo);
-			listitemTitulo.setParent(listboxInformacoes);
+			listitemTitulo.setParent(listbox);
 			
 			//--- linha Autor ---//
 			Listitem listitemAutor = new Listitem();
 			Listcell listcellAutor = new Listcell("Autor:");
-			listcellAutorValor = new Listcell("AUTORRRR");
+			listcellAutor.setStyle("font-weight: bold; color: black;");
+			listcellAutorValor = new Listcell(item.getAutor().getNome());
 			
 			listcellAutor.setParent(listitemAutor);
 			listcellAutorValor.setParent(listitemAutor);
-			listitemAutor.setParent(listboxInformacoes);
+			listitemAutor.setParent(listbox);
 			
 			//--- linha Criado Em ---//
 			Listitem listitemCriadoEm = new Listitem();
 			Listcell listcellCriadoEm = new Listcell("Criado em:");
+			listcellCriadoEm.setStyle("font-weight: bold; color: black;");
 			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 			listcellCriadoEmValor = new Listcell(formatador.format(item.getDataCriacao()));
 			
 			listcellCriadoEm.setParent(listitemCriadoEm);
 			listcellCriadoEmValor.setParent(listitemCriadoEm);
-			listitemCriadoEm.setParent(listboxInformacoes);
+			listitemCriadoEm.setParent(listbox);
 			
 			//--- linha Tipo de Item de Conhecimento ---//
 			Listitem listitemTipoItemConhecimento = new Listitem();
 			Listcell listcellTipoItemConhecimento = new Listcell("Tipo de Item de Conhecimento:");
+			listcellTipoItemConhecimento.setStyle("font-weight: bold; color: black;");
 			listcellTipoItemConhecimentoValor = new Listcell("Conhecimento Relativo a uma Discussão");
 			
 			listcellTipoItemConhecimento.setParent(listitemTipoItemConhecimento);
 			listcellTipoItemConhecimentoValor.setParent(listitemTipoItemConhecimento);
-			listitemTipoItemConhecimento.setParent(listboxInformacoes);
+			listitemTipoItemConhecimento.setParent(listbox);
 			
 			//--- linha Resumo ---//
 			Listitem listitemResumo = new Listitem();
 			Listcell listcellResumo = new Listcell("Resumo:");
+			listcellResumo.setStyle("font-weight: bold; color: black;");
 			listcellResumoValor = new Listcell(item.getResumo());
 			
 			listcellResumo.setParent(listitemResumo);
 			listcellResumoValor.setParent(listitemResumo);
-			listitemResumo.setParent(listboxInformacoes);
+			listitemResumo.setParent(listbox);
 			
 			//--- linha Aplicabilidade ---//
 			Listitem listitemAplicabilidade = new Listitem();
 			Listcell listcellAplicabilidade = new Listcell("Aplicabilidade:");
+			listcellAplicabilidade.setStyle("font-weight: bold; color: black;");
 			listcellAplicabilidadeValor = new Listcell(item.getAplicabilidade());
 			
 			listcellAplicabilidade.setParent(listitemAplicabilidade);
 			listcellAplicabilidadeValor.setParent(listitemAplicabilidade);
-			listitemAplicabilidade.setParent(listboxInformacoes);
+			listitemAplicabilidade.setParent(listbox);
 			
 			//--- linha Conhecimento Adquirido ---//
 			Listitem listitemConhecimentoAdquirido = new Listitem();
 			Listcell listcellConhecimentoAdquirido = new Listcell("Conhecimento Adquirido:");
+			listcellConhecimentoAdquirido.setStyle("font-weight: bold; color: black;");
 			listcellConhecimentoAdquiridoValor = new Listcell(item.getConhecimentoAdquirido());
 			
 			listcellConhecimentoAdquirido.setParent(listitemConhecimentoAdquirido);
 			listcellConhecimentoAdquiridoValor.setParent(listitemConhecimentoAdquirido);
-			listitemConhecimentoAdquirido.setParent(listboxInformacoes);
+			listitemConhecimentoAdquirido.setParent(listbox);
 			
 			//--- linha Pontos Fortes ---//
 			Listitem listitemPontosFortes = new Listitem();
 			Listcell listcellPontosFortes = new Listcell("Pontos Fortes:");
+			listcellPontosFortes.setStyle("font-weight: bold; color: black;");
 			listcellPontosFortesValor = new Listcell(item.getPontosFortes());
 			
 			listcellPontosFortes.setParent(listitemPontosFortes);
 			listcellPontosFortesValor.setParent(listitemPontosFortes);
-			listitemPontosFortes.setParent(listboxInformacoes);
+			listitemPontosFortes.setParent(listbox);
 			
 			//--- linha Pontos Fracos ---//
 			Listitem listitemPontosFracos = new Listitem();
 			Listcell listcellPontosFracos = new Listcell("Pontos Fracos:");
+			listcellPontosFracos.setStyle("font-weight: bold; color: black;");
 			listcellPontosFracosValor = new Listcell(item.getPontosFracos());
 			
 			listcellPontosFracos.setParent(listitemPontosFracos);
 			listcellPontosFracosValor.setParent(listitemPontosFracos);
-			listitemPontosFracos.setParent(listboxInformacoes);
+			listitemPontosFracos.setParent(listbox);
 			
 			//--- linha Resultado Esperado ---//
 			Listitem listitemLinkDiscussao = new Listitem();
 			Listcell listcellLinkDiscussao = new Listcell("Link para a discussão:");
+			listcellLinkDiscussao.setStyle("font-weight: bold; color: black;");
 			listcellLinkDiscussaoValor = new Listcell(item.getLinkDiscussao());
 			
 			listcellLinkDiscussao.setParent(listitemLinkDiscussao);
 			listcellLinkDiscussaoValor.setParent(listitemLinkDiscussao);
-			listitemLinkDiscussao.setParent(listboxInformacoes);
+			listitemLinkDiscussao.setParent(listbox);
 		}
 		
 	}
-	
-	public void criarAbaInformacoes(){
+
+	public void preencherVisualizacaoDireita(Hbox hbox, ItemConhecimento item){
 		
-		tabpanelInformacoes = new Tabpanel();
-		
-		Hbox hboxInformacoes = new Hbox();
-		
-		listboxInformacoes.setSizedByContent(true);
-		listboxInformacoes.setWidth("300px");
-		listboxInformacoes.setHeight("400px");
-		
-		//cria licao aprendida teste
-		LicaoAprendida licaoTESTE = new LicaoAprendida();
-		licaoTESTE.setTitulo("tituloTESTE");
-		//licaoTESTE.setAutor(NucleoContexto.recuperarUsuarioLogado().)
-		licaoTESTE.setDataCriacao(new Date());
-		licaoTESTE.setResumo("resumoTESTE");
-		licaoTESTE.setResultadoEsperado("resumoTESTE");
-		licaoTESTE.setAplicabilidade("aplicabilidadeTESTE");
-		licaoTESTE.setTipo("sucesso");
-		licaoTESTE.setDescricaoProblema("descricaoProblemaTESTE");
-		licaoTESTE.setSolucaoAdotadaOuRecomendada("solucaoAdotadaOuRecomendadaTESTE");
-		licaoTESTE.setResultadoEsperado("resultadoEsperadoTESTE");
-		
-		//cria conhecimento relativo a uma discussao teste
-		ConhecimentoRelativoDiscussao conheTESTE = new ConhecimentoRelativoDiscussao();
-		conheTESTE.setTitulo("tituloTESTE");
-		//conheTESTE(NucleoContexto.recuperarUsuarioLogado().)
-		conheTESTE.setDataCriacao(new Date());
-		conheTESTE.setResumo("resumoTESTE");
-		conheTESTE.setAplicabilidade("aplicabilidadeTESTE");
-		conheTESTE.setConhecimentoAdquirido("conhecimentoAdquiridoTESTE");
-		conheTESTE.setPontosFortes("pontosFortesTESTE");
-		conheTESTE.setPontosFracos("pontosFracosTESTE");
-		conheTESTE.setLinkDiscussao("linkDiscussaoTESTE");
-		
-		preencherListboxInformacoes(licaoTESTE);
-		
-		listboxInformacoes.setParent(hboxInformacoes);
-			
 		Vbox vboxInformacoes = new Vbox();
+		
+		Hbox hboxMediaNotas = new Hbox();
+		Hbox hboxQuantidadeValoracoes = new Hbox();
+		Hbox hboxPositivas = new Hbox();
+		Hbox hboxNegativas = new Hbox();
+		Hbox hboxNeutras = new Hbox();
+		Hbox hboxQuantidadeAcessos = new Hbox();
 		
 		Label labelResumoValoracoes = new Label("Resumo das Valorações:");
 		labelResumoValoracoes.setStyle("font-weight: bold; color: blue;");
-		Label labelMediaNotas = new Label("Média das Notas: " + "INTEIRO");
-		Label labelQuantidade = new Label("Quantidade: " + "INTEIRO");
-		Label labelPositivas = new Label("Positivas: " + "INTEIRO" + "%");
-		Label labelNegativas = new Label("Negativas: " + "INTEIRO" + "%");
-		Label labelNeutras = new Label("Neutras: " + "INTEIRO" + "%");
+		labelResumoValoracoes.setParent(vboxInformacoes);
+		
+		Collection<Valoracao> valoracoes = item.getValoracoes();
+		
+		tamanho = valoracoes.size();
+		
+		qtdeValoracoes = new Label(Integer.toString(tamanho));
+		qtdeValoracoes.setStyle("font-weight: bold; font-size: 12px;");
+		Label labelQuantidadeValoracoes = new Label("- Quantidade: ");
+		labelQuantidadeValoracoes.setParent(hboxQuantidadeValoracoes);
+		qtdeValoracoes.setParent(hboxQuantidadeValoracoes);
+		
+		for (Valoracao valoracao : valoracoes){
+			
+			BigDecimal bigDecimalPositiva1 = new BigDecimal("10.0");
+			BigDecimal bigDecimalPositiva2 = new BigDecimal("0.01");
+			
+			BigDecimal bigDecimalNegativa1 = new BigDecimal("-10.0");
+			BigDecimal bigDecimalNegativa2 = new BigDecimal("-0.01");
+			
+			BigDecimal bigDecimalNeutra = new BigDecimal("0.00");
+			
+			BigDecimal utilidade;
+			utilidade = valoracao.getGrauUtilidade();
+	
+			somaValoracao = somaValoracao + utilidade.doubleValue();
+			
+			if(utilidade.doubleValue() >= bigDecimalNegativa1.doubleValue() && utilidade.doubleValue() <= bigDecimalNegativa2.doubleValue()){
+				negativa++;
+			}
+			
+			if(utilidade.doubleValue() == bigDecimalNeutra.doubleValue()){
+				neutra++;
+			}
+			
+			if(utilidade.doubleValue() >= bigDecimalPositiva2.doubleValue() && utilidade.doubleValue() <= bigDecimalPositiva1.doubleValue()){
+				positiva++;
+			}
+		}
+		
+		
+		Label labelPositivas = new Label();
+		Label labelNegativas = new Label();
+		Label labelNeutras = new Label();
+		Label labelValoracaoMedia = new Label();
+		
+		if(tamanho != 0){
+			
+			DecimalFormat formatador = new DecimalFormat("0.0");
+			
+			//percentual de valorações positivas
+			percentualValoracoesPositivas = new Label();
+			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100) + "%");
+			percentualValoracoesPositivas.setStyle("font-weight: bold; font-size: 12px;");
+			labelPositivas.setValue("- Positivas: ");
+			labelPositivas.setParent(hboxPositivas);
+			percentualValoracoesPositivas.setParent(hboxPositivas);
+			
+			//percentual de valorações negativas
+			percentualValoracoesNegativas = new Label();
+			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100) + "%");
+			percentualValoracoesNegativas.setStyle("font-weight: bold; font-size: 12px;");
+			labelNegativas.setValue("- Negativas: ");
+			labelNegativas.setParent(hboxNegativas);
+			percentualValoracoesNegativas.setParent(hboxNegativas);
+			
+			//percentual de valorações neutras
+			percentualValoracoesNeutras = new Label();
+			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100) + "%");
+			percentualValoracoesNeutras.setStyle("font-weight: bold; font-size: 12px;");
+			labelNeutras.setValue("- Neutras: ");
+			labelNeutras.setParent(hboxNeutras);
+			percentualValoracoesNeutras.setParent(hboxNeutras);
+			
+			//medias das notas dada na valoração
+			valoracaoMedia = new Label();
+			valoracaoMedia.setValue(formatador.format(somaValoracao/tamanho));
+			valoracaoMedia.setStyle("font-weight: bold; font-size: 12px;");
+			labelValoracaoMedia.setValue("- Média das notas: ");
+			labelValoracaoMedia.setParent(hboxMediaNotas);
+			valoracaoMedia.setParent(hboxMediaNotas);
+			
+		}else{
+			percentualValoracoesPositivas = new Label("0%");
+			percentualValoracoesPositivas.setStyle("font-weight: bold; font-size: 12px;");
+			labelPositivas.setValue("- Positivas: ");
+			labelPositivas.setParent(hboxPositivas);
+			percentualValoracoesPositivas.setParent(hboxPositivas);
+			
+			percentualValoracoesNegativas = new Label("0%");
+			percentualValoracoesNegativas.setStyle("font-weight: bold; font-size: 12px;");
+			labelNegativas.setValue("- Negativas: ");
+			labelNegativas.setParent(hboxNegativas);
+			percentualValoracoesNegativas.setParent(hboxNegativas);
+			
+			percentualValoracoesNeutras = new Label("0%");
+			percentualValoracoesNeutras.setStyle("font-weight: bold; font-size: 12px;");
+			labelNeutras.setValue("- Neutras: ");
+			labelNeutras.setParent(hboxNeutras);
+			percentualValoracoesNeutras.setParent(hboxNeutras);
+			
+			valoracaoMedia = new Label("0,0");
+			valoracaoMedia.setStyle("font-weight: bold; font-size: 12px;");
+			labelValoracaoMedia.setValue("- Média das notas: ");
+			labelValoracaoMedia.setParent(hboxMediaNotas);
+			valoracaoMedia.setParent(hboxMediaNotas);
+		}
+		
+		hboxMediaNotas.setParent(vboxInformacoes);
+		hboxQuantidadeValoracoes.setParent(vboxInformacoes);
+		hboxPositivas.setParent(vboxInformacoes);
+		hboxNegativas.setParent(vboxInformacoes);
+		hboxNeutras.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
+		
 		Label labelAcessos = new Label("Acessos:");
+		labelAcessos.setParent(vboxInformacoes);
 		labelAcessos.setStyle("font-weight: bold; color: blue;");
-		Label labelQtdeAcessos = new Label("Quantidade: " + "INTEIRO");
+	
+		positiva = 0;
+		negativa = 0;
+		neutra = 0;
+		somaValoracao = 0;
+	
+		Label labelQtdeAcessosValor = new Label(Integer.toString(item.getQuantidadeAcessos().intValue()));
+		labelQtdeAcessosValor.setStyle("font-weight: bold; font-size: 12px;");
+		Label labelQtdeAcessos = new Label("- Quantidade: ");
+		labelQtdeAcessos.setParent(hboxQuantidadeAcessos);
+		labelQtdeAcessosValor.setParent(hboxQuantidadeAcessos);
+		hboxQuantidadeAcessos.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Projetos relacionados
+		//////////////////////////////////////////
+		Vbox vboxProjetos = new Vbox();
+		
 		Label labelProjetosRelacionados = new Label("Projetos Relacionados:");
+		labelProjetosRelacionados.setParent(vboxProjetos);
 		labelProjetosRelacionados.setStyle("font-weight: bold; color: blue;");
+		
+		Label nomeProjeto;
+		
+		Collection<Projeto> projetos = item.getProjetos();
+		
+		if(projetos.size() == 0){
+			nomeProjeto = new Label("- Nenhum");
+			nomeProjeto.setParent(vboxProjetos);
+		}else{
+			for (Projeto projeto : projetos){
+				nomeProjeto = new Label("- " + projeto.getNome());
+				nomeProjeto.setParent(vboxProjetos);
+				
+			}
+		}
+		
+		vboxProjetos.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Atividades relacionados
+		//////////////////////////////////////////
+		
+		Vbox vboxAtividades = new Vbox();
+		
+		
+		
 		Label labelAtividadesRelacionados = new Label("Atividades Relacionadas:");
+		labelAtividadesRelacionados.setParent(vboxAtividades);
 		labelAtividadesRelacionados.setStyle("font-weight: bold; color: blue;");
-		Label labelDominiosRelacionados = new Label("Domínios Relacionados:");
-		labelDominiosRelacionados.setStyle("font-weight: bold; color: blue;");
+		
+		Label nomeKAtividade;
+		
+		Collection<KAtividade> atividades = item.getkAtividades();
+		
+		if (atividades.size() == 0){
+			nomeKAtividade = new Label("- Nenhum");
+			nomeKAtividade.setParent(vboxAtividades);
+		}else{
+			for (KAtividade atividade : atividades){
+				nomeKAtividade = new Label("- " + atividade.getNome());
+				nomeKAtividade.setParent(vboxAtividades);
+			}
+		}
+		
+		vboxAtividades.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Temas relacionados
+		//////////////////////////////////////////
+		
+		Vbox vboxTemasRelacionados = new Vbox();
+		
+		Label labelTemasRelacionados = new Label("Temas Relacionados:");
+		labelTemasRelacionados.setParent(vboxTemasRelacionados);
+		labelTemasRelacionados.setStyle("font-weight: bold; color: blue;");
+		
+		Label nomeTema;
+		
+		Collection<Tema> temas = item.getTemas();
+		
+		if(temas.size() == 0){
+			nomeTema = new Label("- Nenhum");
+			nomeTema.setParent(vboxTemasRelacionados);
+		}else{
+			for (Tema tema : temas){
+				nomeTema = new Label("- " + tema.getNome());
+				nomeTema.setParent(vboxTemasRelacionados);
+			}
+		}
+		
+		vboxTemasRelacionados.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
+		
+		//////////////////////////////////////////
+		// Itens relacionados
+		//////////////////////////////////////////
+		
+		Vbox vboxItensRelacionados = new Vbox();
+		
 		Label labelItensRelacionados = new Label("Itens Relacionados:");
+		labelItensRelacionados.setParent(vboxItensRelacionados);
 		labelItensRelacionados.setStyle("font-weight: bold; color: blue;");
 		
-		labelResumoValoracoes.setParent(vboxInformacoes);
-		labelMediaNotas.setParent(vboxInformacoes);
-		labelQuantidade.setParent(vboxInformacoes);
-		labelPositivas.setParent(vboxInformacoes);
-		labelNegativas.setParent(vboxInformacoes);
-		labelNeutras.setParent(vboxInformacoes);
-		labelAcessos.setParent(vboxInformacoes);
-		labelQtdeAcessos.setParent(vboxInformacoes);
-		labelProjetosRelacionados.setParent(vboxInformacoes);
-		labelAtividadesRelacionados.setParent(vboxInformacoes);
-		labelDominiosRelacionados.setParent(vboxInformacoes);
-		labelItensRelacionados.setParent(vboxInformacoes);
+		Label itensRelacionados;
 		
-		vboxInformacoes.setParent(hboxInformacoes);
+		Collection<ItemConhecimento> itens = item.getItensRelacionados();
 		
-		hboxInformacoes.setParent(tabpanelInformacoes);
+		if(itens.size() == 0){
+			itensRelacionados = new Label("- Nenhum");
+			itensRelacionados.setParent(vboxItensRelacionados);
+		}else{
+			for (ItemConhecimento itemConhecimento : itens){
+				itensRelacionados = new Label("- " + itemConhecimento.getTitulo());
+				itensRelacionados.setParent(vboxItensRelacionados);
+			}
+		}
+		
+		vboxItensRelacionados.setParent(vboxInformacoes);
+		
+		vboxInformacoes.setParent(hbox);
+		
 	}
 	
-	public void criarAbaAvaliacoes(){
+	
+	
+	public void preencherAbaInformacoes(Object item){
 		
-		tabpanelAvaliacoes = new Tabpanel();
+		Hbox hbox = new Hbox();
 		
-		listboxAvaliacoes.setHeight("400px");
+		listbox.setWidth("380px");
+		listbox.setHeight("345px");
 		
-		Listhead listheadAvaliacoes = new Listhead();
+		ItemConhecimento itemConhecimento = (ItemConhecimento) item; 
 		
-		Listheader listheaderInformacoes = new Listheader("Informações");
+		preencherVisualizacaoEsquerda(itemConhecimento);
+		listbox.setParent(hbox);
+		
+		preencherVisualizacaoDireita(hbox, itemConhecimento);
+	
+		hbox.setParent(tabpanelInformacoes);
+		
+	}
+	
+	public void preencherAbaAvaliacoes(Object item){
+		
+		Listhead listhead = new Listhead();
+		Listheader listheaderInformacoes = new Listheader("informações");
 		Listheader listheaderNotas = new Listheader("Notas");
 		Listheader listheaderResultado = new Listheader("Resultado");
 		
-		listheaderInformacoes.setParent(listheadAvaliacoes);
-		listheaderNotas.setParent(listheadAvaliacoes);
-		listheaderResultado.setParent(listheadAvaliacoes);
+		listheaderInformacoes.setParent(listhead);
+		listheaderNotas.setParent(listhead);
+		listheaderResultado.setParent(listhead);
+		listhead.setParent(listboxAvaliacoes);
 		
-		listheadAvaliacoes.setParent(listboxAvaliacoes);
-		
-		Listitem listitem = new Listitem();
-		
-		//coluna informações
-		Listcell listcellInformacoes = new Listcell();
-		Vbox vboxInformacoes = new Vbox();
-		
-		Label labelAutor = new Label("Autor: " + "");
-		Label labelDataAvaliacao = new Label("Data de Avaliação: " + "");
-		
-		labelAutor.setParent(vboxInformacoes);
-		labelDataAvaliacao.setParent(vboxInformacoes);
-		
-		vboxInformacoes.setParent(listcellInformacoes);
-		listcellInformacoes.setParent(listitem);
-		listitem.setParent(listboxAvaliacoes);
-		
-		//coluna Notas
-		Listcell listcellNotas = new Listcell();
-		Vbox vboxNotas = new Vbox();
-		
-		Label labelCorrecao = new Label("Correção: " + "");
-		Label labelCompletude = new Label("Completude: " + "");
-		Label labelConsistencia = new Label("Consistencia: " + "");
-		Label labelUtilidade = new Label("Utilidade: " + "");
-		Label labelAplicabilidade = new Label("Aplicabilidade: " + "");
-		Label labelMediaNotas = new Label("Media das Notas: " + "");
-		
-		labelCorrecao.setParent(vboxNotas);
-		labelCompletude.setParent(vboxNotas);
-		labelConsistencia.setParent(vboxNotas);
-		labelUtilidade.setParent(vboxNotas);
-		labelAplicabilidade.setParent(vboxNotas);
-		labelMediaNotas.setParent(vboxNotas);
-		
-		vboxNotas.setParent(listcellNotas);
-		listcellNotas.setParent(listitem);
-		listitem.setParent(listboxAvaliacoes);
-		
-		//coluna Resultado
-		Listcell listcellResultado = new Listcell();
-		Vbox vboxResultado = new Vbox();
-		
-		Label labelParecer = new Label("Parecer: " + "");
-		Label labelResultadoFinal = new Label("Resultado Final: " + "");
-		
-		labelParecer.setParent(vboxResultado);
-		labelResultadoFinal.setParent(vboxResultado);
-		
-		vboxResultado.setParent(listcellResultado);
-		listcellResultado.setParent(listitem);
-		listitem.setParent(listboxAvaliacoes);
+		listboxAvaliacoes.setHeight("350px");
+		preencherListboxAvaliacoes();
 		
 		listboxAvaliacoes.setParent(tabpanelAvaliacoes);
 		
 	}
 	
-	public void criarAbaValoracoes(){
+	public void preencherListboxAvaliacoes(){
+		Collection<Avaliacao> itens = itemConhecimento.getAvaliacoes();
+		for (Avaliacao item : itens){
+			listitemAvaliacao = new Listitem();
+			listitemAvaliacao.setValue(item);
+			preencherLinhaListboxAvaliacoes(item);
+			listitemAvaliacao.setParent(listboxAvaliacoes);
+		}
+	}
+	
+	public void preencherLinhaListboxAvaliacoes(Avaliacao item){
 		
-		tabpanelValoracoes = new Tabpanel();
+		Listcell listcellInformacoes = new Listcell();
+		Listcell listcellNotas = new Listcell();
+		Listcell listcellResultado = new Listcell();
 		
-		listboxValoracoes.setHeight("400px");
+		listcellInformacoes.setParent(listitemAvaliacao);
+		listcellNotas.setParent(listitemAvaliacao);
+		listcellResultado.setParent(listitemAvaliacao);
 		
-		Listhead listheadValoracoes = new Listhead();
-		Listheader listheaderValoracoes = new Listheader("Valorações");
+		Vbox vboxInformacoes = new Vbox();
+		Vbox vboxNotas = new Vbox();
+		Vbox vboxResultado = new Vbox();
+				
+		vboxInformacoes.setParent(listcellInformacoes);
+		vboxNotas.setParent(listcellNotas);
+		vboxResultado.setParent(listcellResultado);
 		
-		listheaderValoracoes.setParent(listheadValoracoes);
-		listheadValoracoes.setParent(listboxValoracoes);
+		/////////////////////////
+		// criar aba informacoes
+		/////////////////////////
+			
+		Label labelAutor = new Label("Autor: " + item.getAutor().getNome());
+	//	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+	//	Label labelDataAvaliacao = new Label("Data da Avaliação: " + formatador.format(item.getDataAvaliacao()));
+		//labelDataAvaliacao.setValue();
+		Label labelDataAvaliacao = new Label("Data da Avaliação: " + item.getDataAvaliacao());
+
 		
-		Listitem listitem = new Listitem();
-		Listcell listcellValoracoes = new Listcell();
-		Vbox vboxValoracoes = new Vbox();
+		labelAutor.setParent(vboxInformacoes);
+		labelDataAvaliacao.setParent(vboxInformacoes);
 		
-		Label labelAutor = new Label("Autor: " + "");
-		Label labelValoradoEm = new Label("Valorado em: " + "");
-		Label labelUtilidade = new Label("Utilidade: " + "");
-		Label labelClassificacao = new Label("Classificação: " + "");
-		Label labelComentario = new Label("Comentário: " + "");
+		/////////////////////////
+		// criar aba Notas
+		/////////////////////////
 		
-		labelAutor.setParent(vboxValoracoes);
-		labelValoradoEm.setParent(vboxValoracoes);
-		labelUtilidade.setParent(vboxValoracoes);
-		labelClassificacao.setParent(vboxValoracoes);
-		labelComentario.setParent(vboxValoracoes);
+		double correcao = item.getNotaCorrecao().doubleValue();
+		Label labelCorrecao = new Label("Correção: " + Double.toString(correcao));
+		labelCorrecao.setParent(vboxNotas);
 		
-		vboxValoracoes.setParent(listcellValoracoes);
-		listcellValoracoes.setParent(listitem);
-		listitem.setParent(listboxValoracoes);
+		double completude = item.getNotaCompletude().doubleValue();
+		Label labelCompletude = new Label("Completude: " + Double.toString(completude));
+		labelCompletude.setParent(vboxNotas);
 		
-		listboxValoracoes.setParent(tabpanelValoracoes);
+		double consistencia = item.getNotaConsistencia().doubleValue();
+		Label labelConsistencia = new Label("Consistência: " + Double.toString(consistencia));
+		labelConsistencia.setParent(vboxNotas);
+		
+		double utilidade = item.getNotaUtilidade().doubleValue();
+		Label labelUtilidade = new Label("Utilidade: " + Double.toString(utilidade));
+		labelUtilidade.setParent(vboxNotas);
+		
+		double aplicabilidade = item.getNotaAplicabilidade().doubleValue();
+		Label labelAplicabilidade = new Label("Aplicabilidade: " + Double.toString(aplicabilidade));
+		labelAplicabilidade.setParent(vboxNotas);
+		
+		double media = calculaMedia(correcao, completude, consistencia, utilidade, aplicabilidade);
+		Label labelMedia = new Label("Média das Notas: " + Double.toString(media));
+		labelMedia.setParent(vboxNotas);
+		
+		/////////////////////////
+		// criar aba Rsultado
+		/////////////////////////
+		
+		Label labelParecer = new Label("Parecer: " + item.getParecer());
+		Label labelResultadoFinal = new Label("Resultado Final: " + item.getResultadoFinal());
+		
+		labelParecer.setParent(vboxResultado);
+		labelResultadoFinal.setParent(vboxResultado);
 		
 	}
 	
-	public void criarJanVisualizarItemConhecimento(){
+	public double calculaMedia(double correcao, double completude, double consistencia, double utilidade, double aplicabilidade){
+		return (correcao + completude + consistencia + utilidade + aplicabilidade)/5;
+	}
+	
+	public void preencherAbaValoracoes(Object item){
+		
+		Listhead listhead = new Listhead();
+		Listheader listheaderValoracoes = new Listheader("Valorações");
+		
+		listheaderValoracoes.setParent(listhead);
+		listhead.setParent(listboxValoracoes);
+		
+		listboxValoracoes.setHeight("350px");
+		preencherListboxValoracoes();
+		
+		listboxValoracoes.setParent(tabpanelValoracoes);
+		
+		
+	}
+	
+	public void preencherListboxValoracoes(){
+		Collection<Valoracao> itens = itemConhecimento.getValoracoes();
+		for (Valoracao item : itens){
+			listitemValoracao = new Listitem();
+			listitemValoracao.setValue(item);
+			preencherLinhaListboxValoracoes(item);
+			listitemValoracao.setParent(listboxValoracoes);
+		}
+	}
+	
+public void preencherLinhaListboxValoracoes(Valoracao item){
+		
+		Listcell listcellValoracoes = new Listcell();
+		Vbox vboxLinhaValoracoes = new Vbox();
+		
+		Label labelAutor = new Label("Autor: " + item.getAutor().getNome());
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		Label labelDataValoracao = new Label("Valorado em: " + formatador.format(item.getDataValoracao())); //rever
+		Label labelGrauUtilidade = new Label("Utilidade: " + item.getGrauUtilidade().doubleValue()); //rever
+		Label labelClassificacao = new Label();
+		
+		BigDecimal bigDecimalPositiva1 = new BigDecimal("10.0");
+		BigDecimal bigDecimalPositiva2 = new BigDecimal("0.01");
+		
+		BigDecimal bigDecimalNegativa1 = new BigDecimal("-10.0");
+		BigDecimal bigDecimalNegativa2 = new BigDecimal("-0.01");
+		
+		BigDecimal bigDecimalNeutra = new BigDecimal("0.00");
+		
+		BigDecimal valoracao;
+		valoracao = item.getGrauUtilidade();
+
+		
+		if(valoracao.doubleValue() >= bigDecimalNegativa1.doubleValue() && valoracao.doubleValue() <= bigDecimalNegativa2.doubleValue()){
+			Label labelNegativa = new Label();
+			labelNegativa.setValue("Negativa");
+			labelNegativa.setStyle("font-weight: bold; color: black;");
+			labelClassificacao.setValue("Classificação: " + labelNegativa.getValue());
+		}
+		
+		if(valoracao.doubleValue() == bigDecimalNeutra.doubleValue()){
+			labelClassificacao.setValue("Classificação: Neutra");
+		}
+		
+		if(valoracao.doubleValue() >= bigDecimalPositiva2.doubleValue() && valoracao.doubleValue() <= bigDecimalPositiva1.doubleValue()){
+			labelClassificacao.setValue("Classificação: Positiva");
+		}
+		
+		Label labelComentario = new Label("Comentário: " + item.getComentario());
+		
+		labelAutor.setParent(vboxLinhaValoracoes);
+		labelDataValoracao.setParent(vboxLinhaValoracoes);
+		labelGrauUtilidade.setParent(vboxLinhaValoracoes);
+		labelClassificacao.setParent(vboxLinhaValoracoes);
+		labelComentario.setParent(vboxLinhaValoracoes);
+		
+		vboxLinhaValoracoes.setParent(listcellValoracoes);
+		
+		listcellValoracoes.setParent(listitemValoracao);
+		
+	}
+	
+	public void criarJanVisualizarItemConhecimento(Object item){
 		
 		this.setTitle("Visualizar Item de Conhecimento");
 		this.setBorder("normal");
@@ -475,33 +822,29 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 		tabboxVisualizarItemConhecimento.setHeight("380px");
 		Tabs tabsVisualizarItemConhecimento = new Tabs();
 		
-		Tab tabInformacoes = new Tab("Informações");
-		Tab tabAvaliacoes = new Tab("Avaliações");
-		Tab tabValoracoes = new Tab("Valorações");
-		
 		tabInformacoes.setParent(tabsVisualizarItemConhecimento);
 		tabAvaliacoes.setParent(tabsVisualizarItemConhecimento);
 		tabValoracoes.setParent(tabsVisualizarItemConhecimento);
-		
 		tabsVisualizarItemConhecimento.setParent(tabboxVisualizarItemConhecimento);
 		
 		Tabpanels tabpanelsVisualizarItemConhecimento = new Tabpanels();
 		
-		//criar Aba Informações
-		criarAbaInformacoes();
-		tabpanelInformacoes.setParent(tabpanelsVisualizarItemConhecimento);
-		
-		//criar Aba Avaliações
-		criarAbaAvaliacoes();
-		tabpanelAvaliacoes.setParent(tabpanelsVisualizarItemConhecimento);
-		
-		//criar Aba Valorações
-		criarAbaValoracoes();
-		tabpanelValoracoes.setParent(tabpanelsVisualizarItemConhecimento);
-		
 		tabpanelsVisualizarItemConhecimento.setParent(tabboxVisualizarItemConhecimento);
 		tabboxVisualizarItemConhecimento.setParent(this);
 		
+		preencherAbaInformacoes(item);
+		tabpanelInformacoes.setStyle("overflow:auto;");
+		tabpanelInformacoes.setParent(tabpanelsVisualizarItemConhecimento);
+		
+		preencherAbaAvaliacoes(item);
+		tabpanelAvaliacoes.setParent(tabpanelsVisualizarItemConhecimento);
+		
+		preencherAbaValoracoes(item);
+		tabpanelValoracoes.setParent(tabpanelsVisualizarItemConhecimento);
+		
+		////////////////////////////////
+		// botoes
+		////////////////////////////////		
 		Button botaoVoltar = new Button("Voltar");
 		Button botaoAlterar = new Button("Alterar");		
 		Button botaoExcluir = new Button("Excluir");
@@ -513,6 +856,24 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 			
+			}
+		});
+		
+		botaoAlterar.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		botaoExcluir.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		

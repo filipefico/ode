@@ -62,7 +62,8 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		Row rowNome = new Row();
 		Label labelNome = new Label("Nome");
 		
-		textboxNome.setWidth("340px");
+		textboxNome.setWidth("100%");
+		textboxNome.setMaxlength(50);
 		
 		labelNome.setParent(rowNome);
 		textboxNome.setParent(rowNome);
@@ -111,9 +112,6 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		Listhead colunasItensCriados = new Listhead();
 		Listheader colunaTitulo4 = new Listheader("Título");
-
-		listboxItensCriados.setMultiple(true);
-		listboxItensCriados.setCheckmark(true);
 		
 		colunasItensCriados.setParent(listboxItensCriados);
 		colunaTitulo4.setParent(colunasItensCriados);
@@ -143,9 +141,6 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		Listhead colunasItensAvaliados = new Listhead();
 		Listheader colunaTitulo3 = new Listheader("Título");
-
-		listboxItensAvaliados.setMultiple(true);
-		listboxItensAvaliados.setCheckmark(true);
 		
 		colunasItensAvaliados.setParent(listboxItensAvaliados);
 		colunaTitulo3.setParent(colunasItensAvaliados);
@@ -175,9 +170,6 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		Listhead colunasItensValorados = new Listhead();
 		Listheader colunaTitulo2 = new Listheader("Título");
-
-		listboxItensValorados.setMultiple(true);
-		listboxItensValorados.setCheckmark(true);
 		
 		colunasItensValorados.setParent(listboxItensValorados);
 		colunaTitulo2.setParent(colunasItensValorados);

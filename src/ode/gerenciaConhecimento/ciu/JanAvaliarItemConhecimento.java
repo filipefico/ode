@@ -141,14 +141,19 @@ public class JanAvaliarItemConhecimento extends Window {
 		Listitem listitemCorrecao = new Listitem();
 		Listcell listcellCorrecao = new Listcell("Correção:");
 		Listcell listcellTextboxCorrecao = new Listcell();
-	//	decimalboxCorrecao.setConstraint("no empty");
+		
+		
+		decimalboxCorrecao.setConstraint("no negative: A nota deve estar entre 0 e 10");
 		decimalboxCorrecao.addEventListener("onBlur", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				notaCorrecao = getNota(decimalboxCorrecao);
-				media.setValue(calculaMediaNotas());
+				
+				if(decimalboxAplicabilidade.getValue() != null){
+					notaCorrecao = getNota(decimalboxCorrecao);
+					media.setValue(calculaMediaNotas());
+				}
 			}
 		});
 		decimalboxCorrecao.setParent(listcellTextboxCorrecao);
@@ -162,13 +167,16 @@ public class JanAvaliarItemConhecimento extends Window {
 				
 		decimalboxCompletude.setParent(listcellTextboxCompletude);
 	//	decimalboxCompletude.setConstraint("no empty");
+		decimalboxCompletude.setConstraint("no negative: A nota deve estar entre 0 e 10");
 		decimalboxCompletude.addEventListener("onBlur", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				notaCompletude = getNota(decimalboxCompletude);
-				media.setValue(calculaMediaNotas());
+				if(decimalboxAplicabilidade.getValue() != null){
+					notaCompletude = getNota(decimalboxCompletude);
+					media.setValue(calculaMediaNotas());
+				}
 			}
 		});
 		listcellCompletude.setParent(listitemCompletude);
@@ -181,13 +189,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		
 		decimalboxConsistencia.setParent(listcellTextboxConsistencia);
 	//	decimalboxConsistencia.setConstraint("no empty");
+		decimalboxConsistencia.setConstraint("no negative: A nota deve estar entre 0 e 10");
 		decimalboxConsistencia.addEventListener("onBlur", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				notaConsistencia = getNota(decimalboxConsistencia);
-				media.setValue(calculaMediaNotas());
+				if(decimalboxAplicabilidade.getValue() != null){
+					notaConsistencia = getNota(decimalboxConsistencia);
+					media.setValue(calculaMediaNotas());
+				}
 			}
 		});
 		listcellConsistencia.setParent(listitemConsistencia);
@@ -200,13 +211,16 @@ public class JanAvaliarItemConhecimento extends Window {
 		
 		decimalboxUtilidade.setParent(listcellTextboxUtilidade);
 	//	decimalboxUtilidade.setConstraint("no empty");
+		decimalboxUtilidade.setConstraint("no negative: A nota deve estar entre 0 e 10");
 		decimalboxUtilidade.addEventListener("onBlur", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				notaUtilidade = getNota(decimalboxUtilidade);
-				media.setValue(calculaMediaNotas());
+				if(decimalboxAplicabilidade.getValue() != null){
+					notaUtilidade = getNota(decimalboxUtilidade);
+					media.setValue(calculaMediaNotas());
+				}
 			}
 		});
 		listcellUtilidade.setParent(listitemUtilidade);
@@ -219,13 +233,17 @@ public class JanAvaliarItemConhecimento extends Window {
 		
 		decimalboxAplicabilidade.setParent(listcellTextboxAplicabilidade);
 	//	decimalboxAplicabilidade.setConstraint("no empty");
+		decimalboxAplicabilidade.setConstraint("no negative: A nota deve estar entre 0 e 10");
 		decimalboxAplicabilidade.addEventListener("onBlur", new EventListener() {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				notaAplicabilidade = getNota(decimalboxAplicabilidade);
-				media.setValue(calculaMediaNotas());
+				
+				if(decimalboxAplicabilidade.getValue() != null){
+					notaAplicabilidade = getNota(decimalboxAplicabilidade);
+					media.setValue(calculaMediaNotas());
+				}
 			}
 		});
 		listcellAplicabilidade.setParent(listitemAplicabilidade);

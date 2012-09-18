@@ -8,6 +8,7 @@ import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -51,11 +52,24 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 		Vbox vboxContato = new Vbox();
 		vboxContato.setParent(listcellContato);
 		
-		Label labelEmail = new Label("E-mail: " + recurso.getEmail());
-		Label labelTelefone = new Label("Telefone: " + recurso.getTelefone());
+		Hbox hboxEmail = new Hbox();
+		Label labelEmailValor = new Label(recurso.getEmail());
+		labelEmailValor.setStyle("font-weight: bold; color: black;");
+		Hbox hboxTelefone = new Hbox();
+		Label labelTelefoneValor = new Label(recurso.getTelefone());
+		labelTelefoneValor.setStyle("font-weight: bold; color: black;");
 		
-		labelEmail.setParent(vboxContato);
-		labelTelefone.setParent(vboxContato);
+		Label labelEmail = new Label("E-mail: ");
+		Label labelTelefone = new Label("Telefone: ");
+		
+		labelEmail.setParent(hboxEmail);
+		labelEmailValor.setParent(hboxEmail);
+		
+		labelTelefone.setParent(hboxTelefone);
+		labelTelefoneValor.setParent(hboxTelefone);
+		
+		hboxEmail.setParent(vboxContato);
+		hboxTelefone.setParent(vboxContato);
 		
 	}
 	
@@ -121,7 +135,9 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-
+				/*para visualizar um perfil, no listbox deve estar selecionado somente
+				um perfil (verificar isso)*/
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasVisualizarPerfil();
 			}
 		});
 		
