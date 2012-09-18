@@ -17,6 +17,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
@@ -100,8 +101,24 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-			//	ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
-				
+				Object object = new Object();
+						
+				if(listboxQtdeItens.getSelectedItem() == null){
+					Messagebox messageboxSalvar = new Messagebox();
+					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+				}else{
+					object = listboxQtdeItens.getSelectedItem().getValue();
+					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento((ItemConhecimento)object);
+				}
+			}
+		});
+		
+		botaoSelecionarEspecialistas.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
 			}
 		});
 		
@@ -111,9 +128,12 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				if (listboxQtdeItens.getSelectedItem() != null)
+				if (listboxQtdeItens.getSelectedItem() != null){
 					ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue());
-				
+				}else{
+					Messagebox messageboxSalvar = new Messagebox();
+					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+				}
 			}
 		});
 		

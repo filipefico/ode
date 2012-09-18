@@ -24,6 +24,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Separator;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -468,6 +469,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		hboxNegativas.setParent(vboxInformacoes);
 		hboxNeutras.setParent(vboxInformacoes);
 		
+		(new Separator()).setParent(vboxInformacoes);
 		
 		Label labelAcessos = new Label("Acessos:");
 		labelAcessos.setParent(vboxInformacoes);
@@ -485,6 +487,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		labelQtdeAcessosValor.setParent(hboxQuantidadeAcessos);
 		hboxQuantidadeAcessos.setParent(vboxInformacoes);
 		
+		(new Separator()).setParent(vboxInformacoes);
 		
 		//////////////////////////////////////////
 		// Projetos relacionados
@@ -511,6 +514,8 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		}
 		
 		vboxProjetos.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
 		
 		//////////////////////////////////////////
 		// Atividades relacionados
@@ -540,6 +545,8 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 		vboxAtividades.setParent(vboxInformacoes);
 		
+		(new Separator()).setParent(vboxInformacoes);
+		
 		//////////////////////////////////////////
 		// Temas relacionados
 		//////////////////////////////////////////
@@ -565,6 +572,8 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		}
 		
 		vboxTemasRelacionados.setParent(vboxInformacoes);
+		
+		(new Separator()).setParent(vboxInformacoes);
 		
 		//////////////////////////////////////////
 		// Itens relacionados
@@ -803,7 +812,6 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		
 		this.setTitle("Visualizar Item de Conhecimento");
 		this.setBorder("normal");
-		
 		
 		Tabbox tabboxVisualizarItemConhecimento = new Tabbox();
 		tabboxVisualizarItemConhecimento.setHeight("380px");

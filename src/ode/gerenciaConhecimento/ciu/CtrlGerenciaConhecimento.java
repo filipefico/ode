@@ -56,6 +56,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanItensAvaliados janItensAvaliados;
 	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
 	public JanPaginasAmarelasResultadoPesquisa janPaginasAmarelasResultadoPesquisa;
+	public JanPaginasAmarelasVisualizarPerfilPessoal janPaginasAmarelasVisualizarPerfilPessoal;
 
 
 	@Autowired
@@ -149,6 +150,13 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janItensAvaliados = new JanItensAvaliados(this, itens);
 
 		janP.mostrarJanelaConteudo(janItensAvaliados);
+	}
+	
+	public void exibirJanelaPaginasAmarelasVisualizarPerfil(){
+		
+		janPaginasAmarelasVisualizarPerfilPessoal = new JanPaginasAmarelasVisualizarPerfilPessoal(this);
+		
+		janP.mostrarJanelaConteudo(janPaginasAmarelasVisualizarPerfilPessoal);
 	}
 	
 	public void exibirJanelaPaginasAmarelasBuscarPessoas(){

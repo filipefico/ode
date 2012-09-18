@@ -16,6 +16,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
@@ -61,6 +62,7 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
+		vbox.setWidth("100%");
 			
 		labelQtdeItens.setValue("Quantidade de Itens: " + labelQtdeItensValor.getValue());
 		labelQtdeItens.setParent(vbox);
@@ -81,7 +83,7 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
 		listboxQtdeItens.setSizedByContent(true);
-		listboxQtdeItens.setHeight("350px");
+		//listboxQtdeItens.setHeight("350px");
 		
 		colunaRadioButton.setParent(colunas);
 		colunaTitulo.setParent(colunas);
@@ -104,8 +106,15 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				//ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimentoUsuarioComum();
-				
+				Object object = new Object();
+						
+				if(listboxQtdeItens.getSelectedItem() == null){
+					Messagebox messageboxSalvar = new Messagebox();
+					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+				}else{
+					object = listboxQtdeItens.getSelectedItem().getValue();
+					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento((ItemConhecimento)object);
+				}
 			}
 		});
 		
@@ -115,9 +124,12 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				if (listboxQtdeItens.getSelectedItem() != null)
+				if (listboxQtdeItens.getSelectedItem() != null){
 					ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue());
-				
+				}else{
+					Messagebox messageboxSalvar = new Messagebox();
+					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+				}
 				
 			}
 		});
