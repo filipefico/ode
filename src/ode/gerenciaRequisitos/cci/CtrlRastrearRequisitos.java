@@ -54,6 +54,7 @@ public class CtrlRastrearRequisitos extends CtrlBase{
 	public void iniciarVerRequisito(Requisito requisito){
 		painelVisualizarRequisito = new PainelVisualizarRequisito(requisito);
 		jan2 = factoryJanelaSimples();
+		jan2.setWidth("800px");
 		painelVisualizarRequisito.setParent(jan2);
 		jan2.setTitle("Visualizar Requisito");
 		jan2.mostrar();

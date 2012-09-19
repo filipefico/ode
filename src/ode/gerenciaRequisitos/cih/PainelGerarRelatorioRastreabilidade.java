@@ -1,5 +1,6 @@
 package ode.gerenciaRequisitos.cih;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ import ode.uml.cdp.Pacote;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
@@ -66,6 +68,7 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 			}
 		});
 		checkCompleto.setParent(radiogroup);
+		checkCompleto.setChecked(true);
 		checkPersonalizado.setParent(radiogroup);
 		gridDados.adicionarLinha("Tipo", radiogroup);
 
@@ -133,6 +136,7 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 			}
 		});
 		hbox.setParent(this);
+		Events.sendEvent("onClick", radiogroup, null);
 	}
 
 	private Window janelaRelatorio() {
@@ -160,7 +164,7 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 		for (Requisito requisito : requisitos) {
 			GridDados grid = new GridDados();
 			grid.setParent(add);
-			
+
 			if (lista.get(0).isChecked())
 				grid.adicionarLinha("Identificador",
 						new Label(requisito.getIdentificador()));
@@ -170,8 +174,10 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 						new Label(requisito.getDescricao()));
 
 			if (lista.get(2).isChecked())
-				grid.adicionarLinha("Data de Criação", new Label(requisito
-						.getDataCriacao().toString()));
+				grid.adicionarLinha(
+						"Data de Criação",
+						new Label(new SimpleDateFormat().format(requisito
+								.getDataCriacao())));
 
 			if (lista.get(3).isChecked())
 				grid.adicionarLinha("Prioridade", new Label(requisito
@@ -179,7 +185,7 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 			if (lista.get(4).isChecked())
 				grid.adicionarLinha("Tipo de Requisito", new Label(requisito
-						.getTipoRequisito().name()));
+						.getTipoRequisito().getNome()));
 
 			if (lista.get(5).isChecked())
 				grid.adicionarLinha("Categoria de Requisito", requisito
@@ -196,7 +202,7 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 				new Listheader("Descrição").setParent(listhead);
 
 				Set<Requisito> dependencias = requisito.getDependencias();
-				
+
 				for (Requisito requisito2 : dependencias) {
 					Listitem item = new Listitem();
 
@@ -205,9 +211,9 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 					item.setParent(listbox);
 				}
-				if (dependencias.size() == 0){
+				if (dependencias.size() == 0) {
 					grid.adicionarLinha("Dependências", new Label("<<Vazio>>"));
-				}else{
+				} else {
 					grid.adicionarLinha("Dependências", listbox);
 				}
 			}
@@ -230,9 +236,9 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 					item.setParent(listbox);
 				}
-				if (conflitos.size() == 0){
+				if (conflitos.size() == 0) {
 					grid.adicionarLinha("Conflitos", new Label("<<Vazio>>"));
-				}else{
+				} else {
 					grid.adicionarLinha("Conflitos", listbox);
 				}
 			}
@@ -253,9 +259,9 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 					item.setParent(listbox);
 				}
-				if (interessados.size() == 0){
+				if (interessados.size() == 0) {
 					grid.adicionarLinha("Interessados", new Label("<<Vazio>>"));
-				}else{
+				} else {
 					grid.adicionarLinha("Interessados", listbox);
 				}
 			}
@@ -276,9 +282,9 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 					item.setParent(listbox);
 				}
-				if (responsaveis.size() == 0){
+				if (responsaveis.size() == 0) {
 					grid.adicionarLinha("Responsáveis", new Label("<<Vazio>>"));
-				}else{
+				} else {
 					grid.adicionarLinha("Responsáveis", listbox);
 				}
 			}
@@ -301,9 +307,10 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 					item.setParent(listbox);
 				}
-				if (pacotes.size() == 0){
-					grid.adicionarLinha("Pacotes Relacionados", new Label("<<Vazio>>"));
-				}else{
+				if (pacotes.size() == 0) {
+					grid.adicionarLinha("Pacotes Relacionados", new Label(
+							"<<Vazio>>"));
+				} else {
 					grid.adicionarLinha("Pacotes Relacionados", listbox);
 				}
 			}
@@ -326,9 +333,10 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 
 					item.setParent(listbox);
 				}
-				if (casosUso.size() == 0){
-					grid.adicionarLinha("Casos de Uso Relacionados", new Label("<<Vazio>>"));
-				}else{
+				if (casosUso.size() == 0) {
+					grid.adicionarLinha("Casos de Uso Relacionados", new Label(
+							"<<Vazio>>"));
+				} else {
 					grid.adicionarLinha("Casos de Uso Relacionados", listbox);
 				}
 			}
@@ -354,13 +362,14 @@ public class PainelGerarRelatorioRastreabilidade extends Window {
 						item.setParent(listbox);
 					}
 				}
-				if (listbox.getItems().size() == 0){
-					grid.adicionarLinha("Classes Relacionadas", new Label("<<Vazio>>"));
-				}else{
+				if (listbox.getItems().size() == 0) {
+					grid.adicionarLinha("Classes Relacionadas", new Label(
+							"<<Vazio>>"));
+				} else {
 					grid.adicionarLinha("Classes Relacionadas", listbox);
 				}
 			}
-			
+
 			new Separator().setParent(add);
 		}
 		return add;
