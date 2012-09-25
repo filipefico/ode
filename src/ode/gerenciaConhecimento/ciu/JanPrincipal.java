@@ -1,11 +1,9 @@
 package ode.gerenciaConhecimento.ciu;
 
 //// testeeeeeeeee /////////
-import java.util.Collection;
 import java.util.List;
 
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
-import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 
 import org.zkoss.zk.ui.Component;
@@ -248,8 +246,7 @@ public class JanPrincipal extends Borderlayout{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
-				ctrlGerenciaConhecimento.exibirJanelaItensAvaliados(itens);
+				ctrlGerenciaConhecimento.exibirJanelaItensAvaliados();
 			}
 		});
 		
@@ -259,8 +256,7 @@ public class JanPrincipal extends Borderlayout{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
-				ctrlGerenciaConhecimento.exibirJanelaItensValorados(itens);
+				ctrlGerenciaConhecimento.exibirJanelaItensValorados();
 			}
 		});
 		
@@ -270,8 +266,7 @@ public class JanPrincipal extends Borderlayout{
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-			//	ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
-				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum();
+				ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
 			}
 		});
 

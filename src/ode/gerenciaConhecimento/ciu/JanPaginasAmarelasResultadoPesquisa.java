@@ -1,6 +1,9 @@
 package ode.gerenciaConhecimento.ciu;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
@@ -145,9 +148,16 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-				
-				
+				if (ctrlGerenciaConhecimento.possuiItemNaSessao()){
+					
+					Set<Listitem> itens = listboxPessoasEncontradas.getSelectedItems();
+					Set<RecursoHumano> avaliadores = new HashSet<RecursoHumano>();
+					for (Listitem item : itens){
+						avaliadores.add((RecursoHumano)item.getValue());
+					}
+					ctrlGerenciaConhecimento.definirAvaliadores(avaliadores);
+					ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
+				}
 			}
 		});
 

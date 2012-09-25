@@ -52,9 +52,9 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 	
 	Listbox listbox = new Listbox();
 	
-	Tabpanel tabpanelInformacoes;
-	Tabpanel tabpanelAvaliacoes;
-	Tabpanel tabpanelValoracoes;
+	Tabpanel tabpanelInformacoes = new Tabpanel();
+	Tabpanel tabpanelAvaliacoes = new Tabpanel();
+	Tabpanel tabpanelValoracoes = new Tabpanel();
 	Listbox listboxInformacoes = new Listbox();
 	Listbox listboxAvaliacoes = new Listbox();
 	Listbox listboxValoracoes = new Listbox();

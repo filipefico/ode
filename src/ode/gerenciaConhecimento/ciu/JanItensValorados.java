@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.List;
 
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
@@ -28,6 +27,11 @@ import org.zkoss.zul.Window;
 
 public class JanItensValorados extends Window {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	int qtdeItens = 0; //acho q nem vai precisar desses atributos, pois é só fazer um get
@@ -56,12 +60,12 @@ public class JanItensValorados extends Window {
 	Label labelPercente;
 	Label labelCriadoEmValor;
 	
-	public JanItensValorados(CtrlGerenciaConhecimento ctrl, Collection<ItemConhecimento> itens) {
+	public JanItensValorados(CtrlGerenciaConhecimento ctrl) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
 		
-		this.itens = itens;
+		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoValorados();
 		
 		criarJanItensValorados();
 	}
@@ -76,7 +80,7 @@ public class JanItensValorados extends Window {
 		}
 	}	
 	
-public void preencherLinhaListbox(ItemConhecimento item){
+	public void preencherLinhaListbox(ItemConhecimento item){
 		
 		Listcell listcellRadio = new Listcell("");
 		
@@ -101,6 +105,7 @@ public void preencherLinhaListbox(ItemConhecimento item){
 		//quantidade de valorações
 		Hbox hboxQtdeValoracoes = new Hbox();
 		tamanho = itens.size();
+		System.out.println("Itens v: " + itens.size());
 		qtdeValoracoes = new Label(Integer.toString(tamanho));
 		qtdeValoracoes.setStyle("font-weight: bold; color: black;");
 		Label labelQuantidades = new Label("Quantidade: ");
@@ -300,7 +305,7 @@ public void preencherLinhaListbox(ItemConhecimento item){
 
 	public void criarJanItensValorados(){
 		
-		this.setTitle("Valorar Itens de Conhecimento");
+		this.setTitle("Itens Valorados");
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
@@ -316,7 +321,6 @@ public void preencherLinhaListbox(ItemConhecimento item){
 		listboxBuscarItensConhecimento.setCheckmark(true);
 		listboxBuscarItensConhecimento.setSizedByContent(true);
 		listboxBuscarItensConhecimento.setHeight("350px");
-	//	listboxBuscarItensConhecimento.setWidth("580px");
 		
 		
 		Listhead listheadBuscarItensConhecimento = new Listhead();
@@ -327,7 +331,7 @@ public void preencherLinhaListbox(ItemConhecimento item){
 		Listheader listheaderValoracoes = new Listheader("Valorações");
 		listheaderValoracoes.setWidth("133px");
 		Listheader listheaderInformacoes = new Listheader("Informações");
-		listheaderInformacoes.setWidth("220px");
+		listheaderInformacoes.setWidth("100%");
 		
 		listheaderRadio.setParent(listheadBuscarItensConhecimento);
 		listheaderConteudo.setParent(listheadBuscarItensConhecimento);
