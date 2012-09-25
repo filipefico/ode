@@ -58,7 +58,7 @@ public class JanItensCriados extends Window {
 	
 	public void preencherListbox(){
 		// fiz recuperar todos somente para teste
-		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.recuperarItensCriados();
 		for (ItemConhecimento item : itens){
 			listitem = new Listitem();
 			listitem.setValue(item);

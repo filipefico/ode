@@ -3,7 +3,7 @@ package ode.gerenciaConhecimento.ciu;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
-import ode.gerenciaConhecimento.cdp.Avaliacao;
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -118,7 +118,18 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
+				if (listboxQtdeItens.getSelectedItem() != null){
+					
+					// Coloca o item de conhecimento na sessao para selecionar seus avaliadores
+					ctrlGerenciaConhecimento.colocarItemConhecimentoSessao((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue());
+					
+					ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasBuscarPessoas();
+					
+				}else{
+					Messagebox messageboxSalvar = new Messagebox();
+					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+				}
+				
 			}
 		});
 		
@@ -208,14 +219,14 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		Label labelAvaliadores = new Label("Avaliadores:");
 		labelAvaliadores.setParent(vboxAvaliadoresSelecionados);
 		
-		Collection<Avaliacao> itens = item.getAvaliacoes();
-		for (Avaliacao avaliacao : itens){
+		Collection<RecursoHumano> itens = item.getAvaliadores();
+		for (RecursoHumano recurso : itens){
 			Label labelNomeAutor = new Label();
-			labelNomeAutor.setValue(avaliacao.getAutor().getNome());
+			labelNomeAutor.setValue(recurso.getNome());
 			labelNomeAutor.setParent(vboxAvaliadoresSelecionados);
 		}
 		
-		Label labelAvaliacoesRealizadas = new Label("Avaliações Realizadas: " + itens.size());
+		Label labelAvaliacoesRealizadas = new Label("Avaliações Realizadas: " + item.getAvaliacoes().size());
 		labelAvaliacoesRealizadas.setParent(vboxAvaliadoresSelecionados);
 		
 		vboxAvaliadoresSelecionados.setParent(listcellAvaliadoresSelecionados);

@@ -8,5 +8,9 @@ import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 public interface ItemConhecimentoDAO extends DAOBase<ItemConhecimento> {
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoPendentesPorUsuarioAtual();
+	
+	public Collection<ItemConhecimento> recuperarItensCriados();
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoValorados();
 
 }

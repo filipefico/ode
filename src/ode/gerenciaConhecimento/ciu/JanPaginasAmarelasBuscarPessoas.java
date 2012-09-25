@@ -235,8 +235,10 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
 				
+				
+				// FAVOR Não retirar a linha de código abaixo:
+				ctrlGerenciaConhecimento.retirarItemConhecimento();
 				
 			}
 		});

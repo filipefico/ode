@@ -328,7 +328,7 @@ public class JanAvaliarItemConhecimento extends Window {
 					avaliacao.setNotaCorrecao(decimalboxCorrecao.getValue());
 					avaliacao.setNotaUtilidade(decimalboxUtilidade.getValue());
 					avaliacao.setParecer(textboxParecer.getValue());
-					avaliacao.setResultadoFinal((String)comboboxResultadoFinal.getSelectedItem().getValue());
+					avaliacao.setResultadoFinal((String)comboboxResultadoFinal.getSelectedItem().getLabel());
 					ctrlGerenciaConhecimento.salvarAvaliacaoItemConhecimento(avaliacao, itemConhecimento);
 					Messagebox messageboxSalvar = new Messagebox();
 					Messagebox.show("Avaliação salva com sucesso!", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION, new EventListener() {

@@ -11,10 +11,7 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
-import org.zkoss.zul.Listhead;
-import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
-import org.zkoss.zul.Row;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -142,7 +139,7 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		//////////////////////////////////////////
 		Vbox vboxItensValorados = new Vbox();
 
-		Label labelItensValorados = new Label("Itens Avaliados:");
+		Label labelItensValorados = new Label("Itens Valorados:");
 		labelItensValorados.setStyle("color: blue;");
 
 		listboxItensValorados.setMultiple(false);
@@ -165,6 +162,15 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		hbox2.setParent(vboxInformacoes);
 		vboxInformacoes.setParent(vbox);
 		vbox.setParent(tabpanelInformacoes);
+		
+		listboxTemasRelacionados.setWidth("250px");
+		listboxTemasRelacionados.setRows(3);
+		listboxItensCriados.setWidth("250px");
+		listboxItensCriados.setRows(3);
+		listboxItensAvaliados.setWidth("250px");
+		listboxItensAvaliados.setRows(3);
+		listboxItensValorados.setWidth("250px");
+		listboxItensValorados.setRows(3);
 		
 	}
 	

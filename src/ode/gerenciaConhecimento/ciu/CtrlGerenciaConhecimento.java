@@ -2,6 +2,7 @@ package ode.gerenciaConhecimento.ciu;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._controleRecursoHumano.cgt.AplCadastrarRecursoHumano;
@@ -27,6 +28,7 @@ import ode.gerenciaConhecimento.cgt.AplCadastrarTema;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.zkoss.zk.ui.Sessions;
 
 @Controller
 public class CtrlGerenciaConhecimento extends CtrlBase {
@@ -102,7 +104,6 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		jan.setTitle("Portal de Gerência de Conhecimento");
 		jan.setWidth("100%");
 		jan.setHeight("580px");
-		//jan.setHeight("100%");
 
 		jan.doEmbedded();
 	}
@@ -138,16 +139,16 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	}
 
-	public void exibirJanelaItensValorados(Collection<ItemConhecimento> itens){
+	public void exibirJanelaItensValorados(){
 
-		janItensValorados = new JanItensValorados(this, itens);
+		janItensValorados = new JanItensValorados(this);
 
 		janP.mostrarJanelaConteudo(janItensValorados);
 	}
 
-	public void exibirJanelaItensAvaliados(Collection<ItemConhecimento> itens){
+	public void exibirJanelaItensAvaliados(){
 
-		janItensAvaliados = new JanItensAvaliados(this, itens);
+		janItensAvaliados = new JanItensAvaliados(this);
 
 		janP.mostrarJanelaConteudo(janItensAvaliados);
 	}
@@ -369,5 +370,44 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoPendentesPorUsuarioAtual(){
 		return this.aplCadastrarItemConhecimento.recuperarTodos();
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensCriados() { 
+		return this.aplCadastrarItemConhecimento.recuperarItensCriados();
+	}
+	
+	public void colocarItemConhecimentoSessao(ItemConhecimento itemConhecimento){
+		// Coloca o item de conhecimento na sessao para selecionar seus avaliadores
+		Sessions.getCurrent().setAttribute("ITEM_CONHECIMENTO",itemConhecimento);
+	}
+	
+	public void definirAvaliadores(Set<RecursoHumano> avaliadores) throws NucleoRegraNegocioExcecao{
+		
+		ItemConhecimento itemConhecimento = (ItemConhecimento)Sessions.getCurrent().getAttribute("ITEM_CONHECIMENTO");
+		
+		itemConhecimento.getAvaliadores().addAll(avaliadores);
+		
+		this.aplCadastrarItemConhecimento.salvar(itemConhecimento);
+		
+		retirarItemConhecimento();
+	}
+	
+	public void retirarItemConhecimento(){
+		if (possuiItemNaSessao()){
+			// Retira o item de conhecimento na sessao para selecionar seus avaliadores
+			Sessions.getCurrent().setAttribute("ITEM_CONHECIMENTO",null);
+		}
+	}
+	
+	public boolean possuiItemNaSessao(){
+		
+		if ( Sessions.getCurrent().getAttribute("ITEM_CONHECIMENTO") == null )
+			return false;
+		
+		return true;
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoValorados(){
+		return this.aplCadastrarItemConhecimento.recuperarItensConhecimentoValorados();
 	}
 }

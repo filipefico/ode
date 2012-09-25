@@ -55,12 +55,12 @@ public class JanItensAvaliados extends Window {
 	Label labelPercente;
 	Label labelCriadoEmValor;
 	
-	public JanItensAvaliados(CtrlGerenciaConhecimento ctrl, Collection<ItemConhecimento> itens) {
+	public JanItensAvaliados(CtrlGerenciaConhecimento ctrl) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
 		
-		this.itens = itens;
+		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoValorados();
 		
 		criarJanItensAvaliados();
 	}
@@ -299,7 +299,7 @@ public class JanItensAvaliados extends Window {
 
 	public void criarJanItensAvaliados(){
 		
-		this.setTitle("Avaliar Itens de Conhecimento");
+		this.setTitle("Itens Avaliados");
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
@@ -315,8 +315,6 @@ public class JanItensAvaliados extends Window {
 		listboxBuscarItensConhecimento.setCheckmark(true);
 		listboxBuscarItensConhecimento.setSizedByContent(true);
 		listboxBuscarItensConhecimento.setHeight("350px");
-	//	listboxBuscarItensConhecimento.setWidth("580px");
-		
 		
 		Listhead listheadBuscarItensConhecimento = new Listhead();
 		Listheader listheaderRadio = new Listheader(" ");
@@ -326,7 +324,7 @@ public class JanItensAvaliados extends Window {
 		Listheader listheaderValoracoes = new Listheader("Valorações");
 		listheaderValoracoes.setWidth("133px");
 		Listheader listheaderInformacoes = new Listheader("Informações");
-		listheaderInformacoes.setWidth("220px");
+		listheaderInformacoes.setWidth("100%");
 		
 		listheaderRadio.setParent(listheadBuscarItensConhecimento);
 		listheaderConteudo.setParent(listheadBuscarItensConhecimento);
