@@ -20,6 +20,7 @@ import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
+import ode.gerenciaConhecimento.cdp.Tema;
 import ode.gerenciaConhecimento.cdp.Valoracao;
 import ode.gerenciaConhecimento.cgt.AplCadastrarConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cgt.AplCadastrarItemConhecimento;
@@ -167,9 +168,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janPaginasAmarelasBuscarPessoas);
 	}
 	
-	public void exibirJanelaPaginasAmarelasResultadoPesquisa(){
+	public void exibirJanelaPaginasAmarelasResultadoPesquisa(Collection<RecursoHumano> recursos){
 		
-		janPaginasAmarelasResultadoPesquisa = new JanPaginasAmarelasResultadoPesquisa(this);
+		janPaginasAmarelasResultadoPesquisa = new JanPaginasAmarelasResultadoPesquisa(this,recursos);
 		
 		janP.mostrarJanelaConteudo(janPaginasAmarelasResultadoPesquisa);
 	}
@@ -417,5 +418,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoAvaliados(){
 		return this.aplCadastrarItemConhecimento.recuperarItensConhecimentoAvaliados();
+	}
+	
+	public Collection<RecursoHumano> recuperarPorTemasItemCriadoAvaliadoValorado(List<Tema> temas, ItemConhecimento itemCriado, ItemConhecimento itemAvaliado, ItemConhecimento itemValorado) {
+		return this.aplCadastrarRecursoHumano.recuperarPorTemasItemCriadoAvaliadoValorado(temas, itemCriado, itemAvaliado, itemValorado);
 	}
 }

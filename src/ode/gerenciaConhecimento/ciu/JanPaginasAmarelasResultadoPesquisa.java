@@ -2,11 +2,9 @@ package ode.gerenciaConhecimento.ciu;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
-import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -24,16 +22,25 @@ import org.zkoss.zul.Window;
 
 public class JanPaginasAmarelasResultadoPesquisa extends Window {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	Label labelQuantidadePessoasValor = new Label();
 	Listbox listboxPessoasEncontradas = new Listbox();
 	Listitem listitem;
 	
-	public JanPaginasAmarelasResultadoPesquisa(CtrlGerenciaConhecimento ctrl) {
+	Collection<RecursoHumano> recursos;
+	
+	public JanPaginasAmarelasResultadoPesquisa(CtrlGerenciaConhecimento ctrl, Collection<RecursoHumano> recursos) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
+		
+		this.recursos = recursos;
 		
 		criarJanPaginasAmarelasResultadoPesquisa();
 	}
@@ -78,8 +85,7 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 	
 	public void criarListboxPessoasEncontradas(){
 		
-		Collection<RecursoHumano> recursoHumano = ctrlGerenciaConhecimento.aplCadastrarRecursoHumano.recuperarTodos();
-		for (RecursoHumano recurso : recursoHumano){
+		for (RecursoHumano recurso : recursos){
 			listitem = new Listitem();
 			listitem.setValue(recurso);
 			preencherLinhaListbox(recurso);
