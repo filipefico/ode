@@ -12,5 +12,7 @@ public interface ItemConhecimentoDAO extends DAOBase<ItemConhecimento> {
 	public Collection<ItemConhecimento> recuperarItensCriados();
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoValorados();
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoAvaliados();
 
 }

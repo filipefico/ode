@@ -2,6 +2,7 @@ package ode.gerenciaConhecimento.ciu;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.List;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
@@ -38,6 +39,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	Listcell listcellRadio;
 	Listcell listcellTitulo;
 	Listcell listcellInformacoes;
+	Listcell listcellEstado;
 	Label labelAutor;
 	Label labelDataCriacao;
 	Label labelTipo;
@@ -69,9 +71,11 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		Listheader colunaTitulo = new Listheader("Título");
 		colunaTitulo.setWidth("120px");
 		Listheader colunaInformacoes = new Listheader("Informações");
-		colunaInformacoes.setWidth("250px");
+		colunaInformacoes.setWidth("200px");
 		Listheader colunaAvaliadoresSelecionados = new Listheader("Avaliadores Selecionados");
-		colunaAvaliadoresSelecionados.setWidth("100%");
+		colunaAvaliadoresSelecionados.setWidth("200px");
+		Listheader colunaEstado = new Listheader("Estado");
+		colunaEstado.setWidth("100%");
 		
 		listboxQtdeItens.setMultiple(false);
 		listboxQtdeItens.setCheckmark(true);
@@ -82,6 +86,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		colunaTitulo.setParent(colunas);
 		colunaInformacoes.setParent(colunas);
 		colunaAvaliadoresSelecionados.setParent(colunas);
+		colunaEstado.setParent(colunas);
 		colunas.setParent(listboxQtdeItens);
 		
 		preencherListboxItensPendentesAvaliacao();
@@ -142,8 +147,33 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 				if (listboxQtdeItens.getSelectedItem() != null){
 					ctrlGerenciaConhecimento.exibirJanelaAvaliarItemConhecimento((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue());
 				}else{
-					Messagebox messageboxSalvar = new Messagebox();
-					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
+					Messagebox.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+				}
+			}
+		});
+		
+		botaoAprovar.addEventListener("onClick", new EventListener() {
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				if (listboxQtdeItens.getSelectedItem() != null){
+					ctrlGerenciaConhecimento.salvarEstadoItemConhecimento((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue(), ItemConhecimento.ESTADO_DISPONIVEL);
+					Messagebox.show("Item de conhecimento aprovado com sucesso.", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+					preencherListboxItensPendentesAvaliacao();
+				}else{
+					Messagebox.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+				}
+			}
+		});
+
+		botaoRejeitar.addEventListener("onClick", new EventListener() {
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				if (listboxQtdeItens.getSelectedItem() != null){
+					ctrlGerenciaConhecimento.salvarEstadoItemConhecimento((ItemConhecimento)listboxQtdeItens.getSelectedItem().getValue(), ItemConhecimento.ESTADO_REJEITADO);
+					Messagebox.show("Item de conhecimento rejeitado com sucesso.", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+					preencherListboxItensPendentesAvaliacao();
+				}else{
+					Messagebox.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, Messagebox.INFORMATION);
 				}
 			}
 		});
@@ -163,6 +193,11 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	}
 	
 	public void preencherListboxItensPendentesAvaliacao(){
+		
+		// Limpa o listbox
+		List<Listitem> itensList = listboxQtdeItens.getItems();
+		while (itensList.size()>0)
+			itensList.remove(0);
 		
 		// fiz recuperar todos somente para teste
 		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
@@ -232,6 +267,9 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		vboxAvaliadoresSelecionados.setParent(listcellAvaliadoresSelecionados);
 		listcellAvaliadoresSelecionados.setParent(listitem);
 		
+		//coluna estado
+		listcellEstado = new Listcell(item.getEstado());
+		listcellEstado.setParent(listitem);
 		
 	}
 }

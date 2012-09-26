@@ -13,6 +13,7 @@ import javax.persistence.TemporalType;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 
@@ -51,23 +52,24 @@ implements LicaoAprendidaDAO {
 		expressao = sb.toString();
 
 		List<LicaoAprendida> licoes = getEntityManager().
-				createQuery("from LicaoAprendida where " +
-						"((titulo like :expressao or :expressao = NULL) or " +
-						"(resumo like :expressao or :expressao = NULL) or " +
-						"(aplicabilidade like :expressao or :expressao = NULL)) and " +
-						"(dataCriacao BETWEEN :dataCriacaoInicial AND :dataCriacaoFinal) and " + 
-						"((dataUltimoAcesso BETWEEN :dataUltimoAcessoInicial AND :dataUltimoAcessoFinal) or dataUltimoAcesso = NULL) and " +
-						"(quantidadeAcessos >= :quantidadeAcessosMinimo or :quantidadeAcessosMinimo = NULL) and " +
-						"(quantidadeAcessos <= :quantidadeAcessosMaximo or :quantidadeAcessosMaximo = NULL)" +
-						" ")
-						.setParameter("expressao", expressao)
-						.setParameter("dataCriacaoInicial", dataCriacaoInicial, TemporalType.DATE)
-						.setParameter("dataCriacaoFinal", dataCriacaoFinal, TemporalType.DATE)
-						.setParameter("dataUltimoAcessoInicial", dataUltimoAcessoInicial, TemporalType.DATE)
-						.setParameter("dataUltimoAcessoFinal", dataUltimoAcessoFinal, TemporalType.DATE)
-						.setParameter("quantidadeAcessosMinimo", quantidadeAcessosMinimo)
-						.setParameter("quantidadeAcessosMaximo", quantidadeAcessosMaximo)
-						.getResultList();
+		createQuery("from LicaoAprendida where estado = :estado and " +
+				"((titulo like :expressao or :expressao = NULL) or " +
+				"(resumo like :expressao or :expressao = NULL) or " +
+				"(aplicabilidade like :expressao or :expressao = NULL)) and " +
+				"(dataCriacao BETWEEN :dataCriacaoInicial AND :dataCriacaoFinal) and " + 
+				"((dataUltimoAcesso BETWEEN :dataUltimoAcessoInicial AND :dataUltimoAcessoFinal) or dataUltimoAcesso = NULL) and " +
+				"(quantidadeAcessos >= :quantidadeAcessosMinimo or :quantidadeAcessosMinimo = NULL) and " +
+				"(quantidadeAcessos <= :quantidadeAcessosMaximo or :quantidadeAcessosMaximo = NULL)" +
+		" ")
+		.setParameter("estado", ItemConhecimento.ESTADO_DISPONIVEL)
+		.setParameter("expressao", expressao)
+		.setParameter("dataCriacaoInicial", dataCriacaoInicial, TemporalType.DATE)
+		.setParameter("dataCriacaoFinal", dataCriacaoFinal, TemporalType.DATE)
+		.setParameter("dataUltimoAcessoInicial", dataUltimoAcessoInicial, TemporalType.DATE)
+		.setParameter("dataUltimoAcessoFinal", dataUltimoAcessoFinal, TemporalType.DATE)
+		.setParameter("quantidadeAcessosMinimo", quantidadeAcessosMinimo)
+		.setParameter("quantidadeAcessosMaximo", quantidadeAcessosMaximo)
+		.getResultList();
 
 		// Filtros
 		List<LicaoAprendida> licoesRemovidas = new ArrayList<LicaoAprendida>();
@@ -195,18 +197,34 @@ implements LicaoAprendidaDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<LicaoAprendida> recuperarOrdenadoPorQuantidadeAcesso(){
+
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+
 		return getEntityManager().
-				createQuery("from LicaoAprendida order by quantidadeAcessos").getResultList();
+		createQuery("from LicaoAprendida where estado = :estado order by quantidadeAcessos")
+		.setParameter("estado", estado)
+		.getResultList();
+
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<LicaoAprendida> recuperarOrdenadoPorDataCriacaoMaisRecente(){
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+
 		return getEntityManager().
-				createQuery("from LicaoAprendida order by dataCriacao desc").getResultList();
+		createQuery("from LicaoAprendida where estado = :estado order by dataCriacao")
+		.setParameter("estado", estado)
+		.getResultList();
 	}
 
 	public int recuperarQuantidadeTotal(){
-		return getEntityManager().createQuery("from LicaoAprendida").getResultList().size();
+		
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+		
+		return getEntityManager().createQuery("from LicaoAprendida where estado = :estado")
+		.setParameter("estado", estado)
+		.getResultList()
+		.size();
 	}
 
 }

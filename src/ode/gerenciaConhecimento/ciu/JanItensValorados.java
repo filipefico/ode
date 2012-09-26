@@ -65,7 +65,7 @@ public class JanItensValorados extends Window {
 		
 		ctrlGerenciaConhecimento = ctrl;
 		
-		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoValorados();
+		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoAvaliados();
 		
 		criarJanItensValorados();
 	}

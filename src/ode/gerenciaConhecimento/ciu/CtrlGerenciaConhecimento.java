@@ -290,7 +290,11 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janMeusTemasDeInteresse);
 
 	}
-
+	
+	public void salvarEstadoItemConhecimento(ItemConhecimento itemConhecimento, String estado) throws NucleoRegraNegocioExcecao{
+		itemConhecimento.setEstado(estado);
+		this.aplCadastrarItemConhecimento.salvar(itemConhecimento);
+	}
 
 	public void salvarLicaoAprendida(LicaoAprendida la) {
 
@@ -369,7 +373,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	}
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoPendentesPorUsuarioAtual(){
-		return this.aplCadastrarItemConhecimento.recuperarTodos();
+		return this.aplCadastrarItemConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
 	}
 	
 	public Collection<ItemConhecimento> recuperarItensCriados() { 
@@ -409,5 +413,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoValorados(){
 		return this.aplCadastrarItemConhecimento.recuperarItensConhecimentoValorados();
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoAvaliados(){
+		return this.aplCadastrarItemConhecimento.recuperarItensConhecimentoAvaliados();
 	}
 }
