@@ -152,5 +152,9 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 	public Collection<ItemConhecimento> recuperarItensConhecimentoValorados(){
 		return this.itemConhecimentoDAO.recuperarItensConhecimentoValorados();
 	}
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoAvaliados(){
+		return this.itemConhecimentoDAO.recuperarItensConhecimentoAvaliados();
+	}
 		
 }

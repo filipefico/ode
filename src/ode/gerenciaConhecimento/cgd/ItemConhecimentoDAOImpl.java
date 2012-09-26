@@ -79,5 +79,18 @@ public class ItemConhecimentoDAOImpl extends DAOBaseImpl<ItemConhecimento>
 		
 		return novosItens;
 	}
+	
+	public Collection<ItemConhecimento> recuperarItensConhecimentoAvaliados(){
+		
+		List<Avaliacao> itens = getEntityManager().
+				createQuery("from Avaliacao where autor = :autor order by dataAvaliacao desc").setParameter("autor", NucleoContexto.recuperarUsuarioLogado().getRecursoHumano()).getResultList();
+		
+		Set<ItemConhecimento> novosItens = new HashSet<ItemConhecimento>(); 
+		for (Avaliacao avaliacao : itens){
+			novosItens.add(avaliacao.getItemConhecimentoAvaliado());
+		}
+		
+		return novosItens;
+	}
 
 }

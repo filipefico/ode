@@ -14,6 +14,8 @@ import ode._infraestruturaBase.cgd.DAOBaseImpl;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
+import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 import org.springframework.stereotype.Repository;
@@ -52,23 +54,24 @@ ConhecimentoRelativoDiscussaoDAO {
 		expressao = sb.toString();
 
 		List<ConhecimentoRelativoDiscussao> itens = getEntityManager().
-				createQuery("from ConhecimentoRelativoDiscussao where " +
-						"((titulo like :expressao or :expressao = NULL) or " +
-						"(resumo like :expressao or :expressao = NULL) or " +
-						"(aplicabilidade like :expressao or :expressao = NULL)) and " +
-						"(dataCriacao BETWEEN :dataCriacaoInicial AND :dataCriacaoFinal) and " + 
-						"((dataUltimoAcesso BETWEEN :dataUltimoAcessoInicial AND :dataUltimoAcessoFinal) or dataUltimoAcesso = NULL) and " +
-						"(quantidadeAcessos >= :quantidadeAcessosMinimo or :quantidadeAcessosMinimo = NULL) and " +
-						"(quantidadeAcessos <= :quantidadeAcessosMaximo or :quantidadeAcessosMaximo = NULL)" +
-						" ")
-						.setParameter("expressao", expressao)
-						.setParameter("dataCriacaoInicial", dataCriacaoInicial, TemporalType.DATE)
-						.setParameter("dataCriacaoFinal", dataCriacaoFinal, TemporalType.DATE)
-						.setParameter("dataUltimoAcessoInicial", dataUltimoAcessoInicial, TemporalType.DATE)
-						.setParameter("dataUltimoAcessoFinal", dataUltimoAcessoFinal, TemporalType.DATE)
-						.setParameter("quantidadeAcessosMinimo", quantidadeAcessosMinimo)
-						.setParameter("quantidadeAcessosMaximo", quantidadeAcessosMaximo)
-						.getResultList();
+		createQuery("from ConhecimentoRelativoDiscussao where estado = :estado and " +
+				"((titulo like :expressao or :expressao = NULL) or " +
+				"(resumo like :expressao or :expressao = NULL) or " +
+				"(aplicabilidade like :expressao or :expressao = NULL)) and " +
+				"(dataCriacao BETWEEN :dataCriacaoInicial AND :dataCriacaoFinal) and " + 
+				"((dataUltimoAcesso BETWEEN :dataUltimoAcessoInicial AND :dataUltimoAcessoFinal) or dataUltimoAcesso = NULL) and " +
+				"(quantidadeAcessos >= :quantidadeAcessosMinimo or :quantidadeAcessosMinimo = NULL) and " +
+				"(quantidadeAcessos <= :quantidadeAcessosMaximo or :quantidadeAcessosMaximo = NULL)" +
+		" ")
+		.setParameter("estado", ItemConhecimento.ESTADO_DISPONIVEL)
+		.setParameter("expressao", expressao)
+		.setParameter("dataCriacaoInicial", dataCriacaoInicial, TemporalType.DATE)
+		.setParameter("dataCriacaoFinal", dataCriacaoFinal, TemporalType.DATE)
+		.setParameter("dataUltimoAcessoInicial", dataUltimoAcessoInicial, TemporalType.DATE)
+		.setParameter("dataUltimoAcessoFinal", dataUltimoAcessoFinal, TemporalType.DATE)
+		.setParameter("quantidadeAcessosMinimo", quantidadeAcessosMinimo)
+		.setParameter("quantidadeAcessosMaximo", quantidadeAcessosMaximo)
+		.getResultList();
 
 		// Filtros
 		List<ConhecimentoRelativoDiscussao> itensRemovidos = new ArrayList<ConhecimentoRelativoDiscussao>();
@@ -104,9 +107,9 @@ ConhecimentoRelativoDiscussaoDAO {
 
 				} catch (Exception e) {
 					System.out.println("Divisão por zero.");
-					
+
 					float percentualPositivas = 0;
-					
+
 					if (percentualValoracoesPositivasMinima != null) {
 						if (percentualPositivas < percentualValoracoesPositivasMinima.floatValue())
 							itensRemovidos.add(item);
@@ -134,9 +137,9 @@ ConhecimentoRelativoDiscussaoDAO {
 					}
 				} catch (Exception e) {
 					System.out.println("Divisão por zero.");
-					
+
 					float percentualNegativas = 0;
-							
+
 					if (percentualValoracoesNegativasMinima != null) {
 						if (percentualNegativas < percentualValoracoesNegativasMinima.floatValue())
 							itensRemovidos.add(item);
@@ -193,22 +196,37 @@ ConhecimentoRelativoDiscussaoDAO {
 
 		return itens; 
 
-	}
-	
+			}
+
 	@SuppressWarnings("unchecked")
 	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorQuantidadeAcesso(){
+
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+
 		return getEntityManager().
-				createQuery("from ConhecimentoRelativoDiscussao order by quantidadeAcessos").getResultList();
+		createQuery("from ConhecimentoRelativoDiscussao where estado = :estado order by quantidadeAcessos")
+		.setParameter("estado", estado)
+		.getResultList();
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorDataCriacaoMaisRecente(){
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+
 		return getEntityManager().
-				createQuery("from ConhecimentoRelativoDiscussao order by dataCriacao desc").getResultList();
+		createQuery("from ConhecimentoRelativoDiscussao where estado = :estado order by dataCriacao")
+		.setParameter("estado", estado)
+		.getResultList();
 	}
-	
+
 	public int recuperarQuantidadeTotal(){
-		return getEntityManager().createQuery("from ConhecimentoRelativoDiscussao").getResultList().size();
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+
+		return getEntityManager().createQuery("from ConhecimentoRelativoDiscussao where estado = :estado")
+		.setParameter("estado", estado)
+		.getResultList()
+		.size();
 	}
 
 }
