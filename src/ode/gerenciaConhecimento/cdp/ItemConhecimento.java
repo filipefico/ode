@@ -42,6 +42,8 @@ public class ItemConhecimento extends ObjetoPersistente {
 	
 	public static String ESTADO_REJEITADO = "Rejeitado";
 	
+	public static String ESTADO_EXCLUIDO = "Excluído";
+	
 	private String titulo;
 	
 	private String resumo;

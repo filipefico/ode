@@ -25,6 +25,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Separator;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
@@ -872,13 +873,12 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 
 			@Override
 			public void onEvent(Event arg0) throws Exception {
-				// TODO Auto-generated method stub
-
+				if (itemConhecimento != null){
+					ctrlGerenciaConhecimento.salvarEstadoItemConhecimento(itemConhecimento, ItemConhecimento.ESTADO_EXCLUIDO);
+					Messagebox.show("Item de conhecimento excluído com sucesso.", "Informação", Messagebox.OK, Messagebox.INFORMATION);
+				}
 			}
 		});
-
-
-
 
 		toolbarInferior.setStyle("border:0px;background:white;");
 		toolbarInferior.setAlign("end");
