@@ -106,6 +106,7 @@ public class JanValorarItemConhecimento extends Window {
 			
 		//linha Data da Valoração
 		Listitem listitemDataValoracao = new Listitem();
+		listitemDataValoracao.setWidth("100%");
 		Date data = new Date();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
 		Listcell listcellDataValoracao = new Listcell("Data da Valoração: ");
@@ -198,7 +199,7 @@ public class JanValorarItemConhecimento extends Window {
 		Tabpanel tabpanel = new Tabpanel();
 		
 		listboxValoracao.setSizedByContent(true);
-		//listboxValoracao.setWidth("560px");
+		listboxValoracao.setWidth("100%");
 		
 		preencherListbox();
 		

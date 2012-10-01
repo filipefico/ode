@@ -635,7 +635,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		listheaderResultado.setParent(listhead);
 		listhead.setParent(listboxAvaliacoes);
 		
-		listboxAvaliacoes.setHeight("350px");
+	//	listboxAvaliacoes.setHeight("350px");
 		preencherListboxAvaliacoes();
 		
 		listboxAvaliacoes.setParent(tabpanelAvaliacoes);
@@ -678,53 +678,110 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		// criar aba informacoes
 		/////////////////////////
 			
-		Label labelAutor = new Label("Autor: " + item.getAutor().getNome());
-	//	SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
-	//	Label labelDataAvaliacao = new Label("Data da Avaliação: " + formatador.format(item.getDataAvaliacao()));
-		//labelDataAvaliacao.setValue();
-		Label labelDataAvaliacao = new Label("Data da Avaliação: " + item.getDataAvaliacao());
-
+		Hbox hboxAutor = new Hbox();
+		Label labelAutor = new Label("Autor: ");
+		Label labelAutorValor = new Label(item.getAutor().getNome());
+		labelAutorValor.setStyle("font-weight: bold; color: black;");
+		labelAutor.setParent(hboxAutor);
+		labelAutorValor.setParent(hboxAutor);
+		hboxAutor.setParent(vboxInformacoes);
 		
-		labelAutor.setParent(vboxInformacoes);
-		labelDataAvaliacao.setParent(vboxInformacoes);
+		
+		Hbox hboxDataAvaliacao = new Hbox();
+		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
+		Label labelDataAvaliacao = new Label("Data da Avaliação: ");
+		Label labelDataAvaliacaoValor = new Label();
+		labelDataAvaliacaoValor.setValue(formatador.format(item.getDataAvaliacao()));
+		labelDataAvaliacaoValor.setStyle("font-weight: bold; color: black;");
+		labelDataAvaliacao.setParent(hboxDataAvaliacao);
+		labelDataAvaliacaoValor.setParent(hboxDataAvaliacao);
+		hboxDataAvaliacao.setParent(vboxInformacoes);
 		
 		/////////////////////////
 		// criar aba Notas
 		/////////////////////////
 		
+		//correcao
+		Hbox hboxCorrecao = new Hbox();
 		double correcao = item.getNotaCorrecao().doubleValue();
-		Label labelCorrecao = new Label("Correção: " + Double.toString(correcao));
-		labelCorrecao.setParent(vboxNotas);
-		
+		Label labelCorrecao = new Label("Correção: ");
+		Label labelCorrecaoValor = new Label(Double.toString(correcao));
+		labelCorrecaoValor.setStyle("font-weight: bold; color: black;");
+		labelCorrecao.setParent(hboxCorrecao);
+		labelCorrecaoValor.setParent(hboxCorrecao);
+		hboxCorrecao.setParent(vboxNotas);
+
+		//completude
+		Hbox hboxCompletude = new Hbox();
 		double completude = item.getNotaCompletude().doubleValue();
-		Label labelCompletude = new Label("Completude: " + Double.toString(completude));
-		labelCompletude.setParent(vboxNotas);
-		
+		Label labelCompletude = new Label("Completude: ");
+		Label labelCompletudeValor = new Label(Double.toString(completude));
+		labelCompletudeValor.setStyle("font-weight: bold; color: black;");
+		labelCompletude.setParent(hboxCompletude);
+		labelCompletudeValor.setParent(hboxCompletude);
+		hboxCompletude.setParent(vboxNotas);
+
+		//consistencia
+		Hbox hboxConsistencia = new Hbox();
 		double consistencia = item.getNotaConsistencia().doubleValue();
-		Label labelConsistencia = new Label("Consistência: " + Double.toString(consistencia));
-		labelConsistencia.setParent(vboxNotas);
-		
+		Label labelConsistencia = new Label("Consistência: ");
+		Label labelConsistenciaValor = new Label(Double.toString(consistencia));
+		labelConsistenciaValor.setStyle("font-weight: bold; color: black;");
+		labelConsistencia.setParent(hboxConsistencia);
+		labelConsistenciaValor.setParent(hboxConsistencia);
+		hboxConsistencia.setParent(vboxNotas);
+
+		//utilidade
+		Hbox hboxUtilidade = new Hbox();
 		double utilidade = item.getNotaUtilidade().doubleValue();
-		Label labelUtilidade = new Label("Utilidade: " + Double.toString(utilidade));
-		labelUtilidade.setParent(vboxNotas);
-		
+		Label labelUtilidade = new Label("Utilidade: ");
+		Label labelUtilidadeValor = new Label(Double.toString(utilidade));
+		labelUtilidadeValor.setStyle("font-weight: bold; color: black;");
+		labelUtilidade.setParent(hboxUtilidade);
+		labelUtilidadeValor.setParent(hboxUtilidade);
+		hboxUtilidade.setParent(vboxNotas);
+
+		//aplicabilidade
+		Hbox hboxAplicabilidade = new Hbox();
 		double aplicabilidade = item.getNotaAplicabilidade().doubleValue();
-		Label labelAplicabilidade = new Label("Aplicabilidade: " + Double.toString(aplicabilidade));
-		labelAplicabilidade.setParent(vboxNotas);
-		
+		Label labelAplicabilidade = new Label("Aplicabilidade: ");
+		Label labelAplicabilidadeValor = new Label(Double.toString(aplicabilidade));
+		labelAplicabilidadeValor.setStyle("font-weight: bold; color: black;");
+		labelAplicabilidade.setParent(hboxAplicabilidade);
+		labelAplicabilidadeValor.setParent(hboxAplicabilidade);
+		hboxAplicabilidade.setParent(vboxNotas);
+
+		//media
+		Hbox hboxMedia = new Hbox();
 		double media = calculaMedia(correcao, completude, consistencia, utilidade, aplicabilidade);
-		Label labelMedia = new Label("Média das Notas: " + Double.toString(media));
-		labelMedia.setParent(vboxNotas);
+		Label labelMedia = new Label("Média das Notas: ");
+		Label labelMediaValor = new Label(Double.toString(media));
+		labelMediaValor.setStyle("font-weight: bold; color: black;");
+		labelMedia.setParent(hboxMedia);
+		labelMediaValor.setParent(hboxMedia);
+		hboxMedia.setParent(vboxNotas);
 		
 		/////////////////////////
 		// criar aba Rsultado
 		/////////////////////////
 		
-		Label labelParecer = new Label("Parecer: " + item.getParecer());
-		Label labelResultadoFinal = new Label("Resultado Final: " + item.getResultadoFinal());
+		//parecer
+		Hbox hboxParecer = new Hbox();
+		Label labelParecer = new Label("Parecer: ");
+		Label labelParecerValor = new Label(item.getParecer());
+		labelParecerValor.setStyle("font-weight: bold; color: black;");
+		labelParecer.setParent(hboxParecer);
+		labelParecerValor.setParent(hboxParecer);
+		hboxParecer.setParent(vboxResultado);
 		
-		labelParecer.setParent(vboxResultado);
-		labelResultadoFinal.setParent(vboxResultado);
+		//resultado final
+		Hbox hboxResultadoFinal = new Hbox();
+		Label labelResultadoFinal = new Label("Resultado Final: ");
+		Label labelResultadoFinalValor = new Label(item.getResultadoFinal());
+		labelResultadoFinalValor.setStyle("font-weight: bold; color: black;");
+		labelResultadoFinal.setParent(hboxResultadoFinal);
+		labelResultadoFinalValor.setParent(hboxResultadoFinal);
+		hboxResultadoFinal.setParent(vboxResultado);
 		
 	}
 	
@@ -733,10 +790,36 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		Listcell listcellValoracoes = new Listcell();
 		Vbox vboxLinhaValoracoes = new Vbox();
 		
-		Label labelAutor = new Label("Autor: " + item.getAutor().getNome());
+		//autor
+		Hbox hboxAutor = new Hbox();
+		Label labelAutor = new Label("Autor: ");
+		Label labelAutorValor = new Label(item.getAutor().getNome());
+		labelAutorValor.setStyle("font-weight: bold; color: black;");
+		labelAutor.setParent(hboxAutor);
+		labelAutorValor.setParent(hboxAutor);
+		hboxAutor.setParent(vboxLinhaValoracoes);
+		
+		//data da valoracao
+		Hbox hboxDataValoracao = new Hbox();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
-		Label labelDataValoracao = new Label("Valorado em: " + formatador.format(item.getDataValoracao())); //rever
-		Label labelGrauUtilidade = new Label("Utilidade: " + item.getGrauUtilidade().doubleValue()); //rever
+		Label labelDataValoracao = new Label("Valorado em: "); //rever
+		Label labelDataValoracaoValor = new Label(formatador.format(item.getDataValoracao()));
+		labelDataValoracaoValor.setStyle("font-weight: bold; color: black;");
+		labelDataValoracao.setParent(hboxDataValoracao);
+		labelDataValoracaoValor.setParent(hboxDataValoracao);
+		hboxDataValoracao.setParent(vboxLinhaValoracoes);
+		
+		//grau de utilidade
+		Hbox hboxGrauUtilidade = new Hbox();
+		Label labelGrauUtilidade = new Label("Utilidade: "); 
+		Label labelGrauUtilidadeValor = new Label(Double.toString(item.getGrauUtilidade().doubleValue()));
+		labelGrauUtilidadeValor.setStyle("font-weight: bold; color: black;");
+		labelGrauUtilidade.setParent(hboxGrauUtilidade);
+		labelGrauUtilidadeValor.setParent(hboxGrauUtilidade);
+		hboxGrauUtilidade.setParent(vboxLinhaValoracoes);
+		
+		//classificacao
+		Hbox hboxClassificacao = new Hbox();
 		Label labelClassificacao = new Label();
 		
 		BigDecimal bigDecimalPositiva1 = new BigDecimal("10.0");
@@ -755,24 +838,40 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			Label labelNegativa = new Label();
 			labelNegativa.setValue("Negativa");
 			labelNegativa.setStyle("font-weight: bold; color: black;");
-			labelClassificacao.setValue("Classificação: " + labelNegativa.getValue());
+			labelClassificacao.setValue("Classificação: ");
+			labelClassificacao.setParent(hboxClassificacao);
+			labelNegativa.setParent(hboxClassificacao);
+			hboxClassificacao.setParent(vboxLinhaValoracoes);
 		}
 		
 		if(valoracao.doubleValue() == bigDecimalNeutra.doubleValue()){
-			labelClassificacao.setValue("Classificação: Neutra");
+			Label labelNeutra = new Label();
+			labelNeutra.setValue("Neutra");
+			labelNeutra.setStyle("font-weight: bold; color: black;");
+			labelClassificacao.setValue("Classificação: ");
+			labelClassificacao.setParent(hboxClassificacao);
+			labelNeutra.setParent(hboxClassificacao);
+			hboxClassificacao.setParent(vboxLinhaValoracoes);
 		}
 		
 		if(valoracao.doubleValue() >= bigDecimalPositiva2.doubleValue() && valoracao.doubleValue() <= bigDecimalPositiva1.doubleValue()){
-			labelClassificacao.setValue("Classificação: Positiva");
+			Label labelPositiva = new Label();
+			labelPositiva.setValue("Positiva");
+			labelPositiva.setStyle("font-weight: bold; color: black;");
+			labelClassificacao.setValue("Classificação: ");
+			labelClassificacao.setParent(hboxClassificacao);
+			labelPositiva.setParent(hboxClassificacao);
+			hboxClassificacao.setParent(vboxLinhaValoracoes);
 		}
 		
-		Label labelComentario = new Label("Comentário: " + item.getComentario());
-		
-		labelAutor.setParent(vboxLinhaValoracoes);
-		labelDataValoracao.setParent(vboxLinhaValoracoes);
-		labelGrauUtilidade.setParent(vboxLinhaValoracoes);
-		labelClassificacao.setParent(vboxLinhaValoracoes);
-		labelComentario.setParent(vboxLinhaValoracoes);
+		//comentario
+		Hbox hboxComentario = new Hbox();
+		Label labelComentario = new Label("Comentário: ");
+		Label labelComentarioValor = new Label(item.getComentario());
+		labelComentarioValor.setStyle("font-weight: bold; color: black;");
+		labelComentario.setParent(hboxComentario);
+		labelComentarioValor.setParent(hboxComentario);
+		hboxComentario.setParent(vboxLinhaValoracoes);
 		
 		vboxLinhaValoracoes.setParent(listcellValoracoes);
 		
@@ -800,7 +899,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		listheaderValoracoes.setParent(listhead);
 		listhead.setParent(listboxValoracoes);
 		
-		listboxValoracoes.setHeight("350px");
+		//listboxValoracoes.setHeight("350px");
 		preencherListboxValoracoes();
 		
 		listboxValoracoes.setParent(tabpanelValoracoes);
@@ -832,9 +931,11 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 		tabpanelInformacoes.setParent(tabpanelsVisualizarItemConhecimento);
 		
 		preencherAbaAvaliacoes(item);
+		tabpanelAvaliacoes.setStyle("overflow:auto;");
 		tabpanelAvaliacoes.setParent(tabpanelsVisualizarItemConhecimento);
 		
 		preencherAbaValoracoes(item);
+		tabpanelValoracoes.setStyle("overflow:auto;");
 		tabpanelValoracoes.setParent(tabpanelsVisualizarItemConhecimento);
 
 		

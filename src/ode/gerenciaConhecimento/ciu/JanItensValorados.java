@@ -65,7 +65,7 @@ public class JanItensValorados extends Window {
 		
 		ctrlGerenciaConhecimento = ctrl;
 		
-		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoAvaliados();
+		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoValorados();
 		
 		criarJanItensValorados();
 	}
@@ -105,7 +105,6 @@ public class JanItensValorados extends Window {
 		//quantidade de valorações
 		Hbox hboxQtdeValoracoes = new Hbox();
 		tamanho = itens.size();
-		System.out.println("Itens v: " + itens.size());
 		qtdeValoracoes = new Label(Integer.toString(tamanho));
 		qtdeValoracoes.setStyle("font-weight: bold; color: black;");
 		Label labelQuantidades = new Label("Quantidade: ");

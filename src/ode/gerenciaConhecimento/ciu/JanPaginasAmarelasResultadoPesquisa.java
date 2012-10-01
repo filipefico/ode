@@ -16,6 +16,7 @@ import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Toolbar;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
@@ -146,7 +147,22 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 				// TODO Auto-generated method stub
 				/*para visualizar um perfil, no listbox deve estar selecionado somente
 				um perfil (verificar isso)*/
-				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasVisualizarPerfil();
+				int itensSelecionados = listboxPessoasEncontradas.getSelectedCount();
+				
+				Object object = new Object();
+				if(itensSelecionados == 1){
+					object = listboxPessoasEncontradas.getSelectedItem().getValue();
+					
+					if(object != null){
+						ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasVisualizarPerfil((RecursoHumano) object);
+					}
+				}else{
+					Messagebox
+					.show("Para visualizar um perfil completo, selecione somente uma pessoa",
+							"Informação",
+							Messagebox.OK,
+							Messagebox.INFORMATION);
+				}
 			}
 		});
 		

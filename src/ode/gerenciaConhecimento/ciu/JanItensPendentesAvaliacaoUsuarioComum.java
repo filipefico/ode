@@ -58,7 +58,7 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 	
 	public void criarJanItensPendentesAvliacao(){
 			
-		this.setTitle("Itens Pendentes de Avaliação");
+		this.setTitle("Itens Pendentes de Avaliação - Usuario");
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();

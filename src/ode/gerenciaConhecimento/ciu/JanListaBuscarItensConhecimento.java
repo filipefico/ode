@@ -15,6 +15,7 @@ import ode.gerenciaConhecimento.cdp.Valoracao;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -38,8 +39,8 @@ public class JanListaBuscarItensConhecimento extends Window {
 	int qtdeItens = 0; //acho q nem vai precisar desses atributos, pois é só fazer um get
 	Label labelTitulo;
 	Label labelResumo;
-	Label labelCriadoEm;  
-	Label labelAutor;
+	Label labelCriadoEmValor;  
+	Label labelAutorValor;
 	Label labelTipoValor;
 	Label labelQtdeAcessosValor;
 	Label labelQtdeItensEncontradosValor = new Label("0");
@@ -89,6 +90,11 @@ public class JanListaBuscarItensConhecimento extends Window {
 		
 		Listcell listcellRadio = new Listcell("");
 		
+		Hbox hboxMediaNotas = new Hbox();
+		Hbox hboxPositivas = new Hbox();
+		Hbox hboxNegativas = new Hbox();
+		Hbox hboxNeutras = new Hbox();
+		
 		//coluna conteudo
 		Listcell listcellConteudo = new Listcell();
 		Vbox vboxConteudo = new Vbox();
@@ -108,10 +114,14 @@ public class JanListaBuscarItensConhecimento extends Window {
 	
 		
 		//quantidade de valorações
+		Hbox hboxQtdeValoracoes = new Hbox();
 		tamanho = itens.size();
 		qtdeValoracoes = new Label(Integer.toString(tamanho));
-		qtdeValoracoes.setStyle("font-weight: bold;");
-		Label labelQuantidades = new Label("Quantidade: " + qtdeValoracoes.getValue());
+		qtdeValoracoes.setStyle("font-weight: bold; color: black;");
+		Label labelQuantidades = new Label("Quantidade: ");
+		
+		labelQuantidades.setParent(hboxQtdeValoracoes);
+		qtdeValoracoes.setParent(hboxQtdeValoracoes);
 		
 		for (Valoracao valoracao : itens){
 				
@@ -151,44 +161,66 @@ public class JanListaBuscarItensConhecimento extends Window {
 			
 			//percentual de valorações positivas
 			percentualValoracoesPositivas = new Label();
-			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100));
-			percentualValoracoesPositivas.setStyle("font-weight: bold;");
-			labelPositivas.setValue("Positivas: " + percentualValoracoesPositivas.getValue() + "%");
+			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100) + "%");
+			percentualValoracoesPositivas.setStyle("font-weight: bold; color: black;");
+			labelPositivas.setValue("Positivas: ");
+			labelPositivas.setParent(hboxPositivas);
+			percentualValoracoesPositivas.setParent(hboxPositivas);
 			
 			//percentual de valorações negativas
 			percentualValoracoesNegativas = new Label();
-			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100));
-			percentualValoracoesNegativas.setStyle("font-weight: bold;");
-			labelNegativas.setValue("Negativas: " + percentualValoracoesNegativas.getValue() + "%");
+			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100) + "%");
+			percentualValoracoesNegativas.setStyle("font-weight: bold; color: black;");
+			labelNegativas.setValue("Negativas: ");
+			labelNegativas.setParent(hboxNegativas);
+			percentualValoracoesNegativas.setParent(hboxNegativas);
 			
 			//percentual de valorações neutras
 			percentualValoracoesNeutras = new Label();
-			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100));
-			percentualValoracoesNeutras.setStyle("font-weight: bold;");
-			labelNeutras.setValue("Neutras: " + percentualValoracoesNeutras.getValue() + "%");
+			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100) + "%");
+			percentualValoracoesNeutras.setStyle("font-weight: bold; color: black;");
+			labelNeutras.setValue("Neutras: ");
+			labelNeutras.setParent(hboxNeutras);
+			percentualValoracoesNeutras.setParent(hboxNeutras);
 			
 			//medias das notas dada na valoração
 			valoracaoMedia = new Label();
 			valoracaoMedia.setValue(formatador.format(somaValoracao/tamanho));
-			valoracaoMedia.setStyle("font-weight: bold;");
-			labelValoracaoMedia.setValue("Valoração Média: " + valoracaoMedia.getValue());
+			valoracaoMedia.setStyle("font-weight: bold; color: black;");
+			labelValoracaoMedia.setValue("Média das notas: ");
+			labelValoracaoMedia.setParent(hboxMediaNotas);
+			valoracaoMedia.setParent(hboxMediaNotas);
 			
 		}else{
-			percentualValoracoesPositivas = new Label("0");
-			labelPositivas.setValue("Positivas: " + percentualValoracoesPositivas.getValue() + "%");
-			percentualValoracoesNegativas = new Label("0");
-			labelNegativas.setValue("Negativas: " + percentualValoracoesNegativas.getValue() + "%");
-			percentualValoracoesNeutras = new Label("0");
-			labelNeutras.setValue("Neutras: " + percentualValoracoesNeutras.getValue() + "%");
-			valoracaoMedia = new Label("0");
-			labelValoracaoMedia.setValue("Valoração Média: " + valoracaoMedia.getValue());
+			percentualValoracoesPositivas = new Label("0%");
+			percentualValoracoesPositivas.setStyle("font-weight: bold; color: black;");
+			labelPositivas.setValue("Positivas: ");
+			labelPositivas.setParent(hboxPositivas);
+			percentualValoracoesPositivas.setParent(hboxPositivas);
+			
+			percentualValoracoesNegativas = new Label("0%");
+			percentualValoracoesNegativas.setStyle("font-weight: bold; color: black;");
+			labelNegativas.setValue("Negativas: ");
+			labelNegativas.setParent(hboxNegativas);
+			percentualValoracoesNegativas.setParent(hboxNegativas);
+			
+			percentualValoracoesNeutras = new Label("0%");
+			percentualValoracoesNeutras.setStyle("font-weight: bold; color: black;");
+			labelNeutras.setValue("Neutras: ");
+			labelNeutras.setParent(hboxNeutras);
+			percentualValoracoesNeutras.setParent(hboxNeutras);
+			
+			valoracaoMedia = new Label("0,0");
+			valoracaoMedia.setStyle("font-weight: bold; color: black;");
+			labelValoracaoMedia.setValue("Média das notas: ");
+			labelValoracaoMedia.setParent(hboxMediaNotas);
+			valoracaoMedia.setParent(hboxMediaNotas);
 		}
-		
-		labelQuantidades.setParent(vboxValoracoes);
-		labelPositivas.setParent(vboxValoracoes);
-		labelNegativas.setParent(vboxValoracoes);
-		labelNeutras.setParent(vboxValoracoes);
-		labelValoracaoMedia.setParent(vboxValoracoes);
+		hboxQtdeValoracoes.setParent(vboxValoracoes);
+		hboxPositivas.setParent(vboxValoracoes);
+		hboxNegativas.setParent(vboxValoracoes);
+		hboxNeutras.setParent(vboxValoracoes);
+		hboxMediaNotas.setParent(vboxValoracoes);
 		vboxValoracoes.setParent(listcellValoracoes);
 		
 		positiva = 0;
@@ -199,35 +231,54 @@ public class JanListaBuscarItensConhecimento extends Window {
 		//coluna informações
 		Listcell listcellInformacoes = new Listcell();
 		Vbox vboxInformacoes = new Vbox();
+		
+		//data de criacao
+		Hbox hboxDataCriacao = new Hbox();
 		SimpleDateFormat out = new SimpleDateFormat("dd/MM/yyyy");
-		labelCriadoEm = new Label("Criado em: " + out.format(item.getDataCriacao()));  // só pegar a data de Criacao
-		labelCriadoEm.setStyle("font-weight: bold;");
-		labelAutor = new Label("Autor: " + item.getAutor().getNome());
-		labelAutor.setStyle("font-weight: bold;");
+		labelCriadoEmValor = new Label(out.format(item.getDataCriacao()));  // só pegar a data de Criacao
+		labelCriadoEmValor.setStyle("font-weight: bold; color: black;");
+		Label labelCriadoEm = new Label("Criado em: ");
+		labelCriadoEm.setParent(hboxDataCriacao);
+		labelCriadoEmValor.setParent(hboxDataCriacao);
+		hboxDataCriacao.setParent(vboxInformacoes);
 		
-		labelCriadoEm.setParent(vboxInformacoes);
-		labelAutor.setParent(vboxInformacoes);
+		//autor	
+		Hbox hboxAutor = new Hbox();
+		labelAutorValor = new Label(item.getAutor().getNome());
+		labelAutorValor.setStyle("font-weight: bold; color: black;");
+		Label labelAutor = new Label("Autor: ");
+		labelAutor.setParent(hboxAutor);
+		labelAutorValor.setParent(hboxAutor);
+		hboxAutor.setParent(vboxInformacoes);
 		
+		//tipo de item
+		Hbox hboxTipoItem = new Hbox();
 		if (item instanceof LicaoAprendida) {
 			labelTipoValor = new Label("Lição Aprendida");
-			labelTipoValor.setStyle("font-weight: bold;");
-			Label labelTipo = new Label("Tipo: " + labelTipoValor.getValue());
-			
-			labelTipo.setParent(vboxInformacoes);
+			labelTipoValor.setStyle("font-weight: bold; color: black;");
+			Label labelTipo = new Label("Tipo: ");
+			labelTipo.setParent(hboxTipoItem);
+			labelTipoValor.setParent(hboxTipoItem);
+			hboxTipoItem.setParent(vboxInformacoes);
+
 		} 
 		if (item instanceof ConhecimentoRelativoDiscussao) {
 			labelTipoValor = new Label("Conhecimento Relativo a uma Discussão");
-			labelTipoValor.setStyle("font-weight: bold;");
-			Label labelTipo = new Label("Tipo: " + labelTipoValor.getValue());
-			
-			labelTipo.setParent(vboxInformacoes);
+			labelTipoValor.setStyle("font-weight: bold; color: black;");
+			Label labelTipo = new Label("Tipo: ");
+			labelTipo.setParent(hboxTipoItem);
+			labelTipoValor.setParent(hboxTipoItem);
+			hboxTipoItem.setParent(vboxInformacoes);
 		} 
 	
+		//quantidade de acessos
+		Hbox hboxQtdeAcessos = new Hbox();
 		labelQtdeAcessosValor = new Label(item.getQuantidadeAcessos().toString());
-		labelQtdeAcessosValor.setStyle("font-weight: bold;");
-		Label labelQtdeAcessos = new Label("Quantidade de Acessos: " + labelQtdeAcessosValor.getValue());
-		
-		labelQtdeAcessos.setParent(vboxInformacoes);
+		labelQtdeAcessosValor.setStyle("font-weight: bold; color: black;");
+		Label labelQtdeAcessos = new Label("Quantidade de Acessos: ");
+		labelQtdeAcessos.setParent(hboxQtdeAcessos);
+		labelQtdeAcessosValor.setParent(hboxQtdeAcessos);
+		hboxQtdeAcessos.setParent(vboxInformacoes);
 		
 		vboxInformacoes.setParent(listcellInformacoes);
 		
@@ -246,11 +297,17 @@ public class JanListaBuscarItensConhecimento extends Window {
 		
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
+		
+		//quantidade de itens encontrados
+		Hbox hboxQtdeItensEncontrados = new Hbox();
 		labelQtdeItensEncontradosValor.setValue(String.valueOf(itens.size()));
-		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: " + labelQtdeItensEncontradosValor.getValue());
+		labelQtdeItensEncontradosValor.setStyle("font-weight: bold; color: blue");
+		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: ");
 		labelQtdeItensEncontrados.setStyle("font-weight: bold;font-style: italic;");
 		
-		labelQtdeItensEncontrados.setParent(vbox);
+		labelQtdeItensEncontrados.setParent(hboxQtdeItensEncontrados);
+		labelQtdeItensEncontradosValor.setParent(hboxQtdeItensEncontrados);
+		hboxQtdeItensEncontrados.setParent(vbox);
 		
 		//Criar as colunas do Listbox
 		listboxBuscarItensConhecimento.setMultiple(false);
@@ -268,7 +325,7 @@ public class JanListaBuscarItensConhecimento extends Window {
 		Listheader listheaderValoracoes = new Listheader("Valorações");
 		listheaderValoracoes.setWidth("133px");
 		Listheader listheaderInformacoes = new Listheader("Informações");
-		listheaderInformacoes.setWidth("220px");
+		listheaderInformacoes.setWidth("100%");
 		
 		listheaderRadio.setParent(listheadBuscarItensConhecimento);
 		listheaderConteudo.setParent(listheadBuscarItensConhecimento);

@@ -2,6 +2,7 @@ package ode.conhecimento.processo.cgt;
 
 import java.util.Collection;
 
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
@@ -38,4 +39,7 @@ public class AplCadastrarKRecursoHumano extends
 		return getNucleoDaoBase().recuperarTodosComOrdenacao("nome");
 	}
 
+	public KRecursoHumano recuperarPorParteNome(String nome){
+		return this.kRecursoHumanoDAO.recuperarPorParteNome(nome);
+	}
 }
