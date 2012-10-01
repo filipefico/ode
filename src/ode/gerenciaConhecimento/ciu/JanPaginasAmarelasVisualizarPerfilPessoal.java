@@ -2,6 +2,7 @@ package ode.gerenciaConhecimento.ciu;
 
 import java.util.Collection;
 
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.Tema;
 
@@ -12,6 +13,7 @@ import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Separator;
 import org.zkoss.zul.Tab;
 import org.zkoss.zul.Tabbox;
 import org.zkoss.zul.Tabpanel;
@@ -32,10 +34,14 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 	Listbox listboxItensAvaliados = new Listbox();
 	Listbox listboxItensValorados = new Listbox();
 	
-	public JanPaginasAmarelasVisualizarPerfilPessoal(CtrlGerenciaConhecimento ctrl) {
+	RecursoHumano recursoHumano;
+	
+	public JanPaginasAmarelasVisualizarPerfilPessoal(CtrlGerenciaConhecimento ctrl, RecursoHumano rh) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
+		
+		recursoHumano = rh;
 		
 		criarJanPaginasAmarelasVisualizarPerfilPessoal();
 		
@@ -46,13 +52,35 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
 		
-		Label labelNome = new Label("Nome: " + "sss");
-		Label labelEmail = new Label("E-mail: " + "ddd");
-		Label labelTelefone = new Label("Telefone: " + "kkk");
+		//nome
+		Hbox hboxNome = new Hbox();
+		Label labelNome = new Label("Nome: ");
+		Label labelNomeValor = new Label(recursoHumano.getNome());
+		labelNomeValor.setStyle("font-weight: bold; color: black;");
+		labelNome.setParent(hboxNome);
+		labelNomeValor.setParent(hboxNome);
+		hboxNome.setParent(vbox);
+			
+		//email
+		Hbox hboxEmail = new Hbox();
+		Label labelEmail = new Label("E-mail: ");
+		Label labelEmailValor = new Label(recursoHumano.getEmail());
+		labelEmailValor.setStyle("font-weight: bold; color: black;");
+		labelEmail.setParent(hboxEmail);
+		labelEmailValor.setParent(hboxEmail);
+		hboxEmail.setParent(vbox);
 		
-		labelNome.setParent(vbox);
-		labelEmail.setParent(vbox);
-		labelTelefone.setParent(vbox);
+		//telefone
+		Hbox hboxTelefone = new Hbox();
+		Label labelTelefone = new Label("Telefone: ");
+		Label labelTelefoneValor = new Label(recursoHumano.getTelefone());
+		labelTelefoneValor.setStyle("font-weight: bold; color: black;");
+		labelTelefone.setParent(hboxTelefone);
+		labelTelefoneValor.setParent(hboxTelefone);
+		hboxTelefone.setParent(vbox);
+		
+		
+		(new Separator()).setParent(vbox);
 		
 		Hbox hbox1 = new Hbox();
 		hbox1.setHeight("100%");
@@ -67,14 +95,14 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		Vbox vboxTemas = new Vbox();
 
 		Label labelTemasRelacionados = new Label("Temas Relacionados: ");
-		labelTemasRelacionados.setStyle("color: blue;");
+		labelTemasRelacionados.setStyle("color: blue; font-weight: bold;");
 
 		listboxTemasRelacionados.setMultiple(false);
 		listboxTemasRelacionados.setCheckmark(false);
 //		listboxTemasRelacionados.setHeight("140px");
 
 		// Preenche temas no listbox
-		Collection<Tema> temas = ctrlGerenciaConhecimento.aplCadastrarTema.recuperarTodos();
+		Collection<Tema> temas = recursoHumano.getTemasInteresse();
 		for(Tema tema : temas){
 			Listitem listitem = new Listitem(tema.getNome());
 			listitem.setValue(tema);
@@ -92,13 +120,13 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		Vbox vboxItensCriados = new Vbox();
 
 		Label labelItensCriados = new Label("Itens Criados:");
-		labelItensCriados.setStyle("color: blue;");
+		labelItensCriados.setStyle("color: blue; font-weight: bold;");
 
 		listboxItensCriados.setMultiple(false);
 		listboxItensCriados.setCheckmark(false);
 
 		// Preenche itens no listbox
-		Collection<ItemConhecimento> itensCriados = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+		Collection<ItemConhecimento> itensCriados = ctrlGerenciaConhecimento.recuperarItensCriadosPorAutor(recursoHumano);
 		for (ItemConhecimento item : itensCriados){
 			Listitem listitem = new Listitem(item.getTitulo());
 			listitem.setValue(item);
@@ -116,13 +144,14 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		Vbox vboxItensAvaliados = new Vbox();
 
 		Label labelItensAvaliados = new Label("Itens Avaliados:");
-		labelItensAvaliados.setStyle("color: blue;");
+		labelItensAvaliados.setStyle("color: blue; font-weight: bold;");
 
 		listboxItensAvaliados.setMultiple(false);
 		listboxItensAvaliados.setCheckmark(false);
 
 		// Preenche itens no listbox
-		Collection<ItemConhecimento> itensAvaliados = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+		Collection<ItemConhecimento> itensAvaliados = ctrlGerenciaConhecimento.recuperarItensAvaliadosPorUsuarioAtual(recursoHumano); 
+		
 		for (ItemConhecimento item : itensAvaliados){
 			Listitem listitem = new Listitem(item.getTitulo());
 			listitem.setValue(item);
@@ -140,13 +169,13 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 		Vbox vboxItensValorados = new Vbox();
 
 		Label labelItensValorados = new Label("Itens Valorados:");
-		labelItensValorados.setStyle("color: blue;");
+		labelItensValorados.setStyle("color: blue; font-weight: bold;");
 
 		listboxItensValorados.setMultiple(false);
 		listboxItensValorados.setCheckmark(false);
 
 		// Preenche itens no listbox
-		Collection<ItemConhecimento> itensValorados = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarTodos();
+		Collection<ItemConhecimento> itensValorados = ctrlGerenciaConhecimento.recuperarItensValoradosPorUsuarioAtual(recursoHumano);
 		for (ItemConhecimento item : itensValorados){
 			Listitem listitem = new Listitem(item.getTitulo());
 			listitem.setValue(item);

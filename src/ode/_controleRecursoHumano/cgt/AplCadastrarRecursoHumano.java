@@ -8,6 +8,7 @@ import ode._controleRecursoHumano.cgd.RecursoHumanoDAO;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.Tema;
 
@@ -38,5 +39,9 @@ public class AplCadastrarRecursoHumano extends AplCRUD<RecursoHumano> {
 	
 	public Collection<RecursoHumano> recuperarPorTemasItemCriadoAvaliadoValorado(List<Tema> temas, ItemConhecimento itemCriado, ItemConhecimento itemAvaliado, ItemConhecimento itemValorado) {
 		return this.recursoHumanoDAO.recuperarPorTemasItemCriadoAvaliadoValorado(temas, itemCriado, itemAvaliado, itemValorado);
+	}
+	
+	public Collection<RecursoHumano> recuperarPorCargo(KRecursoHumano kRecursoHumano){
+		return this.recursoHumanoDAO.recuperarPorCargo(kRecursoHumano);
 	}
 }

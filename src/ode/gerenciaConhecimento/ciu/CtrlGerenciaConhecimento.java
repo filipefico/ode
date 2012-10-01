@@ -11,7 +11,9 @@ import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.atuacaoRecursoHumano.cgd.AtuacaoRHDAO;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimento.processo.cgt.AplCadastrarKAtividade;
+import ode.conhecimento.processo.cgt.AplCadastrarKRecursoHumano;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgt.AplCadastrarProjeto;
 import ode.controleUsuario.cdp.Usuario;
@@ -82,6 +84,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	@Autowired
 	AplCadastrarRecursoHumano aplCadastrarRecursoHumano;
+	
+	@Autowired
+	AplCadastrarKRecursoHumano aplCadastrarKRecursoHumano;
 
 	@Autowired
 	AplCadastrarUsuario aplCadastrarUsuario;
@@ -108,6 +113,21 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 		jan.doEmbedded();
 	}
+	
+	public Object verificarGerenteOuUsuario(){
+		
+		// Recupera todos que são gerentes de projeto
+		Collection<RecursoHumano> recursos = this.recuperarGerentesConhecimento();
+
+		if (recursos.contains(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano())){
+			janItensPendentesAvaliacaoGerente = new JanItensPendentesAvaliacaoGerente(this);
+			return janItensPendentesAvaliacaoGerente;
+		} else {
+			janItensPendentesAvaliacaoUsuarioComum = new JanItensPendentesAvaliacaoUsuarioComum(this);
+			return janItensPendentesAvaliacaoUsuarioComum;
+		}
+		
+	}
 
 	public JanItensCriados exibirJanelaItensCriados_inicial(){
 
@@ -117,11 +137,18 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	}
 
-	public JanItensPendentesAvaliacaoGerente exibirJanelaItensPendentesAvaliacao_inicial(){
+	public JanItensPendentesAvaliacaoGerente exibirJanelaItensPendentesAvaliacaoGerente_inicial(){
 
 		janItensPendentesAvaliacaoGerente = new JanItensPendentesAvaliacaoGerente(this);
 
 		return janItensPendentesAvaliacaoGerente;
+	}
+	
+	public JanItensPendentesAvaliacaoUsuarioComum exibirJanelaItensPendentesAvaliacaoUsuarioComum_inicial(){
+
+		janItensPendentesAvaliacaoUsuarioComum = new JanItensPendentesAvaliacaoUsuarioComum(this);
+
+		return janItensPendentesAvaliacaoUsuarioComum;
 	}
 
 	public void exibirJanelaTiposItemConhecimento(){
@@ -154,9 +181,9 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janItensAvaliados);
 	}
 	
-	public void exibirJanelaPaginasAmarelasVisualizarPerfil(){
+	public void exibirJanelaPaginasAmarelasVisualizarPerfil(RecursoHumano rh){
 		
-		janPaginasAmarelasVisualizarPerfilPessoal = new JanPaginasAmarelasVisualizarPerfilPessoal(this);
+		janPaginasAmarelasVisualizarPerfilPessoal = new JanPaginasAmarelasVisualizarPerfilPessoal(this, rh);
 		
 		janP.mostrarJanelaConteudo(janPaginasAmarelasVisualizarPerfilPessoal);
 	}
@@ -177,11 +204,12 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 
 	public void exibirJanelaItensPendentesAvaliacao(){
 
-		// Recupera todos que são gerentes de projeto
-		Collection<RecursoHumano> recursos = atuacaoRHDAO.recuperarAptosPorPapel(new Long(31));
+		// Recupera todos que são gerentes de conhecimento
+		Collection<RecursoHumano> recursos = this.recuperarGerentesConhecimento();
 
 		if (recursos.contains(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano())){
 			this.exibirJanelaItensPendentesAvaliacaoGerente();
+			//exibirJanelaItensPendentesAvaliacaoGerente();
 		} else {
 			exibirJanelaItensPendentesAvaliacaoUsuarioComum();
 		}
@@ -235,7 +263,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public void exibirJanelaVisualizarItemConhecimento(ItemConhecimento itemConhecimento){
 
 		// Recupera todos que são gerentes de projeto
-		Collection<RecursoHumano> recursos = atuacaoRHDAO.recuperarAptosPorPapel(new Long(31));
+		Collection<RecursoHumano> recursos = this.recuperarGerentesConhecimento();
 
 		if (recursos.contains(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano())){
 			this.exibirJanelaVisualizarItemConhecimentoGerente(itemConhecimento);
@@ -422,5 +450,31 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	
 	public Collection<RecursoHumano> recuperarPorTemasItemCriadoAvaliadoValorado(List<Tema> temas, ItemConhecimento itemCriado, ItemConhecimento itemAvaliado, ItemConhecimento itemValorado) {
 		return this.aplCadastrarRecursoHumano.recuperarPorTemasItemCriadoAvaliadoValorado(temas, itemCriado, itemAvaliado, itemValorado);
+	}
+	
+	// Recupera todos os recursos humanos que tem o cargo gerente de conhecimento
+	public Collection<RecursoHumano> recuperarGerentesConhecimento(){
+		
+		KRecursoHumano kRecursoHumano = this.aplCadastrarKRecursoHumano.recuperarPorParteNome("gerente conhecimento");
+		
+		return this.aplCadastrarRecursoHumano.recuperarPorCargo(kRecursoHumano);
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensCriadosPorAutor(RecursoHumano rh){
+		
+		return this.aplCadastrarItemConhecimento.recuperarItensCriadosPorUsuarioAtual(rh);
+		
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensAvaliadosPorUsuarioAtual(RecursoHumano rh){
+		
+		return this.aplCadastrarItemConhecimento.recuperarItensAvaliadosPorUsuarioAtual(rh);
+		
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensValoradosPorUsuarioAtual(RecursoHumano rh){
+		
+		return this.aplCadastrarItemConhecimento.recuperarItensValoradosPorUsuarioAtual(rh);
+		
 	}
 }

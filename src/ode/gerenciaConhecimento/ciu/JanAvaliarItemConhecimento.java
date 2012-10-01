@@ -38,17 +38,17 @@ public class JanAvaliarItemConhecimento extends Window {
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	ItemConhecimento itemConhecimento;
 	
-	BigDecimal notaCorrecao = new BigDecimal("0.00");
-	BigDecimal notaCompletude = new BigDecimal("0.00");
-	BigDecimal notaConsistencia = new BigDecimal("0.00");
-	BigDecimal notaUtilidade = new BigDecimal("0.00");
-	BigDecimal notaAplicabilidade = new BigDecimal("0.00");
+	BigDecimal notaCorrecao = new BigDecimal("0");
+	BigDecimal notaCompletude = new BigDecimal("0");
+	BigDecimal notaConsistencia = new BigDecimal("0");
+	BigDecimal notaUtilidade = new BigDecimal("0");
+	BigDecimal notaAplicabilidade = new BigDecimal("0");
 	
-	Decimalbox decimalboxCorrecao = new Decimalbox();
-	Decimalbox decimalboxCompletude = new Decimalbox();
-	Decimalbox decimalboxConsistencia = new Decimalbox();
-	Decimalbox decimalboxUtilidade = new Decimalbox();
-	Decimalbox decimalboxAplicabilidade = new Decimalbox();
+	Decimalbox decimalboxCorrecao = new Decimalbox(notaCorrecao);
+	Decimalbox decimalboxCompletude = new Decimalbox(notaCompletude);
+	Decimalbox decimalboxConsistencia = new Decimalbox(notaConsistencia);
+	Decimalbox decimalboxUtilidade = new Decimalbox(notaUtilidade);
+	Decimalbox decimalboxAplicabilidade = new Decimalbox(notaAplicabilidade);
 	Listcell listcellMediaNotasValor = new Listcell();
 	Label media = new Label();
 	Textbox textboxParecer = new Textbox("");
@@ -150,7 +150,7 @@ public class JanAvaliarItemConhecimento extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				if(decimalboxAplicabilidade.getValue() != null){
+				if(decimalboxCorrecao.getValue() != null){
 					notaCorrecao = getNota(decimalboxCorrecao);
 					media.setValue(calculaMediaNotas());
 				}
@@ -173,7 +173,7 @@ public class JanAvaliarItemConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				if(decimalboxAplicabilidade.getValue() != null){
+				if(decimalboxCompletude.getValue() != null){
 					notaCompletude = getNota(decimalboxCompletude);
 					media.setValue(calculaMediaNotas());
 				}
@@ -195,7 +195,7 @@ public class JanAvaliarItemConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				if(decimalboxAplicabilidade.getValue() != null){
+				if(decimalboxConsistencia.getValue() != null){
 					notaConsistencia = getNota(decimalboxConsistencia);
 					media.setValue(calculaMediaNotas());
 				}
@@ -217,7 +217,7 @@ public class JanAvaliarItemConhecimento extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-				if(decimalboxAplicabilidade.getValue() != null){
+				if(decimalboxUtilidade.getValue() != null){
 					notaUtilidade = getNota(decimalboxUtilidade);
 					media.setValue(calculaMediaNotas());
 				}
@@ -303,20 +303,20 @@ public class JanAvaliarItemConhecimento extends Window {
 				
 				String msg = "";
 				
-				if (decimalboxAplicabilidade.getValue() == null)
-					msg += "Aplicabilidade deve ser informada.\n";
-				if (decimalboxCompletude.getValue() == null)
-					msg += "Completude deve ser informada.\n";
-				if (decimalboxConsistencia.getValue() == null)
-					msg += "Consistência deve ser informada.\n";
-				if (decimalboxCorrecao.getValue() == null)
-					msg += "Correção deve ser informada.\n";
-				if (decimalboxUtilidade.getValue() == null)
-					msg += "Utilitdade deve ser informada.\n";
+				if (decimalboxAplicabilidade.getValue() == null || decimalboxAplicabilidade.getValue().doubleValue() > 10)
+					msg += "- Aplicabilidade deve ser informada com valores entre 0.0 e 10.0\n";
+				if (decimalboxCompletude.getValue() == null || decimalboxCompletude.getValue().doubleValue() > 10)
+					msg += "- Completude deve ser informada com valores entre 0.0 e 10.0\n";
+				if (decimalboxConsistencia.getValue() == null || decimalboxConsistencia.getValue().doubleValue() > 10)
+					msg += "- Consistência deve ser informada com valores entre 0.0 e 10.0\n";
+				if (decimalboxCorrecao.getValue() == null || decimalboxCorrecao.getValue().doubleValue() > 10)
+					msg += "- Correção deve ser informada com valores entre 0.0 e 10.0\n";
+				if (decimalboxUtilidade.getValue() == null || decimalboxUtilidade.getValue().doubleValue() > 10)
+					msg += "- Utilitdade deve ser informada com valores entre 0.0 e 10.0\n";
 				if (textboxParecer.getValue() == null)
-					msg += "Parecer deve ser informado.\n";
+					msg += "- Parecer deve ser informado.\n";
 				if (comboboxResultadoFinal.getSelectedItem() == null)
-					msg += "Resultado final deve ser informado.\n";
+					msg += "- Resultado final deve ser informado.\n";
 
 				if (msg.isEmpty()) {
 					Avaliacao avaliacao = new Avaliacao();

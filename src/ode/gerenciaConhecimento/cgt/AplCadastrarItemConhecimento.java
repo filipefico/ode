@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
@@ -155,6 +156,18 @@ public class AplCadastrarItemConhecimento extends AplCRUD<ItemConhecimento> {
 	
 	public Collection<ItemConhecimento> recuperarItensConhecimentoAvaliados(){
 		return this.itemConhecimentoDAO.recuperarItensConhecimentoAvaliados();
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensCriadosPorUsuarioAtual(RecursoHumano rh){
+		return this.itemConhecimentoDAO.recuperarItensCriadosPorUsuarioAtual(rh);
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensAvaliadosPorUsuarioAtual(RecursoHumano rh){
+		return this.itemConhecimentoDAO.recuperarItensAvaliadosPorUsuarioAtual(rh);
+	}
+	
+	public Collection<ItemConhecimento> recuperarItensValoradosPorUsuarioAtual(RecursoHumano rh){
+		return this.itemConhecimentoDAO.recuperarItensValoradosPorUsuarioAtual(rh);
 	}
 		
 }

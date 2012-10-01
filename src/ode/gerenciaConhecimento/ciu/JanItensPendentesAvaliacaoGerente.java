@@ -12,6 +12,7 @@ import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -40,9 +41,9 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	Listcell listcellTitulo;
 	Listcell listcellInformacoes;
 	Listcell listcellEstado;
-	Label labelAutor;
-	Label labelDataCriacao;
-	Label labelTipo;
+	Label labelAutorValor;
+	Label labelDataCriacaoValor;
+	Label labelTipoValor;
 	Listcell listcellAvaliadoresSelecionados;
 	Label labelQtdeAvaliacoesRealizadas = new Label("0");
 	
@@ -56,7 +57,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	
 	public void criarJanItensPendentesAvaliacaoGerente(){
 		
-		this.setTitle("Itens Pendentes de Avaliação");
+		this.setTitle("Itens Pendentes de Avaliação - Gerente");
 		this.setBorder("normal");
 		
 		Vbox vbox = new Vbox();
@@ -227,20 +228,42 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		
 		listcellInformacoes = new Listcell();
 		
-		labelAutor = new Label(item.getAutor().getNome());
-		labelAutor.setParent(vboxInformacoes);
+		//autor
+		Hbox hboxAutor = new Hbox();
+		labelAutorValor = new Label(item.getAutor().getNome());
+		labelAutorValor.setStyle("font-weight: bold; color: black;");
+		Label labelAutor = new Label("Autor: ");
+		labelAutor.setParent(hboxAutor);
+		labelAutorValor.setParent(hboxAutor);
+		hboxAutor.setParent(vboxInformacoes);
 		
+		//data de criacao
+		Hbox hboxDataCriacao = new Hbox();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy"); 
-		labelDataCriacao = new Label(formatador.format(item.getDataCriacao()));
-		labelDataCriacao.setParent(vboxInformacoes);
+		labelDataCriacaoValor = new Label(formatador.format(item.getDataCriacao()));
+		labelDataCriacaoValor.setStyle("font-weight: bold; color: black;");
+		Label labelDataCriacao = new Label("Data de criação: ");
+		labelDataCriacao.setParent(hboxDataCriacao);
+		labelDataCriacaoValor.setParent(hboxDataCriacao);
+		hboxDataCriacao.setParent(vboxInformacoes);
 		
+		//tipo
+		Hbox hboxTipo = new Hbox();
 		if(item instanceof LicaoAprendida){
-			labelTipo = new Label("Lição Aprendida");
-			labelTipo.setParent(vboxInformacoes);
+			labelTipoValor = new Label("Lição Aprendida");
+			labelTipoValor.setStyle("font-weight: bold; color: black;");
+			Label labelTipo = new Label("Tipo: ");
+			labelTipo.setParent(hboxTipo);
+			labelTipoValor.setParent(hboxTipo);
+			hboxTipo.setParent(vboxInformacoes);
 		}
 		if(item instanceof ConhecimentoRelativoDiscussao){
-			labelTipo = new Label("Conhecimento Relativo a uma Discussão");
-			labelTipo.setParent(vboxInformacoes);
+			labelTipoValor = new Label("Conhecimento Relativo a uma Discussão");
+			labelTipoValor.setStyle("font-weight: bold; color: black;");
+			Label labelTipo = new Label("Tipo: ");
+			labelTipo.setParent(hboxTipo);
+			labelTipoValor.setParent(hboxTipo);
+			hboxTipo.setParent(vboxInformacoes);
 		}
 		
 		vboxInformacoes.setParent(listcellInformacoes);
@@ -257,12 +280,19 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		Collection<RecursoHumano> itens = item.getAvaliadores();
 		for (RecursoHumano recurso : itens){
 			Label labelNomeAutor = new Label();
-			labelNomeAutor.setValue(recurso.getNome());
+			labelNomeAutor.setValue("- " + recurso.getNome());
+			labelNomeAutor.setStyle("font-weight: bold; color: black;");
 			labelNomeAutor.setParent(vboxAvaliadoresSelecionados);
 		}
 		
-		Label labelAvaliacoesRealizadas = new Label("Avaliações Realizadas: " + item.getAvaliacoes().size());
-		labelAvaliacoesRealizadas.setParent(vboxAvaliadoresSelecionados);
+		//quantidade de avaliacoes realizadas
+		Hbox hboxAvaliacoesRealizadas = new Hbox();
+		Label labelAvaliacoesRealizadas = new Label("Avaliações Realizadas: ");
+		Label labelAvaliacoesRealizadasValor = new Label(Integer.toString(item.getAvaliacoes().size()));
+		labelAvaliacoesRealizadasValor.setStyle("font-weight: bold; color: black;");
+		labelAvaliacoesRealizadas.setParent(hboxAvaliacoesRealizadas);
+		labelAvaliacoesRealizadasValor.setParent(hboxAvaliacoesRealizadas);
+		hboxAvaliacoesRealizadas.setParent(vboxAvaliadoresSelecionados);
 		
 		vboxAvaliadoresSelecionados.setParent(listcellAvaliadoresSelecionados);
 		listcellAvaliadoresSelecionados.setParent(listitem);

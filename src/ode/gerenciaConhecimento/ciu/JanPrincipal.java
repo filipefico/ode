@@ -1,8 +1,11 @@
 package ode.gerenciaConhecimento.ciu;
 
 //// testeeeeeeeee /////////
+import java.util.Collection;
 import java.util.List;
 
+import ode._controleRecursoHumano.cdp.RecursoHumano;
+import ode._infraestruturaBase.util.NucleoContexto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 
@@ -91,6 +94,8 @@ public class JanPrincipal extends Borderlayout{
 		
 	}
 	
+
+	
 	public void criaCenter(){
 		
 		center = new Center();
@@ -102,7 +107,13 @@ public class JanPrincipal extends Borderlayout{
 		painelCentro.setTitle("Bem-vindo ao Portal de Gerência de Conhecimento");
 		
 		ctrlGerenciaConhecimento.exibirJanelaItensCriados_inicial().setParent(painelChildrenCentro);
-		ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao_inicial().setParent(painelChildrenCentro);
+		Object v = ctrlGerenciaConhecimento.verificarGerenteOuUsuario();
+		if(v instanceof JanItensPendentesAvaliacaoGerente){
+			ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoGerente_inicial().setParent(painelChildrenCentro);
+		}
+		if(v instanceof JanItensPendentesAvaliacaoUsuarioComum){
+			ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacaoUsuarioComum_inicial().setParent(painelChildrenCentro);
+		}
 			
 		painelChildrenCentro.setParent(painelCentro);
 		painelCentro.setParent(center);

@@ -18,6 +18,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Tab;
@@ -59,7 +60,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 	public void criarTabboxBuscar(){
 
 		Grid grid = new Grid();
-		//grid.setSizedByContent(true);
+		grid.setSizedByContent(true);
 		Rows rows = new Rows();
 
 		rows.setParent(grid);
@@ -68,7 +69,7 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		Row rowNome = new Row();
 		Label labelNome = new Label("Nome");
 
-		textboxNome.setWidth("100%");
+		textboxNome.setWidth("450px");
 		textboxNome.setMaxlength(50);
 
 		labelNome.setParent(rowNome);
@@ -85,7 +86,8 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		listboxTemasRelacionados.setMultiple(true);
 		listboxTemasRelacionados.setCheckmark(true);
-		listboxTemasRelacionados.setHeight("140px");
+		listboxTemasRelacionados.setWidth("450px");
+		listboxTemasRelacionados.setRows(3);
 
 		Listhead colunasTemasRelacionados = new Listhead();
 		Listheader colunaTitulo1 = new Listheader("Nome");
@@ -113,8 +115,10 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		Label labelItensCriados = new Label("Itens Criados");
 
+		listboxItensCriados.setMultiple(false);
 		listboxItensCriados.setCheckmark(true);
-		listboxItensCriados.setHeight("100px");
+		listboxItensCriados.setWidth("450px");
+		listboxItensCriados.setRows(3);
 
 		Listhead colunasItensCriados = new Listhead();
 		Listheader colunaTitulo4 = new Listheader("Título");
@@ -142,8 +146,10 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		Label labelItensAvaliados = new Label("Itens Avaliados");
 
-		listboxItensAvaliados.setHeight("100px");
+		listboxItensAvaliados.setWidth("450px");
 		listboxItensAvaliados.setCheckmark(true);
+		listboxItensAvaliados.setMultiple(false);
+		listboxItensAvaliados.setRows(3);
 
 		Listhead colunasItensAvaliados = new Listhead();
 		Listheader colunaTitulo3 = new Listheader("Título");
@@ -171,8 +177,10 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 
 		Label labelItensValorados = new Label("Itens Avaliados");
 
-		listboxItensValorados.setHeight("100px");
+		listboxItensValorados.setWidth("450px");
 		listboxItensValorados.setCheckmark(true);
+		listboxItensValorados.setMultiple(false);
+		listboxItensValorados.setRows(3);
 
 		Listhead colunasItensValorados = new Listhead();
 		Listheader colunaTitulo2 = new Listheader("Título");
@@ -252,12 +260,28 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 			public void onEvent(Event arg0) throws Exception {
 
 
+				// Messagebox messageboxCancelar = new Messagebox();
+				Messagebox
+						.show("Deseja cancelar a Busca?",
+								"Aviso", Messagebox.YES | Messagebox.NO,
+								Messagebox.QUESTION, new EventListener() {
 
+									@Override
+									public void onEvent(Event arg0)
+											throws Exception {
+										// TODO Auto-generated method stub
+										if (arg0.getName().equals("onYes")) {
+											/* Eh utilizado para tirar um item de conhecimento da sessao quando
+											 eh feita uma selecao de especialistas para avaliacao de um item 
+											 de conhecimento*/
+											ctrlGerenciaConhecimento.retirarItemConhecimento();
+											fecharJanela();
+										}
+									}
+								});
 				// FAVOR Não retirar a linha de código abaixo:
-				// Eh utilizado para tirar um item de conhecimento da sessao quando
-				// eh feita uma selecao de especialistas para avaliacao de um item 
-				// de conhecimento
-				ctrlGerenciaConhecimento.retirarItemConhecimento();
+				
+				
 			}
 		});
 
@@ -273,6 +297,10 @@ public class JanPaginasAmarelasBuscarPessoas extends Window {
 		vboxBuscar.setParent(this);
 
 
+	}
+	
+	public void fecharJanela() {
+		this.detach();
 	}
 
 }

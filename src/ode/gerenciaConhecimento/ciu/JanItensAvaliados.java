@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 
+import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
@@ -39,18 +40,23 @@ public class JanItensAvaliados extends Window {
 	Label labelQtdeItensEncontradosValor = new Label();
 	Listitem listitem = new Listitem();
 	Listbox listboxBuscarItensConhecimento = new Listbox();
-	Label qtdeValoracoes;
-	Label percentualValoracoesPositivas;
-	Label percentualValoracoesNegativas;
-	Label percentualValoracoesNeutras;
-	Label valoracaoMedia;
 	Collection<ItemConhecimento> itens;
-	
-	float positiva = 0;
-	float negativa = 0;
-	float neutra = 0;
+
 	int tamanho = 0;
-	double somaValoracao = 0;
+	double somaCorrecao = 0;
+	double somaCompletude = 0;
+	double somaConsistencia = 0;
+	double somaUtilidade = 0;
+	double somaAplicabilidade = 0;
+	
+	Label labelQtdeAvaliacoes;
+	Label labelMediaCorrecaoValor;
+	Label labelMediaCompletudeValor;
+	Label labelMediaConsistenciaValor;
+	Label labelMediaUtilidadeValor;
+	Label labelMediaAplicabilidadeValor;
+	Label labelMediaTotalNotas;
+	
 	
 	Label labelPercente;
 	Label labelCriadoEmValor;
@@ -60,7 +66,7 @@ public class JanItensAvaliados extends Window {
 		
 		ctrlGerenciaConhecimento = ctrl;
 		
-		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoValorados();
+		this.itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoAvaliados();
 		
 		criarJanItensAvaliados();
 	}
@@ -91,144 +97,181 @@ public class JanItensAvaliados extends Window {
 		vboxConteudo.setParent(listcellConteudo);
 		
 		//coluna valorações
-		Listcell listcellValoracoes = new Listcell();
-		Vbox vboxValoracoes = new Vbox();
+		Listcell listcellAvaliacoes = new Listcell();
+		Vbox vboxAvaliacoes = new Vbox();
 		
-		Collection<Valoracao> itens = item.getValoracoes();
-	
+		Collection<Avaliacao> itens = item.getAvaliacoes();
 		
-		//quantidade de valorações
-		Hbox hboxQtdeValoracoes = new Hbox();
+		//quantidade de avaliacoes
+		Hbox hboxQtdeAvaliacoes = new Hbox();
+		Hbox hboxMediaCorrecao = new Hbox();
+		Hbox hboxMediaConsistencia = new Hbox();
+		Hbox hboxMediaCompletude = new Hbox();
+		Hbox hboxMediaUtilidade = new Hbox();
+		Hbox hboxMediaAplicabilidade = new Hbox();
+		Hbox hboxMediaTotal = new Hbox();
 		tamanho = itens.size();
-		qtdeValoracoes = new Label(Integer.toString(tamanho));
-		qtdeValoracoes.setStyle("font-weight: bold; color: black;");
-		Label labelQuantidades = new Label("Quantidade: ");
 		
-		labelQuantidades.setParent(hboxQtdeValoracoes);
-		qtdeValoracoes.setParent(hboxQtdeValoracoes);
-		
-		for (Valoracao valoracao : itens){
-				
-			BigDecimal bigDecimalPositiva1 = new BigDecimal("10.0");
-			BigDecimal bigDecimalPositiva2 = new BigDecimal("0.01");
+		DecimalFormat fmt = new DecimalFormat("0.0");    //limita o número de casas decimais     
+		if(tamanho > 0){
+			//quantidade de avaliacoes
+			labelQtdeAvaliacoes = new Label();
+			labelQtdeAvaliacoes.setValue(Integer.toString(tamanho));
+			labelQtdeAvaliacoes.setStyle("font-weight: bold; color: black;");
+			Label labelQuantidade = new Label("Quantidade: ");
+			labelQuantidade.setParent(hboxQtdeAvaliacoes);
+			labelQtdeAvaliacoes.setParent(hboxQtdeAvaliacoes);
+			hboxQtdeAvaliacoes.setParent(vboxAvaliacoes);
 			
-			BigDecimal bigDecimalNegativa1 = new BigDecimal("-10.0");
-			BigDecimal bigDecimalNegativa2 = new BigDecimal("-0.01");
-			
-			BigDecimal bigDecimalNeutra = new BigDecimal("0.00");
-			
-			BigDecimal utilidade;
-			utilidade = valoracao.getGrauUtilidade();
-
-			somaValoracao = somaValoracao + utilidade.doubleValue();
-			
-			if(utilidade.doubleValue() >= bigDecimalNegativa1.doubleValue() && utilidade.doubleValue() <= bigDecimalNegativa2.doubleValue()){
-				negativa++;
+			//media das notas correcao
+			for (Avaliacao avaliacao : itens){
+				somaCorrecao += avaliacao.getNotaCorrecao().doubleValue();
 			}
+			double mediaCorrecao = somaCorrecao/tamanho;
+			labelMediaCorrecaoValor = new Label();
+			labelMediaCorrecaoValor.setValue(fmt.format(mediaCorrecao));
+			labelMediaCorrecaoValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaCorrecao = new Label("Média de correções: ");
+			labelMediaCorrecao.setParent(hboxMediaCorrecao);
+			labelMediaCorrecaoValor.setParent(hboxMediaCorrecao);
+			hboxMediaCorrecao.setParent(vboxAvaliacoes);
 			
-			if(utilidade.doubleValue() == bigDecimalNeutra.doubleValue()){
-				neutra++;
+			//media das notas completude
+			for (Avaliacao avaliacao : itens){
+				somaCompletude += avaliacao.getNotaCompletude().doubleValue();
 			}
+			double mediaCompletude = somaCompletude/tamanho;
+			labelMediaCompletudeValor = new Label();
+			labelMediaCompletudeValor.setValue(fmt.format(mediaCompletude));
+			labelMediaCompletudeValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaCompletude = new Label("Média de completude: ");
+			labelMediaCompletude.setParent(hboxMediaCompletude);
+			labelMediaCompletudeValor.setParent(hboxMediaCompletude);
+			hboxMediaCompletude.setParent(vboxAvaliacoes);
 			
-			if(utilidade.doubleValue() >= bigDecimalPositiva2.doubleValue() && utilidade.doubleValue() <= bigDecimalPositiva1.doubleValue()){
-				positiva++;
+			//media das notas consistencia
+			for (Avaliacao avaliacao : itens){
+				somaConsistencia += avaliacao.getNotaConsistencia().doubleValue();
 			}
-		}
-		Label labelPositivas = new Label("Positivas: ");
-		Label labelNegativas = new Label("Negativas: ");
-		Label labelNeutras = new Label("Neutras: ");
-		Label labelValoracaoMedia = new Label("Valoração Média: ");
-		
-		Hbox hboxPositivas = new Hbox();
-		Hbox hboxNegativas = new Hbox();
-		Hbox hboxNeutras = new Hbox();
-		Hbox hboxValoracaoMedia = new Hbox();
-		
-		if(tamanho != 0){
+			double mediaConsistencia = somaConsistencia/tamanho;
+			labelMediaConsistenciaValor = new Label();
+			labelMediaConsistenciaValor.setValue(fmt.format(mediaConsistencia));
+			labelMediaConsistenciaValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaConsistencia = new Label("Média de consistência: ");
+			labelMediaConsistencia.setParent(hboxMediaConsistencia);
+			labelMediaConsistenciaValor.setParent(hboxMediaConsistencia);
+			hboxMediaConsistencia.setParent(vboxAvaliacoes);
 			
-			DecimalFormat formatador = new DecimalFormat("0.0");
+			//media das notas utilidade
+			for (Avaliacao avaliacao : itens){
+				somaUtilidade += avaliacao.getNotaUtilidade().doubleValue();
+			}
+			double mediaUtilidade = somaUtilidade/tamanho;
+			labelMediaUtilidadeValor = new Label();
+			labelMediaUtilidadeValor.setValue(fmt.format(mediaUtilidade));
+			labelMediaUtilidadeValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaUtilidade = new Label("Média de utilidade: ");
+			labelMediaUtilidade.setParent(hboxMediaUtilidade);
+			labelMediaUtilidadeValor.setParent(hboxMediaUtilidade);
+			hboxMediaUtilidade.setParent(vboxAvaliacoes);
 			
-			//percentual de valorações positivas
-			percentualValoracoesPositivas = new Label();
-			labelPercente = new Label("%");
-			labelPercente.setStyle("font-weight: bold; color: black;");
-			percentualValoracoesPositivas.setValue(formatador.format((positiva/tamanho)*100));
-			percentualValoracoesPositivas.setStyle("font-weight: bold; color: black;");
-			labelPositivas.setParent(hboxPositivas);
-			percentualValoracoesPositivas.setParent(hboxPositivas);
-			labelPercente.setParent(hboxPositivas);
+			//media das notas aplicabilidade
+			for (Avaliacao avaliacao : itens){
+				somaAplicabilidade += avaliacao.getNotaAplicabilidade().doubleValue();
+			}
+			double mediaAplicabilidade = somaAplicabilidade/tamanho;
+			labelMediaAplicabilidadeValor = new Label();
+			labelMediaAplicabilidadeValor.setValue(fmt.format(mediaAplicabilidade));
+			labelMediaAplicabilidadeValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaAplicabilidade = new Label("Média de aplicabilidade: ");
+			labelMediaAplicabilidade.setParent(hboxMediaAplicabilidade);
+			labelMediaAplicabilidadeValor.setParent(hboxMediaAplicabilidade);
+			hboxMediaAplicabilidade.setParent(vboxAvaliacoes);
 			
+			//media total das notas
+			double mediaTotal = (mediaAplicabilidade + mediaUtilidade + mediaCompletude + mediaConsistencia + mediaCorrecao)/5;
+			labelMediaTotalNotas = new Label();
+			labelMediaTotalNotas.setValue(fmt.format(mediaTotal));
+			labelMediaTotalNotas.setStyle("font-weight: bold; color: black;");
+			Label labelMediaTotal = new Label("Média total das notas: ");
+			labelMediaTotal.setParent(hboxMediaTotal);
+			labelMediaTotalNotas.setParent(hboxMediaTotal);
+			hboxMediaTotal.setParent(vboxAvaliacoes);
 			
-			//percentual de valorações negativas
-			percentualValoracoesNegativas = new Label();
-			labelPercente = new Label("%");
-			labelPercente.setStyle("font-weight: bold; color: black;");
-			percentualValoracoesNegativas.setValue(formatador.format((negativa/tamanho)*100));
-			percentualValoracoesNegativas.setStyle("font-weight: bold; color: black;");
-			labelNegativas.setParent(hboxNegativas);
-			percentualValoracoesNegativas.setParent(hboxNegativas);
-			labelPercente.setParent(hboxNegativas);
-			
-			
-			//percentual de valorações neutras
-			percentualValoracoesNeutras = new Label();
-			labelPercente = new Label("%");
-			labelPercente.setStyle("font-weight: bold; color: black;");
-			percentualValoracoesNeutras.setValue(formatador.format((neutra/tamanho)*100));
-			percentualValoracoesNeutras.setStyle("font-weight: bold; color: black;");
-			labelNeutras.setParent(hboxNeutras);
-			percentualValoracoesNeutras.setParent(hboxNeutras);
-			labelPercente.setParent(hboxNeutras);
-			
-			//medias das notas dada na valoração
-			valoracaoMedia = new Label();
-			valoracaoMedia.setValue(formatador.format(somaValoracao/tamanho));
-			valoracaoMedia.setStyle("font-weight: bold; color: black;");
-			labelValoracaoMedia.setParent(hboxValoracaoMedia);
-			valoracaoMedia.setParent(hboxValoracaoMedia);
+			somaCorrecao = 0;
+			somaCompletude = 0;
+			somaConsistencia = 0;
+			somaUtilidade = 0;
+			somaAplicabilidade = 0;
 			
 		}else{
-			percentualValoracoesPositivas = new Label("0");
-			percentualValoracoesPositivas.setStyle("font-weight: bold; color: black;");
-			labelPercente = new Label("%");
-			labelPercente.setStyle("font-weight: bold; color: black;");
-			labelPositivas.setParent(hboxPositivas);
-			percentualValoracoesPositivas.setParent(hboxPositivas);
-			labelPercente.setParent(hboxPositivas);
 			
-			percentualValoracoesNegativas = new Label("0");
-			percentualValoracoesNegativas.setStyle("font-weight: bold; color: black;");
-			labelPercente = new Label("%");
-			labelPercente.setStyle("font-weight: bold; color: black;");
-			labelNegativas.setParent(hboxNegativas);
-			percentualValoracoesNegativas.setParent(hboxNegativas);
-			labelPercente.setParent(hboxNegativas);
+			//quantidade de avaliacoes
+			labelQtdeAvaliacoes = new Label();
+			labelQtdeAvaliacoes.setValue("0");
+			labelQtdeAvaliacoes.setStyle("font-weight: bold; color: black;");
+			Label labelQuantidade = new Label("Quantidade: ");
+			labelQuantidade.setParent(hboxQtdeAvaliacoes);
+			labelQtdeAvaliacoes.setParent(hboxQtdeAvaliacoes);
+			hboxQtdeAvaliacoes.setParent(vboxAvaliacoes);
 			
-			percentualValoracoesNeutras = new Label("0");
-			percentualValoracoesNeutras.setStyle("font-weight: bold; color: black;");
-			labelPercente = new Label("%");
-			labelPercente.setStyle("font-weight: bold; color: black;");
-			labelNeutras.setParent(hboxNeutras);
-			percentualValoracoesNeutras.setParent(hboxNeutras);
-			labelPercente.setParent(hboxNeutras);
+			//media das notas correcao
+			labelMediaCorrecaoValor = new Label();
+			labelMediaCorrecaoValor.setValue("0");
+			labelMediaCorrecaoValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaCorrecao = new Label("Média de correções: ");
+			labelMediaCorrecao.setParent(hboxMediaCorrecao);
+			labelMediaCorrecaoValor.setParent(hboxMediaCorrecao);
+			hboxMediaCorrecao.setParent(vboxAvaliacoes);
 			
-			valoracaoMedia = new Label("0");
-			valoracaoMedia.setStyle("font-weight: bold; color: black;");
-			labelValoracaoMedia.setParent(hboxValoracaoMedia);
-			valoracaoMedia.setParent(hboxValoracaoMedia);
+			//media das notas completude
+			labelMediaCompletudeValor = new Label();
+			labelMediaCompletudeValor.setValue("0");
+			labelMediaCompletudeValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaCompletude = new Label("Média de completude: ");
+			labelMediaCompletude.setParent(hboxMediaCompletude);
+			labelMediaCompletudeValor.setParent(hboxMediaCompletude);
+			hboxMediaCompletude.setParent(vboxAvaliacoes);
+			
+			//media das notas consistencia
+			labelMediaConsistenciaValor = new Label();
+			labelMediaConsistenciaValor.setValue("0");
+			labelMediaConsistenciaValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaConsistencia = new Label("Média de consistência: ");
+			labelMediaConsistencia.setParent(hboxMediaConsistencia);
+			labelMediaConsistenciaValor.setParent(hboxMediaConsistencia);
+			hboxMediaConsistencia.setParent(vboxAvaliacoes);
+			
+			//media das notas utilidade
+			labelMediaUtilidadeValor = new Label();
+			labelMediaUtilidadeValor.setValue("0");
+			labelMediaUtilidadeValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaUtilidade = new Label("Média de utilidade: ");
+			labelMediaUtilidade.setParent(hboxMediaUtilidade);
+			labelMediaUtilidadeValor.setParent(hboxMediaUtilidade);
+			hboxMediaUtilidade.setParent(vboxAvaliacoes);
+			
+			//media das notas aplicabilidade
+			labelMediaAplicabilidadeValor = new Label();
+			labelMediaAplicabilidadeValor.setValue("0");
+			labelMediaAplicabilidadeValor.setStyle("font-weight: bold; color: black;");
+			Label labelMediaAplicabilidade = new Label("Média de aplicabilidade: ");
+			labelMediaAplicabilidade.setParent(hboxMediaAplicabilidade);
+			labelMediaAplicabilidadeValor.setParent(hboxMediaAplicabilidade);
+			hboxMediaAplicabilidade.setParent(vboxAvaliacoes);
+			
+			//media total das notas
+			labelMediaTotalNotas = new Label();
+			labelMediaTotalNotas.setValue("0");
+			labelMediaTotalNotas.setStyle("font-weight: bold; color: black;");
+			Label labelMediaTotal = new Label("Média total das notas: ");
+			labelMediaTotal.setParent(hboxMediaTotal);
+			labelMediaTotalNotas.setParent(hboxMediaTotal);
+			hboxMediaTotal.setParent(vboxAvaliacoes);
 		}
 		
-		hboxQtdeValoracoes.setParent(vboxValoracoes);
-		hboxPositivas.setParent(vboxValoracoes);
-		hboxNegativas.setParent(vboxValoracoes);
-		hboxNeutras.setParent(vboxValoracoes);
-		hboxValoracaoMedia.setParent(vboxValoracoes);
-		vboxValoracoes.setParent(listcellValoracoes);
-		
-		positiva = 0;
-		negativa = 0;
-		neutra = 0;
-		somaValoracao = 0;
+		tamanho = 0;
+		vboxAvaliacoes.setParent(listcellAvaliacoes);
 		
 		//coluna informações
 		Listcell listcellInformacoes = new Listcell();
@@ -291,7 +334,7 @@ public class JanItensAvaliados extends Window {
 		
 		listcellRadio.setParent(listitem);
 		listcellConteudo.setParent(listitem);
-		listcellValoracoes.setParent(listitem);
+		listcellAvaliacoes.setParent(listitem);
 		listcellInformacoes.setParent(listitem);
 		
 		
@@ -321,8 +364,8 @@ public class JanItensAvaliados extends Window {
 		listheaderRadio.setWidth("25px");
 		Listheader listheaderConteudo = new Listheader("Conteúdo");
 		listheaderConteudo.setWidth("185px");
-		Listheader listheaderValoracoes = new Listheader("Valorações");
-		listheaderValoracoes.setWidth("133px");
+		Listheader listheaderValoracoes = new Listheader("Avaliações");
+		listheaderValoracoes.setWidth("183px");
 		Listheader listheaderInformacoes = new Listheader("Informações");
 		listheaderInformacoes.setWidth("100%");
 		

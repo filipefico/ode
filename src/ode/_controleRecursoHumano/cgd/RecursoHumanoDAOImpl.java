@@ -6,6 +6,8 @@ import java.util.List;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cgd.DAOBaseImpl;
+import ode.conhecimento.processo.cdp.KRecurso;
+import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.gerenciaConhecimento.cdp.Avaliacao;
 import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.Tema;
@@ -16,6 +18,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RecursoHumanoDAOImpl extends
 DAOBaseImpl<RecursoHumano> implements RecursoHumanoDAO {
+	
+	public Collection<RecursoHumano> recuperarPorCargo(KRecursoHumano kRecursoHumano){
+		
+		return entityManager.createQuery("from RecursoHumano where cargo = :kRecursoHumano")
+		.setParameter("kRecursoHumano", kRecursoHumano)
+		.getResultList();
+		
+	}
 
 	public Collection<RecursoHumano> recuperarRecursosHumanosAtivos() {
 		return entityManager.createQuery("from RecursoHumano e where e.ativo = true").getResultList();
