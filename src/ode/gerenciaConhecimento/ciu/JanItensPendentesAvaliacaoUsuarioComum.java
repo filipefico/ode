@@ -10,6 +10,7 @@ import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -40,6 +41,8 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 	Listcell listcellDataCriacao;
 	Listcell listcellTipo;
 	
+	Collection<ItemConhecimento> itens;
+	
 	
 	public JanItensPendentesAvaliacaoUsuarioComum(CtrlGerenciaConhecimento ctrl) {
 		// TODO Auto-generated constructor stub
@@ -64,8 +67,14 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
 			
-		labelQtdeItens.setValue("Quantidade de Itens: " + labelQtdeItensValor.getValue());
-		labelQtdeItens.setParent(vbox);
+		Hbox hbox = new Hbox();
+		labelQtdeItensValor.setStyle("font-weight: bold; color: blue");
+		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: ");
+		labelQtdeItensEncontrados.setStyle("font-weight: bold;font-style: italic;");
+		
+		labelQtdeItensEncontrados.setParent(hbox);
+		labelQtdeItensValor.setParent(hbox);
+		hbox.setParent(vbox);
 			
 		//listbox	
 		Listhead colunas = new Listhead();;
@@ -112,6 +121,9 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 					Messagebox messageboxSalvar = new Messagebox();
 					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
 				}else{
+					
+					ctrlGerenciaConhecimento.guardarSessao(JanItensPendentesAvaliacaoUsuarioComum.class.getName(), itens, null);
+					
 					object = listboxQtdeItens.getSelectedItem().getValue();
 					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento((ItemConhecimento)object);
 				}
@@ -148,7 +160,7 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 	public void preencherListboxItensPendentesAvaliacao(){
 		
 		// fiz recuperar todos somente para teste
-		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
+		itens = ctrlGerenciaConhecimento.aplCadastrarItemConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
 		for (ItemConhecimento item : itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
@@ -157,7 +169,7 @@ public class JanItensPendentesAvaliacaoUsuarioComum extends Window {
 		}
 		
 
-		labelQtdeItens.setValue("Quantidade de Itens: " + itens.size());
+		labelQtdeItensValor.setValue(String.valueOf(itens.size()));
 		
 	}
 	

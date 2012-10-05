@@ -9,6 +9,7 @@ import ode._infraestruturaBase.cgd.DAOBase;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.Tema;
 
 public interface ConhecimentoRelativoDiscussaoDAO extends
@@ -37,5 +38,7 @@ DAOBase<ConhecimentoRelativoDiscussao> {
 	public List<ConhecimentoRelativoDiscussao> recuperarOrdenadoPorDataCriacaoMaisRecente();
 
 	public int recuperarQuantidadeTotal();
+	
+	public List<ItemConhecimento> recuperarConhecimentoRelativoDiscussaoDisponiveis();
 
 }

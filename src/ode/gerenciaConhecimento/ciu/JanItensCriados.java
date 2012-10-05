@@ -10,6 +10,7 @@ import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
@@ -40,11 +41,14 @@ public class JanItensCriados extends Window {
 	Listcell listcellStatus;
 	//List<ItemConhecimento> l = new List<ItemConhecimento>();
 
+	Collection<ItemConhecimento> itens;
 	
 	public JanItensCriados(CtrlGerenciaConhecimento ctrl) {
 		// TODO Auto-generated constructor stub
 		
 		ctrlGerenciaConhecimento = ctrl;
+		
+		itens = ctrlGerenciaConhecimento.recuperarItensCriados();
 		
 		criarJanItensCriados();
 		
@@ -58,7 +62,7 @@ public class JanItensCriados extends Window {
 	
 	public void preencherListbox(){
 		// fiz recuperar todos somente para teste
-		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.recuperarItensCriados();
+		
 		for (ItemConhecimento item : itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
@@ -101,9 +105,16 @@ public class JanItensCriados extends Window {
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
 		
-		Label labelQuantidadeItens = new Label("Quantidade de Itens: " + labelQuantidadeItensValor.getValue());
+		Hbox hboxQtdeItensEncontrados = new Hbox();
+		labelQuantidadeItensValor.setValue(String.valueOf(itens.size()));
+		labelQuantidadeItensValor.setStyle("font-weight: bold; color: blue");
+		Label labelQuantidadeItens = new Label("Quantidade de Itens Encontrados: ");
+		labelQuantidadeItens.setStyle("font-weight: bold;font-style: italic;");
 		
-		labelQuantidadeItens.setParent(vbox);
+		labelQuantidadeItens.setParent(hboxQtdeItensEncontrados);
+		labelQuantidadeItensValor.setParent(hboxQtdeItensEncontrados);
+		hboxQtdeItensEncontrados.setParent(vbox);
+
 		
 		listboxItensCriados.setMultiple(false);
 		listboxItensCriados.setCheckmark(true);
@@ -149,6 +160,9 @@ public class JanItensCriados extends Window {
 					Messagebox messageboxInformar = new Messagebox();
 					messageboxInformar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxInformar.INFORMATION);
 				}else{
+					
+					ctrlGerenciaConhecimento.guardarSessao(JanItensCriados.class.getName(), itens, null);
+					
 					Object objeto = new Object();
 					if (listboxItensCriados.getSelectedItem() != null) {
 						objeto =  listboxItensCriados.getSelectedItem().getValue();

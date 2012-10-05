@@ -226,5 +226,15 @@ implements LicaoAprendidaDAO {
 		.getResultList()
 		.size();
 	}
+	
+	public List<ItemConhecimento> recuperarLicoesAprendidasDisponiveis(){
+		
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+		
+		return getEntityManager().createQuery("from LicaoAprendida where estado = :estado")
+		.setParameter("estado", estado)
+		.getResultList();
+		
+	}
 
 }

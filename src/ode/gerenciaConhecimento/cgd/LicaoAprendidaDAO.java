@@ -8,6 +8,7 @@ import java.util.List;
 import ode._infraestruturaBase.cgd.DAOBase;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 
@@ -36,4 +37,6 @@ public interface LicaoAprendidaDAO extends DAOBase<LicaoAprendida> {
 	public List<LicaoAprendida> recuperarOrdenadoPorDataCriacaoMaisRecente();
 	
 	public int recuperarQuantidadeTotal();
+	
+	public List<ItemConhecimento> recuperarLicoesAprendidasDisponiveis();
 }

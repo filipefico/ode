@@ -7,6 +7,7 @@ import java.util.List;
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.util.NucleoContexto;
 import ode.gerenciaConhecimento.cdp.ConhecimentoRelativoDiscussao;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 
 import org.zkoss.zk.ui.Component;
@@ -301,7 +302,16 @@ public class JanPrincipal extends Borderlayout{
 		
 		// Recupera quantidade de membros
 		int qtd = ctrlGerenciaConhecimento.recuperarQuantidadeTotalMembros();
-		criarToolBarButton(vlayout,"Membros da Organização (" + qtd +")","/imagens/kdmconfig.png");
+		Toolbarbutton toolbarbuttonQtdeMembrosOrganizacao = criarToolBarButton(vlayout,"Membros da Organização (" + qtd +")","/imagens/kdmconfig.png");
+		toolbarbuttonQtdeMembrosOrganizacao.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				Collection<RecursoHumano> lista = ctrlGerenciaConhecimento.recuperarRecursosHumanosAtivos();
+				ctrlGerenciaConhecimento.exibirJanelaPaginasAmarelasResultadoPesquisa(lista);
+			}
+		});
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(qtdeMembros);
@@ -319,10 +329,20 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
-		List<LicaoAprendida> licoes = ctrlGerenciaConhecimento.recuperarLicoesOrdenadoPorQuantidadeAcesso();
-		for (LicaoAprendida licao : licoes)
-			criarToolBarButton(vlayout,licao.getTitulo() + " (" + licao.getQuantidadeAcessos() + ")","/imagens/view_detailed.png");
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
+		List<LicaoAprendida> licoes = ctrlGerenciaConhecimento.recuperarLicoesOrdenadoPorQuantidadeAcesso();
+		for (final LicaoAprendida licao : licoes){
+			Toolbarbutton toolbarbuttonLicoesRecentes = criarToolBarButton(vlayout,licao.getTitulo() + " (" + format.format(licao.getDataCriacao()) + ")","/imagens/view_detailed.png");
+			toolbarbuttonLicoesRecentes.addEventListener("onClick", new EventListener() {
+				
+				@Override
+				public void onEvent(Event arg0) throws Exception {
+					// TODO Auto-generated method stub
+					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento(licao);
+				}
+			});
+		}
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(licoesMaisAcessadasPortal);
@@ -340,9 +360,20 @@ public class JanPrincipal extends Borderlayout{
 		Panelchildren painelchildrenParticipacaoPortal = new Panelchildren();
 		Vlayout vlayout = new Vlayout();
 		
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		
 		List<ConhecimentoRelativoDiscussao> itens = ctrlGerenciaConhecimento.recuperarItensDiscussaoOrdenadoPorQuantidadeAcesso();
-		for (ConhecimentoRelativoDiscussao item : itens)
-			criarToolBarButton(vlayout,item.getTitulo() + " (" + item.getQuantidadeAcessos() + ")","/imagens/view_detailed.png");
+		for (final ConhecimentoRelativoDiscussao item : itens){
+			Toolbarbutton toolbarbuttonConhecimentoRecentes = criarToolBarButton(vlayout,item.getTitulo() + " (" + format.format(item.getDataCriacao()) + ")","/imagens/view_detailed.png");
+			toolbarbuttonConhecimentoRecentes.addEventListener("onClick", new EventListener() {
+				
+				@Override
+				public void onEvent(Event arg0) throws Exception {
+					// TODO Auto-generated method stub
+					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento(item);
+				}
+			});
+		}
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(itensMaisAcessadosPortal);
@@ -363,8 +394,17 @@ public class JanPrincipal extends Borderlayout{
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
 		List<LicaoAprendida> licoes = ctrlGerenciaConhecimento.recuperarLicoesOrdenadoPorDataCriacaoMaisRecente();
-		for (LicaoAprendida licao : licoes)
-			criarToolBarButton(vlayout,licao.getTitulo() + " (" + format.format(licao.getDataCriacao()) + ")","/imagens/view_detailed.png");
+		for (final LicaoAprendida licao : licoes){
+			Toolbarbutton toolbarbuttonLicoesRecentes = criarToolBarButton(vlayout,licao.getTitulo() + " (" + format.format(licao.getDataCriacao()) + ")","/imagens/view_detailed.png");
+			toolbarbuttonLicoesRecentes.addEventListener("onClick", new EventListener() {
+				
+				@Override
+				public void onEvent(Event arg0) throws Exception {
+					// TODO Auto-generated method stub
+					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento(licao);
+				}
+			});
+		}
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(licoesMaisRecentes);
@@ -385,8 +425,17 @@ public class JanPrincipal extends Borderlayout{
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		
 		List<ConhecimentoRelativoDiscussao> itens = ctrlGerenciaConhecimento.recuperarItensDiscussaoOrdenadoPorDataCriacaoMaisRecente();
-		for (ConhecimentoRelativoDiscussao item : itens)
-			criarToolBarButton(vlayout,item.getTitulo() + " (" + format.format(item.getDataCriacao()) + ")","/imagens/view_detailed.png");
+		for (final ConhecimentoRelativoDiscussao item : itens){
+			Toolbarbutton toolbarbuttonConhecimentoRecentes = criarToolBarButton(vlayout,item.getTitulo() + " (" + format.format(item.getDataCriacao()) + ")","/imagens/view_detailed.png");
+			toolbarbuttonConhecimentoRecentes.addEventListener("onClick", new EventListener() {
+				
+				@Override
+				public void onEvent(Event arg0) throws Exception {
+					// TODO Auto-generated method stub
+					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento(item);
+				}
+			});
+		}
 		
 	
 		vlayout.setParent(painelchildrenParticipacaoPortal);
@@ -409,8 +458,26 @@ public class JanPrincipal extends Borderlayout{
 		int qtdLicoes = this.ctrlGerenciaConhecimento.recuperarQuantidadeTotalLicoesAprendidas();
 		int qtdItens = this.ctrlGerenciaConhecimento.recuperarQuantidadeTotalItensDiscussao();
 		
-		criarToolBarButton(vlayout,"Lição Aprendida (" + qtdLicoes + ")","/imagens/view_detailed.png");
-		criarToolBarButton(vlayout,"Conhecimentos relativo a uma Discussão (" + qtdItens + ")","/imagens/view_detailed.png");
+		Toolbarbutton toolbarbuttonLicaoAprendida = criarToolBarButton(vlayout,"Lição Aprendida (" + qtdLicoes + ")","/imagens/view_detailed.png");
+		toolbarbuttonLicaoAprendida.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				List<ItemConhecimento> lista = ctrlGerenciaConhecimento.recuperarLicoesAprendidasDisponiveis();
+				ctrlGerenciaConhecimento.exibirJanelaListaBuscarItensConhecimento(lista);
+			}
+		});
+		Toolbarbutton toolbarbuttonConhecimentoRelativoDiscussao = criarToolBarButton(vlayout,"Conhecimentos relativo a uma Discussão (" + qtdItens + ")","/imagens/view_detailed.png");
+		toolbarbuttonConhecimentoRelativoDiscussao.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				List<ItemConhecimento> lista = ctrlGerenciaConhecimento.recuperarConhecimentoRelativoDiscussaoDisponiveis();
+				ctrlGerenciaConhecimento.exibirJanelaListaBuscarItensConhecimento(lista);
+			}
+		});
 		
 		vlayout.setParent(painelchildrenParticipacaoPortal);
 		painelchildrenParticipacaoPortal.setParent(qtdeItensConhecimento);

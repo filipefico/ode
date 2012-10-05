@@ -228,5 +228,14 @@ ConhecimentoRelativoDiscussaoDAO {
 		.getResultList()
 		.size();
 	}
+	
+	public List<ItemConhecimento> recuperarConhecimentoRelativoDiscussaoDisponiveis(){
+		
+		String estado = ItemConhecimento.ESTADO_DISPONIVEL; 
+
+		return getEntityManager().createQuery("from ConhecimentoRelativoDiscussao where estado = :estado")
+		.setParameter("estado", estado)
+		.getResultList();
+	}
 
 }

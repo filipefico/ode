@@ -93,25 +93,45 @@ public class JanAvaliarItemConhecimento extends Window {
 		vboxPrincipal.setWidth("100%");
 		vboxPrincipal.setParent(this);
 		
-		Label labelTitulo = new Label("Título: " + itemConhecimento.getTitulo());
-		labelTitulo.setParent(vboxPrincipal);
+		//titulo
+		Hbox hboxTitulo = new Hbox();
+		Label labelTitulo = new Label("Título: ");
+		Label labelTituloValor = new Label(itemConhecimento.getTitulo());
+		labelTituloValor.setStyle("font-weight: bold; color: black;");
+		labelTitulo.setParent(hboxTitulo);
+		labelTituloValor.setParent(hboxTitulo);
+		hboxTitulo.setParent(vboxPrincipal);
 		
-		Label labelAutor = new Label();
-		labelAutor.setValue("Autor: " + itemConhecimento.getAutor().getNome());
-		labelAutor.setParent(vboxPrincipal);
+		//autor
+		Hbox hboxAutor = new Hbox();
+		Label labelAutor = new Label("Autor: ");
+		Label labelAutorValor = new Label(itemConhecimento.getAutor().getNome());
+		labelAutorValor.setStyle("font-weight: bold; color: black;");
+		labelAutor.setParent(hboxAutor);
+		labelAutorValor.setParent(hboxAutor);
+		hboxAutor.setParent(vboxPrincipal);
 		
 		(new Separator()).setParent(vboxPrincipal);
 		
-		Label labelAvaliador = new Label();
-		labelAvaliador.setValue("Avaliador: " + NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome());
-		labelAvaliador.setParent(vboxPrincipal);
+		//avaliador
+		Hbox hboxAvaliador = new Hbox();
+		Label labelAvaliador = new Label("Avaliador: ");
+		Label labelAvaliadorValor = new Label(NucleoContexto.recuperarUsuarioLogado().getRecursoHumano().getNome());
+		labelAvaliadorValor.setStyle("font-weight: bold; color: black;");
+		labelAvaliador.setParent(hboxAvaliador);
+		labelAvaliadorValor.setParent(hboxAvaliador);
+		hboxAvaliador.setParent(vboxPrincipal);
 		
-		Label labelDataAvaliacao = new Label();
-		//A data é a atual, assim não precisa ser declarada como global
+		//data
+		Hbox hboxData = new Hbox();
 		Date data = new Date();
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		labelDataAvaliacao.setValue("Data da Avaliação: " + formatador.format(data));
-		labelDataAvaliacao.setParent(vboxPrincipal);
+		Label labelDataAvaliacao = new Label("Data da Avaliação: ");
+		Label labelDataAvaliacaoValor = new Label(formatador.format(data));
+		labelDataAvaliacaoValor.setStyle("font-weight: bold; color: black;");
+		labelDataAvaliacao.setParent(hboxData);
+		labelDataAvaliacaoValor.setParent(hboxData);
+		hboxData.setParent(vboxPrincipal);
 		
 		(new Separator()).setParent(vboxPrincipal);
 		

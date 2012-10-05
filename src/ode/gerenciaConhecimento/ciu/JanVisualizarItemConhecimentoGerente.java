@@ -959,7 +959,7 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-
+				ctrlGerenciaConhecimento.voltar();
 			}
 		});
 
@@ -968,7 +968,7 @@ public class JanVisualizarItemConhecimentoGerente extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-
+				ctrlGerenciaConhecimento.exibirJanelaAlterarItemConhecimento(itemConhecimento);
 			}
 		});
 
