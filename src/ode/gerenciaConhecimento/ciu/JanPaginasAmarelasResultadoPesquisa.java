@@ -103,9 +103,15 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
 		
-		Label labelQuantidadePessoas = new Label("Quantidade de Pessoas Encontradas: " + labelQuantidadePessoasValor.getValue());
+		Hbox hboxQtdePessoas = new Hbox();
+		labelQuantidadePessoasValor.setValue(String.valueOf(recursos.size()));
+		labelQuantidadePessoasValor.setStyle("font-weight: bold; color: blue");
+		Label labelQuantidadePessoas = new Label("Quantidade de Pessoas Encontradas: ");
+		labelQuantidadePessoas.setStyle("font-weight: bold;font-style: italic;");
 		
-		labelQuantidadePessoas.setParent(vbox);
+		labelQuantidadePessoas.setParent(hboxQtdePessoas);
+		labelQuantidadePessoasValor.setParent(hboxQtdePessoas);
+		hboxQtdePessoas.setParent(vbox);
 		
 		listboxPessoasEncontradas.setMultiple(true);
 		listboxPessoasEncontradas.setCheckmark(true);
@@ -149,6 +155,8 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 				um perfil (verificar isso)*/
 				int itensSelecionados = listboxPessoasEncontradas.getSelectedCount();
 				
+				ctrlGerenciaConhecimento.guardarSessao(JanPaginasAmarelasResultadoPesquisa.class.getName(), null, recursos);
+				
 				Object object = new Object();
 				if(itensSelecionados == 1){
 					object = listboxPessoasEncontradas.getSelectedItem().getValue();
@@ -170,8 +178,10 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
+				
+				System.out.print("\n\n" + listboxPessoasEncontradas.getSelectedIndex() + "\n\n");
 				if (ctrlGerenciaConhecimento.possuiItemNaSessao()){
-					
+						
 					Set<Listitem> itens = listboxPessoasEncontradas.getSelectedItems();
 					Set<RecursoHumano> avaliadores = new HashSet<RecursoHumano>();
 					for (Listitem item : itens){
@@ -179,8 +189,11 @@ public class JanPaginasAmarelasResultadoPesquisa extends Window {
 					}
 					ctrlGerenciaConhecimento.definirAvaliadores(avaliadores);
 					ctrlGerenciaConhecimento.exibirJanelaItensPendentesAvaliacao();
+					
+					
 				}
 			}
+			
 		});
 
 

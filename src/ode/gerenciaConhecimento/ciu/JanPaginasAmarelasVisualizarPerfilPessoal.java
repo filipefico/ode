@@ -238,7 +238,7 @@ public class JanPaginasAmarelasVisualizarPerfilPessoal extends Window {
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
-
+				ctrlGerenciaConhecimento.voltar();
 			}
 		});
 		

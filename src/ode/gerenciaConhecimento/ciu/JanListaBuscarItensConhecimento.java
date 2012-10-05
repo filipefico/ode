@@ -343,14 +343,21 @@ public class JanListaBuscarItensConhecimento extends Window {
 
 		botaoVisualizar.addEventListener("onClick", new EventListener() {
 
+			
+			
 			@Override
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
+				
+				ctrlGerenciaConhecimento.guardarSessao(JanListaBuscarItensConhecimento.class.getName(), itens, null);
 
 				if(listboxBuscarItensConhecimento.getSelectedIndex() == -1){
 					Messagebox messageboxInformar = new Messagebox();
 					messageboxInformar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxInformar.INFORMATION);
 				}else{
+					
+					
+					
 					Object objeto = new Object();
 					if (listboxBuscarItensConhecimento.getSelectedItem() != null) {
 						objeto =  listboxBuscarItensConhecimento.getSelectedItem().getValue();

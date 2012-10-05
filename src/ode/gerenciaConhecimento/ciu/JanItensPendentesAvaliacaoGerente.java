@@ -34,7 +34,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	CtrlGerenciaConhecimento ctrlGerenciaConhecimento;
 	
 	Label labelQtdeItens = new Label();
-	Label labelQtdeItensValor = new Label("0");
+	Label labelQtdeItensValor = new Label();
 	Listbox listboxQtdeItens = new Listbox();
 	Listitem listitem;
 	Listcell listcellRadio;
@@ -46,6 +46,8 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 	Label labelTipoValor;
 	Listcell listcellAvaliadoresSelecionados;
 	Label labelQtdeAvaliacoesRealizadas = new Label("0");
+	
+	Collection<ItemConhecimento> itens;
 	
 	public JanItensPendentesAvaliacaoGerente(CtrlGerenciaConhecimento ctrl) {
 		// TODO Auto-generated constructor stub
@@ -63,7 +65,16 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
 			
-		labelQtdeItens.setParent(vbox);
+		Hbox hbox = new Hbox();
+		labelQtdeItensValor.setStyle("font-weight: bold; color: blue");
+		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: ");
+		labelQtdeItensEncontrados.setStyle("font-weight: bold;font-style: italic;");
+		
+		labelQtdeItensEncontrados.setParent(hbox);
+		labelQtdeItensValor.setParent(hbox);
+		hbox.setParent(vbox);
+		
+	//	labelQtdeItens.setParent(vbox);
 		
 		//listbox	
 		Listhead colunas = new Listhead();;
@@ -113,6 +124,9 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 					Messagebox messageboxSalvar = new Messagebox();
 					messageboxSalvar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxSalvar.INFORMATION);
 				}else{
+					
+					ctrlGerenciaConhecimento.guardarSessao(JanItensPendentesAvaliacaoGerente.class.getName(), itens, null);
+					
 					object = listboxQtdeItens.getSelectedItem().getValue();
 					ctrlGerenciaConhecimento.exibirJanelaVisualizarItemConhecimento((ItemConhecimento)object);
 				}
@@ -200,8 +214,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 		while (itensList.size()>0)
 			itensList.remove(0);
 		
-		// fiz recuperar todos somente para teste
-		Collection<ItemConhecimento> itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
+		itens = ctrlGerenciaConhecimento.recuperarItensConhecimentoPendentesPorUsuarioAtual();
 		for (ItemConhecimento item : itens){
 			listitem = new Listitem();
 			listitem.setValue(item);
@@ -209,7 +222,7 @@ public class JanItensPendentesAvaliacaoGerente extends Window {
 			listitem.setParent(listboxQtdeItens);
 		}
 		
-		labelQtdeItens.setValue("Quantidade de Itens: " + itens.size());
+		labelQtdeItensValor.setValue(String.valueOf(itens.size()));
 		
 	}
 	

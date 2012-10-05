@@ -309,11 +309,16 @@ public class JanItensValorados extends Window {
 		
 		Vbox vbox = new Vbox();
 		vbox.setWidth("100%");
+		
+		Hbox hbox = new Hbox();
 		labelQtdeItensEncontradosValor.setValue(String.valueOf(itens.size()));
-		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: " + labelQtdeItensEncontradosValor.getValue());
+		labelQtdeItensEncontradosValor.setStyle("font-weight: bold; color: blue");
+		Label labelQtdeItensEncontrados = new Label("Quantidade de Itens Encontrados: ");
 		labelQtdeItensEncontrados.setStyle("font-weight: bold;font-style: italic;");
 		
-		labelQtdeItensEncontrados.setParent(vbox);
+		labelQtdeItensEncontrados.setParent(hbox);
+		labelQtdeItensEncontradosValor.setParent(hbox);
+		hbox.setParent(vbox);
 		
 		//Criar as colunas do Listbox
 		listboxBuscarItensConhecimento.setMultiple(false);
@@ -356,6 +361,9 @@ public class JanItensValorados extends Window {
 					Messagebox messageboxInformar = new Messagebox();
 					messageboxInformar.show("Por favor, selecione um Item de Conhecimento", "Informação", Messagebox.OK, messageboxInformar.INFORMATION);
 				}else{
+					
+					ctrlGerenciaConhecimento.guardarSessao(JanItensValorados.class.getName(), itens, null);
+					
 					Object objeto = new Object();
 					if (listboxBuscarItensConhecimento.getSelectedItem() != null) {
 						objeto =  listboxBuscarItensConhecimento.getSelectedItem().getValue();

@@ -32,6 +32,7 @@ import ode.gerenciaConhecimento.cgt.AplCadastrarTema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zul.Window;
 
 @Controller
 public class CtrlGerenciaConhecimento extends CtrlBase {
@@ -62,6 +63,7 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 	public JanPaginasAmarelasBuscarPessoas janPaginasAmarelasBuscarPessoas;
 	public JanPaginasAmarelasResultadoPesquisa janPaginasAmarelasResultadoPesquisa;
 	public JanPaginasAmarelasVisualizarPerfilPessoal janPaginasAmarelasVisualizarPerfilPessoal;
+	public JanAlterarItemConhecimento janAlterarItemConhecimento;
 
 
 	@Autowired
@@ -287,6 +289,14 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		janP.mostrarJanelaConteudo(janVisualizarItemConhecimentoGerente);
 
 	}
+	
+	public void exibirJanelaAlterarItemConhecimento(ItemConhecimento itemConhecimento){
+
+		janAlterarItemConhecimento = new JanAlterarItemConhecimento(this,itemConhecimento);
+
+		janP.mostrarJanelaConteudo(janAlterarItemConhecimento);
+
+	}
 
 	public void exibirJanelaListaBuscarItensConhecimento(List<ItemConhecimento> itens){
 
@@ -425,6 +435,8 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		retirarItemConhecimento();
 	}
 	
+	
+	
 	public void retirarItemConhecimento(){
 		if (possuiItemNaSessao()){
 			// Retira o item de conhecimento na sessao para selecionar seus avaliadores
@@ -477,4 +489,83 @@ public class CtrlGerenciaConhecimento extends CtrlBase {
 		return this.aplCadastrarItemConhecimento.recuperarItensValoradosPorUsuarioAtual(rh);
 		
 	}
+	
+	public List<ItemConhecimento> recuperarLicoesAprendidasDisponiveis(){
+		return this.aplCadastrarLicaoAprendida.recuperarLicoesAprendidasDisponiveis();
+	}
+	
+	public List<ItemConhecimento> recuperarConhecimentoRelativoDiscussaoDisponiveis(){
+		return this.aplCadastrarConhecimentoRelativoDiscussao.recuperarConhecimentoRelativoDiscussaoDisponiveis();
+	}
+	
+	public void voltar(){
+
+		String stringUltimaJanela = (String) Sessions.getCurrent().getAttribute("ULTIMA_JANELA");
+		
+		if (stringUltimaJanela.compareTo(JanListaBuscarItensConhecimento.class.getName()) == 0) {
+		            
+			List<ItemConhecimento> ultimaLista = (List<ItemConhecimento>) Sessions.getCurrent().getAttribute("JANELA_LISTA_BUSCAR");
+			if(ultimaLista != null)
+				exibirJanelaListaBuscarItensConhecimento(ultimaLista);
+
+		}
+		
+		if (stringUltimaJanela.compareTo(JanPaginasAmarelasResultadoPesquisa.class.getName()) == 0) {
+            
+			Collection<RecursoHumano> ultimaLista = (Collection<RecursoHumano>) Sessions.getCurrent().getAttribute("JANELA_PAG_AMA_RESULTADO_PESQUISA");
+			if(ultimaLista != null)	
+				exibirJanelaPaginasAmarelasResultadoPesquisa(ultimaLista);
+
+		}
+		
+		if (stringUltimaJanela.compareTo(JanItensCriados.class.getName()) == 0) {
+            
+			List<ItemConhecimento> ultimaLista = (List<ItemConhecimento>) Sessions.getCurrent().getAttribute("JANELA_LISTA_BUSCAR");
+			if(ultimaLista != null)	
+				exibirJanelaItensCriados();
+
+		}
+		
+		if (stringUltimaJanela.compareTo(JanItensValorados.class.getName()) == 0) {
+            
+			Collection<ItemConhecimento> ultimaLista = (Collection<ItemConhecimento>) Sessions.getCurrent().getAttribute("JANELA_LISTA_BUSCAR");
+			if(ultimaLista != null)	
+				exibirJanelaItensValorados();
+
+		}
+		
+		if (stringUltimaJanela.compareTo(JanItensAvaliados.class.getName()) == 0) {
+            
+			Collection<ItemConhecimento> ultimaLista = (Collection<ItemConhecimento>) Sessions.getCurrent().getAttribute("JANELA_LISTA_BUSCAR");
+			if(ultimaLista != null)	
+				exibirJanelaItensAvaliados();
+
+		}
+		
+		if (stringUltimaJanela.compareTo(JanItensPendentesAvaliacaoGerente.class.getName()) == 0) {
+            
+			Collection<ItemConhecimento> ultimaLista = (Collection<ItemConhecimento>) Sessions.getCurrent().getAttribute("JANELA_LISTA_BUSCAR");
+			if(ultimaLista != null)	
+				exibirJanelaItensPendentesAvaliacao();
+
+		}
+		
+		if (stringUltimaJanela.compareTo(JanItensPendentesAvaliacaoUsuarioComum.class.getName()) == 0) {
+            
+			Collection<ItemConhecimento> ultimaLista = (Collection<ItemConhecimento>) Sessions.getCurrent().getAttribute("JANELA_LISTA_BUSCAR");
+			if(ultimaLista != null)	
+				exibirJanelaItensPendentesAvaliacao();
+
+		}
+		
+		
+	}
+	
+	public void guardarSessao(String jan, Collection<ItemConhecimento> itensJanListaBuscar, Collection<RecursoHumano> recursosJanResultadoPagAma){
+		Sessions.getCurrent().setAttribute("ULTIMA_JANELA", jan);
+		Sessions.getCurrent().setAttribute("JANELA_LISTA_BUSCAR", itensJanListaBuscar);
+		Sessions.getCurrent().setAttribute("JANELA_PAG_AMA_RESULTADO_PESQUISA", recursosJanResultadoPagAma);
+		
+	}
+	
 }

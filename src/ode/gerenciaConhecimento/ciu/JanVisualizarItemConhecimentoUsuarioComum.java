@@ -949,8 +949,7 @@ public class JanVisualizarItemConhecimentoUsuarioComum extends Window {
 			public void onEvent(Event arg0) throws Exception {
 				// TODO Auto-generated method stub
 				
-				//o ideal eh voltar para a pesquisa anterior
-				ctrlGerenciaConhecimento.exibirJanelaBuscarItensConhecimento();
+				ctrlGerenciaConhecimento.voltar();
 			
 			}
 		});

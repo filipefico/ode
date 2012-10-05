@@ -11,6 +11,7 @@ import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.controleProjeto.cdp.Projeto;
+import ode.gerenciaConhecimento.cdp.ItemConhecimento;
 import ode.gerenciaConhecimento.cdp.LicaoAprendida;
 import ode.gerenciaConhecimento.cdp.Tema;
 import ode.gerenciaConhecimento.cgd.LicaoAprendidaDAO;
@@ -86,6 +87,10 @@ public class AplCadastrarLicaoAprendida extends AplCRUD<LicaoAprendida> {
 
 	public int recuperarQuantidadeTotal(){
 		return this.licaoAprendidaDAO.recuperarQuantidadeTotal();
+	}
+	
+	public List<ItemConhecimento> recuperarLicoesAprendidasDisponiveis(){
+		return this.licaoAprendidaDAO.recuperarLicoesAprendidasDisponiveis();
 	}
 
 }
