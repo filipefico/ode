@@ -9,6 +9,7 @@ import ode._controleRecursoHumano.ciu.CtrlDefinirEquipe;
 import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
 import ode.alocacaoRecurso.ciu.CtrlAlocacaoRecurso;
 import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
+import ode.caracterizacaoBusca.ciu.CtrlCaracterizarProjeto;
 import ode.conhecimento.organizacao.ciu.CtrlKCompetenciaCRUD;
 import ode.conhecimento.processo.ciu.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKArtefatoCRUD;
@@ -90,8 +91,10 @@ public static List<Funcionalidade> obterFuncionalidades() {
 		funcionalidades.add(criar("Projeto").permitir(PerfilAcesso.Desenvolvedor)
 			.addSubfuncionalidade(criar("Selecionar Projeto").setCtrl(CtrlSelecionarProjeto.class).permitir(PerfilAcesso.Desenvolvedor))
 			.addSubfuncionalidade(criar("Cadastrar Projeto").setCtrl(CtrlProjetoCRUD.class))
+			.addSubfuncionalidade(criar("Caracterizar Projeto").setCtrl(CtrlCaracterizarProjeto.class).setDisponivelApenasParaProjetosAbertos(true))
 			.addSubfuncionalidade(criar("Definir Equipe (Versão Simplificada)").setCtrl(CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
 			.addSubfuncionalidade(criar("Definir Equipe (Versão Completa)").setCtrl(ode.atuacaoRecursoHumano.ciu.CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
+			
 		);
 		
 		funcionalidades.add(criar("Administração")
