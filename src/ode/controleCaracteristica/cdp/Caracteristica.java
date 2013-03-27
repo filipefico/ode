@@ -85,4 +85,8 @@ abstract public class Caracteristica extends ObjetoPersistente {
 		public void addEnumTIS(Set<EnumTipoItemSoftware> setPV){
 			this.aplicabilidades.addAll(setPV);
 		}
+		
+		public String toString() {
+			return this.nome;
+		}
 }
