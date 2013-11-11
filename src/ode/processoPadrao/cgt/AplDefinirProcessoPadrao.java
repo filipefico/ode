@@ -2,6 +2,8 @@ package ode.processoPadrao.cgt;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import ode._infraestruturaBase.excecao.NucleoExcecao;
 import ode.conhecimento.processo.cdp.KArtefato;
@@ -9,7 +11,9 @@ import ode.conhecimento.processo.cdp.KAtividade;
 import ode.conhecimento.processo.cdp.KFerramentaSoftware;
 import ode.conhecimento.processo.cdp.KMetodo;
 import ode.conhecimento.processo.cdp.KNorma;
+import ode.conhecimento.processo.cdp.KProcedimento;
 import ode.conhecimento.processo.cdp.KProcesso;
+import ode.conhecimento.processo.cdp.KRecurso;
 import ode.conhecimento.processo.cdp.KRecursoHardware;
 import ode.conhecimento.processo.cdp.KRecursoHumano;
 import ode.conhecimento.processo.cdp.KRoteiro;
@@ -24,14 +28,18 @@ import ode.conhecimento.processo.cgd.KRecursoHardwareDAO;
 import ode.conhecimento.processo.cgd.KRecursoHumanoDAO;
 import ode.conhecimento.processo.cgd.KRoteiroDAO;
 import ode.conhecimento.processo.cgd.KTecnicaDAO;
+import ode.processoPadrao.cdp.AtividadeProcessoPadrao;
 import ode.processoPadrao.cdp.CompPP;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
 import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 import ode.processoPadrao.cdp.CompPPProcessoSimples;
+import ode.processoPadrao.cdp.DependenciaMacroAtividades;
+import ode.processoPadrao.cgd.AtividadeProcessoPadraoDAO;
 import ode.processoPadrao.cgd.CompPPDAO;
 import ode.processoPadrao.cgd.CompPPMacroatividadeDAO;
 import ode.processoPadrao.cgd.CompPPProcessoComplexoDAO;
 import ode.processoPadrao.cgd.CompPPProcessoSimplesDAO;
+import ode.processoPadrao.cgd.DependenciaMacroAtividadeDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("AplDefinirProcessoPadrao")
 @Transactional(rollbackFor = NucleoExcecao.class)
-public class AplDefinirProcessoPadrao{
+public class AplDefinirProcessoPadrao {
 
 
 	/**
@@ -48,6 +56,8 @@ public class AplDefinirProcessoPadrao{
 	private static final long serialVersionUID = -1948518281239702220L;
 	@Autowired
 	private CompPPDAO compPPDAO;
+	@Autowired
+	private AtividadeProcessoPadraoDAO atividadeProcessoPadraoDAO;
 	@Autowired
 	private KProcessoDAO kProcessoDAO;
 	@Autowired
@@ -69,9 +79,14 @@ public class AplDefinirProcessoPadrao{
 	private KRoteiroDAO kRoteiroDAO;
 	@Autowired
 	private KTecnicaDAO kTecnicaDAO;
+	@Autowired
+	private DependenciaMacroAtividadeDAO dependenciaMacroDAO;
 
-	public CompPPProcessoComplexo salvarProcessoComplexo(String nome,
-			String descricao, String objetivo, String requisitos) {
+	
+	// Processo Complexo:
+	
+	public CompPPProcessoComplexo salvarProcessoComplexo(String nome, String descricao, String objetivo, String requisitos) {
+		
 		CompPPProcessoComplexo compPPcomplexo = new CompPPProcessoComplexo();
 		compPPcomplexo.setNome(nome);
 		compPPcomplexo.setDescricao(descricao);
@@ -82,53 +97,158 @@ public class AplDefinirProcessoPadrao{
 		return compPPcomplexo;
 	}
 
+	// Processo Simples:
+	
+	public CompPPProcessoSimples salvarProcessoSimples(String nome, String descricao, String objetivo, String requisitos, Object objTipo, boolean ehEngenharia) {
+		
+		CompPPProcessoSimples compPPsimples = new CompPPProcessoSimples();
+
+		compPPsimples.setNome(nome);
+		compPPsimples.setDescricao(descricao);
+		compPPsimples.setObjetivo(objetivo);
+		//compPPsimples.getAtividadeProcessoPadrao().setNome(nome);
+		compPPsimples.setRequisitoCompPP(requisitos);
+		compPPsimples.setTipo(null);
+		compPPsimples.setEngenharia(ehEngenharia);
+		
+		compPPDAO.salvar(compPPsimples);
+
+		compPPsimples.setTipo(kProcessoDAO.recuperarPorId(((KProcesso) objTipo).getId()));
+		//compPPsimples.getAtividadeProcessoPadrao().setTipo(kAtividadeDAO.recuperarPorId(((KAtividade) objTipo).getId()));
+		
+		return (CompPPProcessoSimples) compPPDAO.atualizar(compPPsimples);
+
+	}
+
+	
+	// Processo de Macroatividade:
+	
+	public CompPPMacroatividade salvarMacroatividade(String nome, String descricao, String objetivo, String requisitos, Object objTipo) {
+		
+		AtividadeProcessoPadrao atividadePadrao = (AtividadeProcessoPadrao) objTipo;
+		CompPPMacroatividade compPPMacroatividade = new CompPPMacroatividade();
+		compPPMacroatividade.setNome(nome);
+		compPPMacroatividade.setDescricao(descricao);
+		compPPMacroatividade.setObjetivo(objetivo);
+		//compPPMacroatividade.getAtividadeProcessoPadrao().setNome(nome);
+		compPPMacroatividade.setRequisitoCompPP(requisitos);
+
+		compPPDAO.salvar(compPPMacroatividade);
+
+		if(atividadePadrao.getTipo() != null){
+			compPPMacroatividade.setTipo(kAtividadeDAO.recuperarPorId((atividadePadrao.getTipo()).getId()));
+		}
+		
+		compPPMacroatividade.setAtividadeProcessoPadrao(atividadePadrao);
+		//compPPMacroatividade.getAtividadeProcessoPadrao().setTipo(kAtividadeDAO.recuperarPorId(((KAtividade) objTipo).getId()));
+		
+		return (CompPPMacroatividade) compPPDAO.atualizar(compPPMacroatividade);
+	}
+	
+	// Atividade Padrão
+	
+	public AtividadeProcessoPadrao criarAtividadePadrao(String nome, String descricao, KAtividade tipoKAtividade, boolean ehMarco){
+		
+		AtividadeProcessoPadrao Atv = new AtividadeProcessoPadrao();
+		Atv.setNome(new String(nome));
+		Atv.setDescricao(new String(descricao));
+		Atv.setEhMarco(ehMarco);		
+		
+		// KProcedimento
+		for(KProcedimento kProcedimento : tipoKAtividade.getProcedimentos()){
+			if(kProcedimento instanceof KNorma){
+				Atv.getProcedimentoNorma().add((KNorma) kProcedimento);
+			}else
+				if(kProcedimento instanceof KMetodo){
+					Atv.getProcedimentoMetodo().add(((KMetodo) kProcedimento));
+				}else
+					if(kProcedimento instanceof KRoteiro){
+						Atv.getProcedimentoRoteiro().add(((KRoteiro) kProcedimento));
+					}else
+						if(kProcedimento instanceof KTecnica){
+								Atv.getProcedimentoTecnica().add(((KTecnica) kProcedimento));
+						}
+		}
+		
+		// KRecurso
+		for(KRecurso kRecurso : tipoKAtividade.getRecursos()){
+			if(kRecurso instanceof KRecursoHardware){
+				Atv.getRecursoHardware().add(((KRecursoHardware) kRecurso));
+			}else
+				if(kRecurso instanceof KRecursoHumano){
+					Atv.getRecursoHumano().add(((KRecursoHumano) kRecurso));
+				}else
+					if(kRecurso instanceof KFerramentaSoftware){
+						Atv.getFerramentaSoftware().add(((KFerramentaSoftware) kRecurso));
+					}
+		}
+		
+		// KArtefato
+		for(KArtefato kArtefato : tipoKAtividade.getInsumos()){
+			Atv.getInsumos().add(kArtefato);
+		}
+		
+		for(KArtefato kArtefato : tipoKAtividade.getProdutos()){
+			Atv.getProdutos().add(kArtefato);
+		}
+		
+		// Sub e Pre-Atividades por recursão:
+		for(KAtividade kAtividade : tipoKAtividade.getSubAtividades()){
+			long id = existeAtividadePadraoBanco(kAtividade);
+			if(id == 0){
+				Atv.getSubAtividades().add(criarAtividadePadrao(kAtividade.getNome(), kAtividade.getDescricao(), kAtividade, false));
+			}else{
+				Atv.getSubAtividades().add(atividadeProcessoPadraoDAO.recuperarPorId((long)id));
+			}
+		}
+		
+		for(KAtividade kAtividade : tipoKAtividade.getPreAtividades()){
+			long id = existeAtividadePadraoBanco(kAtividade);
+			if(id == 0){
+				Atv.getPreAtividades().add(criarAtividadePadrao(kAtividade.getNome(), kAtividade.getDescricao(), kAtividade, false));
+			}else{
+				Atv.getPreAtividades().add(atividadeProcessoPadraoDAO.recuperarPorId((long)id));
+			}
+		}
+		
+		atividadeProcessoPadraoDAO.salvar(Atv);
+		Atv.setTipo(kAtividadeDAO.recuperarPorId(tipoKAtividade.getId()));
+		
+		return (AtividadeProcessoPadrao) atividadeProcessoPadraoDAO.atualizar(Atv);
+	}
+	
+	public long existeAtividadePadraoBanco(KAtividade kAtividade){
+		
+		if(kAtividade != null){		
+			for(AtividadeProcessoPadrao Atv : atividadeProcessoPadraoDAO.recuperarTodos()){
+				if(Atv != null){
+					if(Atv.getTipo() != null){
+						if(Atv.getTipo().getNome().compareTo(kAtividade.getNome()) == 0){
+							return Atv.getId();
+						}
+					}
+				}
+			}
+		}
+		
+		return 0;
+	}
+	
 	public void salvarCompPP(CompPP compPP) {
 		compPPDAO.salvar(compPP);
 	}
 
+	public void salvarDependencia(DependenciaMacroAtividades dependencia) {
+		dependenciaMacroDAO.salvar(dependencia);
+		
+	}
+	
 	public CompPP atualizarCompPP(CompPP compPP) {
 		return compPPDAO.atualizar(compPP);
 	}
 
 	public void excluirCompPP(CompPP compPP) {
 		compPPDAO.excluir(compPP);
-	}
-
-	public CompPPProcessoSimples salvarProcessoSimples(String nome,
-			String descricao, String objetivo, String requisitos, Object objTipo) {
-		CompPPProcessoSimples compPPsimples = new CompPPProcessoSimples();
-
-		compPPsimples.setNome(nome);
-		compPPsimples.setDescricao(descricao);
-		compPPsimples.setObjetivo(objetivo);
-		compPPsimples.setRequisitoCompPP(requisitos);
-		compPPsimples.setTipo(null);
-		compPPDAO.salvar(compPPsimples);
-
-		compPPsimples.setTipo(kProcessoDAO.recuperarPorId(((KProcesso) objTipo)
-				.getId()));
-		return (CompPPProcessoSimples) compPPDAO.atualizar(compPPsimples);
-
-	}
-
-	public CompPPMacroatividade salvarMacroatividade(String nome,
-			String descricao, String objetivo, String requisitos, Object objTipo) {
-		CompPPMacroatividade compPPMacroatividade = new CompPPMacroatividade();
-
-		compPPMacroatividade.setNome(nome);
-		compPPMacroatividade.setDescricao(descricao);
-		compPPMacroatividade.setObjetivo(objetivo);
-		compPPMacroatividade.getAtividadeProcessoPadrao().setNome(nome);
-		compPPMacroatividade.setRequisitoCompPP(requisitos);
-
-		compPPDAO.salvar(compPPMacroatividade);
-
-		compPPMacroatividade.setTipo(kAtividadeDAO
-				.recuperarPorId(((KAtividade) objTipo).getId()));
-
-		compPPMacroatividade.getAtividadeProcessoPadrao().setTipo(
-				kAtividadeDAO.recuperarPorId(((KAtividade) objTipo).getId()));
-		return (CompPPMacroatividade) compPPDAO.atualizar(compPPMacroatividade);
 	}
 
 	public Collection<CompPP> recuperarTodosCompPP() {
@@ -144,14 +264,14 @@ public class AplDefinirProcessoPadrao{
 	@Autowired
 	CompPPProcessoComplexoDAO compPPProcessoComplexoDAO;
 
-	public Collection<CompPPProcessoComplexo> getAllCompPPProessoComplexo() {
+	public Collection<CompPPProcessoComplexo> getAllCompPPProcessoComplexo() {
 		return compPPProcessoComplexoDAO.recuperarTodos();
 	}
 
 	@Autowired
 	CompPPProcessoSimplesDAO compPPProcessoSimplesDAO;
 
-	public Collection<CompPPProcessoSimples> getAllCompPPProessoSimples() {
+	public Collection<CompPPProcessoSimples> getAllCompPPProcessoSimples() {
 		return compPPProcessoSimplesDAO.recuperarTodos();
 	}
 
@@ -161,7 +281,11 @@ public class AplDefinirProcessoPadrao{
 	public Collection<CompPPMacroatividade> getAllCompPPMacroAtividade() {
 		return compPPMacroatividadeDAO.recuperarTodos();
 	}
-
+	
+	public Collection<AtividadeProcessoPadrao> getAllAtividadeProcessoPadrao(){
+		return atividadeProcessoPadraoDAO.recuperarTodos();
+	}
+	
 	public Collection<KProcesso> getAllKProcesso() {
 		return kProcessoDAO.recuperarTodos();
 	}
@@ -221,5 +345,7 @@ public class AplDefinirProcessoPadrao{
 	public Collection recuperarTodosCompPPFinalizados(Class compPP) {
 		return compPPDAO.recuperarTodosFinalizados(compPP);
 	}
+
+
 
 }

@@ -20,8 +20,8 @@ public class CompPPDAOImpl extends DAOBaseImpl<CompPP> implements CompPPDAO {
 	public CompPP obterPorNome(String parNome) {
 
 		List locProc = getEntityManager().createQuery(
-				"from " + CompPPProcessoComplexo.class.getName()
-						+ " as proc where proc.nome = '" + parNome + "'")
+				"from " + CompPPProcessoComplexo.class.getName() + " as proc "
+				+ " where proc.nome = '" + parNome + "'")
 				.getResultList();
 
 		if (locProc.isEmpty())
@@ -38,14 +38,14 @@ public class CompPPDAOImpl extends DAOBaseImpl<CompPP> implements CompPPDAO {
 				|| compPP.equals(CompPPMacroatividade.class)) {
 
 			return getEntityManager().createQuery(
-					"from " + compPP.getName()
-							+ " as comp where comp.definicaoConcluida = true")
+					"from " + compPP.getName() + " as comp "
+							+ " where comp.definicaoConcluida = true")
 					.getResultList();
 
 		} else {
 			throw new RuntimeErrorException(
 					null,
-					"Tipo compativel. Por favor decida entre CompPP Complexo, simples ou macroatividade.");
+					"Tipo incompativel. Por favor decida entre CompPP Complexo, simples ou macroatividade.");
 		}
 	}
 }

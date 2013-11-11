@@ -14,5 +14,6 @@ public class KTipoInteracao extends Conhecimento{
 	public static final String SOB_DEMANDA = "Sob-Demanda";
 	
 	public KTipoInteracao() {}
+	
 
 }

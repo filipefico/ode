@@ -9,8 +9,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import org.codehaus.groovy.reflection.handlegen;
 
 import ode.conhecimento.principal.cdp.Conhecimento;
 
@@ -57,6 +60,13 @@ public class KAtividade extends Conhecimento {
     
     /**Construtor. */
     public KAtividade() {
+    	kProcedimentos = new HashSet<KProcedimento>();
+    	kRecursos = new HashSet<KRecurso>();
+    	insumos = new HashSet<KArtefato>();
+    	produtos = new HashSet<KArtefato>();
+    	preKAtividades = new HashSet<KAtividade>();
+    	subKAtividades = new HashSet<KAtividade>();
+    	
     }
     
     
@@ -64,8 +74,8 @@ public class KAtividade extends Conhecimento {
     /** Obtém o Conhecimento Atividade base.### conferir cardinalidades
      *
      */
-    @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = KAtividade.class,fetch=FetchType.LAZY)
-    @JoinColumn(nullable=true)    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(nullable=true)
     public KAtividade getKAtividadeBase() {
         return kAtividadeBase;
     }
@@ -108,7 +118,8 @@ public class KAtividade extends Conhecimento {
     //////////////// ATIVIDADES ///////////////////
     
 
-    @ManyToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = KAtividade.class,fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name = "katividade_preatividade")
     public Set<KAtividade> getPreAtividades() {
         return preKAtividades;
     }
@@ -119,7 +130,8 @@ public class KAtividade extends Conhecimento {
     }
     
 
-    @ManyToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = KAtividade.class,fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name = "katividade_subatividade")
     public Set<KAtividade> getSubAtividades() {
         return subKAtividades;
     }
@@ -132,7 +144,7 @@ public class KAtividade extends Conhecimento {
     
     /** Obtém o Processo do Conhecimento Atividade.
      */
-    @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = KProcesso.class)
+    @ManyToOne
     public KProcesso getKProcesso(){
         return kProcesso;
     }
@@ -187,7 +199,7 @@ public class KAtividade extends Conhecimento {
     /** Obtém os recursos do Conhecimento Atividade.
      *
      */
-    @ManyToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = KRecurso.class,fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
     public Set<KRecurso> getRecursos() {
         return kRecursos;
     }
@@ -247,7 +259,7 @@ public class KAtividade extends Conhecimento {
     //////////////////// PROCEDIMENTOS ///////////////////////
     
     /** Obtém os procedimentos do Conhecimento Atividade. */
-    @ManyToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = KProcedimento.class,fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
     public Set<KProcedimento> getProcedimentos() {
         return kProcedimentos;
     }
@@ -318,7 +330,8 @@ public class KAtividade extends Conhecimento {
     
     /////////////////// ARTEFATOS - PRODUTOS ///////////////////
     /** Obtém os produtos do Conhecimento Atividade.    */
-    @ManyToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = KArtefato.class,fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name = "katividade_produto")
     public Set<KArtefato> getProdutos() {
         return produtos;
     }
@@ -346,7 +359,8 @@ public class KAtividade extends Conhecimento {
     
     /////////////////// ARTEFATOS - INSUMOS ///////////////////
     /** Obtém os insumos do Conhecimento Atividade.    */
-    @ManyToMany(cascade = javax.persistence.CascadeType.ALL, targetEntity = KArtefato.class,fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name = "katividade_insumo")
     public Set<KArtefato> getInsumos() {
         return insumos;
     }
@@ -370,5 +384,6 @@ public class KAtividade extends Conhecimento {
     public boolean isKInsumo(KArtefato parKArtefato) {
         return insumos.contains(parKArtefato);
     }
+    
 	
 }

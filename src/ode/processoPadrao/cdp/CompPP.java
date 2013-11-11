@@ -21,9 +21,14 @@ public abstract class CompPP extends ObjetoPersistente implements Cloneable {
 	private String requisitoCompPP = "";
 
 	private CompPP compPPBase;
-
+	
 	private InterfaceCompPP interfaceCompPP;
 
+	
+	
+	
+	// Metodos:
+	
 	public CompPP() {
 		interfaceCompPP = new InterfaceCompPP();
 		interfaceCompPP.setCompPP(this);
@@ -83,8 +88,7 @@ public abstract class CompPP extends ObjetoPersistente implements Cloneable {
 		return requisitoCompPP;
 	}
 
-	// @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity =
-	// CompPP.class)
+	// @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity = CompPP.class)
 	@ManyToOne(cascade = { javax.persistence.CascadeType.ALL }, targetEntity = CompPP.class)
 	public CompPP getCompPPBase() {
 		return compPPBase;
@@ -105,24 +109,21 @@ public abstract class CompPP extends ObjetoPersistente implements Cloneable {
 
 	@Override
 	protected CompPP clone() throws CloneNotSupportedException {
-		CompPP retorno = null;
+		CompPP copia = null;
 		try {
 
-			retorno = this.getClass().newInstance(); // cria uma instancia da
-														// classe que associada.
-			retorno.setCompPPBase(this);
-			retorno.setNome(new String(this.getNome()));
-			retorno.setDescricao(new String(this.getDescricao()));
-			retorno.setObjetivo(new String(this.getObjetivo()));
-			retorno.setRequisitoCompPP(new String(this.getRequisitoCompPP()));
-			retorno.definicaoConcluida = false;
+			copia = this.getClass().newInstance(); // cria uma instancia da classe associada.
+			copia.setCompPPBase(this);
+			copia.setInterfaceCompPP(this.getInterfaceCompPP().clone());
+			copia.setRequisitoCompPP(new String(this.getRequisitoCompPP()));
+			copia.definicaoConcluida = false;
 
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		return retorno;
+		return copia;
 	}
 
 }

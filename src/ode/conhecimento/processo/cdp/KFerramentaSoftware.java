@@ -24,5 +24,6 @@ public class KFerramentaSoftware extends KRecurso {
 		// TODO Auto-generated method stub
 		return super.getNome();
 	}
+	
     
 }

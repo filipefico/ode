@@ -1,5 +1,8 @@
 package ode.processoPadrao.cdp;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,8 +21,7 @@ public class InterfaceCompPP extends ObjetoPersistente {
 
 	EstruturaCompPP estruturaCompPP;
 
-	public InterfaceCompPP(String nome, String objetivo, String descricao,
-			CompPP compPP) {
+	public InterfaceCompPP(String nome, String objetivo, String descricao,	CompPP compPP) {
 		this.nome = nome;
 		this.objetivo = objetivo;
 		this.descricao = descricao;
@@ -33,8 +35,7 @@ public class InterfaceCompPP extends ObjetoPersistente {
 
 	// @ManyToOne(cascade = javax.persistence.CascadeType.ALL, targetEntity =
 	// CompPP.class)
-	@OneToOne(cascade = { javax.persistence.CascadeType.MERGE,
-			javax.persistence.CascadeType.PERSIST })
+	@OneToOne(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST })
 	public CompPP getCompPP() {
 		return compPP;
 	}
@@ -82,14 +83,26 @@ public class InterfaceCompPP extends ObjetoPersistente {
 		this.objetivo = objetivo;
 	}
 
-	@OneToOne(cascade = { javax.persistence.CascadeType.MERGE,
-			javax.persistence.CascadeType.PERSIST }, targetEntity = EstruturaCompPP.class, fetch = FetchType.EAGER, optional = true)
+	@OneToOne(cascade = { javax.persistence.CascadeType.MERGE,javax.persistence.CascadeType.PERSIST }, targetEntity = EstruturaCompPP.class, fetch = FetchType.EAGER, optional = true)
 	public EstruturaCompPP getEstruturaCompPP() {
 		return estruturaCompPP;
 	}
 
 	public void setEstruturaCompPP(EstruturaCompPP estruturaCompPP) {
 		this.estruturaCompPP = estruturaCompPP;
+	}
+	
+	@Override
+	public InterfaceCompPP clone() throws CloneNotSupportedException {
+		InterfaceCompPP copia = new InterfaceCompPP();
+		
+		copia.setNome(new String(this.getNome().toString()));
+		copia.setDescricao(new String(this.getDescricao().toString()));
+		copia.setObjetivo(new String(this.getObjetivo()).toString());
+		copia.setCompPP(this.getCompPP()); // Não vejo necessidade de copiar esse CompPP, 2 CompPPs podem ter a mesma interface
+		copia.setEstruturaCompPP(this.getEstruturaCompPP().clone());
+					
+		return copia;
 	}
 
 }

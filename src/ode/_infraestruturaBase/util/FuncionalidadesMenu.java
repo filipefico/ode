@@ -9,7 +9,7 @@ import ode._controleRecursoHumano.ciu.CtrlDefinirEquipe;
 import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
 import ode.alocacaoRecurso.ciu.CtrlAlocacaoRecurso;
 import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
-import ode.caracterizacaoBusca.ciu.CtrlCaracterizarProjeto;
+//import ode.caracterizacaoBusca.ciu.CtrlCaracterizarProjeto;
 import ode.conhecimento.organizacao.ciu.CtrlKCompetenciaCRUD;
 import ode.conhecimento.processo.ciu.CrtlTipoKArtefatoCRUD;
 import ode.conhecimento.processo.ciu.CtrlKArtefatoCRUD;
@@ -61,11 +61,13 @@ import ode.problema.ciu.CtrlKCausaCRUD;
 import ode.problema.ciu.CtrlKCriterioSelecaoSolucaoCRUD;
 import ode.problema.ciu.CtrlKProblemaCRUD;
 import ode.problema.ciu.CtrlKSolucaoCRUD;
-import ode.pgds.cci.CtrlImportarProjeto;
 import ode.processoPadrao.ciu.CtrlDefinirProcessoPadrao;
+import ode.pgds.cci.CtrlImportarProjeto;
 import ode.resolucaoProblema.ciu.CtrlOcorrenciaProblema;
 import ode.resolucaoProblema.ciu.CtrlRegistrarResultadoSolucao;
 import ode.resolucaoProblema.ciu.CtrlResolverProblema;
+import ode.processoPadrao.ciu.CtrlDefinirProcessoPadrao;
+import ode.processoProjeto.ciu.CtrlDefinirProcessoProjeto;
 import ode.uml.cci.CtrlCRUDCasoUso;
 import ode.uml.cci.CtrlCRUDClasse;
 import ode.uml.cci.CtrlCRUDPacote;
@@ -75,15 +77,15 @@ public class FuncionalidadesMenu {
 public static List<Funcionalidade> obterFuncionalidades() {
 		
 		/*
-		 * Seguir o padrão para cadastrar as funcionalidades:
+		 * Seguir o padrï¿½o para cadastrar as funcionalidades:
 		 *
 		 * Itens para a raiz do menu entram em funcionalidades.add()
-		 * Itens em nível hierárquico inferior entram em .addSubfuncionalidade() do item pai
+		 * Itens em nï¿½vel hierï¿½rquico inferior entram em .addSubfuncionalidade() do item pai
 		 * 
-		 * Criar cada funcionalidade com o método criar(String nomeFuncionalidade)
+		 * Criar cada funcionalidade com o mï¿½todo criar(String nomeFuncionalidade)
 		 * 
-		 *  Atribuir a classe controladora que contém o método iniciar() através de setCtrl()
-		 *  Atribuir as eventuais permissões além do Perfil de Acesso Administrador através de permitir()
+		 *  Atribuir a classe controladora que contï¿½m o mï¿½todo iniciar() atravï¿½s de setCtrl()
+		 *  Atribuir as eventuais permissï¿½es alï¿½m do Perfil de Acesso Administrador atravï¿½s de permitir()
 		 */
 
 		List<Funcionalidade> funcionalidades = new ArrayList<Funcionalidade>();
@@ -91,19 +93,19 @@ public static List<Funcionalidade> obterFuncionalidades() {
 		funcionalidades.add(criar("Projeto").permitir(PerfilAcesso.Desenvolvedor)
 			.addSubfuncionalidade(criar("Selecionar Projeto").setCtrl(CtrlSelecionarProjeto.class).permitir(PerfilAcesso.Desenvolvedor))
 			.addSubfuncionalidade(criar("Cadastrar Projeto").setCtrl(CtrlProjetoCRUD.class))
-			.addSubfuncionalidade(criar("Caracterizar Projeto").setCtrl(CtrlCaracterizarProjeto.class).setDisponivelApenasParaProjetosAbertos(true))
-			.addSubfuncionalidade(criar("Definir Equipe (Versão Simplificada)").setCtrl(CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
-			.addSubfuncionalidade(criar("Definir Equipe (Versão Completa)").setCtrl(ode.atuacaoRecursoHumano.ciu.CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
+			//.addSubfuncionalidade(criar("Caracterizar Projeto").setCtrl(CtrlCaracterizarProjeto.class).setDisponivelApenasParaProjetosAbertos(true))
+			.addSubfuncionalidade(criar("Definir Equipe (Versï¿½o Simplificada)").setCtrl(CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
+			.addSubfuncionalidade(criar("Definir Equipe (Versï¿½o Completa)").setCtrl(ode.atuacaoRecursoHumano.ciu.CtrlDefinirEquipe.class).setDisponivelApenasParaProjetosAbertos(true))
 			
 		);
 		
-		funcionalidades.add(criar("Administração")
-			.addSubfuncionalidade(criar("Usuários").setCtrl(CtrlUsuarioCRUD.class))
+		funcionalidades.add(criar("Administraï¿½ï¿½o")
+			.addSubfuncionalidade(criar("Usuï¿½rios").setCtrl(CtrlUsuarioCRUD.class))
 		);
 		
 		funcionalidades.add(criar("Recursos")
-			.addSubfuncionalidade(criar("Recursos Humanos (Versão Simplificada)").setCtrl(CtrlRecursoHumanoCRUD.class))
-			.addSubfuncionalidade(criar("Recursos Humanos (Versão Completa)").setCtrl(CtrlAtuacaoRHCRUD.class))
+			.addSubfuncionalidade(criar("Recursos Humanos (Versï¿½o Simplificada)").setCtrl(CtrlRecursoHumanoCRUD.class))
+			.addSubfuncionalidade(criar("Recursos Humanos (Versï¿½o Completa)").setCtrl(CtrlAtuacaoRHCRUD.class))
 			.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlFerramentaSoftwareCRUD.class))
 		);
 			
@@ -118,23 +120,23 @@ public static List<Funcionalidade> obterFuncionalidades() {
 				.addSubfuncionalidade(criar("Tipos de Software").setCtrl(CtrlKTipoSoftwareCRUD.class))
 				.addSubfuncionalidade(criar("Tipos de Artefato").setCtrl(CrtlTipoKArtefatoCRUD.class))
 				.addSubfuncionalidade(criar("Artefatos").setCtrl(CtrlKArtefatoCRUD.class))
-				.addSubfuncionalidade(criar("Domínios de Aplicação").setCtrl(CtrlKDominioAplicacaoCRUD.class))
+				.addSubfuncionalidade(criar("Domï¿½nios de Aplicaï¿½ï¿½o").setCtrl(CtrlKDominioAplicacaoCRUD.class))
 				.addSubfuncionalidade(criar("Categorias de Processo").setCtrl(CtrlKCategoriaProcessoCRUD.class))
 				.addSubfuncionalidade(criar("Processos").setCtrl(CtrlKProcessoCRUD.class))
 				.addSubfuncionalidade(criar("Atividades").setCtrl(CtrlKAtividadeCRUD.class))
 				.addSubfuncionalidade(criar("Procedimentos").setCtrl(CtrlKProcedimentoCRUD.class))
 			)
-			.addSubfuncionalidade(criar("Organização")
-				.addSubfuncionalidade(criar("Competências").setCtrl(CtrlKCompetenciaCRUD.class))
+			.addSubfuncionalidade(criar("Organizaï¿½ï¿½o")
+				.addSubfuncionalidade(criar("Competï¿½ncias").setCtrl(CtrlKCompetenciaCRUD.class))
 			)
 			.addSubfuncionalidade(criar("Requisito")
 				.addSubfuncionalidade(criar("Categoria").setCtrl(CtrlCRUDCategoriaRequisito.class))
 			)
-			.addSubfuncionalidade(criar("Medição")
+			.addSubfuncionalidade(criar("Mediï¿½ï¿½o")
 					.addSubfuncionalidade(criar("Medida")
 							.addSubfuncionalidade(criar("Medida").setCtrl(CtrlKMedidaCRUD.class))
 							.addSubfuncionalidade(criar("Unidade de Medida").setCtrl(CtrlKUnidadeMedidaCRUD.class))
-							.addSubfuncionalidade(criar("Elemento Mensurável").setCtrl(CtrlKElementoMensuravelCRUD.class))
+							.addSubfuncionalidade(criar("Elemento Mensurï¿½vel").setCtrl(CtrlKElementoMensuravelCRUD.class))
 							)
 					.addSubfuncionalidade(criar("Escala")
 							.addSubfuncionalidade(criar("Escala").setCtrl(CtrlKEscalaCRUD.class))
@@ -149,10 +151,10 @@ public static List<Funcionalidade> obterFuncionalidades() {
 				)
 				.addSubfuncionalidade(criar("Problema")
 				.addSubfuncionalidade(criar("Problema").setCtrl(CtrlKProblemaCRUD.class))
-				.addSubfuncionalidade(criar("Solução").setCtrl(CtrlKSolucaoCRUD.class))
+				.addSubfuncionalidade(criar("Soluï¿½ï¿½o").setCtrl(CtrlKSolucaoCRUD.class))
 				.addSubfuncionalidade(criar("Causa").setCtrl(CtrlKCausaCRUD.class))
 			    .addSubfuncionalidade(criar("Categoria Problema").setCtrl(CtrlKCategoriaProblemaCRUD.class))
-			    .addSubfuncionalidade(criar("Critério Seleção Solução").setCtrl(CtrlKCriterioSelecaoSolucaoCRUD.class))
+			    .addSubfuncionalidade(criar("Critï¿½rio Seleï¿½ï¿½o Soluï¿½ï¿½o").setCtrl(CtrlKCriterioSelecaoSolucaoCRUD.class))
 
 			)
 		);
@@ -167,38 +169,42 @@ public static List<Funcionalidade> obterFuncionalidades() {
 				
 		);*/
 		
-		funcionalidades.add(criar("Medição")
-				.addSubfuncionalidade(criar("Entidade Mensuráveis").setCtrl(CtrlEntidadeMensuravel.class)
+		funcionalidades.add(criar("Mediï¿½ï¿½o")
+				.addSubfuncionalidade(criar("Entidade Mensurï¿½veis").setCtrl(CtrlEntidadeMensuravel.class)
 					)
 				.addSubfuncionalidade(criar("Planejamento")
-					.addSubfuncionalidade(criar("Elaborar Plano de Medição da Organização").setCtrl(CtrlPlanoMedicaoOrganizacao.class))
-					.addSubfuncionalidade(criar("Elaborar Plano de Medição do Projeto").setCtrl(CtrlPlanoMedicaoProjeto.class))
-					.addSubfuncionalidade(criar("Estabelecer Valores de Referência para Organização").setCtrl(CtrlValorReferenciaOrganizacao.class))
-					.addSubfuncionalidade(criar("Estabelecer Valores de Referência para Projeto").setCtrl(CtrlValorReferenciaProjeto.class))
+					.addSubfuncionalidade(criar("Elaborar Plano de Mediï¿½ï¿½o da Organizaï¿½ï¿½o").setCtrl(CtrlPlanoMedicaoOrganizacao.class))
+					.addSubfuncionalidade(criar("Elaborar Plano de Mediï¿½ï¿½o do Projeto").setCtrl(CtrlPlanoMedicaoProjeto.class))
+					.addSubfuncionalidade(criar("Estabelecer Valores de Referï¿½ncia para Organizaï¿½ï¿½o").setCtrl(CtrlValorReferenciaOrganizacao.class))
+					.addSubfuncionalidade(criar("Estabelecer Valores de Referï¿½ncia para Projeto").setCtrl(CtrlValorReferenciaProjeto.class))
 				)
-				.addSubfuncionalidade(criar("Execução")
+				.addSubfuncionalidade(criar("Execuï¿½ï¿½o")
 						.addSubfuncionalidade(criar("Coletar Dados").setCtrl(CtrlMedicao.class))
 				)
 				.addSubfuncionalidade(criar("Analise")
-						.addSubfuncionalidade(criar("Analisar Medição").setCtrl(CtrlAnaliseMedicao.class))
+						.addSubfuncionalidade(criar("Analisar Mediï¿½ï¿½o").setCtrl(CtrlAnaliseMedicao.class))
 						.addSubfuncionalidade(criar("Monitorar Objetivos").setCtrl(CtrlMonitoramentoObjetivo.class))
-						.addSubfuncionalidade(criar("Registrar Ações Corretivas").setCtrl(CtrlAcaoCorretiva.class))
+						.addSubfuncionalidade(criar("Registrar Aï¿½ï¿½es Corretivas").setCtrl(CtrlAcaoCorretiva.class))
 						)
 		);
 		
-		/*funcionalidades.add(criar("Processo Padrão")
-			.addSubfuncionalidade(criar("Componentes de Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
+		/*funcionalidades.add(criar("Processo Padrï¿½o")
+			.addSubfuncionalidade(criar("Componentes de Processo Padrï¿½o").setCtrl(CtrlDefinirProcessoPadrao.class))
 		);*/
 		
 		//funcionalidades.add(criar("Agenda").setCtrl(ode.agenda.ciu.CtrlAgenda.class));
 		
+		funcionalidades.add(criar("Definição de Processos")
+				.addSubfuncionalidade(criar("Processo Padrão").setCtrl(CtrlDefinirProcessoPadrao.class))
+				.addSubfuncionalidade(criar("Processo de Projeto").setCtrl(CtrlDefinirProcessoProjeto.class).setDisponivelApenasParaProjetosAbertos(true))
+			);
+		
 		funcionalidades.add(criar("Ferramentas")
-			.addSubfuncionalidade(criar("Definição de Processos").setCtrl(CtrlDefinicaoProcesso.class).setDisponivelApenasParaProjetosAbertos(true))
-			.addSubfuncionalidade(criar("Alocação de Recursos").setCtrl(CtrlAlocacaoRecurso.class).setDisponivelApenasParaProjetosAbertos(true))
+			.addSubfuncionalidade(criar("Alocaï¿½ï¿½o de Recursos").setCtrl(CtrlAlocacaoRecurso.class).setDisponivelApenasParaProjetosAbertos(true))
 		);
 		
 
-		funcionalidades.add(criar("Gerência de Conhecimento")
+		funcionalidades.add(criar("Gerï¿½ncia de Conhecimento")
 			.addSubfuncionalidade(criar("Portal").setCtrl(CtrlGerenciaConhecimento.class))
 			.addSubfuncionalidade(criar("Tema").setCtrl(CtrlTema.class))
 		);
@@ -210,15 +216,15 @@ public static List<Funcionalidade> obterFuncionalidades() {
 			.addSubfuncionalidade(criar("Cadastrar Caso de Uso").setCtrl(CtrlCRUDCasoUso.class))
 		);
 			
-		funcionalidades.add(criar("Gerência de Requisitos").setDisponivelApenasParaProjetosAbertos(true)
+		funcionalidades.add(criar("Gerï¿½ncia de Requisitos").setDisponivelApenasParaProjetosAbertos(true)
 			.addSubfuncionalidade(criar("Cadastrar Requisito").setCtrl(CtrlCRUDRequisito.class))
-			.addSubfuncionalidade(criar("Definir Relações de Rastreabilidade").setCtrl(CtrlDefinirRelacoesRastreabilidade.class))
+			.addSubfuncionalidade(criar("Definir Relaï¿½ï¿½es de Rastreabilidade").setCtrl(CtrlDefinirRelacoesRastreabilidade.class))
 			.addSubfuncionalidade(criar("Rastrear Requisitos").setCtrl(CtrlRastrearRequisitos.class))
-			.addSubfuncionalidade(criar("Gerar Relatório").setCtrl(CtrlGerarRelatorioRastreabilidade.class))
+			.addSubfuncionalidade(criar("Gerar Relatï¿½rio").setCtrl(CtrlGerarRelatorioRastreabilidade.class))
 			.addSubfuncionalidade(criar("Importar Projeto - PGDS").setCtrl(CtrlImportarProjeto.class))
 		);
 		
-		funcionalidades.add(criar("Organização")
+		funcionalidades.add(criar("Organizaï¿½ï¿½o")
 				.addSubfuncionalidade(criar("Caracteristicas").setCtrl(CtrlCaracteristica.class))
 				.addSubfuncionalidade(criar("Perspectivas de Analise").setCtrl(CtrlPerspectivaAnalise.class))
 			);
@@ -228,7 +234,7 @@ public static List<Funcionalidade> obterFuncionalidades() {
 	}
 	
 	/*
-	 * Função auxiliar para o método obterFuncionalidades
+	 * Funï¿½ï¿½o auxiliar para o mï¿½todo obterFuncionalidades
 	 */
 
 	private static Funcionalidade criar(String s) {

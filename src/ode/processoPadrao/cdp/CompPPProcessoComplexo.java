@@ -15,7 +15,7 @@ import ode.conhecimento.processo.cdp.KProcesso;
 public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 	private static final long serialVersionUID = 3645553289873117858L;
 
-	/** Processos Padrão Específicos contidos neste */
+	/* Processos Padrão Específicos contidos neste */
 	private Set<CompPPProcessoSimples> processosSimples;
 
 	public CompPPProcessoComplexo() {
@@ -23,16 +23,13 @@ public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 	}
 
 	// Obtém os Processos especificos deste.
-	// @ManyToMany(targetEntity = CompPPProcessoSimples.class, fetch =
-	// FetchType.EAGER)
-	@ManyToMany(cascade = { javax.persistence.CascadeType.MERGE,
-			javax.persistence.CascadeType.PERSIST }, targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
+	// @ManyToMany(targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { javax.persistence.CascadeType.MERGE, javax.persistence.CascadeType.PERSIST }, targetEntity = CompPPProcessoSimples.class, fetch = FetchType.EAGER)
 	public Set<CompPPProcessoSimples> getProcessosSimples() {
 		return processosSimples;
 	}
 
-	public void setProcessosSimples(
-			Set<CompPPProcessoSimples> parProcessosSimples) {
+	public void setProcessosSimples(Set<CompPPProcessoSimples> parProcessosSimples) {
 		this.processosSimples = parProcessosSimples;
 	}
 
@@ -40,19 +37,16 @@ public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 		this.processosSimples.add(parProcessosSimples);
 	}
 
-	public void addProcessosSimples(
-			Set<CompPPProcessoSimples> parProcessosSimples) {
+	public void addProcessosSimples(Set<CompPPProcessoSimples> parProcessosSimples) {
 		this.processosSimples.addAll(parProcessosSimples);
 	}
 
 	public CompPPProcessoSimples obterProcessoEngenharia() {
 
-		List<CompPPProcessoSimples> locProcessosEspecificos = new ArrayList<CompPPProcessoSimples>(
-				this.processosSimples);
+		List<CompPPProcessoSimples> locProcessosEspecificos = new ArrayList<CompPPProcessoSimples>(this.processosSimples);
 
 		for (int i = 0; i < locProcessosEspecificos.size(); i++) {
-			CompPPProcessoSimples locProc = (CompPPProcessoSimples) locProcessosEspecificos
-					.get(i);
+			CompPPProcessoSimples locProc = (CompPPProcessoSimples) locProcessosEspecificos.get(i);
 			if (locProc.getTipo().isEhEngenharia())
 				return locProc;
 		}
@@ -61,13 +55,11 @@ public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 	}
 
 	public ArrayList<KProcesso> obterKSubProcessos() {
-		ArrayList<CompPPProcessoSimples> locProcessosEspecificos = new ArrayList<CompPPProcessoSimples>(
-				this.processosSimples);
+		ArrayList<CompPPProcessoSimples> locProcessosEspecificos = new ArrayList<CompPPProcessoSimples>(this.processosSimples);
 		ArrayList<KProcesso> processos = new ArrayList<KProcesso>();
 
 		for (int i = 0; i < locProcessosEspecificos.size(); i++) {
-			CompPPProcessoSimples locProc = (CompPPProcessoSimples) locProcessosEspecificos
-					.get(i);
+			CompPPProcessoSimples locProc = (CompPPProcessoSimples) locProcessosEspecificos.get(i);
 			processos.add(locProc.getTipo());
 		}
 
@@ -76,15 +68,16 @@ public class CompPPProcessoComplexo extends CompPP implements Cloneable {
 
 	@Override
 	public CompPPProcessoComplexo clone() throws CloneNotSupportedException {
-
 		CompPPProcessoComplexo copia = (CompPPProcessoComplexo) super.clone();
-		copia.setProcessosSimples(new HashSet<CompPPProcessoSimples>());
-
-		for (CompPPProcessoSimples PPsimples : this.getProcessosSimples()) {
-			copia.getProcessosSimples().add(
-					(CompPPProcessoSimples) PPsimples.clone());
+		
+		Set<CompPPProcessoSimples> processosSimplesCopia = new HashSet<CompPPProcessoSimples>();
+		
+		for(CompPPProcessoSimples simples : this.getProcessosSimples()){
+			processosSimplesCopia.add(simples.clone());
 		}
-
+		
+		copia.setProcessosSimples(processosSimplesCopia);		
+		
 		return copia;
 	}
 }

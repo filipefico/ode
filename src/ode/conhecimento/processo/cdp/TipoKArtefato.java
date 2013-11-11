@@ -1,5 +1,8 @@
 package ode.conhecimento.processo.cdp;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 
 import ode.conhecimento.principal.cdp.Conhecimento;

@@ -1,5 +1,6 @@
 package ode.conhecimento.processo.cdp;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -7,7 +8,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.jcodings.util.Hash;
+
 import ode.conhecimento.principal.cdp.Conhecimento;
+import ode.processoPadrao.cdp.CompPPProcessoSimples;
 
 /**
  * Representa os conhecimentos sobre Artefatos do ambiente ODE.
@@ -63,4 +67,6 @@ public class KArtefato extends Conhecimento {
 	public void setTipo(TipoKArtefato parTipo) {
 		this.tipo = parTipo;
 	}
+	
+	
 }

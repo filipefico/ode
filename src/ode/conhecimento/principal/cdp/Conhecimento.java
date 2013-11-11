@@ -7,6 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.processoPadrao.cdp.CompPPProcessoSimples;
 
 
 
@@ -65,4 +66,15 @@ public class Conhecimento extends ObjetoPersistente {
         return this.nome;
     }
 
+    /** Cezar Gobbo: Precisei fazer um construtor de cópia para esta classe **/
+    @Override
+    public Conhecimento clone() throws CloneNotSupportedException{
+    	Conhecimento copia = new Conhecimento();
+    	
+    	copia.setNome(new String(this.getNome().toString()));
+    	copia.setDescricao(new String(this.getDescricao().toString()));
+    	
+    	return copia;
+    }
+    
 }

@@ -1,5 +1,8 @@
 package ode.conhecimento.processo.cdp;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 
 /*************************** Classe KTecnica *********************************/
@@ -18,5 +21,6 @@ public class KTecnica extends KProcedimento{
     public String obterNomeCanonico() {
         return "Técnica";
     }
+    
     
 }

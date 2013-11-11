@@ -15,5 +15,6 @@ public class KDiretriz extends KProcedimento {
 		/**Construtor.*/
 	    public KDiretriz() {
 	    }
+	    
 	
 }
