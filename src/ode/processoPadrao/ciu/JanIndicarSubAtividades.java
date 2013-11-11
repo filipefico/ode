@@ -7,6 +7,8 @@ import ode._infraestruturaCRUD.ciu.JanelaSimples;
 import ode.conhecimento.processo.cdp.KAtividade;
 import ode.processoPadrao.cdp.AtividadeProcessoPadrao;
 import ode.processoPadrao.cdp.CompPPMacroatividade;
+import ode.processoPadrao.cdp.CompPPProcessoSimples;
+import ode.processoPadrao.cdp.CompPPProcessoComplexo;
 
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -21,8 +23,7 @@ public class JanIndicarSubAtividades extends JanCore {
 	Listbox listaSubAtv;
 	private JanelaSimples janela;
 
-	public JanIndicarSubAtividades(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+	public JanIndicarSubAtividades(CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
 		super(ctrlDefinirProcessoPadrao);
 		janela = this;
@@ -71,39 +72,47 @@ public class JanIndicarSubAtividades extends JanCore {
 
 	private void adicionarSubAtividade(Set<KAtividade> listaKAtividades) {
 
-		AtividadeProcessoPadrao atividadePP = ((CompPPMacroatividade) ctrl
-				.getcompPPSelecionado()).getAtividadeProcessoPadrao();
-
+		AtividadeProcessoPadrao atividadePP = new AtividadeProcessoPadrao();
+		
+		if(ctrl.getcompPPSelecionado() instanceof CompPPMacroatividade){
+			atividadePP = ((CompPPMacroatividade) ctrl.getcompPPSelecionado()).getAtividadeProcessoPadrao();
+		}else{
+			//atividadePP = ((CompPPProcessoSimples) ctrl.getcompPPSelecionado()).getAtividadeProcessoPadrao();
+		}
+				
 		Set<AtividadeProcessoPadrao> listaAtvPP = new HashSet<AtividadeProcessoPadrao>();
 		for (KAtividade kAtividade : listaKAtividades) {
 			AtividadeProcessoPadrao atvPP = new AtividadeProcessoPadrao();
 			atvPP.setTipo(kAtividade);
 			listaAtvPP.add(atvPP);
 		}
-		atividadePP.addSubAtividades(listaAtvPP);
-
+		
+		if (listaAtvPP != null){
+			if (listaAtvPP.isEmpty() == false && atividadePP != null){
+				atividadePP.addSubAtividades(listaAtvPP);
+			}
+		}		
 	}
 
 	private Set<KAtividade> obterListaSubArtefatos() {
-		Set<KAtividade> listaKatividades = new HashSet<KAtividade>();
+		Set<KAtividade> listaAtividades = new HashSet<KAtividade>();
 
 		Set<Listitem> listItens = listaSubAtv.getSelectedItems();
 		for (Listitem listitem : listItens) {
 			Listcell listCell = (Listcell) listitem.getChildren().get(0);
 			KAtividade ka = (KAtividade) listCell.getValue();
-			listaKatividades.add(ka);
+			listaAtividades.add(ka);
 		}
 
-		return listaKatividades;
+		return listaAtividades;
 
 	}
 
 	private void preencheLista() {
-		Listitem itemListaSubAtv = null;
 		Set<Listitem> listItensAMarcar = new HashSet<Listitem>();
 
 		for (KAtividade kAtividade : ctrl.getAllKAtividade()) {
-			itemListaSubAtv = new Listitem();
+			Listitem itemListaSubAtv = new Listitem();
 			Listcell listcell = new Listcell();
 			itemListaSubAtv.setParent(listaSubAtv);
 			itemListaSubAtv.appendChild(listcell);

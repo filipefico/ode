@@ -31,15 +31,7 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 	private static final long serialVersionUID = -3624797736187568796L;
 	private JanelaSimples janela;
 
-	private Textbox textBoxNome;
-	private Textbox textBoxDescricao;
-	private Textbox textBoxObjetivos;
-	private Textbox textBoxRequisito;
-	private Label labelTipo;
-	private Combobox comboboxTipo;
-
-	public JanEditarPropriedadesBasicasCompPP(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+	public JanEditarPropriedadesBasicasCompPP(CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 		super(ctrlDefinirProcessoPadrao);
 		janela = this;
 
@@ -47,8 +39,19 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 		janela.mostrar();
 	}
 
+	private Label labelNome = new Label("Nome");
+	private Label labelDescricao = new Label("Descrição");
+	private Label labelObjetivos = new Label("Objetivos");
+	private Label labelRequisito = new Label("Requisitos");
+	private Label labelTipo = new Label("Tipo");
+	private Textbox textBoxNome = new Textbox();
+	private Textbox textBoxDescricao = new Textbox();
+	private Textbox textBoxObjetivos = new Textbox();
+	private Textbox textBoxRequisito = new Textbox();		
+	private Combobox comboboxTipo = new Combobox();	
+	
 	private void configuraElementosJanela() {
-		janela.setTitle("Editar propriedades básicas");
+		janela.setTitle("Editar propriedades básicas do Componente");
 
 		Tabpanel tabPanelPropriedades = new Tabpanel();
 		Tabpanel tabPanelRequisitos = new Tabpanel();
@@ -83,13 +86,9 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 		// add tipo
 		if (compPP instanceof CompPPProcessoComplexo == false) {
 			if (compPP instanceof CompPPProcessoSimples) {
-				((CompPPProcessoSimples) compPP)
-						.setTipo((KProcesso) comboboxTipo.getSelectedItem()
-								.getValue());
+				((CompPPProcessoSimples) compPP).setTipo((KProcesso) comboboxTipo.getSelectedItem().getValue());
 			} else {
-				((CompPPMacroatividade) compPP)
-						.setTipo((KAtividade) comboboxTipo.getSelectedItem()
-								.getValue());
+				((CompPPMacroatividade) compPP).setTipo((KAtividade) comboboxTipo.getSelectedItem().getValue());
 			}
 		}
 		ctrl.atualizarCompPP(compPP);
@@ -98,12 +97,9 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 	private void configuraTabPanelRequisitos(Tabpanel tabPanelRequisitos) {
 		Vbox vbox = new Vbox();
 		vbox.setParent(tabPanelRequisitos);
-		Label labelRequisito = new Label();
-		textBoxRequisito = new Textbox();
 		textBoxRequisito.setWidth("100%");
-
-		labelRequisito.setValue("Requisitos");
-
+		textBoxRequisito.setRows(3);
+		textBoxRequisito.setMultiline(true);
 		labelRequisito.setParent(vbox);
 		textBoxRequisito.setParent(vbox);
 		vbox.setWidth("100%");
@@ -112,8 +108,7 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 	}
 
 	private void carregaDadosRequisitos() {
-		textBoxRequisito.setText(ctrl.getcompPPSelecionado()
-				.getRequisitoCompPP());
+		textBoxRequisito.setText(ctrl.getcompPPSelecionado().getRequisitoCompPP());
 	}
 
 	private void configuraTabPanelPropriedades(Tabpanel tabPanelPropriedades) {
@@ -122,44 +117,31 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 		vbox.setParent(tabPanelPropriedades);
 		vbox.setWidth("100%");
 
-		Label labelNome = new Label();
-		Label labelDescricao = new Label();
-		Label labelObjetivos = new Label();
-
-		labelNome.setValue("Nome");
-		labelDescricao.setValue("Descrição");
-		labelObjetivos.setValue("Objetivos");
-
-		textBoxNome = new Textbox();
-		textBoxDescricao = new Textbox();
-		textBoxObjetivos = new Textbox();
-		comboboxTipo = new Combobox();
-
-		textBoxNome.setWidth("100%");
-		textBoxDescricao.setWidth("100%");
-		textBoxObjetivos.setWidth("100%");
-
 		labelNome.setParent(vbox);
 		textBoxNome.setParent(vbox);
+		textBoxNome.setWidth("100%");
 		new Space().setParent(vbox);
-
+		
 		labelDescricao.setParent(vbox);
 		textBoxDescricao.setParent(vbox);
-
+		textBoxDescricao.setWidth("100%");
+		textBoxDescricao.setRows(3);
+		textBoxDescricao.setMultiline(true);
 		new Space().setParent(vbox);
+		
 		labelObjetivos.setParent(vbox);
 		textBoxObjetivos.setParent(vbox);
-		new Space().setParent(vbox);
+		textBoxObjetivos.setWidth("100%");
+		textBoxObjetivos.setRows(3);
+		new Space().setParent(vbox);	
 
-		labelTipo = new Label();
 		labelTipo.setVisible(false);
 		labelTipo.setParent(vbox);
-		labelTipo.setValue("Tipo");
 		comboboxTipo.setParent(vbox);
+		comboboxTipo.setWidth("100%");
 		comboboxTipo.setVisible(false);
 
 		carregaDadosPropriedades();
-
 	}
 
 	private void carregaDadosPropriedades() {
@@ -183,17 +165,14 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 			Comboitem comboItemSelecionado = null;
 
 			for (Object c : conhecimento) {
-				comboItem = comboboxTipo.appendItem(((Conhecimento) c)
-						.getNome());
+				comboItem = comboboxTipo.appendItem(((Conhecimento) c).getNome());
 				comboItem.setValue(c);
 
 				String tipoNome = null;
 				if (compPP instanceof CompPPProcessoSimples) {
-					tipoNome = ((CompPPProcessoSimples) ctrl
-							.getcompPPSelecionado()).getTipo().getNome();
+					tipoNome = ((CompPPProcessoSimples) ctrl.getcompPPSelecionado()).getTipo().getNome();
 				} else {
-					tipoNome = ((CompPPMacroatividade) ctrl
-							.getcompPPSelecionado()).getTipo().getNome();
+					tipoNome = ((CompPPMacroatividade) ctrl.getcompPPSelecionado()).getTipo().getNome();
 				}
 				if (((Conhecimento) c).getNome().compareTo(tipoNome) == 0) {
 					comboItemSelecionado = comboItem;
@@ -205,28 +184,20 @@ public class JanEditarPropriedadesBasicasCompPP extends JanCore {
 		}
 	}
 
-	private void configuraTabBox(Tabpanel tabPanelPropriedades,
-			Tabpanel tabPanelRequisitos) {
+	private void configuraTabBox(Tabpanel tabPanelPropriedades, Tabpanel tabPanelRequisitos) {
 		Tabbox tabbox = new Tabbox();
 		Tabs tabs = new Tabs();
 		Tabpanels tabpanels = new Tabpanels();
-		Tab tabPropriedades = new Tab();
-		Tab tabRequisitos = new Tab();
-		// Tabpanels tabpanels = new Tabpanels();
-
-		tabPropriedades.setLabel("Propriedades");
-		tabRequisitos.setLabel("Requisitos");
-
+		Tab tabPropriedades = new Tab("Propriedades");
+		Tab tabRequisitos = new Tab("Requisitos");
+		
 		tabbox.setParent(janela);
 		tabs.setParent(tabbox);
 		tabPropriedades.setParent(tabs);
 		tabRequisitos.setParent(tabs);
-
+		
 		tabpanels.setParent(tabbox);
-
 		tabPanelPropriedades.setParent(tabpanels);
 		tabPanelRequisitos.setParent(tabpanels);
-
 	}
-
 }

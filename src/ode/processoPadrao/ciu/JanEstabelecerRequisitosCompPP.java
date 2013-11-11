@@ -25,8 +25,7 @@ public class JanEstabelecerRequisitosCompPP extends JanCore {
 	private Textbox textBoxObjetivos;
 	private Textbox textBoxRequisito;
 
-	public JanEstabelecerRequisitosCompPP(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+	public JanEstabelecerRequisitosCompPP(CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 		super(ctrlDefinirProcessoPadrao);
 		janela = this;
 

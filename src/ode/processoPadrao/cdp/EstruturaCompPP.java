@@ -20,14 +20,26 @@ public class EstruturaCompPP extends ObjetoPersistente {
 		elementosCompPP = new HashSet<ElementoCompPP>();
 	}
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	public Set<ElementoCompPP> getElementosCompPP() {
 		return elementosCompPP;
 	}
 
 	public void setElementosCompPP(Set<ElementoCompPP> elementosCompPP) {
 		this.elementosCompPP = elementosCompPP;
+	}
+	
+	@Override
+	public EstruturaCompPP clone() throws CloneNotSupportedException {
+		EstruturaCompPP copia = new EstruturaCompPP();
+		
+		Set<ElementoCompPP> elementosCompPPCopia = new HashSet<ElementoCompPP>();
+		
+		for(ElementoCompPP elemento : this.getElementosCompPP()){
+			elementosCompPPCopia.add(elemento.clone());
+		}
+		
+		return copia;
 	}
 
 }

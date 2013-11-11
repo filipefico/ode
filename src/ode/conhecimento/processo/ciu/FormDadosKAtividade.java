@@ -225,8 +225,8 @@ public class FormDadosKAtividade extends FormularioDadosCRUD<KAtividade>{
 		kAtividade.setInsumos(setInsumo);
 		
 		HashSet<KProcedimento> setProcedimento = new HashSet<KProcedimento>();
-		if (lbInsumo.getSelectedItems() != null) {
-			for (Iterator<Listitem> iterProcedimento = lbInsumo
+		if (lbProcedimento.getSelectedItems() != null) {
+			for (Iterator<Listitem> iterProcedimento = lbProcedimento
 					.getSelectedItems().iterator(); iterProcedimento.hasNext();) {
 				setProcedimento.add((KProcedimento) iterProcedimento.next()
 						.getValue());

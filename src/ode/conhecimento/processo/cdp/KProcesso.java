@@ -1,5 +1,6 @@
 package ode.conhecimento.processo.cdp;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -15,7 +16,11 @@ public class KProcesso extends Conhecimento{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6125334286173269456L;
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	
 	private String proposito;
 	private String sigla;
 	private boolean ehEngenharia;
@@ -53,7 +58,7 @@ public class KProcesso extends Conhecimento{
 		this.ehEngenharia = parEhEngenharia;
 	}
 
-	@ManyToMany (fetch = FetchType.EAGER)
+	@ManyToMany (fetch = FetchType.LAZY)
 	public Set<KTipoInteracao> getKTipoInteracao(){
 		return kTipoInteracao;
 	}
@@ -62,7 +67,7 @@ public class KProcesso extends Conhecimento{
 		kTipoInteracao = parKTI;
 	}
 	
-	@ManyToOne (fetch = FetchType.EAGER)
+	@ManyToOne (fetch = FetchType.LAZY)
 	public KCategoriaProcesso getCategoria() {
 		return categoria;
 	}
@@ -71,7 +76,7 @@ public class KProcesso extends Conhecimento{
 		this.categoria = parCategoria;
 	}
 
-	@OneToMany (fetch = FetchType.EAGER)
+	@OneToMany (fetch = FetchType.LAZY)
 	public Set<KResultadoProcesso> getKResultadoProcesso(){
 		return kResultadoProcesso;
 	}
@@ -79,4 +84,6 @@ public class KProcesso extends Conhecimento{
 	public void setKResultadoProcesso(Set parKRP){
 		kResultadoProcesso = parKRP;
 	}
+	
+    
 }

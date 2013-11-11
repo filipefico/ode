@@ -29,4 +29,5 @@ public class KResultadoProcesso extends Conhecimento {
 		}
 		return this.getNome();
 	}
+	
 }

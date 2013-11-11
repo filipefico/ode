@@ -1,5 +1,6 @@
 package ode.processoPadrao.cdp;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
+import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
 public class DependenciaMacroAtividades extends ObjetoPersistente {
@@ -20,9 +22,7 @@ public class DependenciaMacroAtividades extends ObjetoPersistente {
 	public DependenciaMacroAtividades() {
 	}
 
-	public DependenciaMacroAtividades(Set<CompPPMacroatividade> preAtividade,
-			CompPPMacroatividade atividadeBase,
-			CompPPProcessoSimples compPPProcessoSimples) {
+	public DependenciaMacroAtividades(Set<CompPPMacroatividade> preAtividade, CompPPMacroatividade atividadeBase, CompPPProcessoSimples compPPProcessoSimples) {
 		this.preAtividade = preAtividade;
 		this.atividadeBase = atividadeBase;
 		this.compPPProcessoSimples = compPPProcessoSimples;
@@ -42,8 +42,7 @@ public class DependenciaMacroAtividades extends ObjetoPersistente {
 		return compPPProcessoSimples;
 	}
 
-	public void setCompPPProcessoSimples(
-			CompPPProcessoSimples compPPProcessoSimples) {
+	public void setCompPPProcessoSimples(CompPPProcessoSimples compPPProcessoSimples) {
 		this.compPPProcessoSimples = compPPProcessoSimples;
 	}
 
@@ -59,6 +58,28 @@ public class DependenciaMacroAtividades extends ObjetoPersistente {
 
 	public void setPreAtividade(Set<CompPPMacroatividade> preAtividade) {
 		this.preAtividade = preAtividade;
+	}
+	
+	@Override
+    public DependenciaMacroAtividades clone() throws CloneNotSupportedException{
+		DependenciaMacroAtividades copia = new DependenciaMacroAtividades();
+		
+		Set<CompPPMacroatividade> preAtividadeCopia = new HashSet<CompPPMacroatividade>();
+		
+		for(CompPPMacroatividade macroatividade : this.getPreAtividade()){
+			preAtividadeCopia.add(macroatividade.clone());
+		}
+		
+		copia.setPreAtividade(preAtividadeCopia);
+		copia.setAtividadeBase(this.getAtividadeBase());
+		copia.setCompPPProcessoSimples(this.getCompPPProcessoSimples());
+    	
+    	return copia;
+    }
+
+	public void salvar(DependenciaMacroAtividades dependencia) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

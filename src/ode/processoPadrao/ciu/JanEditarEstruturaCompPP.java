@@ -32,8 +32,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 	private Listbox listbox;
 	private Listbox listboxCompPPEngenharia;
 
-	public JanEditarEstruturaCompPP(
-			CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
+	public JanEditarEstruturaCompPP(CtrlDefinirProcessoPadrao ctrlDefinirProcessoPadrao) {
 
 		super(ctrlDefinirProcessoPadrao);
 		janela = this;
@@ -58,7 +57,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 
 		if (ctrl.getcompPPSelecionado() instanceof CompPPProcessoComplexo) {
 			listboxCompPPEngenharia = new Listbox();
-			listarProcessosDeEngenharia();
+			//listarProcessosDeEngenharia();
 		}
 
 		buttonOK.setParent(janela);
@@ -74,24 +73,21 @@ public class JanEditarEstruturaCompPP extends JanCore {
 
 	protected void listarProcessosDeEngenharia() {
 		new Separator().setParent(janela);
-		new Label("SubProcessos de engenharia listados a seguir:")
-				.setParent(janela);
+		new Label("SubProcessos de engenharia listados a seguir:").setParent(janela);
 
 		listboxCompPPEngenharia.setCheckmark(true);
 		listboxCompPPEngenharia.setParent(janela);
 
 		// pega o único objeto que é do tipo engenharia
 		KProcesso kprocessoEngenharia = null;
-		for (ElementoCompPP el : ctrl.getcompPPSelecionado()
-				.getInterfaceCompPP().getEstruturaCompPP().getElementosCompPP()) {
+		for (ElementoCompPP el : ctrl.getcompPPSelecionado().getInterfaceCompPP().getEstruturaCompPP().getElementosCompPP()) {
 			KProcesso kp = (KProcesso) el.getElementoConhecimento();
 			if (kp.isEhEngenharia()) {
 				kprocessoEngenharia = kp;
 			}
 		}
 
-		for (Iterator iterator = ctrl.getAllKProcessoEngenharia().iterator(); iterator
-				.hasNext();) {
+		for (Iterator iterator = ctrl.getAllKProcessoEngenharia().iterator(); iterator.hasNext();) {
 			KProcesso kp = (KProcesso) iterator.next();
 
 			Listitem li = new Listitem();
@@ -101,9 +97,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 
 			if (kprocessoEngenharia != null) {
 				if (kp.getNome().compareTo(kprocessoEngenharia.getNome()) == 0) {
-					listboxCompPPEngenharia.setSelectedItem(li);// seleciona o
-																// item
-																// na lista
+					listboxCompPPEngenharia.setSelectedItem(li);// seleciona o item na lista
 				}
 			}
 		}
@@ -126,10 +120,8 @@ public class JanEditarEstruturaCompPP extends JanCore {
 		Set<Conhecimento> selecionadosObrigatorios = new HashSet<Conhecimento>();
 
 		for (Listitem item : itens) {
-			Conhecimento conhecimento = (Conhecimento) ((Listcell) item
-					.getChildren().get(1)).getValue();
-			Checkbox checkBox = (Checkbox) ((Listcell) item.getChildren()
-					.get(0)).getChildren().get(0);
+			Conhecimento conhecimento = (Conhecimento) ((Listcell) item.getChildren().get(0)).getValue();
+			Checkbox checkBox = (Checkbox) ((Listcell) item.getChildren().get(1)).getChildren().get(0);
 
 			boolean obrigatorio = checkBox.isChecked();
 
@@ -161,8 +153,8 @@ public class JanEditarEstruturaCompPP extends JanCore {
 		listheader1.setParent(listhead);
 		listheader2.setParent(listhead);
 
-		listheader1.setLabel("Selecionados");
-		listheader2.setLabel("Nome");
+		listheader1.setLabel("Nome");
+		listheader2.setLabel("Obrigatório na estrutura?");
 
 		insereElementosLista(listbox);
 		configuraElementosLista(listbox);
@@ -170,8 +162,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 
 	private void configuraElementosLista(Listbox listbox) {
 
-		Set<ElementoCompPP> elementosObj = ctrl.getcompPPSelecionado()
-				.getInterfaceCompPP().getEstruturaCompPP().getElementosCompPP();
+		Set<ElementoCompPP> elementosObj = ctrl.getcompPPSelecionado().getInterfaceCompPP().getEstruturaCompPP().getElementosCompPP();
 
 		List<Conhecimento> elementosAssociadosObj = new ArrayList<Conhecimento>();
 		List<Conhecimento> elementosAssociadosObrigatoriosObj = new ArrayList<Conhecimento>();
@@ -180,8 +171,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 		for (ElementoCompPP el : elementosObj) {
 			if (el.isObrigatorio()) {
 				Object o = el.getElementoConhecimento();
-				elementosAssociadosObrigatoriosObj.add(el
-						.getElementoConhecimento());
+				elementosAssociadosObrigatoriosObj.add(el.getElementoConhecimento());
 			} else {
 				Object o = el.getElementoConhecimento();
 				elementosAssociadosObj.add(el.getElementoConhecimento());
@@ -189,8 +179,7 @@ public class JanEditarEstruturaCompPP extends JanCore {
 		}
 
 		// seta na janela os valores corretos nos checkboxes.
-		marcaSelecionadosEObrigatorios(listbox, elementosAssociadosObj,
-				elementosAssociadosObrigatoriosObj);
+		marcaSelecionadosEObrigatorios(listbox, elementosAssociadosObj, elementosAssociadosObrigatoriosObj);
 
 	}
 
@@ -198,20 +187,17 @@ public class JanEditarEstruturaCompPP extends JanCore {
 			List<Conhecimento> elementosAssociadosObj,
 			List<Conhecimento> elementosAssociadosObrigatoriosObj) {
 		Set<Listitem> listItemsSelecionados = new HashSet<Listitem>();
-		for (Iterator iterator = listbox.getItems().iterator(); iterator
-				.hasNext();) {
+		for (Iterator iterator = listbox.getItems().iterator(); iterator.hasNext();) {
 			Listitem listItem = (Listitem) iterator.next();
 
-			Conhecimento conhecimentosJan = (Conhecimento) ((Listcell) listItem
-					.getChildren().get(1)).getValue();
+			Conhecimento conhecimentosJan = (Conhecimento) ((Listcell) listItem.getChildren().get(0)).getValue();
 
 			if (elementosAssociadosObj.contains(conhecimentosJan)) {
 				listItemsSelecionados.add(listItem);
 			}
 
 			if (elementosAssociadosObrigatoriosObj.contains(conhecimentosJan)) {
-				Checkbox checkBoxObrigatorio = (Checkbox) ((Listcell) listItem
-						.getChildren().get(0)).getChildren().get(0);
+				Checkbox checkBoxObrigatorio = (Checkbox) ((Listcell) listItem.getChildren().get(1)).getChildren().get(0);
 
 				checkBoxObrigatorio.setChecked(true);
 				listItemsSelecionados.add(listItem);
@@ -225,9 +211,9 @@ public class JanEditarEstruturaCompPP extends JanCore {
 		@SuppressWarnings("rawtypes")
 		Collection listaK;
 		// obtem valores
-		if (ctrl.getcompPPSelecionado().getClass()
-				.equals(CompPPProcessoComplexo.class)) {
-			listaK = ctrl.getAllKProcessoNaoEngenharia();
+		if (ctrl.getcompPPSelecionado().getClass().equals(CompPPProcessoComplexo.class)) {
+			//listaK = ctrl.getAllKProcessoNaoEngenharia();
+			listaK = ctrl.getAllKProcessoComOrdenacao("nome");
 		} else {
 			listaK = ctrl.getAllKAtividade();
 		}
@@ -238,20 +224,18 @@ public class JanEditarEstruturaCompPP extends JanCore {
 			Conhecimento conhecimento = (Conhecimento) iterator.next();
 
 			Listitem listitem = new Listitem();
-			Listcell listcell1 = new Listcell();
+			Listcell listcell1 = new Listcell(conhecimento.getNome());
 			Listcell listcell2 = new Listcell();
 
-			Checkbox checkbox = new Checkbox();
-			checkbox.setLabel("(obrigatório)");
-
+			Checkbox checkbox = new Checkbox("sim");
+			
 			listitem.setParent(listbox);
 
 			listcell1.setParent(listitem);
-			listcell1.appendChild(checkbox);
-
+			listcell1.setValue(conhecimento);
+			
 			listcell2.setParent(listitem);
-			listcell2.setLabel(conhecimento.getNome());
-			listcell2.setValue(conhecimento);
+			listcell2.appendChild(checkbox);
 		}
 	}
 
@@ -265,7 +249,6 @@ class eventoDrop implements EventListener {
 		Listitem listItemTarget = (Listitem) dropEvent.getTarget();
 
 		listItemDragged.getParent().removeChild(listItemDragged);
-		listItemTarget.getParent()
-				.insertBefore(listItemDragged, listItemTarget);
+		listItemTarget.getParent().insertBefore(listItemDragged, listItemTarget);
 	}
 }

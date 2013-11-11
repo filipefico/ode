@@ -10,5 +10,6 @@ public interface CompPPMacroatividadeDAO extends DAOBase<CompPPMacroatividade> {
 	// public List obterMacroAtividades(CompPPProcessoSimples parPPE);
 
 	// public CompPPMacroatividade obterPorId(CompPP parCompPP);
+	
 	public boolean podeExcluir(CompPPMacroatividade macro);
 }

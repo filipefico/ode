@@ -12,4 +12,5 @@ public class KCategoriaProcesso extends Conhecimento{
 	public KCategoriaProcesso(){
 	}
 
+	
 }

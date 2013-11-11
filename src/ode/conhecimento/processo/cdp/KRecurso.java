@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import ode.conhecimento.principal.cdp.Conhecimento;
 
 @Entity
-public class KRecurso extends Conhecimento {
-
+public class KRecurso extends Conhecimento
+{
     /**
 	 * 
 	 */
@@ -17,4 +17,5 @@ public class KRecurso extends Conhecimento {
     public String obterNomeCanonico() {
         return "Recurso";
     }
+    
 }

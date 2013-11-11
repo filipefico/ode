@@ -18,4 +18,5 @@ public class KRecursoHardware extends KRecurso{
     public String obterNomeCanonico() {
         return "Recurso de Hardware";
     }
+    
 }

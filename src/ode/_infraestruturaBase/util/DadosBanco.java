@@ -47,9 +47,9 @@ public class DadosBanco {
 			inicializarKRecursosHumanos();
 			inicializarKTiposInteracao();
 			inicializarKCategoriasProcesso();
-			inicializarDefinicaoProcesso();// juliao
+			//inicializarDefinicaoProcesso();// juliao
 			inicializarFerramentasSoftware();
-			inicializarConhecimento();
+			//inicializarConhecimento();
 
 		} catch (NucleoRegraNegocioExcecao e) {
 			e.printStackTrace();
