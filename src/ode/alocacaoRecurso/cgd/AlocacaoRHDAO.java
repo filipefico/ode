@@ -22,4 +22,6 @@ public interface AlocacaoRHDAO extends DAOBase<AlocacaoRH> {
 	List<AlocacaoRH> recuperarPorRecursoHumanoProcesso(Long idRecursoHumano, Long idProcesso);
 
 	public List<AlocacaoRH> recuperarPorRecursoHumanoPapel(Long idRecursoHumano, Long idKRecursoHumano, Long idProjeto);
+	
+	
 }

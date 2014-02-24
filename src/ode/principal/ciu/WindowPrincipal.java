@@ -12,7 +12,10 @@ import ode._infraestruturaBase.util.NucleoMensagens;
 import ode.agenda.ciu.CtrlAgenda;
 import ode.controleUsuario.cdp.Funcionalidade;
 import ode.controleUsuario.cdp.PerfilAcesso;
+import ode.middlewareGoogle.calendar.AplConsumidorMiddlewareGoogle;
+import ode.observador.cdp.ProdutorAlocaODE;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
@@ -74,11 +77,16 @@ public class WindowPrincipal extends Window {
 	/**
 	 * Monta a página principal da aplicação contendo o menu com as funcionalidades.
 	 */
+	
+	
 	private void MontarPagina(){
 		this.adicionarCabecalhoPrincipal();
 		this.adicionarFuncionalidadesDisponiveisUsuario();
 		
+		
+		
 		abrirJanela(CtrlAgenda.class.getCanonicalName(),"iniciarAutomaticamente");
+		
 	}
 
 

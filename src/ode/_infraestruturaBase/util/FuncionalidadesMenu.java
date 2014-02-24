@@ -7,6 +7,7 @@ import ode._controleFerramenta.ciu.CtrlFerramentaSoftwareCRUD;
 import ode._controleProcesso.ciu.CtrlDefinicaoProcesso;
 import ode._controleRecursoHumano.ciu.CtrlDefinirEquipe;
 import ode._controleRecursoHumano.ciu.CtrlRecursoHumanoCRUD;
+import ode.agenda.ciu.CtrlContatos;
 import ode.alocacaoRecurso.ciu.CtrlAlocacaoRecurso;
 import ode.atuacaoRecursoHumano.ciu.CtrlAtuacaoRHCRUD;
 //import ode.caracterizacaoBusca.ciu.CtrlCaracterizarProjeto;
@@ -108,6 +109,11 @@ public static List<Funcionalidade> obterFuncionalidades() {
 			.addSubfuncionalidade(criar("Recursos Humanos (Versão Completa)").setCtrl(CtrlAtuacaoRHCRUD.class))
 			.addSubfuncionalidade(criar("Ferramentas de Software").setCtrl(CtrlFerramentaSoftwareCRUD.class))
 		);
+		
+		funcionalidades.add(criar("Agenda")
+				//.addSubfuncionalidade(criar("Alocaï¿½ï¿½o de Recursos").setCtrl(CtrlAlocacaoRecurso.class).setDisponivelApenasParaProjetosAbertos(true))
+				.addSubfuncionalidade(criar("Contatos").setCtrl(CtrlContatos.class))
+			);
 			
 		funcionalidades.add(criar("Conhecimento")
 			.addSubfuncionalidade(criar("Recursos")

@@ -47,6 +47,11 @@ public class GridDados extends Grid {
 		colunaDireita.setParent(colunas);	
 	}
 	
+	public void setAlinhamento(String alinhamento1, String alinhamento2) {
+		colunaEsquerda.setAlign(alinhamento1);
+		colunaDireita.setAlign(alinhamento2);
+	}
+	
 /**
  * Método que adiciona uma linha simples ao grid de dados
  * */
@@ -58,6 +63,14 @@ public class GridDados extends Grid {
 		label.setParent(linha);
 		elemento.setParent(linha);
 
+	}
+	
+	public void adicionarLinha(Component elementoE, Component elementoD) {
+		Row linha = new Row();
+		linha.setParent(linhas);
+		
+		elementoE.setParent(linha);
+		elementoD.setParent(linha);
 	}
 	
 	public void adicionarLinha(String titulo, String valor) {
