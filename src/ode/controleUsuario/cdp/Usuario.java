@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import ode._controleRecursoHumano.cdp.RecursoHumano;
 import ode._infraestruturaBase.cdp.ObjetoPersistente;
@@ -17,6 +18,7 @@ import ode._infraestruturaBase.cdp.ObjetoPersistente;
  * 
  */
 @Entity
+@XmlRootElement
 public class Usuario extends ObjetoPersistente {
 
 	private static final long serialVersionUID = 1L;

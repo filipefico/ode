@@ -42,7 +42,7 @@ public class AplIssueTrackerManager implements Configuracoes {
 		return null;
 	}
 	
-	private Projeto criarProjetoODE(IProject iProject) {
+	public Projeto criarProjetoODE(IProject iProject) {
 		
 		Projeto projeto = new Projeto();
 		

@@ -16,7 +16,7 @@ import javax.persistence.Version;
  * @created 28-jul-2006 08:51:55
  */
 @MappedSuperclass
-public class NucleoObjetoPersistenteImpl<I extends Serializable, V extends Serializable>
+public class NucleoObjetoPersistenteImpl<I, V>
 		extends NucleoObjetoDominioImpl implements NucleoObjetoPersistente<I, V>,
 		Comparable<NucleoObjetoPersistenteImpl<I, V>> {
 

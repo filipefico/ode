@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 
 
-public interface NucleoObjetoPersistente<I extends Serializable, V extends Serializable>
+public interface NucleoObjetoPersistente<I, V>
 		extends NucleoObjetoDominio {
 
 	/**
