@@ -1,160 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-
-	<display-name>ODE</display-name>
-
-	<!-- Spring ApplicationContext -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" metadata-complete="true" version="3.0">
+  <display-name>ODE</display-name>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
 			/WEB-INF/applicationContext-spring.xml
 			/WEB-INF/applicationContext-mensagens.xml
 		</param-value>
-	</context-param>
-
-	<!-- Open Session in View: permite lazy-loading -->
-	<filter>
-		<filter-name>hibernateFilter</filter-name>
-		<filter-class>
+  </context-param>
+  <filter>
+    <filter-name>hibernateFilter</filter-name>
+    <filter-class>
 			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
 		</filter-class>
-	</filter>
-
-	<!--
-		Context Listener que carrega o contexto do Spring a partir dos
-		arquivos listados no context-param contextConfigLocation
-	-->
-	<listener>
-	<listener-class>
+  </filter>
+  <listener>
+    <listener-class>
 	org.springframework.web.context.ContextLoaderListener
 	</listener-class>
-	</listener>
-	<!-- //// -->
-	<!-- ZK -->
-	<listener>
-		<description>
+  </listener>
+  <listener>
+    <description>
 			Used to cleanup when a session is destroyed
 		</description>
-		<display-name>ZK Session Cleaner</display-name>
-		<listener-class>
+    <display-name>ZK Session Cleaner</display-name>
+    <listener-class>
 			org.zkoss.zk.ui.http.HttpSessionListener
 		</listener-class>
-	</listener>
-
-	<!-- DSP -->
-	<servlet>
-		<description>
-			<![CDATA[
+  </listener>
+  <servlet>
+    <description>
+			
 		The servlet loads the DSP pages.
-		]]>
+		
 		</description>
-		<servlet-name>dspLoader</servlet-name>
-		<servlet-class>
+    <servlet-name>dspLoader</servlet-name>
+    <servlet-class>
 			org.zkoss.web.servlet.dsp.InterpreterServlet
 		</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>dspLoader</servlet-name>
-		<url-pattern>*.dsp</url-pattern>
-	</servlet-mapping>
-	<!-- /// -->
-
-
-	<servlet>
-		<description>ZK loader for ZUML pages</description>
-		<servlet-name>zkLoader</servlet-name>
-		<servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dspLoader</servlet-name>
+    <url-pattern>*.dsp</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>ZK loader for ZUML pages</description>
+    <servlet-name>zkLoader</servlet-name>
+    <servlet-class>
 			org.zkoss.zk.ui.http.DHtmlLayoutServlet
 		</servlet-class>
-		<!--
-			Must. Specifies URI of the update engine (DHtmlUpdateServlet). It
-			must be the same as <url-pattern> for the update engine.
-		-->
-		<init-param>
-			<param-name>update-uri</param-name>
-			<param-value>/zkau</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>zkLoader</servlet-name>
-		<url-pattern>*.zul</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>zkLoader</servlet-name>
-		<url-pattern>*.zhtml</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<description>The asynchronous update engine for ZK</description>
-		<servlet-name>auEngine</servlet-name>
-		<servlet-class>
+    <init-param>
+      <param-name>update-uri</param-name>
+      <param-value>/zkau</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>zkLoader</servlet-name>
+    <url-pattern>*.zul</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>zkLoader</servlet-name>
+    <url-pattern>*.zhtml</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>The asynchronous update engine for ZK</description>
+    <servlet-name>auEngine</servlet-name>
+    <servlet-class>
 			org.zkoss.zk.au.http.DHtmlUpdateServlet
 		</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>auEngine</servlet-name>
-		<url-pattern>/zkau/*</url-pattern>
-	</servlet-mapping>
-
-	<!-- Miscellaneous -->
-	<session-config>
-		<session-timeout>120</session-timeout>
-	</session-config>
-
-	<!-- MIME mapping -->
-	<mime-mapping>
-		<extension>gif</extension>
-		<mime-type>image/gif</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>html</extension>
-		<mime-type>text/html</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>htm</extension>
-		<mime-type>text/html</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>jad</extension>
-		<mime-type>text/vnd.sun.j2me.app-descriptor</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>jpeg</extension>
-		<mime-type>image/jpeg</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>jpg</extension>
-		<mime-type>image/jpeg</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>js</extension>
-		<mime-type>application/x-javascript</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>png</extension>
-		<mime-type>image/png</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>txt</extension>
-		<mime-type>text/plain</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>xml</extension>
-		<mime-type>text/xml</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>zhtml</extension>
-		<mime-type>text/html</mime-type>
-	</mime-mapping>
-	<mime-mapping>
-		<extension>zul</extension>
-		<mime-type>text/html</mime-type>
-	</mime-mapping>
-
-	<welcome-file-list>
-		<welcome-file>paginas/principal/principal.zul</welcome-file>
-	</welcome-file-list>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>auEngine</servlet-name>
+    <url-pattern>/zkau/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CXFServlet</servlet-name>
+    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CXFServlet</servlet-name>
+    <url-pattern>/servicos/*</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>120</session-timeout>
+  </session-config>
+  <mime-mapping>
+    <extension>gif</extension>
+    <mime-type>image/gif</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>html</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>htm</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>jad</extension>
+    <mime-type>text/vnd.sun.j2me.app-descriptor</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>jpeg</extension>
+    <mime-type>image/jpeg</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>jpg</extension>
+    <mime-type>image/jpeg</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>js</extension>
+    <mime-type>application/x-javascript</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>png</extension>
+    <mime-type>image/png</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>txt</extension>
+    <mime-type>text/plain</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xml</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>zhtml</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>zul</extension>
+    <mime-type>text/html</mime-type>
+  </mime-mapping>
+  <welcome-file-list>
+    <welcome-file>paginas/principal/principal.zul</welcome-file>
+  </welcome-file-list>
 </web-app>

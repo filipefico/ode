@@ -27,7 +27,7 @@ public class InteracaoSubprocessos extends ObjetoPersistente {
 		this.tipo = tipo;
 	}
 
-	public void InteracaoSubprocessos() {
+	public InteracaoSubprocessos() {
 	}
 
 	/**
