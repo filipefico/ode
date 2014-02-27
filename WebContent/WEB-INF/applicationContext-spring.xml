@@ -44,6 +44,43 @@
    <jaxws:endpoint id="srvAplDefinirEquipe" depends-on="srvAplDefinirEquipeImpl"  
       implementor="#srvAplDefinirEquipeImpl" address="/srvDefinirEquipe" />
       
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+       <!-- Dizemos o endereço, o ID do serviço, em qual bean ele depende -->  
+   <jaxws:endpoint id="srvAplIssueTrackerManager" depends-on="srvAplIssueTrackerManagerImpl"  
+      implementor="#srvAplIssueTrackerManagerImpl" address="/srvIssueTracker" />
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  
+      
 
    <!-- Mapeamento do REST para o Apache CXF -->  
    <jaxrs:server id="srvCadastrarRH" address="/recursoHumano">  
@@ -76,7 +113,35 @@
          <ref bean="srvAplDefinirEquipeImpl" />    
       </jaxrs:serviceBeans>  
       <!-- Aqui declaramos o nosso Mapper para a Exception -->   
-   </jaxrs:server>    
+   </jaxrs:server>   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+         <!-- Mapeamento do REST para o Apache CXF -->  
+   <jaxrs:server id="srvIssueTracker" address="/issueTracker">  
+      <jaxrs:serviceBeans>  
+         <ref bean="srvAplIssueTrackerManagerImpl" />    
+      </jaxrs:serviceBeans>  
+      <!-- Aqui declaramos o nosso Mapper para a Exception -->   
+   </jaxrs:server>  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
 
 	<!-- Habilita o uso de anotações do Spring -->
@@ -118,5 +183,33 @@
          	 <!-- Bean que implementa o endpoint do nosso webservice -->  
    <bean id="srvAplDefinirEquipeImpl" class="ode._controleRecursoHumano.srv.SrvAplDefinirEquipeImpl">    
    </bean> 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+            	 <!-- Bean que implementa o endpoint do nosso webservice -->  
+   <bean id="srvAplIssueTrackerManagerImpl" class="ode.middlewareIssueTracker.srv.SrvAplIssueTrackerManagerImpl">    
+   </bean> 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
        
 </beans>
