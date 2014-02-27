@@ -19,7 +19,7 @@ import ode.alocacaoRecurso.cgd.AlocacaoFerramentaSoftwareDAO;
 import ode.alocacaoRecurso.cgd.AlocacaoRHDAO;
 import ode.controleProjeto.cdp.Projeto;
 import ode.middlewareGoogle.calendar.AplConsumidorMiddlewareGoogle;
-import ode.middlewareIssueTracker.mantis.AplConsumidorMiddlewareIssueTracker;
+import ode.middlewareIssueTracker.cgt.AplConsumidorMiddlewareIssueTracker;
 import ode.observador.cdp.ProdutorAlocaODE;
 import ode.observador.cdp.ProdutorProjeto;
 
@@ -81,7 +81,7 @@ public class CtrlAgenda extends CtrlBase {
 			iniciar();
 		}*/
 		
-		//verifica se o já autorizou aplicacao do google
+		//verifica se o jï¿½ autorizou aplicacao do google
 		boolean estaAutorizado = verificaAutorizacaoGoogleRHAtual();
 
 		
@@ -96,7 +96,7 @@ public class CtrlAgenda extends CtrlBase {
 			}			
 		}
 		
-		//VERIFICAR SE JÁ EXISTE ALOCACOES PARA ESSE RECURSO HUMANO
+		//VERIFICAR SE Jï¿½ EXISTE ALOCACOES PARA ESSE RECURSO HUMANO
 		
 		
 		
@@ -196,7 +196,7 @@ public class CtrlAgenda extends CtrlBase {
 	
 	public void abrirJanelaAppointmentSimples(JanPrincipal jp, Appointment appointment, EnumCRUD enumCRUD, List<Calendar> calProprietarios){
 		
-		//verifica se já existe uma janela aberta, se verdadeiro fecha a janela
+		//verifica se jï¿½ existe uma janela aberta, se verdadeiro fecha a janela
 		int quant = jp.getChildren().size();
 		for (int i = 0; i < quant; i++) {
 			if(jp.getChildren().get(i) instanceof JanAppointmentSimples) {
