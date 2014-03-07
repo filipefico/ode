@@ -7,19 +7,38 @@ import org.mantisbt.connect.AccessLevel;
 import org.mantisbt.connect.IMCSession;
 import org.mantisbt.connect.MCException;
 import org.mantisbt.connect.axis.MCSession;
-import org.mantisbt.connect.model.IIssue;
 import org.mantisbt.connect.model.IProject;
 import org.mantisbt.connect.model.Project;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ode._infraestruturaBase.cgd.DAOBase;
+import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
+import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode.controleProjeto.cdp.Projeto;
+import ode.controleProjeto.cgd.ProjetoDAO;
 import ode.middlewareIssueTracker.cdp.Configuracoes;
 import ode.middlewareIssueTracker.cdp.Issue;
+import ode.middlewareIssueTracker.cgd.IssueDAO;
 
 
 @Service
-public class AplIssueTrackerManager implements Configuracoes {
-
+public class AplIssueTrackerManager extends AplCRUD<Issue> {
+	
+	@Autowired
+	IssueDAO issueDAO;
+	
+	@Autowired
+	Configuracoes configuracoes;
+	
+	@Autowired
+	ProjetoDAO projetoDAO;
+	
+	@Override
+	public DAOBase<Issue> getNucleoDaoBase() {
+		// TODO Auto-generated method stub
+		return issueDAO;
+	}
 	 
 	//dever receber o usuario mantis atual
 	private IMCSession criaSessao(){
@@ -27,9 +46,9 @@ public class AplIssueTrackerManager implements Configuracoes {
 		//pega o configuracao do mantis no banco
 		URL url = null;
 		try {
-			url = new URL(MANTIS_URL);
+			url = new URL(configuracoes.getMantisUrl());
 
-			IMCSession sessao = new MCSession(url, MANTIS_USER, MANTIS_PWD);
+			IMCSession sessao = new MCSession(url, configuracoes.getMantisUser(), configuracoes.getMantisPwd());
 			
 			return sessao;
 			
@@ -76,6 +95,8 @@ public class AplIssueTrackerManager implements Configuracoes {
 		
 		IMCSession sessao = criaSessao();
 		IProject iProject = criarProjetoMantis(projeto);
+		iProject.setPrivate(true);
+		
 		
 		try {
 			sessao.addProject(iProject);
@@ -105,33 +126,25 @@ public class AplIssueTrackerManager implements Configuracoes {
 		
 	}
 	
-	public void getIssue(Issue issue){
+	public void inserirIssue(Issue issue){
 		IMCSession sessao = criaSessao();
 		
-		try {
+			issue.setProjeto(projetoDAO.recuperarPorNome(issue.getNomeProjeto()));
 			
-			System.out.println("Id da Issue: " + issue.getIdIssue());
+			System.out.println("Issue");
+			System.out.println(issue);
+
 			
-			System.out.println(sessao.issueExists(issue.getIdIssue())); 
-			System.out.println();
-			
-		//	IIssue iIssue = sessao.getIssue(issue.getIdIssue());
-			//IProject iProject = sessao.getProject("ODE");
-			sessao.deleteIssue(issue.getIdIssue());
-			//System.out.println(iIssue.getSummary());
-			
-			
-			
-		} catch (MCException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//sessao.getpro
+			try {
+				this.salvar(issue);
+			} catch (NucleoRegraNegocioExcecao e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	
 	
-	
+	//QUANDO O USARIO FOR CADASTRADO VERIFICAR SE JÁ EXISTE UMA ISSUE ALOCADO PARA ELE NO MANTISBT
 	
 }

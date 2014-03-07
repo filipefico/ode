@@ -1,14 +1,10 @@
 package ode.middlewareIssueTracker.srv;
 
-import javax.jws.WebMethod;
+
 import javax.jws.WebService;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ode.controleProjeto.cdp.Projeto;
 import ode.middlewareIssueTracker.cdp.Issue;
 import ode.middlewareIssueTracker.cgt.AplIssueTrackerManager;
 
@@ -20,11 +16,26 @@ public class SrvAplIssueTrackerManagerImpl implements SrvAplIssueTrackerManager 
 	AplIssueTrackerManager aplIssueTrackerManager;
 	
 	@Override
-	public int teste(Issue issue) {
+	public int inserirIssue(Issue issue) {
+		// TODO Auto-generated method stub		
+				
+		aplIssueTrackerManager.inserirIssue(issue);
+		
+		return 0;
+	}
+
+	@Override
+	public int atualizarIssue(Issue issue) {
 		// TODO Auto-generated method stub
 		
-		//System.out.println("Id da Issue: " + issue.getIdIssue());
-		aplIssueTrackerManager.getIssue(issue);
+		System.out.println(issue);		
+		
+		/*for(HistoryIssue historyIssue : issue.getHistoryIssues()){
+			System.out.println("Historico");
+			System.out.println("Field Name: " + historyIssue.getFieldName());
+			System.out.println("Old Value: " + historyIssue.getOldValue());
+			System.out.println("New Value: " + historyIssue.getNewValue());
+		}*/
 		
 		return 0;
 	}

@@ -186,6 +186,17 @@ public class WindowPrincipal extends Window {
 			}
 		});
 		menuitemAlterarSenha.setParent(menupopupOpcoes);
+		
+		Menuitem menuitemUsuarioMantis = new Menuitem("Adcionar Usuário Mantis");
+		menuitemUsuarioMantis.addEventListener("onClick", new EventListener() {
+			
+			@Override
+			public void onEvent(Event arg0) throws Exception {
+				// TODO Auto-generated method stub
+				abrirJanela(ode.middlewareIssueTracker.ciu.CtrlUsuarioMantis.class.getCanonicalName());
+			}
+		});
+		menuitemUsuarioMantis.setParent(menupopupOpcoes);
 
 		// Adiciona separator
 		Menuseparator menuseparator = new Menuseparator();
