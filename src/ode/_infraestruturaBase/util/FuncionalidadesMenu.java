@@ -57,6 +57,7 @@ import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoOrganizacao;
 import ode.medicao.planejamentoMedicao.cci.CtrlPlanoMedicaoProjeto;
 import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaOrganizacao;
 import ode.medicao.planejamentoMedicao.cci.CtrlValorReferenciaProjeto;
+import ode.middlewareIssueTracker.ciu.CtrlConfiguracaoMantis;
 import ode.problema.ciu.CtrlKCategoriaProblemaCRUD;
 import ode.problema.ciu.CtrlKCausaCRUD;
 import ode.problema.ciu.CtrlKCriterioSelecaoSolucaoCRUD;
@@ -102,6 +103,7 @@ public static List<Funcionalidade> obterFuncionalidades() {
 		
 		funcionalidades.add(criar("Administração")
 			.addSubfuncionalidade(criar("Usuários").setCtrl(CtrlUsuarioCRUD.class))
+			.addSubfuncionalidade(criar("Configuração Mantis").setCtrl(CtrlConfiguracaoMantis.class))
 		);
 		
 		funcionalidades.add(criar("Recursos")
