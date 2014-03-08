@@ -17,8 +17,9 @@ import ode._infraestruturaBase.excecao.NucleoRegraNegocioExcecao;
 import ode._infraestruturaCRUD.cgt.AplCRUD;
 import ode.controleProjeto.cdp.Projeto;
 import ode.controleProjeto.cgd.ProjetoDAO;
-import ode.middlewareIssueTracker.cdp.Configuracoes;
+import ode.middlewareIssueTracker.cdp.ConfiguracaoMantis;
 import ode.middlewareIssueTracker.cdp.Issue;
+import ode.middlewareIssueTracker.cdp.UsuarioMantis;
 import ode.middlewareIssueTracker.cgd.IssueDAO;
 
 
@@ -29,10 +30,15 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 	IssueDAO issueDAO;
 	
 	@Autowired
-	Configuracoes configuracoes;
+	AplConfiguracaoMantis aplConfiguracaoMantis;
+	
+	@Autowired
+	AplUsuarioMantis aplUsuarioMantis;
 	
 	@Autowired
 	ProjetoDAO projetoDAO;
+	
+	
 	
 	@Override
 	public DAOBase<Issue> getNucleoDaoBase() {
@@ -40,15 +46,46 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 		return issueDAO;
 	}
 	 
-	//dever receber o usuario mantis atual
-	private IMCSession criaSessao(){
+
+	private IMCSession criaSessaoPadrao(){
 		
 		//pega o configuracao do mantis no banco
 		URL url = null;
 		try {
-			url = new URL(configuracoes.getMantisUrl());
+			
+			ConfiguracaoMantis configuracaoMantis = aplConfiguracaoMantis.recuperarConfiguracaoMantisPadrao();
+			UsuarioMantis usuarioMantisPadrao = configuracaoMantis.getUsuarioMantisPadrao();
+			
+			url = new URL(configuracaoMantis.getUrl());
 
-			IMCSession sessao = new MCSession(url, configuracoes.getMantisUser(), configuracoes.getMantisPwd());
+			IMCSession sessao = new MCSession(url,usuarioMantisPadrao.getUsuarioMantis(), usuarioMantisPadrao.getSenhaMantis());
+			
+			return sessao;
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MCException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return null;
+	}
+	 
+
+	private IMCSession criaSessaoComum(){
+		
+		//pega o configuracao do mantis no banco
+		URL url = null;
+		try {
+			
+			ConfiguracaoMantis configuracaoMantis = aplConfiguracaoMantis.recuperarConfiguracaoMantisPadrao();
+			UsuarioMantis usuarioMantis = aplUsuarioMantis.recuperarUsuarioMantisAtual();
+			
+			url = new URL(configuracaoMantis.getUrl());
+
+			IMCSession sessao = new MCSession(url,usuarioMantis.getUsuarioMantis(), usuarioMantis.getSenhaMantis());
 			
 			return sessao;
 			
@@ -93,7 +130,7 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 	//vai usar o usuario do mantis guardado no ode
 	public void insereProjetoMantis(Projeto projeto){
 		
-		IMCSession sessao = criaSessao();
+		IMCSession sessao = criaSessaoPadrao();
 		IProject iProject = criarProjetoMantis(projeto);
 		iProject.setPrivate(true);
 		
@@ -110,7 +147,7 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 	public void excluirProjetoMantis(Projeto projeto) {
 		
 		
-		IMCSession sessao = criaSessao();
+		IMCSession sessao = criaSessaoPadrao();
 		
 		try {
 			IProject iProject = sessao.getProject(projeto.getNome());
@@ -127,7 +164,6 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 	}
 	
 	public void inserirIssue(Issue issue){
-		IMCSession sessao = criaSessao();
 		
 			issue.setProjeto(projetoDAO.recuperarPorNome(issue.getNomeProjeto()));
 			

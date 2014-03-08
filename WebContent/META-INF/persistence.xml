@@ -107,6 +107,7 @@
 		<class>ode.medicao.planejamentoMedicao.cdp.PlanoMedicaoOrganizacao</class>
 		<class>ode.medicao.planejamentoMedicao.cdp.PlanoMedicaoProjeto</class>
 		<class>ode.medicao.planejamentoMedicao.cdp.ValorReferencia</class>
+		<class>ode.middlewareIssueTracker.cdp.ConfiguracaoMantis</class>
 		<class>ode.middlewareIssueTracker.cdp.Issue</class>
 		<class>ode.middlewareIssueTracker.cdp.UsuarioMantis</class>
 		<class>ode.planejamentoCompetencia.cdp.DemandaCompetencia</class>
