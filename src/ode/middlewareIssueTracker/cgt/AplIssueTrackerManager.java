@@ -54,13 +54,16 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 		try {
 			
 			ConfiguracaoMantis configuracaoMantis = aplConfiguracaoMantis.recuperarConfiguracaoMantisPadrao();
-			UsuarioMantis usuarioMantisPadrao = configuracaoMantis.getUsuarioMantisPadrao();
 			
-			url = new URL(configuracaoMantis.getUrl());
-
-			IMCSession sessao = new MCSession(url,usuarioMantisPadrao.getUsuarioMantis(), usuarioMantisPadrao.getSenhaMantis());
-			
-			return sessao;
+			if(configuracaoMantis != null){
+				UsuarioMantis usuarioMantisPadrao = configuracaoMantis.getUsuarioMantisPadrao();
+				
+				url = new URL(configuracaoMantis.getUrl());
+	
+				IMCSession sessao = new MCSession(url,usuarioMantisPadrao.getUsuarioMantis(), usuarioMantisPadrao.getSenhaMantis());
+				
+				return sessao;
+			}
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -81,13 +84,17 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 		try {
 			
 			ConfiguracaoMantis configuracaoMantis = aplConfiguracaoMantis.recuperarConfiguracaoMantisPadrao();
-			UsuarioMantis usuarioMantis = aplUsuarioMantis.recuperarUsuarioMantisAtual();
 			
-			url = new URL(configuracaoMantis.getUrl());
-
-			IMCSession sessao = new MCSession(url,usuarioMantis.getUsuarioMantis(), usuarioMantis.getSenhaMantis());
+			if(configuracaoMantis != null){
 			
-			return sessao;
+				UsuarioMantis usuarioMantis = aplUsuarioMantis.recuperarUsuarioMantisAtual();
+				
+				url = new URL(configuracaoMantis.getUrl());
+	
+				IMCSession sessao = new MCSession(url,usuarioMantis.getUsuarioMantis(), usuarioMantis.getSenhaMantis());
+				
+				return sessao;
+			}
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -131,15 +138,18 @@ public class AplIssueTrackerManager extends AplCRUD<Issue> {
 	public void insereProjetoMantis(Projeto projeto){
 		
 		IMCSession sessao = criaSessaoPadrao();
-		IProject iProject = criarProjetoMantis(projeto);
-		iProject.setPrivate(true);
 		
-		
-		try {
-			sessao.addProject(iProject);
-		} catch (MCException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (sessao != null) {		
+			IProject iProject = criarProjetoMantis(projeto);
+			iProject.setPrivate(true);
+			
+			
+			try {
+				sessao.addProject(iProject);
+			} catch (MCException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
